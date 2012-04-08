@@ -21,7 +21,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$view->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Noumenal_View_Helper');
 		$view->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Br_View_Helper');
 		$view->addHelperPath(APPLICATION_PATH . '/modules/user/views/helpers', 'Br_View_Helper');
-		
+	}
+	
+	public function _initLogger()
+	{
+	   $this->bootstrap('log');
+	   if(!$this->hasResource('log')) {
+	       return false;
+	   } 
+	   Zend_Registry::set('log', $this->getResource('log'));
 	}
     
     /**

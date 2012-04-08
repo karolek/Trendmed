@@ -2,6 +2,10 @@
 
 class User_RegisterController extends Zend_Controller_Action
 {
+    
+    protected $_roleName = 'patient'; // role name that we want to register new user
+    protected $_userModel = 'User_Model_User'; // class name of the user model
+    
 
     public function init()
     {
@@ -15,28 +19,33 @@ class User_RegisterController extends Zend_Controller_Action
 	 */
     public function indexAction()
     {
-        //1. We need to display form for user registration. Remeber that model also should
-		// have validation
 		$request 	= $this->getRequest();
-		$userTable	= new User_Model_DbTable_User();
+		$form 		= $this->getRegistrationForm();
 		
-		$form 		= $this->getRegistrationForm($userTable->createRow());
-		
+		$log = Zend_Registry::get('log');
 		if($request->isPost()) {
 			$post = $request->getPost();
 			if($form->isValid($post)) { // data in the form are valid so we can register new user
-					$username = $post['username'];
-					$password = $post['password'];
-					$userTable->registerNewUser($username, $password, $post); //registration 
+			    $model = new $this->_userModel;
+			    $model->setOptions($post);
+			    
+			    $roleMapper = new Acl_Model_RoleMapper();
+			    $role = $roleMapper->findByName($this->_roleName);
+			    
+			    if(!$role) throw new Exception("There is no role ".$this->_roleName, 500);
+			    
+			    $mapperClassName = $this->_userModel.'Mapper';
+			    $modelMapper = new $mapperClassName;
+			    $modelMapper->save($model, $role);
 			}
 		}
 		
 		$this->view->form = $form;
     }
 
-	public function getRegistrationForm($rowModel)
+	public function getRegistrationForm()
 	{
-		return new User_Form_Registration($rowModel);
+		return new User_Form_Registration();
 	}
 
 }
