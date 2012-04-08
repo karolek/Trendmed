@@ -1,0 +1,47 @@
+<h3><?= $this->translate('Roles list'); ?></h3>
+<table class="table table-striped table-bordered table-condensed">
+	<thead>
+		<tr>
+			<th><?= $this->translate('Role name'); ?></th>
+			<th><?= $this->translate('Options'); ?></th>
+		</tr>
+	</thead>
+<?php foreach($this->roles as $role) { ?>
+	<tbody>
+	<tr>
+		<td><?=$role->name;?></td>
+		<td><a class="btn" href="<?= $this->url(array('id' => $role->id)); ?>">
+			<i class="icon-pencil icon-black"></i>
+			<?= $this->translate('Modify'); ?>
+			</a>
+		<a data-toggle="modal" data-target="#deleteModal<?= $role->id; ?>" class="btn icon-trash btn-danger" href="<?php echo $this->url(array('id' => $role->id, 'action' => 'delete-Role')); ?>">
+			<i class="icon-trash icon-white"></i>
+			<?= $this->translate('Delete'); ?>
+			</a></td>
+		</tr>
+	</tbody>
+<?php } ?>
+</table>
+
+<?php //new role form
+echo $this->form; ?>
+
+<?php foreach($this->roles as $role) { ?>
+<div class="modal fade" id="deleteModal<?= $role->id; ?>">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3><?= $this->translate('Confirmation') ?></h3>
+  </div>
+  <div class="modal-body">
+    <p>Are You sure You want to delete role <strong><?php echo $role->name;?></strong>?</p>
+  </div>
+  <div class="modal-footer">
+	<?php
+	$form = new Acl_Form_RoleDelete();
+	$form->setName('deleteRoleId'.$role->id);
+	$form->populate($role->toArray());
+	echo $form;
+	?>
+  </div>
+</div>
+<?php } ?>
