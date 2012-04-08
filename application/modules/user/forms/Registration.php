@@ -37,17 +37,10 @@ class User_Form_Registration extends Twitter_Form
 	        'label'      => 'Repeat password',
 	    ));
 		
-		$submit      = new Zend_Form_Element_Button('submit');
+		$submit      = new Zend_Form_Element_Submit('Signin');
         
-        $submit->setLabel('Save');
+        $submit->setLabel('Sign In!');
 		$this->addElement($submit);
-		
-		// add display group
-        $this->addDisplayGroup(
-            array('username', 'password', 'password_confirmation', 'submit'),
-            'users'
-        );
-        $this->getDisplayGroup('users')->setLegend('Register');
     }
 
 }

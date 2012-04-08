@@ -23,19 +23,10 @@ class Acl_Form_Role extends Twitter_Form
 			));
 
 		
-		$submit = new Zend_Form_Element_Button('submit');
+		$submit = new Zend_Form_Element_Submit('Submit');
         
         $submit->setLabel('Save');
 		$this->addElement($submit);
-		
-		// add display group
-        $this->addDisplayGroup(
-            array('name', 'submit', 'cancel'),
-            'Role'
-        );
-        $this->getDisplayGroup('Role')->setLegend('Add new role');
-
-	    // set decorators
 
     }
 

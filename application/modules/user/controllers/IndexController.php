@@ -37,8 +37,7 @@ class User_IndexController extends Br_Controller_Action
 					$this->_helper->FlashMessenger(array('error' => 'Podałeś zły login lub hasło'));
 				}
             } else {
-					$form->buildBootstrapErrorDecorators();
-					$this->_helper->FlashMessenger('Wypełnij poprawnie formularz');
+					$this->_helper->FlashMessenger(array('error' => 'Please fill the form'));
 			}
 		}
 		$this->view->form = $form;

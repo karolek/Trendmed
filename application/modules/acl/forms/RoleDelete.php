@@ -14,10 +14,12 @@ class Acl_Form_RoleDelete extends Twitter_Form {
 		));
 		
 
-		$submit      = new Zend_Form_Element_Button('submit');
+		$submit      = new Zend_Form_Element_Submit('Submit');
 		
 		$submit->setLabel('Delete');
 		$this->addElement($submit);
-		
 	}
+	
 }
+
+?>

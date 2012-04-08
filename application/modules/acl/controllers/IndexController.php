@@ -39,7 +39,6 @@ class Acl_IndexController extends Br_Controller_Action
 				throw new Exception("No role id DB that have ID=".$roleId, 1);
 			}
 			$form->populate($role->toArray());
-	        $form->getDisplayGroup('Role')->setLegend('Modify role ' . $role->name);
 		}
 		
 		if($request->isPost()) {

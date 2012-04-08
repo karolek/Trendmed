@@ -14,6 +14,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headScript()->appendFile('/js/bootstrap-datepicker.js', $type = 'text/javascript');   
     }
     
+    protected function _initViewHelpersPaths()
+	{
+        $this->bootstrap('view');
+        $view = $this->getResource('view');
+		$view->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Noumenal_View_Helper');
+		$view->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Br_View_Helper');
+		$view->addHelperPath(APPLICATION_PATH . '/modules/user/views/helpers', 'Br_View_Helper');
+		
+	}
+    
     /**
      * init jquery view helper, enable jquery, jqueryui, jquery ui css
      */
@@ -25,5 +35,21 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         //jquery lib includes here (default loads from google CDN)
         $view->jQuery()->enable()->setVersion('1.7.2'); //jQuery version, automatically 1.5 = 1.5.latest
+    }
+    
+    protected function _initHeadMeta()
+    {
+         $this->bootstrap('view');
+         $view = $this->getResource('view');
+         $view->headMeta()->appendHttpEquiv('Content-Type',
+ 		                                   'text/html; charset=UTF-8')
+ 		                 ->appendHttpEquiv('Content-Language', 'en-GB');
+ 		$view->headTitle('Trendmed');
+ 		$view->headTitle()->setSeparator(' / ');
+
+ 		// adding noindex, no fallow to all non-production instances
+ 		if(APPLICATION_ENV != 'production') {
+ 		    $view->headMeta()->appendName('nofallow,noindex', 'robots');
+ 		}
     }
 }
