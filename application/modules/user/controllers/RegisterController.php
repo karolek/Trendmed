@@ -38,6 +38,7 @@ class User_RegisterController extends Zend_Controller_Action
 			    $modelMapper = new $mapperClassName;
 			    $modelMapper->save($model, $role);
 			    $this->_helper->FlashMessenger(array('success' => 'You have registered succesfuly. You can login now.'));
+			    $this->_helper->Redirector('index', 'index', 'user');
 			} else {
 			    $this->_helper->FlashMessenger(array('error' => 'Please fill out the form correctly'));
 			}
