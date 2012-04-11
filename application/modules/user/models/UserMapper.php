@@ -23,7 +23,7 @@ class User_Model_UserMapper extends Me_Model_Mapper_Abstract
         }
     }
     
-    public function delete(Application_Model_Expense $model)
+    public function delete(User_Model_User $model)
     {
         $this->getDbTable()->delete(array('id = ?' => $model->getId()));
     }
@@ -38,11 +38,18 @@ class User_Model_UserMapper extends Me_Model_Mapper_Abstract
         $entry = $this->_createNewModelFromRow($row);
         return $entry;
     }
+    
+    public function findByUsername($username)
+    {
+        $row = $this->getDbTable()->findByUsername($username);
+        if(!$row) return;
+        $entry = $this->_createNewModelFromRow($row);
+        return $entry;    
+    }
  
     public function fetchAll()
     {
         $select    = $this->getDbTable()->select();
-        $select->order('date DESC');
         $resultSet = $this->getDbTable()->fetchAll();
         $entries   = array();
         foreach ($resultSet as $row) {
@@ -52,32 +59,20 @@ class User_Model_UserMapper extends Me_Model_Mapper_Abstract
         return $entries;
     }
     
-    public function fetchAllForMonth($timestamp)
+    protected function _createNewModelFromRow($row)
     {
-        $select     = $this->getDbTable()->select();
-        $month      = date("m", $timestamp);
-        $year       = date("Y", $timestamp);
-        
-        $select->where('date > ?', mktime(0, 0, 0, $month, 1, $year))->order('date DESC');
-        
-        $resultSet = $this->getDbTable()->fetchAll($select);
-        $entries   = array();
-        foreach ($resultSet as $row) {
-            $entry = $this->_createNewModelFromRow($row);
-            $entries[] = $entry;
-        
-        }
-        return $entries;
-    }    
-    
-    protected function _createNewModelFromRow(Zend_Db_Table_Row $row)
-    {
-        $entry = new Application_Model_Expense($row->toArray());
-        $category = $row->findParentApplication_Model_DbTable_Category();
-        if($category) {
-            $categoryModel = new Application_Model_Category($category->toArray());
-            $entry->setCategory($categoryModel);
-        }
-        return $entry;
+       $model = new User_Model_User;
+       $model->id       = $row->id;
+       $model->username = $row->email;
+       $model->password = $row->password;
+       // fetching role
+       $roleMapper = new Acl_Model_RoleMapper();
+       $role = $roleMapper->find($row->aclrole_id);
+       if(!$role) throw new Exception("Didnt found role for user", 500);
+       
+       $model->role = $role;
+
+       return $model;
     }
+    
 }

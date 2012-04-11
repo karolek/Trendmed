@@ -6,7 +6,6 @@
  * (not in module directory!). 
  * If the file exists, than the layout is set to the file.
  *
- * @author Bartosz Rychlicki
  * @package Br
  */
 class Br_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract

@@ -1,5 +1,3 @@
-<div id="fb-root"></div>
-<script>
 window.fbAsyncInit = function() {
   FB.init({
     appId      : '192773620840368',
@@ -15,5 +13,3 @@ window.fbAsyncInit = function() {
    js.src = "//connect.facebook.net/en_US/all.js";
    d.getElementsByTagName('head')[0].appendChild(js);
  }(document));
-</script>
-<?= $this->form; ?>

@@ -27,8 +27,12 @@ class User_Form_Login extends Twitter_Form
             'label'      => 'Hasło:',
         ));
 		
-		$submit      = new Zend_Form_Element_Submit('login');
-		$submit->setLabel('Log In!');
+		$submit      = new Zend_Form_Element_Submit('signin');
+		$submit->setLabel('Sign In!');
+		
+		$rememberMe = new Zend_Form_Element_Checkbox('rememberMe');
+		$rememberMe->setLabel('Remember me for 7 days');
+		$this->addElement($rememberMe);
         
 		$this->addElement($submit);
     }

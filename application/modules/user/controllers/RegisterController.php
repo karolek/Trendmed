@@ -15,14 +15,14 @@ class User_RegisterController extends Zend_Controller_Action
 	/**
 	 * This action is resonsible for regestring new user in the system. 
 	 *
-	 * Action use any model that implemenets << Br_Model_Interface_Registerable >> interface.
 	 */
     public function indexAction()
     {
+        $this->view->headTitle(ucfirst($this->_roleName).' registration');
 		$request 	= $this->getRequest();
 		$form 		= $this->getRegistrationForm();
+		//$this->view->headScript()->appendFile('/js/User/Register/index.js');
 		
-		$log = Zend_Registry::get('log');
 		if($request->isPost()) {
 			$post = $request->getPost();
 			if($form->isValid($post)) { // data in the form are valid so we can register new user
@@ -34,8 +34,7 @@ class User_RegisterController extends Zend_Controller_Action
 			    
 			    if(!$role) throw new Exception("There is no role ".$this->_roleName, 500);
 			    
-			    $mapperClassName = $this->_userModel.'Mapper';
-			    $modelMapper = new $mapperClassName;
+			    $modelMapper = $model->getMapper();
 			    $modelMapper->save($model, $role);
 			    $this->_helper->FlashMessenger(array('success' => 'You have registered succesfuly. You can login now.'));
 			    $this->_helper->Redirector('index', 'index', 'user');

@@ -16,4 +16,12 @@ class Acl_Model_RoleMapper extends Me_Model_Mapper_Abstract
         $entry = new Acl_Model_Role($row->toArray());
         return $entry;
     }
+    
+    public function find($id)
+    {
+        $row     = $this->getDbTable()->find($id)->current();
+        if(!$row) return false;
+        $entry = new Acl_Model_Role($row->toArray());
+        return $entry;
+    }
 }

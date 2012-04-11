@@ -1,0 +1,7 @@
+<countries>
+	<country name="poland">
+		<region id="1">Pomorskie</region>
+		<region id="2">Warmińsko-mazurskie</region>
+		<region id="3">Mazowieckie</region>
+	</country>
+</countries>

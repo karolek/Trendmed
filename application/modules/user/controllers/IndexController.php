@@ -15,21 +15,30 @@ class User_IndexController extends Br_Controller_Action
 		
 		$request = $this->getRequest();
 		$form = new User_Form_Login();
-				
+		$form->setDecorators(array(
+            array('ViewScript', array('viewScript' => 'index/loginForm.phtml'))
+        ));
+		$log = Zend_Registry::get('log');
 		if($request->isPost()) {
 			if ($form->isValid($request->getPost())) {
 				$values = $form->getValues();
 				
-				$adapter = $this->_getAuthAdapter();
-				$adapter->setIdentity($values['username'])->setCredential($values['password']);
+				// we first search for that user
+				$userMapper = new User_Model_UserMapper();
+				$userModel  = $userMapper->findByUsername($values['username']);
+			    $log->debug($userModel);
 				
-				$auth = Zend_Auth::getInstance();
-				$result = $auth->authenticate($adapter);
-				
+				if(!$userModel) {
+				    $this->_helper->FlashMessenger(array('error' => 'No such user in database as: '.$values['username']));
+				} else {
+				    $adapter = $this->_getAuthAdapter();
+				    $adapter->setIdentity($userModel->username)->setCredential($userModel->password);
+				    $auth = Zend_Auth::getInstance();
+				    $result = $auth->authenticate($adapter);
+			    }
                 if($result->isValid()) {
 					// access granted
-					$user = $adapter->getResultRowObject();
-					$auth->getStorage()->write($user);
+					$auth->getStorage()->write($userModel);
 					$this->_helper->FlashMessenger->clearCurrentMessages(); // to remove any ACL "You dont have access messages if any"
 					$this->_helper->FlashMessenger(array('success' => 'Zostałeś zalogowany'));
 					$this->_helper->Redirector('index', 'index', 'default');
@@ -65,8 +74,7 @@ class User_IndexController extends Br_Controller_Action
         
         $authAdapter->setTableName('acluser')
             ->setIdentityColumn('email')
-            ->setCredentialColumn('password')
-            ->setCredentialTreatment('SHA1(CONCAT(?,salt))');
+            ->setCredentialColumn('password');
             
         return $authAdapter;
 	}

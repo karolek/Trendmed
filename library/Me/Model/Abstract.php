@@ -48,6 +48,12 @@ abstract class Me_Model_Abstract {
         }
         return $this;
     }
+    
+    public function getMapper()
+    {
+        $mapperName = get_class($this)."Mapper";
+        return new $mapperName;
+    }
  
 }
 

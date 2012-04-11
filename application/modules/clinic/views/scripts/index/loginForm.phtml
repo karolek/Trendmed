@@ -1,0 +1,35 @@
+<h4>Please register with us!</h4>
+<form action="<?= $this->escape($this->form->getAction() ?>"
+      method="<?= $this->escape($this->form->getMethod() ?>">
+
+<fieldset>
+    <legend>Demographics</legend>
+    <p>
+        Please provide us the following information so we can know more about
+        you.
+    </p>
+
+    <?= $this->form->age ?>
+    <?= $this->form->nationality ?>
+    <?= $this->form->login ?>
+</fieldset>
+
+<fieldset>
+    <legend>User Information</legend>
+    <p>
+        Now please tell us who you are and how to contact you.
+    </p>
+
+    <?= $this->form->firstname ?>
+    <?= $this->form->lastname ?>
+    <?= $this->form->email ?>
+    <?= $this->form->address1 ?>
+    <?= $this->form->address2 ?>
+    <?= $this->form->city ?>
+    <?= $this->form->state ?>
+    <?= $this->form->postal ?>
+    <?= $this->form->phone ?>
+</fieldset>
+
+<?= $this->form->submit ?>
+</form>

@@ -3,7 +3,6 @@ class User_Form_Registration extends Twitter_Form
 {
     public function init()
     {
-		
         $this->setName("register");
         $this->setMethod('post');
         $this->setAttrib('class', 'form-horizontal');
@@ -12,7 +11,7 @@ class User_Form_Registration extends Twitter_Form
         $text = new Zend_Form_Element_Text('username');
         $text->addFilters(array('StringTrim', 'StringToLower'));
         $text->setRequired(true);
-        $text->setLabel('Username');
+        $text->setLabel('E-mail Address');
         $validator = new Zend_Validate_Db_NoRecordExists(array(
             'table' => 'acluser',
             'field' => 'email',
@@ -29,15 +28,14 @@ class User_Form_Registration extends Twitter_Form
             'label'      => 'Password',
             'validators' => array($passwordValidator),
         ));
-
+        
 	    $this->addElement('password', 'password_confirmation', array(
 	        'filters'    => array('StringTrim'),
 	        'required'   => true,
 	        'label'      => 'Repeat password',
-	        'validators' => array($passwordValidator),
+	        'validators' => array($passwordValidator, array('identical', false, array('token' => 'password'))),
 	    ));
 	    
-		
 		$submit      = new Zend_Form_Element_Submit('Signin');
         
         $submit->setLabel('Sign In!');

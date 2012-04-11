@@ -1,0 +1,10 @@
+<fieldset>
+    <?= $this->element->username ?>
+    <?= $this->element->password ?>
+	<?= $this->element->rememberMe ?>
+
+</fieldset>
+<div class="form-actions">
+	<?= $this->element->signin ?>
+	<a href="<?= $this->url(array('action' => 'index', 'controller' => 'register', 'module' => 'user')); ?>" class="btn">Create account for free!</a>
+</div>

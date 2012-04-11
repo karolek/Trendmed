@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Trendmed" description="Clinics web catalogue" default="build">
+
+    <property name="app-dir" value="."/>
+    
+    <target name="phplint">
+		<phplint tofile="${app-dir}/docs/syntax-errors.txt">
+			<fileset dir="${app-dir}">
+			  <include name="application/**/*.php"/>
+			  <include name="library/Me/**/*.php"/>
+			  <include name="library/Br/**/*.php"/>
+			</fileset>
+		</phplint>
+    </target>
+    
+    <target name="phpdoc">
+        <phpdoc title="API Documentation"
+			destdir="${app-dir}/docs/api"
+			sourcecode="true"
+			output="HTML:frames:earthli">
+			<fileset dir="${app-dir}">
+			     <include name="application/models/**/*.php"/>
+			     <include name="application/forms/**/*.php"/>
+				 <include name="application/modules/user/controllers/*.php"/>
+				 <include name="application/modules/user/models/*.php"/>
+				 <include name="application/modules/user/forms/*.php"/>
+			     <include name="library/Me/**/*.php"/>
+			     <include name="library/Br/**/*.php"/>
+			     <include name="application/view/helpers/*.php"/>			
+			</fileset>
+			<projdocfileset dir="${app-dir}/docs">
+				<include name="README" />
+				<include name="INSTALL" />
+				<include name="CHANGELOG" />
+			</projdocfileset>
+		</phpdoc>
+    </target>
+    
+    <target name="phpcs">
+        <exec command="/usr/bin/phpcs --standard=Zend --extensions=php --report=full --report-file=docs/codesniffer.txt application/modules application/models application/forms/ library/Me" dir="${app-dir}"/>
+    </target>
+    
+    <target name="phpcpd">
+		<phpcpd>
+			<fileset dir="${app-dir}">
+				<include name="application/models/**/*.php"/>
+                <include name="application/forms/**/*.php"/>
+                <include name="library/Me/**/*.php"/>
+			</fileset>
+			<formatter type="pmd" outfile="docs/pmd-cpd.xml"/>
+		</phpcpd>
+    </target>
+    
+    <target name="phpmd">
+		<phpmd rulesets="codesize,unusedcode">
+			<fileset dir="${app-dir}">
+                <include name="application/models/**/*.php"/>
+                <include name="application/forms/**/*.php"/>
+                <include name="library/Me/**/*.php"/>
+            </fileset>
+			<formatter type="html" outfile="docs/phpmd.html"/>
+		</phpmd>
+    </target>
+    
+    <target name="phpunit">
+		<phpunit haltonfailure="true" haltonerror="true" bootstrap="${app-dir}/tests/bootstrap.php" printsummary="true">
+		  <batchtest>
+		    <fileset dir="${app-dir}/tests">
+		      <include name="**/*Test*.php"/>
+		    </fileset>
+		  </batchtest>
+		</phpunit>
+    </target>
+    
+    <target name="build" depends="phplint,phpdoc,phpcs,phpmd,phpunit">
+    </target>
+
+</project>

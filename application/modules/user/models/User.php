@@ -39,7 +39,7 @@ class User_Model_User extends Me_Model_Abstract
     
     public function setPassword($password)
     {
-        $this->_password = md5($password);
+        $this->_password = $password;
         return $this;
     }
     
@@ -59,7 +59,7 @@ class User_Model_User extends Me_Model_Abstract
       return $this->_role;
     }
 
-    public function setRole($role)
+    public function setRole(Acl_Model_Role $role)
     {
       $this->_role = $role;
       return $this;
