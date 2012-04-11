@@ -40,8 +40,8 @@ class User_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
     {
 		$this->request->setMethod('post')
 						->setPost(array(
-							'username' => 'b@br-design.pl',
-							'password'	=> 'brdesign',
+							'username' => 'bartosz.rychlicki@gmail.com',
+							'password'	=> 'nataniel',
 							));
 	
         $this->dispatch('/user/index');

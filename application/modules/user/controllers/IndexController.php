@@ -11,14 +11,12 @@ class User_IndexController extends Br_Controller_Action
 	 */
     public function indexAction()
     {
-		$this->_helper->addPrefix('Br_Controller_Action_Helper');
-		
 		$request = $this->getRequest();
 		$form = new User_Form_Login();
 		$form->setDecorators(array(
             array('ViewScript', array('viewScript' => 'index/loginForm.phtml'))
         ));
-		$log = Zend_Registry::get('log');
+
 		if($request->isPost()) {
 			if ($form->isValid($request->getPost())) {
 				$values = $form->getValues();
@@ -26,25 +24,21 @@ class User_IndexController extends Br_Controller_Action
 				// we first search for that user
 				$userMapper = new User_Model_UserMapper();
 				$userModel  = $userMapper->findByUsername($values['username']);
-			    $log->debug($userModel);
-				
-				if(!$userModel) {
+				if (!$userModel) { // we didnt find the user in DB
 				    $this->_helper->FlashMessenger(array('error' => 'No such user in database as: '.$values['username']));
 				} else {
-				    $adapter = $this->_getAuthAdapter();
-				    $adapter->setIdentity($userModel->username)->setCredential($userModel->password);
-				    $auth = Zend_Auth::getInstance();
-				    $result = $auth->authenticate($adapter);
+				    // authorzing the user
+				    $log = Zend_Registry::Get('log');
+				    $log->debug($values);
+				    $result = $userModel->authorize($values['password'], $values['rememberMe']);
+				    if ($result === true) { // access granted
+    					$this->_helper->FlashMessenger->clearCurrentMessages(); // to remove any ACL "You dont have access messages if any"
+    					$this->_helper->FlashMessenger(array('success' => 'You have successfully logged in as '.$userModel->getUsername()));
+    					$this->_helper->Redirector('index', 'index', 'default');
+    				} else {
+    					$this->_helper->FlashMessenger(array('error' => 'Wrong login or password supplied'));
+    				}
 			    }
-                if($result->isValid()) {
-					// access granted
-					$auth->getStorage()->write($userModel);
-					$this->_helper->FlashMessenger->clearCurrentMessages(); // to remove any ACL "You dont have access messages if any"
-					$this->_helper->FlashMessenger(array('success' => 'Zostałeś zalogowany'));
-					$this->_helper->Redirector('index', 'index', 'default');
-				} else {
-					$this->_helper->FlashMessenger(array('error' => 'Podałeś zły login lub hasło'));
-				}
             } else {
 					$this->_helper->FlashMessenger(array('error' => 'Please fill the form'));
 			}
@@ -67,16 +61,5 @@ class User_IndexController extends Br_Controller_Action
 		$this->view->identity = $identity;
 	}
 	
-	protected function _getAuthAdapter()
-	{
-        $dbAdapter = Zend_Db_Table::getDefaultAdapter();
-        $authAdapter = new Zend_Auth_Adapter_DbTable($dbAdapter);
-        
-        $authAdapter->setTableName('acluser')
-            ->setIdentityColumn('email')
-            ->setCredentialColumn('password');
-            
-        return $authAdapter;
-	}
 }
 

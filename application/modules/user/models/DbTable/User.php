@@ -2,6 +2,8 @@
 class User_Model_DbTable_User extends Br_Db_Table_Abstract
 {
     protected $_name = 'acluser';
+    protected $_identityColumn = 'email';
+    protected $_credentialColumn = 'password';
 
     public function findByUsername($username)
     {
@@ -13,6 +15,21 @@ class User_Model_DbTable_User extends Br_Db_Table_Abstract
         
         return $row;
         
+    }
+    
+    public function getName()
+    {
+        return $this->_name;
+    }
+    
+    public function getIdentityColumn()
+    {
+        return $this->_identityColumn;
+    }
+    
+    public function getCredentialColumn()
+    {
+        return $this->_credentialColumn;
     }
 }
 

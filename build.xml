@@ -37,7 +37,7 @@
     </target>
     
     <target name="phpcs">
-        <exec command="/usr/bin/phpcs --standard=Zend --extensions=php --report=full --report-file=docs/codesniffer.txt application/modules application/models application/forms/ library/Me" dir="${app-dir}"/>
+        <exec command="/usr/bin/phpcs --standard=Zend --extensions=php --report=full --report-file=docs/codesniffer.txt ./application ./library" dir="${app-dir}"/>
     </target>
     
     <target name="phpcpd">
