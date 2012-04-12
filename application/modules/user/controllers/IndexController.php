@@ -28,10 +28,15 @@ class User_IndexController extends Br_Controller_Action
 				if (!$userModel) { // we didnt find the user in DB
 				    $this->_helper->FlashMessenger(array('error' => 'No such user in database as: '.$values['username']));
 				} else {
-				    // authorzing the user
-				    $log = Zend_Registry::Get('log');
-				    $log->debug($values);
-				    $result = $userModel->authorize($values['password'], $values['rememberMe']);
+				    if ($values['rememberMe'] == 1) {
+				        $config = Zend_Registry::get('config');
+				        $rememberMe = $config->usersAccounts->rememberMeTimeinHours;
+				    } else {
+				        $rememberMe = false;
+				    }
+				    
+				    // authorizing the user
+				    $result = $userModel->authorize($values['password'], $rememberMe);
 				    if ($result === true) { // access granted
     					$this->_helper->FlashMessenger->clearCurrentMessages(); // to remove any ACL "You dont have access messages if any"
     					$this->_helper->FlashMessenger(array('success' => 'You have successfully logged in as '.$userModel->getUsername()));
@@ -51,6 +56,7 @@ class User_IndexController extends Br_Controller_Action
 	{
 		$auth = Zend_Auth::getInstance();
 		$auth->clearIdentity();
+        Zend_Session:: namespaceUnset('Zend_Auth');
 		$this->_helper->FlashMessenger(array('info' => 'You have been logged out of the system'));
 		$this->_helper->Redirector('index');
 	}

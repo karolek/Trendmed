@@ -99,8 +99,11 @@ class User_Model_User extends Me_Model_Abstract implements Me_Model_Registerable
      *
      * We check if param password == model password, if true than user is authorized.
      * Second param is for storeing the user in system for a period of time.
+     *
+     * @param string    $password Password to check if it's right for this model (supplied by user)
+     * @param int       $rememberMe Int or bool, if int then it says for long in hours remeber the user in the system
      */
-    public function authorize($password, $rememberMe)
+    public function authorize($password, $rememberMe = false)
     {
         $password = $this->_credentialGenerate($password); // we'r marking all the magic crypting here
 	    $adapter = $this->_getAuthAdapter();
@@ -108,6 +111,13 @@ class User_Model_User extends Me_Model_Abstract implements Me_Model_Registerable
 	    $auth = Zend_Auth::getInstance();
 	    $result = $auth->authenticate($adapter);
 	    if($result->isValid()) {
+	        if($rememberMe > 0) {
+	            // remember the user for amount of time
+	            Zend_Session::rememberMe(60 * 60 * $rememberMe); 
+	        } else {
+	            // do not remember the session after browser termination
+	            Zend_Session::forgetMe();
+	        }
 	        $auth->getStorage()->write($this); // saveing userModel to session to use by
 	        // Zend_Auth
 	        return true;
@@ -145,6 +155,22 @@ class User_Model_User extends Me_Model_Abstract implements Me_Model_Registerable
         $time = strtotime("+ $h hours");
         $this->setTokenValidUntil($time);
         return $this;
+    }
+    
+    /**
+     * Remeber logged user in the system, so when the users comes back 
+     * he is still logged
+     *
+     * @param int $hours amount of hours to remember users from now.
+     * @return this
+     */
+    public function rememberMe($hours)
+    {
+        $log = Zend_Registry::get('log');
+        $log->debug('rememberMe for'.$this->getUsername());
+        $session = new Zend_Session_Namespace('Zend_Auth');
+        $seconds  = 60 * 60 * $hours;
+        $session->setExpirationSeconds($seconds);
     }
     
     public function sendPasswordRecoveryToken()
