@@ -9,6 +9,30 @@ class User_Model_User extends Me_Model_Abstract implements Me_Model_Registerable
     protected $_password;
     protected $_salt;
     protected $_role;
+    protected $_token;
+    protected $_tokenValidUntil;
+    
+    public function getToken()
+    {
+        return $this->_token;
+    }
+    
+    public function setToken($token)
+    {
+        $this->_token = $token;
+        return $this;
+    }
+    
+    public function getTokenValidUntil()
+    {
+        return $this->_tokenValidUntil;
+    }
+    
+    public function setTokenValidUntil($timestamp)
+    {
+        $this->_tokenValidUntil = $timestamp;
+        return $this;
+    }
     
     public function getId()
     {
@@ -39,7 +63,7 @@ class User_Model_User extends Me_Model_Abstract implements Me_Model_Registerable
     
     public function setPassword($password)
     {
-        $this->_password = $password;
+        $this->_password = $this->_credentialGenerate($password); // has to be same method as in authorize method
         return $this;
     }
     
@@ -65,6 +89,11 @@ class User_Model_User extends Me_Model_Abstract implements Me_Model_Registerable
       return $this;
     }
     
+    public function getEmailaddress()
+    {
+        return $this->getUsername();
+    }
+    
     /**
      * Function provides authorization of a model in the sysatem.
      *
@@ -73,6 +102,7 @@ class User_Model_User extends Me_Model_Abstract implements Me_Model_Registerable
      */
     public function authorize($password, $rememberMe)
     {
+        $password = $this->_credentialGenerate($password); // we'r marking all the magic crypting here
 	    $adapter = $this->_getAuthAdapter();
 	    $adapter->setIdentity($this->getUsername())->setCredential($password);
 	    $auth = Zend_Auth::getInstance();
@@ -84,6 +114,83 @@ class User_Model_User extends Me_Model_Abstract implements Me_Model_Registerable
 	    } else {
 	        return false;
 	    }
+    }
+    
+    /**
+     * This function sends a welcome e-mail to model e-mail address.
+     */
+    public function sendWelcomeEmail()
+    {
+        $mail = new Zend_Mail();
+        $config = Zend_Registry::get('config');
+        $log = Zend_Registry::get('log');
+        $mail->setBodyText('This is the text of the welcome e-mail.');
+        $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName);
+        $mail->addTo($this->getEmailaddress(), $this->getUsername());
+        $mail->setSubject($config->siteEmail->welcomeEmailSubject);
+        $mail->send();
+        $log->debug('E-mail send to: ' . $this->getEmailaddress() . ' 
+        from '.$mail->getFrom() . ' subject: ' . $mail->getSubject());
+    }
+    
+    public function generatePasswordRecoveryToken()
+    {
+        $string = md5($this->getEmailaddress() . $this->getId() . time());
+        $token = substr($string, 12);
+        $this->setToken($token);
+        $config = Zend_Registry::get('config');
+        // setting the token valid time, it can be changed in config/application.ini;
+        
+        $h = $config->usersAccounts->tokenValidTimeInHours;
+        $time = strtotime("+ $h hours");
+        $this->setTokenValidUntil($time);
+        return $this;
+    }
+    
+    public function sendPasswordRecoveryToken()
+    {
+        $mail = new Zend_Mail();
+        $config = Zend_Registry::get('config');
+        $log = Zend_Registry::get('log');
+        // we'r setting the password recovery link
+        // we should check if the token is valid, if not, we should generate new one
+        $token = $this->getToken();
+        if(!$this->tokenIsValid($token)) {
+            $token = $this->generatePasswordRecoveryToken()->getToken();
+        }
+        $link = 'http://'. $_SERVER['HTTP_HOST'] . '/user/index/new-password-from-token/token/' . $token;
+        
+        $mail->setBodyText('This is Your password recovery link: '.$link);
+        $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName);
+        $mail->addTo($this->getEmailaddress(), $this->getUsername());
+        $mail->setSubject($config->siteEmail->passwordRecoveryEmailSubject);
+        $mail->send();
+        $log->debug('E-mail send to: ' . $this->getEmailaddress() . ' 
+        from '.$mail->getFrom() . ' subject: ' . $mail->getSubject());    }
+    
+    /**
+     * Checks if token if given token is valid for this user
+     *
+     * @param   string    $token  The token we want to validate
+     * @return  bool    True if valid, false if not
+     */
+    public function tokenIsValid($token)
+    {
+        // we first check if given token is the same as one in model
+        if($token != $this->getToken()) {
+            return false;
+        }
+        // then we check if it's still valid
+        if($this->getTokenValidUntil() < time()) {
+            return false;
+        }
+        return true;
+    }
+    
+    protected function _credentialGenerate($password)
+    {
+        $output = md5($password);
+        return $output;
     }
     
     protected function _getAuthAdapter()
@@ -98,4 +205,6 @@ class User_Model_User extends Me_Model_Abstract implements Me_Model_Registerable
             
         return $authAdapter;
 	}
+	
+	
 }

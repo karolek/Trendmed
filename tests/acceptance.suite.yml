@@ -11,6 +11,7 @@ modules:
     enabled:
         - PhpBrowser
         - WebHelper
+        - Db
     config:
         PhpBrowser:
             url: 'http://trendmed.local'

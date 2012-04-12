@@ -31,6 +31,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	   } 
 	   Zend_Registry::set('log', $this->getResource('log'));
 	}
+	
+	public function _initConfig()
+	{
+	   $env = APPLICATION_ENV;
+	   $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini',
+                                     $env);
+	   Zend_Registry::set('config', $config);       
+	}
     
     /**
      * init jquery view helper, enable jquery, jqueryui, jquery ui css

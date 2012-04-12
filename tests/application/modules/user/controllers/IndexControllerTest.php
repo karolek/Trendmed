@@ -16,7 +16,16 @@ class User_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->assertModule('user');
         $this->assertController('index');
         $this->assertAction('index');
-        $this->assertQuery("form");
+        $this->assertQuery("form#login");
+    }
+    
+    public function testLogoutAction()
+    {
+        $this->dispatch('/user/index/logout');
+        
+        //assertions
+        $this->assertModule('user');
+        $this->assertNotController('index');
     }
 
     public function testPassingEmptyForWillNotGetMeIn()
@@ -47,7 +56,9 @@ class User_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->dispatch('/user/index');
         
         // assertions
-        $this->assertRedirectTo('/');
+        $this->assertNotRedirectTo('/');
+        $this->assertModule('user');
+        $this->assertController('index');
     }
 
 	/**
@@ -78,6 +89,11 @@ class User_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
 			array('username' => rand(1,100000), 'password' => rand(1, 100000000)),
 			array('username' => 'niematakiegousera', 'password' => 'krysp'),
 		);
+	}
+	
+	public function test($value='')
+	{
+	   # code...
 	}
 }
 

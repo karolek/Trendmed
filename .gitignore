@@ -1,0 +1,5 @@
+docs/api
+tests/_log
+tests/_log/*
+docs/*.txt
+docs/*.html

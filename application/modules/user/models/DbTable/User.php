@@ -17,6 +17,18 @@ class User_Model_DbTable_User extends Br_Db_Table_Abstract
         
     }
     
+    public function findByToken($token)
+    {
+        $select = $this->select();
+        $select->where('token = ?', $token)
+            ->order('id DESC')
+            ->limit(1);
+        $row = $this->fetchRow($select);
+        
+        return $row;
+        
+    }
+    
     public function getName()
     {
         return $this->_name;

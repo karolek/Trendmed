@@ -21,9 +21,6 @@ abstract class Br_Controller_Action extends Zend_Controller_Action {
 							->getPluginResource('log');
 		$this->_logger = $loggerResource->getLog();
 		
-        /* Initialize action controller here */
-        $this->_config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini');
-		Zend_Registry::set('config', $this->_config);
         /* Fetching DB adapter */
         $resource = $this->getFrontController()
             ->getParam('bootstrap')
