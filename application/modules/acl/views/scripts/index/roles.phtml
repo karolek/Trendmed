@@ -14,10 +14,11 @@
 			<i class="icon-pencil icon-black"></i>
 			<?= $this->translate('Modify'); ?>
 			</a>
-		<a data-toggle="modal" data-target="#deleteModal<?= $role->id; ?>" class="btn icon-trash btn-danger" href="<?php echo $this->url(array('id' => $role->id, 'action' => 'delete-Role')); ?>">
+		<a data-toggle="modal" data-target="#deleteModal<?= $role->id; ?>" class="btn btn-danger" href="<?php echo $this->url(array('id' => $role->id, 'action' => 'delete-Role')); ?>">
 			<i class="icon-trash icon-white"></i>
 			<?= $this->translate('Delete'); ?>
-			</a></td>
+			</a>
+		</td>
 		</tr>
 	</tbody>
 <?php } ?>

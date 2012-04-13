@@ -7,61 +7,22 @@
 <?php echo $this->headLink(); ?>
 <?php echo $this->headStyle(); ?>
 <?php echo $this->headScript(); ?>
-<?php echo $this->headLink()->appendStylesheet('/css/bootstrap.min.css') ?>
 <style>
   body {
     padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
   }
 </style>
-<?php echo $this->headLink()->appendStylesheet('/css/bootstrap-responsive.min.css') ?>
 <?php echo $this->headTitle(); ?>
 </head>
 <body>
-	<div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#">Trendmed</a>
-          <div class="nav-collapse">
-            <ul class="nav">
-				<li class="active"><a href="/">Home</a></li>
-				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><?= $this->translate('For Clinics'); ?><b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="<?= $this->url(array('module'=> 'clinic', 'action' => 'index', 'controller' => 'register'));?>">Sign up</a></li>
-						<li><a href="<?= $this->url(array('module'=> 'clinic', 'action' => 'index', 'controller' => 'index'));?>">Sign in</a></li>
-						
-					</ul>
-				</li>
-				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">ACL<b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="<?= $this->url(array('module'=> 'acl', 'action' => 'roles', 'controller' => 'index'));?>">Role managemnt</a></li>
-						
-					</ul>
-				</li>
-            </ul>
-			<p class="navbar-text pull-right">
-			<?php if($this->LoggedUser()):?>
-				Logged in as <a href="<?= $this->url(array('module' => 'user', 'controller' => 'index', 'action'=>'profile'));?>"><?= $this->LoggedUser('username'); ?></a>. <a href="<?= $this->url(array('action' => 'logout', 'controller' => 'index', 'module' => 'user')); ?>">Log out</a> perhaps?
-			<?php else: ?>
-				<a href="<?= $this->url(array('action' => 'index', 'controller' => 'register', 'module' => 'user')); ?>"><?= $this->translate('Sign up'); ?></a> <?= $this->translate('or'); ?> 
-				<a href="<?= $this->url(array('action' => 'index', 'controller' => 'index', 'module' => 'user')); ?>"><?= $this->translate('Login'); ?></a>
-			<?php endif; ?>
-			</p>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
+	<?= $this->render('_navbar.phtml'); ?>
 
     <div class="container">
-	<div class="page-header">
-		<h1><?= $this->translate(strip_tags($this->headTitle()->toString())); ?></h1>
-	</div>
-	<?php echo $this->FlashMessenger(); ?>
-	<?php echo $this->layout()->content ?>
+		<div class="page-header">
+			<h1><?= $this->translate(strip_tags($this->headTitle()->toString())); ?></h1>
+		</div>
+		<?php echo $this->FlashMessenger(); ?>
+		<?php echo $this->layout()->content ?>
     </div> <!-- /container -->
 </body>
 </html>

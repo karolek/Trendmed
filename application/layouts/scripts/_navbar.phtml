@@ -1,0 +1,39 @@
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="<?= $this->url(array('action' => 'index', 'controller' => 'index', 'module' => 'default')); ?>">IAA</a>
+      <div class="nav-collapse">
+        <ul class="nav">
+			<li class="active"><a href="/"><?= $this->translate('Gallery'); ?></a></li>
+			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><?= $this->translate('Competition'); ?><b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="<?= $this->url(array('module'=> 'clinic', 'action' => 'index', 'controller' => 'register'));?>">Competition #1</a></li>
+					<li><a href="<?= $this->url(array('module'=> 'clinic', 'action' => 'index', 'controller' => 'index'));?>">Competition #</a></li>
+					
+				</ul>
+			</li>
+			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">More<b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="<?= $this->url(array('module'=> 'acl', 'action' => 'roles', 'controller' => 'index'));?>"><?= $this->translate('Role management'); ?></a></li>
+					
+				</ul>
+			</li>
+			<?= $this->userMenu(); // displays menu items, rendered by layouts/_userMenu.phtml; ?>
+        </ul>
+		<p class="navbar-text pull-right">
+		<?php if($this->LoggedUser()):?>
+			Logged in as <a href="<?= $this->url(array('module' => 'user', 'controller' => 'index', 'action'=>'profile'));?>"><?= $this->LoggedUser('username'); ?></a>. <a href="<?= $this->url(array('action' => 'logout', 'controller' => 'index', 'module' => 'user')); ?>">Log out</a> perhaps?
+		<?php else: ?>
+			<a href="<?= $this->url(array('action' => 'index', 'controller' => 'register', 'module' => 'user')); ?>"><?= $this->translate('Sign up'); ?></a> <?= $this->translate('or'); ?> 
+			<a href="<?= $this->url(array('action' => 'index', 'controller' => 'index', 'module' => 'user')); ?>"><?= $this->translate('Login'); ?></a>
+		<?php endif; ?>
+		</p>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+</div>
