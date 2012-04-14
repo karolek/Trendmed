@@ -29,7 +29,7 @@ class User_IndexController extends Br_Controller_Action
 				    $this->_helper->FlashMessenger(array('error' => 'No such user in database as: '.$values['username']));
 				} else {
 				    if ($values['rememberMe'] == 1) {
-				        $config = Zend_Registry::get('config');
+				        $config = Zend_Registry::get('config'); 
 				        $rememberMe = $config->usersAccounts->rememberMeTimeinHours;
 				    } else {
 				        $rememberMe = false;
@@ -108,7 +108,7 @@ class User_IndexController extends Br_Controller_Action
         $this->view->headTitle('Seting up of a new password');
         
         $request    = $this->getRequest();
-        $token      = $this->getParam('token'); // either get or post param
+        $token      = $request->getParam('token'); // either get or post param
        
         $userMapper = new User_Model_UserMapper();
  	   
