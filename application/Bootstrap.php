@@ -60,7 +60,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
          $view->headMeta()->appendHttpEquiv('Content-Type',
  		                                   'text/html; charset=UTF-8')
  		                 ->appendHttpEquiv('Content-Language', 'en-GB');
- 		$view->headTitle('IAA');
+ 		$view->headTitle('Trendmed');
  		$view->headTitle()->setSeparator(' / ');
 
  		// adding noindex, no fallow to all non-production instances

@@ -3,7 +3,7 @@
 class User_RegisterController extends Zend_Controller_Action
 {
     
-    protected $_roleName = 'user'; // role name that we want to register new user
+    protected $_roleName = 'patient'; // role name that we want to register new user
     protected $_userModel = 'User_Model_User'; // class name of the user model
     
 
