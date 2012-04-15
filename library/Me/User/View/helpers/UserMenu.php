@@ -5,7 +5,7 @@
 * @package Br
 * @author Bartosz Rychlicki <b@br-design.pl>
 */
-class Br_View_Helper_UserMenu extends Zend_View_Helper_Abstract
+class Me_User_View_Helpers_UserMenu extends Zend_View_Helper_Abstract
 {
 	public $view;
 	
@@ -29,7 +29,7 @@ class Br_View_Helper_UserMenu extends Zend_View_Helper_Abstract
 	   $user = $this->view->LoggedUser();
 	   if(!$user) return;
 	   $roleName = $user->getRole()->getName();
-	   $scriptName = '_' . strtolower($roleName) . 'Menu';
+	   $scriptName = '_' . strtolower($roleName) . 'Menu.phtml';
 	   $output = $this->view->render($scriptName);
 	   return $output;
 	   

@@ -5,7 +5,7 @@
 * @package Br
 * @author Bartosz Rychlicki <b@br-design.pl>
 */
-class Br_View_Helper_LoggedUser extends Zend_View_Helper_Abstract
+class Me_User_View_Helpers_LoggedUser extends Zend_View_Helper_Abstract
 {
 	private $_identity = null;
 	

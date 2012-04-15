@@ -1,6 +1,5 @@
 <?php
-
-class User_Form_PasswordRecovery extends Twitter_Form
+class Patient_Form_PasswordRecovery extends Twitter_Form
 {
 
     public function init()

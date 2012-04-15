@@ -1,7 +1,7 @@
 <?php
-class User_Model_DbTable_User extends Br_Db_Table_Abstract
+class Patient_Model_DbTable_Patient extends Br_Db_Table_Abstract
 {
-    protected $_name = 'acluser';
+    protected $_name = 'user';
     protected $_identityColumn = 'email';
     protected $_credentialColumn = 'password';
 

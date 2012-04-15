@@ -1,12 +1,9 @@
 <?php
-/**
-* 
-*/
-class User_Model_UserMapper extends Me_Model_Mapper_Abstract
+class Patient_Model_PatientMapper extends Me_Model_Mapper_Abstract
 {
-    protected $_dbTable = 'User_Model_DbTable_User';
+    protected $_dbTable = 'Patient_Model_DbTable_Patient';
 
-    public function save(User_Model_User $model)
+    public function save(Patient_Model_Patient $model)
     {
         $data = array(
             'email'             => $model->getUsername(),
@@ -27,7 +24,7 @@ class User_Model_UserMapper extends Me_Model_Mapper_Abstract
     
     protected function _createNewModelFromRow($row)
     {
-       $model = new User_Model_User;
+       $model = new Patient_Model_Patient;
        $model->id       = $row->id;
        $model->username = $row->email;
        $model->password = $row->password;

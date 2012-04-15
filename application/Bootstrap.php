@@ -21,6 +21,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$view->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Noumenal_View_Helper');
 		$view->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Br_View_Helper');
 		$view->addHelperPath(APPLICATION_PATH . '/modules/user/views/helpers', 'Br_View_Helper');
+        		$view->addHelperPath(APPLICATION_PATH . '/../library/Me/User/View/helpers',
+                'Me_User_View_Helpers_');
+
 	}
 	
 	public function _initLogger()
@@ -67,5 +70,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
  		if(APPLICATION_ENV != 'production') {
  		    $view->headMeta()->appendName('nofallow,noindex', 'robots');
  		}
+    }
+    
+    protected function _initMail()
+    {
+        $this->bootstrap('config');
+        $config = Zend_Registry::get('config');
+        if ($config->mail->smtp->enable == true) {
+           $tr = new Zend_Mail_Transport_Smtp($config->mail->smtp->host,
+                   $config->mail->smtp->params->toArray());
+           Zend_Mail::setDefaultTransport($tr); 
+        }
     }
 }

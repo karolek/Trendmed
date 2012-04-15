@@ -1,6 +1,5 @@
 <?php
-require_once APPLICATION_PATH . '/modules/user/controllers/RegisterController.php';
-class Clinic_RegisterController extends User_RegisterController
+class Clinic_RegisterController extends Me_User_Controllers_RegisterController
 {
     protected $_roleName = 'clinic'; // role name that we want to register new user
     protected $_userModel = 'Clinic_Model_Clinic'; // class name of the user model

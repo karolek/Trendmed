@@ -27,10 +27,18 @@
         </ul>
 		<p class="navbar-text pull-right">
 		<?php if($this->LoggedUser()):?>
-			Logged in as <a href="<?= $this->url(array('module' => 'user', 'controller' => 'index', 'action'=>'profile'));?>"><?= $this->LoggedUser('username'); ?></a>. <a href="<?= $this->url(array('action' => 'logout', 'controller' => 'index', 'module' => 'user')); ?>">Log out</a> perhaps?
+			Logged in as <a href="<?= $this->url(array(
+                'module'        => 'patient', 
+                'controller'    => 'profile', 
+                'action'        => 'index'));?>">
+            <?= $this->LoggedUser('username'); ?></a>. 
+            <a href="<?= $this->url(array(
+                'action'        => 'logout', 
+                'controller'    => 'index', 
+                'module'        => 'patient')); ?>">Log out</a> perhaps?
 		<?php else: ?>
-            <a href="<?= $this->url(array('action' => 'index', 'controller' => 'index', 'module' => 'user')); ?>"><?= $this->translate('Patient login'); ?></a>
-			<a href="<?= $this->url(array('action' => 'index', 'controller' => 'register', 'module' => 'user')); ?>"><?= $this->translate('Patient signup'); ?></a>
+            <a href="<?= $this->url(array('action' => 'index', 'controller' => 'index', 'module' => 'patient')); ?>"><?= $this->translate('Patient login'); ?></a>
+			<a href="<?= $this->url(array('action' => 'index', 'controller' => 'register', 'module' => 'patient')); ?>"><?= $this->translate('Patient signup'); ?></a>
 		<?php endif; ?>
 		</p>
       </div><!--/.nav-collapse -->

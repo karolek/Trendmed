@@ -2,7 +2,8 @@
 /**
 * 
 */
-class User_Model_User extends Me_Model_Abstract implements Me_Model_Registerable_Interface
+abstract class Me_User_Model_User_Abstract extends Me_Model_Abstract 
+implements Me_User_Model_User_Interface
 {
     protected $_id;
     protected $_username;
@@ -157,22 +158,6 @@ class User_Model_User extends Me_Model_Abstract implements Me_Model_Registerable
         return $this;
     }
     
-    /**
-     * Remeber logged user in the system, so when the users comes back 
-     * he is still logged
-     *
-     * @param int $hours amount of hours to remember users from now.
-     * @return this
-     */
-    public function rememberMe($hours)
-    {
-        $log = Zend_Registry::get('log');
-        $log->debug('rememberMe for'.$this->getUsername());
-        $session = new Zend_Session_Namespace('Zend_Auth');
-        $seconds  = 60 * 60 * $hours;
-        $session->setExpirationSeconds($seconds);
-    }
-    
     public function sendPasswordRecoveryToken()
     {
         $mail = new Zend_Mail();
@@ -184,7 +169,12 @@ class User_Model_User extends Me_Model_Abstract implements Me_Model_Registerable
         if(!$this->tokenIsValid($token)) {
             $token = $this->generatePasswordRecoveryToken()->getToken();
         }
-        $link = 'http://'. $_SERVER['HTTP_HOST'] . '/user/index/new-password-from-token/token/' . $token;
+        // TODO: zrobić abstrakcyjny system generowania linku
+        $module         = $request->getModuleName();
+        $controller     = $request->getControllerName(); 
+        
+        $link = 'http://'. $_SERVER['HTTP_HOST'] . '/' . $module . 
+                '/' . $controller . '/new-password-from-token/token/' . $token;
         
         $mail->setBodyText('This is Your password recovery link: '.$link);
         $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName);

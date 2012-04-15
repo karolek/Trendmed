@@ -1,6 +1,6 @@
 <?php
 
-class User_Form_Login extends Twitter_Form
+class Patient_Form_Login extends Twitter_Form
 {
 
     public function init()

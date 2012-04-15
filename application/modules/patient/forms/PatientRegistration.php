@@ -1,5 +1,5 @@
 <?php
-class User_Form_Registration extends Twitter_Form
+class Patient_Form_PatientRegistration extends Twitter_Form
 {
     public function init()
     {
@@ -13,7 +13,7 @@ class User_Form_Registration extends Twitter_Form
         $text->setRequired(true);
         $text->setLabel('E-mail Address');
         $validator = new Zend_Validate_Db_NoRecordExists(array(
-            'table' => 'acluser',
+            'table' => 'user',
             'field' => 'email',
         ));
         $text->addValidator($validator);
