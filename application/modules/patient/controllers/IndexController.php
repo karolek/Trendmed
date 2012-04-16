@@ -17,4 +17,9 @@ class Patient_IndexController extends Me_User_Controllers_LoginController
        $form = new Patient_Form_PasswordRecovery();
        return $form;
    }
+   
+   public function getNewPasswordForm() {
+       $form = new Patient_Form_NewPassword();
+       return $form;
+   }
 }

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Controller</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="jquery.min.js" type="text/javascript"></script>
+    <script src="highcharts.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+          var classCoverageDistribution = new Highcharts.Chart({
+             chart: {
+                renderTo: 'classCoverageDistribution',
+                type: 'column'
+             },
+             title: {text: ''},
+             legend: {enabled: false},
+             credits: {enabled: false},
+             tooltip: {enabled: false},
+             xAxis: {
+                 labels: {style: {fontSize: '8px'}},
+                 categories: [
+                 '0%','0-10%','10-20%','20-30%','30-40%','40-50%','50-60%','60-70%','70-80%','80-90%','90-100%','100%'
+                 ]
+            },
+            yAxis: {
+                title: '',
+                labels: {style: {fontSize: '8px'}},
+            },
+            series: [{
+                data: [2,1,2,4,3,2,2,6,0,2,0,4]
+            }],
+          });
+
+        var classComplexity = new Highcharts.Chart({
+            chart: {
+              renderTo: 'classComplexity',
+              type: 'scatter'
+            },
+            title: {text: ''},
+            legend: {enabled: false},
+            credits: {enabled: false},
+            xAxis: {
+               labels: {enabled: false},
+            },
+            yAxis: {
+              title: '',
+              labels: {enabled: false},
+            },
+            tooltip: {
+                formatter: function() {
+                    return this.point.config[2];
+                }
+            },
+            series: [{
+              data: [[30.322580645161,66,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Action.php.html#43\">Zend_Controller_Action<\/a>"],[68,13,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Action_Helper_Abstract.php.html#35\">Zend_Controller_Action_Helper_Abstract<\/a>"],[22.222222222222,24,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Action_Helper_FlashMessenger.php.html#43\">Zend_Controller_Action_Helper_FlashMessenger<\/a>"],[0,6,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Action_Helper_Json.php.html#38\">Zend_Controller_Action_Helper_Json<\/a>"],[1.4388489208633,73,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Action_Helper_Redirector.php.html#35\">Zend_Controller_Action_Helper_Redirector<\/a>"],[62.121212121212,114,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Action_Helper_ViewRenderer.php.html#74\">Zend_Controller_Action_Helper_ViewRenderer<\/a>"],[62.244897959184,38,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Action_HelperBroker.php.html#40\">Zend_Controller_Action_HelperBroker<\/a>"],[51.470588235294,29,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Action_HelperBroker_PriorityStack.php.html#30\">Zend_Controller_Action_HelperBroker_PriorityStack<\/a>"],[35,41,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Dispatcher_Abstract.php.html#33\">Zend_Controller_Dispatcher_Abstract<\/a>"],[100,0,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Dispatcher_Exception.php.html#35\">Zend_Controller_Dispatcher_Exception<\/a>"],[62.5,57,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Dispatcher_Standard.php.html#36\">Zend_Controller_Dispatcher_Standard<\/a>"],[100,0,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Exception.php.html#33\">Zend_Controller_Exception<\/a>"],[55.686274509804,113,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Front.php.html#38\">Zend_Controller_Front<\/a>"],[83.333333333333,10,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Plugin_Abstract.php.html#30\">Zend_Controller_Plugin_Abstract<\/a>"],[65.853658536585,52,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Plugin_Broker.php.html#33\">Zend_Controller_Plugin_Broker<\/a>"],[66.666666666667,26,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Plugin_ErrorHandler.php.html#37\">Zend_Controller_Plugin_ErrorHandler<\/a>"],[43.103448275862,33,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Request_Abstract.php.html#28\">Zend_Controller_Request_Abstract<\/a>"],[25,178,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Request_Http.php.html#37\">Zend_Controller_Request_Http<\/a>"],[26.190476190476,21,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Request_HttpTestCase.php.html#36\">Zend_Controller_Request_HttpTestCase<\/a>"],[11.344537815126,109,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Response_Abstract.php.html#32\">Zend_Controller_Response_Abstract<\/a>"],[100,0,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Response_Http.php.html#36\">Zend_Controller_Response_Http<\/a>"],[48.717948717949,17,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Response_HttpTestCase.php.html#34\">Zend_Controller_Response_HttpTestCase<\/a>"],[26.666666666667,17,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Router_Abstract.php.html#37\">Zend_Controller_Router_Abstract<\/a>"],[100,0,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Router_Exception.php.html#34\">Zend_Controller_Router_Exception<\/a>"],[38.125,65,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Router_Rewrite.php.html#38\">Zend_Controller_Router_Rewrite<\/a>"],[0,108,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Router_Route.php.html#35\">Zend_Controller_Router_Route<\/a>"],[16.666666666667,6,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Router_Route_Abstract.php.html#38\">Zend_Controller_Router_Route_Abstract<\/a>"],[81.41592920354,49,"<a href=\"php_includes_ZendFramework_library_Zend_Controller_Router_Route_Module.php.html#37\">Zend_Controller_Router_Route_Module<\/a>"]],
+              marker: {
+                  symbol: 'diamond'
+              }
+            }],
+        });
+    });
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr><td class="title">Controller</td></tr>
+      <tr><td><div align="center"><p><a href="php_includes_ZendFramework_library_Zend_Controller.html">Back to Code Coverage report</a></p></div></td></tr>
+      <tr><td class="ruler"><img src="glass.png" width="3" height="3" alt=""></td></tr>
+    </table>
+
+    <br />
+
+    <center>
+      <table width="90%" cellpadding="2" cellspacing="1" border="0">
+        <tr>
+          <td valign="top">
+            <h2>Class Coverage Distribution</h2>
+            <div id="classCoverageDistribution"></div>
+          </td>
+
+          <td valign="top">
+            <h2>Class Complexity</h2>
+            <div id="classComplexity"></div>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <h2>Top Project Risks</h2>
+            <ul>
+              <li><a href="php_includes_ZendFramework_library_Zend_Controller_Request_Http.php.html#37">Zend_Controller_Request_Http</a> (13544)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Controller_Router_Route.php.html#35">Zend_Controller_Router_Route</a> (11772)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Controller_Response_Abstract.php.html#32">Zend_Controller_Response_Abstract</a> (8387)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Controller_Action_Helper_Redirector.php.html#35">Zend_Controller_Action_Helper_Redirector</a> (5175)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Controller_Action.php.html#43">Zend_Controller_Action</a> (1539)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Controller_Front.php.html#38">Zend_Controller_Front</a> (1224)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Controller_Router_Rewrite.php.html#38">Zend_Controller_Router_Rewrite</a> (1065)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Controller_Action_Helper_ViewRenderer.php.html#74">Zend_Controller_Action_Helper_ViewRenderer</a> (820)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Controller_Dispatcher_Abstract.php.html#33">Zend_Controller_Dispatcher_Abstract</a> (502)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Controller_Action_Helper_FlashMessenger.php.html#43">Zend_Controller_Action_Helper_FlashMessenger</a> (295)</li>
+
+            </ul>
+          </td>
+
+          <td valign="top">
+            <h2>Least Tested Methods</h2>
+            <ul>
+              <li><a href="php_includes_ZendFramework_library_Zend_Controller_Request_Abstract.php.html#311">Zend_Controller_Request_Abstract::setParams</a> (0%)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Controller_Request_Abstract.php.html#298">Zend_Controller_Request_Abstract::getParams</a> (0%)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Controller_Request_Abstract.php.html#329">Zend_Controller_Request_Abstract::clearParams</a> (0%)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Controller_Request_Http.php.html#140">Zend_Controller_Request_Http::__get</a> (0%)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Controller_Request_Http.php.html#187">Zend_Controller_Request_Http::__set</a> (0%)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Controller_Request_Http.php.html#170">Zend_Controller_Request_Http::get</a> (0%)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Controller_Router_Rewrite.php.html#271">Zend_Controller_Router_Rewrite::removeRoute</a> (0%)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Controller_Request_Abstract.php.html#262">Zend_Controller_Request_Abstract::getUserParam</a> (0%)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Controller_Request_Abstract.php.html#178">Zend_Controller_Request_Abstract::setModuleKey</a> (0%)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Controller_Router_Rewrite.php.html#289">Zend_Controller_Router_Rewrite::removeDefaultRoutes</a> (0%)</li>
+
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </center>
+
+    <br />
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr><td class="ruler"><img src="glass.png" width="3" height="3" alt=""></td></tr>
+      <tr><td class="versionInfo">Generated by <a href="http://github.com/sebastianbergmann/php-code-coverage" target="_top">PHP_CodeCoverage 1.1.2</a> using <a href="http://www.php.net/" target="_top">PHP 5.3.10</a> and PHPUnit 3.6.10 at Mon Apr 16 23:04:35 CEST 2012.</td></tr>
+    </table>
+
+    <br/>
+  </body>
+</html>

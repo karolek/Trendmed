@@ -1,5 +1,4 @@
 <?php
-
 class Patient_Form_Login extends Twitter_Form
 {
 

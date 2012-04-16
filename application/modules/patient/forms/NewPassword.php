@@ -1,5 +1,5 @@
 <?php
-class User_Form_NewPassword extends Twitter_Form
+class Patient_Form_NewPassword extends Twitter_Form
 {
     public function init()
     {

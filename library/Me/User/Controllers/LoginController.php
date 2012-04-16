@@ -18,6 +18,11 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
         'controller'    => 'index',
         'module'        => 'default',
     );
+    protected $_redirectAfterNewPassword = array(
+        'action'        => 'index',
+        'controller'    => 'index',
+        'module'        => 'default'
+    );
 
     public function indexAction()
     {
@@ -78,6 +83,14 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
     {
         
     }
+    
+    /**
+    * To implement in extending controller 
+    */   
+    public function getNewPasswordForm()
+    {
+        
+    }
 
 	public function logoutAction() {
         $auth = Zend_Auth::getInstance();
@@ -100,7 +113,6 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
         $request = $this->getRequest();
         $model = new $this->_userModel;
         $userMapper = $model->getMapper();
-        $token = $request->getParam('token');
 
         if ($request->isPost()) {
             $post = $request->getPost();
@@ -112,7 +124,8 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
                     $this->_helper->FlashMessenger(array('error' => 'No such user in database as: ' . $values['username']));
                 } else {
                     $userModel->generatePasswordRecoveryToken();
-                    $userModel->sendPasswordRecoveryToken();
+                    $link = 'http://'. $_SERVER['HTTP_HOST'] . '/' . $request->getModuleName() . '/' . $request->getControllerName() . '/new-password-from-token/token/%s';
+                    $userModel->sendPasswordRecoveryToken($link);
                     // we have to save token that our model generated
                     $userMapper->save($userModel);
                     $this->_helper->FlashMessenger(array('success' => 'Recovery password e-mail send to: ' . $userModel->getEmailaddress()));
@@ -134,21 +147,21 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
         $request    = $this->getRequest();
         $token      = $request->getParam('token'); // either get or post param
        
-        $userMapper = new User_Model_UserMapper();
+        $model = new $this->_userModel;
+        $userMapper = $model->getMapper();
  	   
         // we have to find user by token
         $user = $userMapper->findByToken($token);
         if(!$user) {
-            throw new Zend_Expcetion('No user with this token found in DB', 500);
+            throw new Expcetion('No user with this token found in DB', 500);
         }
-        
         // checking if token is valid
         if (false === $user->tokenIsValid($token)) {
 		    $this->_helper->FlashMessenger(array('error' => 'The token You have supplied in URL 
 		    is either incorrect or not valid anymore, please generate new link.'));
 		    $this->_helper->Redirector('password-recovery', 'index', 'user');  
         } 
-        $form = new User_Form_NewPassword; 
+        $form = $this->getNewPasswordForm(); 
         $form->populate(array('token' => $token));
         
         if ($request->isPost()) {
@@ -160,7 +173,12 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
                $mapper = $user->getMapper();
                $mapper->save($user);
                $this->_helper->FlashMessenger(array('success' => 'New password set for user: '.$user->getUsername()));
-               $this->_helper->Redirector('index', 'index', 'user');
+               
+               $this->_helper->Redirector(
+                       $this->_redirectAfterNewPassword['action'],
+                       $this->_redirectAfterNewPassword['controller'],
+                       $this->_redirectAfterNewPassword['module']
+               );
            } else {
                $this->_helper->FlashMessenger(array('warning' => 'There where some errors in the form'));
            }

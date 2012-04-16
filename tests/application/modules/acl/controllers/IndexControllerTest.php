@@ -16,7 +16,7 @@ class Acl_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->assertModule('acl');
         $this->assertController('index');
         $this->assertAction('index');
-        $this->assertQuery("table#actions");
+        //$this->assertQuery("table#actions");
         
     }
 
@@ -26,6 +26,7 @@ class Acl_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         
         // assertions
         $this->assertModule('acl');
+        $this->assertNotController('error');
         $this->assertController('index');
         $this->assertAction('roles');
         $this->assertQuery("input#name");

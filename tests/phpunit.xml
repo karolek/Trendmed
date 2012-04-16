@@ -14,4 +14,7 @@
         </whitelist>
         -->
     </filter>
+    <logging>
+        <log type="testdox-html" target="../data/reports/unit/testdox.html"/>
+    </logging>
 </phpunit>

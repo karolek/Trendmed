@@ -158,7 +158,13 @@ implements Me_User_Model_User_Interface
         return $this;
     }
     
-    public function sendPasswordRecoveryToken()
+    /**
+     * Sends password recovery link to user.
+     * 
+     * @param string $linkPattern Whole URL string to password recovery action. 
+     * Use %s instead of actual token.
+     */
+    public function sendPasswordRecoveryToken($link)
     {
         $mail = new Zend_Mail();
         $config = Zend_Registry::get('config');
@@ -169,13 +175,8 @@ implements Me_User_Model_User_Interface
         if(!$this->tokenIsValid($token)) {
             $token = $this->generatePasswordRecoveryToken()->getToken();
         }
-        // TODO: zrobić abstrakcyjny system generowania linku
-        $module         = $request->getModuleName();
-        $controller     = $request->getControllerName(); 
-        
-        $link = 'http://'. $_SERVER['HTTP_HOST'] . '/' . $module . 
-                '/' . $controller . '/new-password-from-token/token/' . $token;
-        
+        $link = sprintf($link, $token);
+
         $mail->setBodyText('This is Your password recovery link: '.$link);
         $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName);
         $mail->addTo($this->getEmailaddress(), $this->getUsername());
