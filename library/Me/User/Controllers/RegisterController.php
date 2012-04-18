@@ -42,21 +42,26 @@ abstract class Me_User_Controllers_RegisterController extends Zend_Controller_Ac
 			$post = $request->getPost();
 			if($form->isValid($post)) { // data in the form are valid so we 
             // can register new user
-			    $model->setOptions($post);
+                $values = $form->getValues();
+			    $model->setOptions($values);
 			    
 			    $db = $this->_helper->getDb();
 			    $db->beginTransaction(); // DB transaction
                 
 			    $modelMapper = $model->getMapper();
-			    $modelMapper->save($model);
+			    $id = $modelMapper->save($model);
+                if(!$id > 0) {
+                    throw new Exception('Save of a ' . $model->getRole()->name . '  failed');
+                }
 			    $model->sendWelcomeEmail();
+   			    $db->commit();
+
 			    $this->_helper->FlashMessenger($this->_messageSuccessAfterRegistration);
 			    $this->_helper->Redirector(
                         $this->_redirectAfterRegistration['action'],
                         $this->_redirectAfterRegistration['controller'],
                         $this->_redirectAfterRegistration['module']
                         );
-			    $db->commit();
 			} else {
 			    $this->_helper->FlashMessenger(array('error' => 'Please fill out the form correctly'));
 			}

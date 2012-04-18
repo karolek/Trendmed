@@ -145,8 +145,11 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
         $this->view->headTitle('Seting up of a new password');
         
         $request    = $this->getRequest();
-        $token      = $request->getParam('token'); // either get or post param
+        $token      = $request->getParam('token', ''); // either get or post param
        
+        if(empty($token)) {
+            throw new Exception('No token given in URL', 404);
+        }
         $model = new $this->_userModel;
         $userMapper = $model->getMapper();
  	   

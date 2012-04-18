@@ -1,0 +1,97 @@
+<?php
+class Clinic_Form_ClinicRegistration extends Twitter_Form
+{
+
+    public function init()
+    {
+        $this->setName("register");
+        $this->setMethod('post');
+        $this->setAttrib('class', 'form-horizontal');
+        
+        $name = new Zend_Form_Element_Text('name');
+        $name->setLabel('Name of the clinic');
+        $name->setRequired(true);
+        $this->addElement($name);
+                
+        $street = new Zend_Form_Element_Text('street');
+        $street->setLabel('Street address');
+        $street->setRequired(true);
+        $this->addElement($street);
+        
+        $city = new Zend_Form_Element_Text('city');
+        $city->setLabel('City');
+        $city->setRequired(true);
+        $this->addElement($city);
+        
+        $postcode = new Zend_Form_Element_Text('postcode');
+        $postcode->setLabel('Postcode');
+        $postcode->setRequired(true);
+        $this->addElement($postcode);
+        
+        // fetching regions from xml data
+        $data = simplexml_load_file(APPLICATION_PATH . '/../data/regions.xml');
+        $province = new Zend_Form_Element_Select('province');
+        $province->setLabel('Province');
+        $province->setRequired(true);
+        foreach ($data->country[0]->region as $region) {
+            $province->addMultiOption($region['id'], $region);
+        }
+        $this->addElement($province);
+        
+        $this->addDisplayGroup(array('name', 'street', 'city', 'postcode', 'province'), 'addressInfo');
+        $group = $this->getDisplayGroup('addressInfo');
+        $group->setLegend('Address info');
+        
+        // reprezentant info        
+        
+        $email = new Zend_Form_Element_Text('email');
+        $email->setLabel('Email address');
+        $email->addValidator('EmailAddress');
+        $email->setRequired(true);
+        $this->addElement($email);
+        
+        $representantName = new Zend_Form_Element_Text('representantname');
+        $representantName->setLabel('Representant name');
+        $representantName->setRequired(true);
+        $this->addElement($representantName);
+        
+        $phone = new Zend_Form_Element_Text('representantphone');
+        $phone->setLabel('Representant phone');
+        $phone->setRequired(true);
+        $this->addElement($phone);
+
+        
+        $this->addDisplayGroup(array('email', 'representantname', 'representantphone'), 'representantInfo');
+        $group = $this->getDisplayGroup('representantInfo');
+        $group->setLegend('Representant info');
+        
+        // account info
+        
+        $passwordValidator = new Zend_Validate_StringLength(array('min' => 6, 'max' => 20, 'encoding' => 'utf-8'));
+        $this->addElement('password', 'password', array(
+            'filters'    => array('StringTrim'),
+            'required'   => true,
+            'label'      => 'Password',
+            'validators' => array($passwordValidator),
+        ));
+        
+	    $this->addElement('password', 'password_confirmation', array(
+	        'filters'    => array('StringTrim'),
+	        'required'   => true,
+	        'label'      => 'Repeat password',
+	        'validators' => array($passwordValidator, array('identical', false, array('token' => 'password'))),
+	    ));
+        
+        $this->addDisplayGroup(array('password', 'password_confirmation'), 'accountInfo');
+        $group = $this->getDisplayGroup('accountInfo');
+        $group->setLegend('Account info');
+        
+        $submit = new Zend_Form_Element_Submit('submit');
+        $submit->setLabel('Sign in!');
+        $this->addElement($submit);
+        
+    }
+
+
+}
+

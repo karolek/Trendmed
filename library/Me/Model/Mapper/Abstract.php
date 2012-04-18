@@ -1,15 +1,4 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of Mapper
- *
- * @author Bard
- */
 abstract class Me_Model_Mapper_Abstract {
     protected $_dbTable;
 

@@ -1,6 +1,5 @@
 <?php
-
-class Clinic_Form_Registration extends Twitter_Form
+class Clinic_Form_ClinicRegistration extends Twitter_Form
 {
 
     public function init()
@@ -51,18 +50,18 @@ class Clinic_Form_Registration extends Twitter_Form
         $email->setRequired(true);
         $this->addElement($email);
         
-        $representantName = new Zend_Form_Element_Text('representant_name');
+        $representantName = new Zend_Form_Element_Text('representantname');
         $representantName->setLabel('Representant name');
         $representantName->setRequired(true);
         $this->addElement($representantName);
         
-        $phone = new Zend_Form_Element_Text('phone');
+        $phone = new Zend_Form_Element_Text('representantphone');
         $phone->setLabel('Representant phone');
         $phone->setRequired(true);
         $this->addElement($phone);
 
         
-        $this->addDisplayGroup(array('email', 'representant_name', 'phone'), 'representantInfo');
+        $this->addDisplayGroup(array('email', 'representantname', 'representantphone'), 'representantInfo');
         $group = $this->getDisplayGroup('representantInfo');
         $group->setLegend('Representant info');
         

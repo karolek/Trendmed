@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Decorator</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="jquery.min.js" type="text/javascript"></script>
+    <script src="highcharts.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+          var classCoverageDistribution = new Highcharts.Chart({
+             chart: {
+                renderTo: 'classCoverageDistribution',
+                type: 'column'
+             },
+             title: {text: ''},
+             legend: {enabled: false},
+             credits: {enabled: false},
+             tooltip: {enabled: false},
+             xAxis: {
+                 labels: {style: {fontSize: '8px'}},
+                 categories: [
+                 '0%','0-10%','10-20%','20-30%','30-40%','40-50%','50-60%','60-70%','70-80%','80-90%','90-100%','100%'
+                 ]
+            },
+            yAxis: {
+                title: '',
+                labels: {style: {fontSize: '8px'}},
+            },
+            series: [{
+                data: [7,0,1,0,0,0,0,0,0,0,0,0]
+            }],
+          });
+
+        var classComplexity = new Highcharts.Chart({
+            chart: {
+              renderTo: 'classComplexity',
+              type: 'scatter'
+            },
+            title: {text: ''},
+            legend: {enabled: false},
+            credits: {enabled: false},
+            xAxis: {
+               labels: {enabled: false},
+            },
+            yAxis: {
+              title: '',
+              labels: {enabled: false},
+            },
+            tooltip: {
+                formatter: function() {
+                    return this.point.config[2];
+                }
+            },
+            series: [{
+              data: [[10.909090909091,25,"<a href=\"php_includes_ZendFramework_library_Zend_Form_Decorator_Abstract.php.html#34\">Zend_Form_Decorator_Abstract<\/a>"],[0,19,"<a href=\"php_includes_ZendFramework_library_Zend_Form_Decorator_Description.php.html#44\">Zend_Form_Decorator_Description<\/a>"],[0,5,"<a href=\"php_includes_ZendFramework_library_Zend_Form_Decorator_Errors.php.html#37\">Zend_Form_Decorator_Errors<\/a>"],[0,17,"<a href=\"php_includes_ZendFramework_library_Zend_Form_Decorator_Fieldset.php.html#37\">Zend_Form_Decorator_Fieldset<\/a>"],[0,26,"<a href=\"php_includes_ZendFramework_library_Zend_Form_Decorator_FormElements.php.html#42\">Zend_Form_Decorator_FormElements<\/a>"],[0,32,"<a href=\"php_includes_ZendFramework_library_Zend_Form_Decorator_HtmlTag.php.html#50\">Zend_Form_Decorator_HtmlTag<\/a>"],[0,47,"<a href=\"php_includes_ZendFramework_library_Zend_Form_Decorator_Label.php.html#46\">Zend_Form_Decorator_Label<\/a>"],[0,31,"<a href=\"php_includes_ZendFramework_library_Zend_Form_Decorator_ViewHelper.php.html#44\">Zend_Form_Decorator_ViewHelper<\/a>"]],
+              marker: {
+                  symbol: 'diamond'
+              }
+            }],
+        });
+    });
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr><td class="title">Decorator</td></tr>
+      <tr><td><div align="center"><p><a href="php_includes_ZendFramework_library_Zend_Form_Decorator.html">Back to Code Coverage report</a></p></div></td></tr>
+      <tr><td class="ruler"><img src="glass.png" width="3" height="3" alt=""></td></tr>
+    </table>
+
+    <br />
+
+    <center>
+      <table width="90%" cellpadding="2" cellspacing="1" border="0">
+        <tr>
+          <td valign="top">
+            <h2>Class Coverage Distribution</h2>
+            <div id="classCoverageDistribution"></div>
+          </td>
+
+          <td valign="top">
+            <h2>Class Complexity</h2>
+            <div id="classComplexity"></div>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <h2>Top Project Risks</h2>
+            <ul>
+              <li><a href="php_includes_ZendFramework_library_Zend_Form_Decorator_Label.php.html#46">Zend_Form_Decorator_Label</a> (2256)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Form_Decorator_HtmlTag.php.html#50">Zend_Form_Decorator_HtmlTag</a> (1056)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Form_Decorator_ViewHelper.php.html#44">Zend_Form_Decorator_ViewHelper</a> (992)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Form_Decorator_FormElements.php.html#42">Zend_Form_Decorator_FormElements</a> (702)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Form_Decorator_Abstract.php.html#34">Zend_Form_Decorator_Abstract</a> (466)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Form_Decorator_Description.php.html#44">Zend_Form_Decorator_Description</a> (380)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Form_Decorator_Fieldset.php.html#37">Zend_Form_Decorator_Fieldset</a> (306)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Form_Decorator_Errors.php.html#37">Zend_Form_Decorator_Errors</a> (30)</li>
+
+            </ul>
+          </td>
+
+          <td valign="top">
+            <h2>Least Tested Methods</h2>
+            <ul>
+              <li><a href="php_includes_ZendFramework_library_Zend_Form_Decorator_Label.php.html#72">Zend_Form_Decorator_Label::setId</a> (0%)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Form_Decorator_HtmlTag.php.html#238">Zend_Form_Decorator_HtmlTag::_getEncoding</a> (0%)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Form_Decorator_Label.php.html#86">Zend_Form_Decorator_Label::getId</a> (0%)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Form_Decorator_Label.php.html#105">Zend_Form_Decorator_Label::setTag</a> (0%)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Form_Decorator_Label.php.html#123">Zend_Form_Decorator_Label::getTag</a> (0%)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Form_Decorator_HtmlTag.php.html#189">Zend_Form_Decorator_HtmlTag::render</a> (0%)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Form_Decorator_HtmlTag.php.html#178">Zend_Form_Decorator_HtmlTag::_getCloseTag</a> (0%)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Form_Decorator_HtmlTag.php.html#109">Zend_Form_Decorator_HtmlTag::normalizeTag</a> (0%)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Form_Decorator_HtmlTag.php.html#128">Zend_Form_Decorator_HtmlTag::setTag</a> (0%)</li>
+              <li><a href="php_includes_ZendFramework_library_Zend_Form_Decorator_HtmlTag.php.html#141">Zend_Form_Decorator_HtmlTag::getTag</a> (0%)</li>
+
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </center>
+
+    <br />
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr><td class="ruler"><img src="glass.png" width="3" height="3" alt=""></td></tr>
+      <tr><td class="versionInfo">Generated by <a href="http://github.com/sebastianbergmann/php-code-coverage" target="_top">PHP_CodeCoverage 1.1.2</a> using <a href="http://www.php.net/" target="_top">PHP 5.3.10</a> and PHPUnit 3.6.10 at Mon Apr 16 23:09:33 CEST 2012.</td></tr>
+    </table>
+
+    <br/>
+  </body>
+</html>

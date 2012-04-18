@@ -1,5 +1,6 @@
 <?php
 class Patient_Model_PatientMapper extends Me_Model_Mapper_Abstract
+implements Me_User_Model_User_Mapper_Interface
 {
     protected $_dbTable = 'Patient_Model_DbTable_Patient';
 
@@ -16,10 +17,12 @@ class Patient_Model_PatientMapper extends Me_Model_Mapper_Abstract
  
         if (null === ($id = $model->getId())) {
             unset($data['id']);
-            $this->getDbTable()->insert($data);
+            $id = $this->getDbTable()->insert($data);
         } else {
-            $this->getDbTable()->update($data, array('id = ?' => $id));
+            $id = $this->getDbTable()->update($data, array('id = ?' => $id));
         }
+        $model->id = $id;
+        return $id;
     }
     
     protected function _createNewModelFromRow($row)

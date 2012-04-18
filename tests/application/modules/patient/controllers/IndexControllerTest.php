@@ -19,6 +19,39 @@ class Patient_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->assertQuery("form#login");
     }
     
+    public function testlogoutActionIsNotErrorPage()
+    {
+        $this->dispatch('/patient/index/logout');
+        
+        $this->assertNotController('error');
+    }
+    
+    public function testPasswordRecoveryActionDisplaysForm()
+    {
+        $this->dispatch('/patient/index/password-recovery');
+        $this->assertQuery("form#passwordRecovery");
+    }        
+    
+    public function testWrongEmailForPasswordRecoveryWillReturnError()
+    {
+        $this->request->setMethod('post')
+                ->setPost(array(
+                   'username' => 'aajajkajaajkajkjk@wp.pl' // does not exists 
+                ));
+        $this->dispatch('/patient/index/password-recovery');
+        $this->assertNotController('error');
+        $this->assertAction('password-recovery');
+        $this->assertQueryContentContains('div.alert', 'No such user');
+    }
+    
+    public function testIfRecoveryActionWithoutTokenWillNotwork()
+    {
+        $this->dispatch('/patient/index/new-password-from-token');
+        
+        $this->assertController('error');
+        $this->assertAction('error');
+    }
+    
     public function testPassingEmptyForWillNotGetMeIn()
     {
 		$this->request->setMethod('post')
