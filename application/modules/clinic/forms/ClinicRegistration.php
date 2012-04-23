@@ -94,4 +94,3 @@ class Clinic_Form_ClinicRegistration extends Twitter_Form
 
 
 }
-

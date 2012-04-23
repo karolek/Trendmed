@@ -1,8 +1,12 @@
 <li class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown">My Account<b class="caret"></b></a>
+    <a class="dropdown-toggle" data-toggle="dropdown">Kliniki<b class="caret"></b></a>
     <ul class="dropdown-menu">
-        <li><a href="<?= $this->url(array('module' => 'patient', 'action' => 'edit-details', 'controller' => 'profile')); ?>"><?= $this->translate('Edit my details'); ?></a></li>
-        <li><a href="<?= $this->url(array('module' => 'patient', 'action' => 'change-password', 'controller' => 'profile')); ?>"><?= $this->translate('Change my password'); ?></a></li>
+        <li><a href="<?= $this->url(array('module' => 'admin', 'action' => 'index', 'controller' => 'clinics')); ?>"><?= $this->translate('Lista klinik'); ?></a></li>
     </ul>
 </li>
-<li class=""><a href="<?= $this->url(array('module' => 'patient', 'action' => 'index', 'controller' => 'profile')); ?>"><?= $this->translate('My reservations'); ?></a></li>
+<li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown">Kategorie<b class="caret"></b></a>
+    <ul class="dropdown-menu">
+        <li><a href="<?= $this->url(array('module' => 'admin', 'action' => 'index', 'controller' => 'categories')); ?>"><?= $this->translate('Lista kategorii'); ?></a></li>
+    </ul>
+</li>

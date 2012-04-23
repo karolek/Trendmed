@@ -5,7 +5,11 @@ class Clinic_RegisterController extends Me_User_Controllers_RegisterController
 
     public function getRegistrationForm()
     {
-        return new Clinic_Form_ClinicRegistration();
+        $form = new Clinic_Form_ClinicRegistration();
+        $form->setDecorators(array(
+    array('ViewScript', array('viewScript' => 'register/registrationForm.phtml'))
+));
+        return $form;
     }
 }
 

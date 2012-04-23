@@ -58,5 +58,3 @@ abstract class Me_Model_Mapper_Abstract {
         
     }
 }
-
-?>

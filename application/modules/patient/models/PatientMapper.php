@@ -13,6 +13,8 @@ implements Me_User_Model_User_Mapper_Interface
             'token'             => $model->getToken(),
             'tokenvaliduntil'   => $model->getTokenValidUntil(),
             'created'           => time(),
+            'lastlogintime'     => $model->getLastLoginTime(),
+
         );
  
         if (null === ($id = $model->getId())) {

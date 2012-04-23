@@ -7,19 +7,13 @@ implements Me_User_Model_User_Mapper_Interface
     public function save(Admin_Model_Admin $model)
     {
         $data = array(
-            'name'              => $model->getName(),
-            'street'            => $model->getStreet(),
-            'city'              => $model->getCity(),
-            'province'          => $model->getProvince(),
-            'postcode'          => $model->getPostcode(),
-            'representantname'  => $model->getRepresentantname(),
-            'representantphone' => $model->getRepresentantphone(),
             'email'             => $model->getEmail(),
             'password'          => $model->getPassword(),
             'salt'              => $model->getSalt(),
             'aclrole_id'        => $model->getRole()->id,
             'token'             => $model->getToken(),
             'tokenvaliduntil'   => $model->getTokenValidUntil(),
+            'lastlogintime'     => $model->getLastLoginTime(),
         );
  
         if (null === ($id = $model->getId())) {

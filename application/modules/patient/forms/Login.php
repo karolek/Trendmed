@@ -23,7 +23,7 @@ class Patient_Form_Login extends Twitter_Form
                 array('StringLength', false, array(0, 50)),
             ),
             'required'   => true,
-            'label'      => 'Hasło:',
+            'label'      => 'Password',
         ));
 		
 		$submit      = new Zend_Form_Element_Submit('signin');

@@ -21,7 +21,7 @@ implements Me_User_Model_User_Interface
     }
 
     public function getUsername() {
-        return $this->_username;
+        return $this->_email;
     }
 
     public function setUsername($username) {

@@ -1,7 +1,24 @@
 <?php
-
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
+    
+    protected function _initLocale()
+    {
+        $locale = new Zend_Locale();
+        Zend_Registry::set('locale', $locale);
+    }
+    
+    protected function _initTranslate()
+    {
+        $this->bootstrap('locale');
+        $translate = new Zend_Translate(
+                        array(
+                            'adapter' => 'csv',
+                            'content' => APPLICATION_PATH . '/../data/languages',
+                        )
+        );
+        Zend_Registry::set('Zend_Translate', $translate);
+    }
     protected function _initTwitterBootstrap() {
         $this->bootstrap('view');
         $view = $this->getResource('view');

@@ -5,6 +5,21 @@ class Clinic_Model_DbTable_Clinic extends Zend_Db_Table_Abstract
     protected $_identityColumn = 'email';
     protected $_credentialColumn = 'password';
 
+    public function getName()
+    {
+        return $this->_name;
+    }
+    
+    public function getIdentityColumn()
+    {
+        return $this->_identityColumn;
+    }
+    
+    public function getCredentialColumn()
+    {
+        return $this->_credentialColumn;
+    }
+    
     public function findByUsername($username)
     {
         $select = $this->select();

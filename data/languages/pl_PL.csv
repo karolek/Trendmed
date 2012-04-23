@@ -1,0 +1,23 @@
+Name of the clinic;Nazwa kliniki
+Password;Hasło
+Heading;Nagłówek
+Patient login;Logowanie pacjenta
+Patient signup;Rejestracja pacjenta
+For clinics;Dla klinik
+Register;Rejestracja
+Login into panel;Zaloguj się do panelu
+Street address;Ulica i numer lokalu
+City;Miasto
+Province;Wojewódzctwo
+Postcode;Kod pocztowy
+Help;Pomoc
+Address info;Dane adresowe
+Representant info;Dane osoby reprezentującej
+Email address;Adres e-mail
+Representant name;Imię i nazwisko reprezentanta
+Representant phone;Telefon do reprezentanta
+Account info;Dane konta
+Repeat password;Powtórz hasło
+Sign in!;Zapisz się!
+Value is required and can't be empty;Pole jest wymagane
+'%value%' is no valid email address in the basic format local-part@hostname;Podaj poprawny adres e-mail

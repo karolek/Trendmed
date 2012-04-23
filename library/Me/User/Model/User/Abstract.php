@@ -12,7 +12,17 @@ implements Me_User_Model_User_Interface
     protected $_role;
     protected $_token;
     protected $_tokenValidUntil;
+    protected $_lastLoginTime;
     
+    public function getLastLoginTime() {
+        return $this->_lastLoginTime;
+    }
+
+    public function setLastLoginTime($lastLoginTime) {
+        $this->_lastLoginTime = (int) $lastLoginTime;
+        return $this;
+    }
+        
     public function getToken()
     {
         return $this->_token;
@@ -119,6 +129,7 @@ implements Me_User_Model_User_Interface
 	            // do not remember the session after browser termination
 	            Zend_Session::forgetMe();
 	        }
+            $this->setLastLoginTime(time());
 	        $auth->getStorage()->write($this); // saveing userModel to session to use by
 	        // Zend_Auth
 	        return true;

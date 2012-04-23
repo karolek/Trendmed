@@ -1,0 +1,32 @@
+<?php if (count($this->paginator)): ?>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nazwa</th>
+            <th>Adres</th>
+            <th>Reprezentant</th>
+            <th>Dodano</th>
+            <th>Ostatnio zalogowny</th>
+        </tr>
+    </thead>
+<?php foreach ($this->paginator as $item): ?>
+    <tr>
+        <td><?= $item->id; ?></td>
+        <td><?= $item->name; ?></td>
+        <td><address>
+        <?= $item->street; ?><br />
+        <?= $item->postcode; ?> <?= $item->city; ?></address></td>
+        <td><?= $item->representantname; ?><br />
+        <?= $item->representantphone; ?><br />
+        <?= $item->email; ?></td>
+        <td><?= date("d/m/Y", $item->created); ?></td>
+        <td><?= date("d/m/Y", $item->lastLoginTime); ?></td>
+    </tr>
+<?php endforeach; ?>
+</table>
+<?php endif; ?>
+ 
+<?php echo $this->paginationControl($this->paginator,
+                                    'Sliding',
+                                    '_adminPagination.phtml'); ?>

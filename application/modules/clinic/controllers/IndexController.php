@@ -4,25 +4,25 @@ class Clinic_IndexController extends Me_User_Controllers_LoginController
 {
     protected $_userModel = 'Clinic_Model_Clinic'; // class name of the user model
     protected $_messageAfterLogin = array(
-      'success' => 'You have successfully logged in'  
+      'success' => 'Zostaleś zalogowany poprawne'  
     );
     protected $_messageAfterLogout = array(
-      'success' => 'You have successfully logged in'  
+      'success' => 'Zostaleś wylogowany z systemu'  
     );
     protected $_redirectAfterLogin = array(
         'action'        => 'index',
         'controller'    => 'index',
-        'module'        => 'default',
+        'module'        => 'clinic',
     );
     protected $_redirectAfterLogout = array(
         'action'        => 'index',
         'controller'    => 'index',
-        'module'        => 'default',
+        'module'        => 'clinic',
     );
     protected $_redirectAfterNewPassword = array(
         'action'        => 'index',
         'controller'    => 'index',
-        'module'        => 'default'
+        'module'        => 'clinic'
     );
    public function getLoginForm()
    {

@@ -9,5 +9,7 @@ interface Me_User_Model_User_Interface {
     public function sendPasswordRecoveryToken($link);
     public function tokenIsValid($token);
     public function getMapper();
+    public function setLastLoginTime($timestamp);
+    public function getLastLoginTime();
 
 }

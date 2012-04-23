@@ -15,6 +15,11 @@ implements Me_User_Model_User_Interface
     public function getId() {
         return $this->_id;
     }
+    
+    public function getUsername()
+    {
+        return $this->getEmail();
+    }
 
     public function setId($id) {
         $this->_id = $id;
@@ -95,5 +100,10 @@ implements Me_User_Model_User_Interface
             $role = $roleMapper->findByName('clinic');
             $this->setRole($role);
         }
+    }
+    
+    public function hasAllSetings()
+    {
+        
     }
 }

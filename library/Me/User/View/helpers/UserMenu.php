@@ -27,7 +27,7 @@ class Me_User_View_Helpers_UserMenu extends Zend_View_Helper_Abstract
 	{
 	   // we first get the user
 	   $user = $this->view->LoggedUser();
-	   if(!$user) return;
+	   if(!is_object($user)) return;
 	   $roleName = $user->getRole()->getName();
 	   $scriptName = '_' . strtolower($roleName) . 'Menu.phtml';
 	   $output = $this->view->render($scriptName);
