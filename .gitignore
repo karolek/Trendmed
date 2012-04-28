@@ -4,3 +4,5 @@ tests/_log/*
 docs/*.txt
 docs/*.html
 /nbproject/private/
+*.log
+data/reports/*
