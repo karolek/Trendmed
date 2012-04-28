@@ -1,4 +1,5 @@
 <?php
+namespace Me\Controller\Plugin;
 /**
  * Plugin for initialization seperate layout for each module.
  * 
@@ -8,7 +9,7 @@
  *
  * @package Br
  */
-class Br_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
+class ModuleLayout extends Zend_Controller_Plugin_Abstract
 {
 
     public function preDispatch(Zend_Controller_Request_Abstract $request)

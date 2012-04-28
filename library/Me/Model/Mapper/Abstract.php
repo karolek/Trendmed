@@ -1,5 +1,6 @@
 <?php
-abstract class Me_Model_Mapper_Abstract {
+namespace Me;
+abstract class Mapper {
     protected $_dbTable;
 
     public function setDbTable($dbTable)

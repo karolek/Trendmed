@@ -1,16 +1,11 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
+namespace Me;
 /**
- * Description of Model
+ * Generic Entity model from with other Entities may abstract.
  *
  * @author Bard
  */
-abstract class Me_Model_Abstract {
+abstract class Model {
     
     public function __construct(array $options = null)
     {
@@ -48,13 +43,4 @@ abstract class Me_Model_Abstract {
         }
         return $this;
     }
-    
-    public function getMapper()
-    {
-        $mapperName = get_class($this)."Mapper";
-        return new $mapperName;
-    }
- 
 }
-
-?>

@@ -1,8 +1,9 @@
 <?php
+namespace Me\Controller\Plugin;
 /**
 * 
 */
-class Br_Plugin_Acl extends Zend_Controller_Plugin_Abstract
+class Acl extends Zend_Controller_Plugin_Abstract
 {
 	
 	public function preDispatch(Zend_Controller_Request_Abstract $request) {
@@ -34,5 +35,3 @@ class Br_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 		}
 	}
 }
-
-?>
