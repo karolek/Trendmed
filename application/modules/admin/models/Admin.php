@@ -1,5 +1,5 @@
 <?php
-class Admin_Model_Admin extends Me_User_Model_User_Abstract
+class Admin_Model_Admin extends \Me\User\Model\User
 implements Me_User_Model_User_Interface
 {
     protected $_id;

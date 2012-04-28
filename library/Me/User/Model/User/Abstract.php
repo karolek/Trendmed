@@ -1,8 +1,9 @@
 <?php
+namespace Me\User\Model;
 /**
 * 
 */
-abstract class Me_User_Model_User_Abstract extends Me_Model_Abstract 
+abstract class User extends Me\Model
 implements Me_User_Model_User_Interface
 {
     protected $_id;

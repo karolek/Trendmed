@@ -1,5 +1,5 @@
 <?php
-class Clinic_Model_Clinic extends Me_User_Model_User_Abstract
+class Clinic_Model_Clinic extends \Me\User\Model\User
 implements Me_User_Model_User_Interface
 {
     protected $_id;
