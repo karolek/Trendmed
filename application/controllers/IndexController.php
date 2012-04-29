@@ -1,10 +1,13 @@
 <?php
 
-class IndexController extends Zend_Controller_Action
+class IndexController extends \Zend_Controller_Action
 {
 
+    protected $_em;
+    
     public function init()
     {
+        $this->_em = $this->_helper->getEm();
         /* Initialize action controller here */
     }
 

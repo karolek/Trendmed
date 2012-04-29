@@ -1,5 +1,5 @@
 <?php
-
+namespace Trendmed\Entity;
 /**
  * Description of User
  *
