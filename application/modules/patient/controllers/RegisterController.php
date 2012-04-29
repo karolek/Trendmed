@@ -9,7 +9,7 @@
  */
 class Patient_RegisterController extends Me_User_Controllers_RegisterController
 {
-    protected $_userModel = 'Patient_Model_Patient'; // class name of the user model
+    protected $_userModel = '\Trendmed\Entity\Patient'; // class name of the user model
     
 	public function getRegistrationForm()
 	{

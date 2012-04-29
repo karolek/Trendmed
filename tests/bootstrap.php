@@ -16,3 +16,9 @@ set_include_path(implode(PATH_SEPARATOR, array(
 
 require_once 'Zend/Loader/Autoloader.php';
 Zend_Loader_Autoloader::getInstance();
+// Create application, bootstrap, and run
+$application = new Zend_Application(
+   APPLICATION_ENV,
+   APPLICATION_PATH . '/configs/application.ini'
+);
+require_once './ModelTestCase.php';

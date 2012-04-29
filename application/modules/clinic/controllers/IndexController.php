@@ -2,7 +2,7 @@
 
 class Clinic_IndexController extends Me_User_Controllers_LoginController
 {
-    protected $_userModel = 'Clinic_Model_Clinic'; // class name of the user model
+    protected $_userModel = '\Trendmed\Entity\Clinic'; // class name of the user model
     protected $_messageAfterLogin = array(
       'success' => 'Zostaleś zalogowany poprawne'  
     );

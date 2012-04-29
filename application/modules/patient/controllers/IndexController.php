@@ -1,7 +1,7 @@
 <?php
 class Patient_IndexController extends Me_User_Controllers_LoginController
 {
-   protected $_userModel = 'Patient_Model_Patient'; // class name of the user model
+   protected $_userModel = '\Trendmed\Entity\Patient'; // class name of the user model
 
    public function getLoginForm()
    {

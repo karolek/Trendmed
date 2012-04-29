@@ -22,8 +22,6 @@ abstract class Me_User_Controllers_RegisterController extends Zend_Controller_Ac
     public function init()
     {
         /* Initialize action controller here */
-        // adding the GetDbHelper
-        Zend_Controller_Action_HelperBroker::addPrefix('Me_Controller_Action_Helper_');
     }
 
 	/**
@@ -32,9 +30,10 @@ abstract class Me_User_Controllers_RegisterController extends Zend_Controller_Ac
 	 */
     public function indexAction()
     {
-		$request 	= $this->getRequest();
+        $request 	= $this->getRequest();
 		$form 		= $this->getRegistrationForm();
-        
+        $em         = $this->_helper->getEm();
+                
         // we initialize model (you should fill _userModel in Your controller)
 		$model = new $this->_userModel;
 
@@ -44,17 +43,9 @@ abstract class Me_User_Controllers_RegisterController extends Zend_Controller_Ac
             // can register new user
                 $values = $form->getValues();
 			    $model->setOptions($values);
-			    
-			    $db = $this->_helper->getDb();
-			    $db->beginTransaction(); // DB transaction
-                
-			    $modelMapper = $model->getMapper();
-			    $id = $modelMapper->save($model);
-                if(!$id > 0) {
-                    throw new Exception('Save of a ' . $model->getRole()->name . '  failed');
-                }
-			    $model->sendWelcomeEmail();
-   			    $db->commit();
+                $model->sendWelcomeEmail();
+   			    
+                $em->persist($model);
 
 			    $this->_helper->FlashMessenger($this->_messageSuccessAfterRegistration);
 			    $this->_helper->Redirector(
@@ -66,8 +57,8 @@ abstract class Me_User_Controllers_RegisterController extends Zend_Controller_Ac
 			    $this->_helper->FlashMessenger(array('error' => 'Please fill out the form correctly'));
 			}
 		}
-        
-        $this->view->headTitle(ucfirst($model->getRole()->name).' registration');
+		
+        $this->view->headTitle(ucfirst($model->getRoleName()).' registration');
 		$this->view->form = $form;
     }
 

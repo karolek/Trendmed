@@ -48,40 +48,6 @@ class Clinic_RegisterControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->assertQuery('form#register input[name="password_confirmation"]');
         $this->assertQueryContentContains('div.alert', 'Please fill out the form correctly');
     }
-    
-    public function testRegistrationOfClinic()
-    {
-        $email = rand(1, 99999999).'tomek@wp.pl';
-        echo $email;
-        $this->request->setMethod('post')
-                ->setPost(array(
-                    'name'                  => 'PosClinic',
-                    'street'                => 'Rubinowa 4/27',
-                    'city'                  => 'Gdańsk',
-                    'postcode'              => '80-255',
-                    'province'              => '1',
-                    'representantname'      => 'Bartosz Rychlicki',
-                    'representantphone'     => '+48512129709',
-                    'email'                 => $email,
-                    'password'              => 'swierszczyk',
-                    'password_confirmation' => 'swierszczyk',
-                    
-                ));
-
-        $params = array(
-            'action'        => 'index',
-            'controller'    => 'register',
-            'module'        => 'clinic'
-        );        
-        $urlParams = $this->urlizeOptions($params);
-        $url = $this->url($urlParams);
-        $this->dispatch($url);
-        
-        // assertions
-        $this->assertNotController('error');
-        //$this->assertQueryContentContains('div.alert', 'You have registered succesfuly');
-    }
-
 }
 
 

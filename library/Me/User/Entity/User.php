@@ -213,6 +213,4 @@ abstract class User extends Me\Model
             
         return $authAdapter;
 	}
-	
-	
 }

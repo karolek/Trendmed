@@ -34,8 +34,8 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
 				$values = $form->getValues();
 				
 				// we first search for that user
-				$modelMapper = $model->getMapper();
-				$model  = $modelMapper->findByUsername($values['username']);
+				$model  = $this->_helper->getEm()->getRepository($this->_userModel)
+                        ->findOneByLogin($values['username']);
 				if (!$model) { // we didnt find the user in DB
 				    $this->_helper->FlashMessenger(array('error' => 'No such user in database as: '.$values['username']));
 				} else {
@@ -112,14 +112,13 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
         $form = $this->getPasswordRecoveryForm();
         $request = $this->getRequest();
         $model = new $this->_userModel;
-        $userMapper = $model->getMapper();
-
         if ($request->isPost()) {
             $post = $request->getPost();
             if ($form->isValid($post)) {
                 $values = $form->getValues();
                 // we first search for that user
-                $userModel = $userMapper->findByUsername($values['username']);
+                $userModel = $this->_helper->getEm()->getRepository($this->_userModel)
+                        ->findOneByLogin($values['username']);
                 if (!$userModel) { // we didnt find the user in DB
                     $this->_helper->FlashMessenger(array('error' => 'No such user in database as: ' . $values['username']));
                 } else {
@@ -127,7 +126,8 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
                     $link = 'http://'. $_SERVER['HTTP_HOST'] . '/' . $request->getModuleName() . '/' . $request->getControllerName() . '/new-password-from-token/token/%s';
                     $userModel->sendPasswordRecoveryToken($link);
                     // we have to save token that our model generated
-                    $userMapper->save($userModel);
+                    $this->_helper->getEm()->persist($userModel);
+                    $this->_helper->getEm()->flush();
                     $this->_helper->FlashMessenger(array('success' => 'Recovery password e-mail send to: ' . $userModel->getEmailaddress()));
                     $this->_helper->viewRenderer->setRender('password-recovery-confirm');
                 }

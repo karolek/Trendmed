@@ -7,7 +7,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         $autoloader = \Zend_Loader_Autoloader::getInstance();
         $fmmAutoloader = new \Doctrine\Common\ClassLoader('Bisna');
+        $classLoader = new \Doctrine\Common\ClassLoader('DoctrineExtensions', APPLICATION_PATH . 
+                "/../library");
+        $classLoader->register();
+        
         $autoloader->pushAutoloader(array($fmmAutoloader, 'loadClass'), 'Bisna');
+        $autoloader->pushAutoloader(array($classLoader, 'loadClass'), 'DoctrineExtensions');
     }
     protected function _initLocale()
     {

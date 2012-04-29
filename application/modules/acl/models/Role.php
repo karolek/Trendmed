@@ -1,4 +1,5 @@
 <?php 
+use Me\Model;
 /**
 * 
 */

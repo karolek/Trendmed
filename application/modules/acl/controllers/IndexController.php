@@ -3,7 +3,7 @@
 * 
 */
 
-class Acl_IndexController extends Br_Controller_Action
+class Acl_IndexController extends \Zend_Controller_Action
 {
 	/**
 	 * Displays all rules we have in systens for each module/controller/action and  it's roles

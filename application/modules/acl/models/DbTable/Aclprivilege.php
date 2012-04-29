@@ -1,5 +1,5 @@
 <?php
-class Acl_Model_DbTable_Aclprivilege extends Br_Db_Table_Abstract
+class Acl_Model_DbTable_Aclprivilege extends \Zend_Db_Table_Abstract
 {
     protected $_referenceMap    = array(
             'Role' => array(

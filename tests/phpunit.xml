@@ -1,20 +1,23 @@
-<phpunit bootstrap="./bootstrap.php">
-    <testsuite name="Application Test Suite">
+<phpunit bootstrap="./bootstrap.php" stopOnError="true" verbose="true">
+    <testsuites>
+    <testsuite name="Entities test suite">
         <directory>./application</directory>
+        <directory>./library/Trendmed/Entity</directory>
     </testsuite>
-    <testsuite name="Library Test Suite">
-        <directory>./library</directory>
-    </testsuite>
+
+    </testsuites>
     
     <filter>
         <!-- If Zend Framework is inside your project's library, uncomment this filter -->
-        <!-- 
         <whitelist>
-            <directory suffix=".php">../../library/Zend</directory>
+            <directory suffix=".php">../application</directory>
+            <directory suffix=".php">../library/Trendmed</directory>
+            <exclude>
+                <file>../../application.php</file>
+            </exclude>
         </whitelist>
-        -->
     </filter>
     <logging>
-        <log type="testdox-html" target="../data/reports/unit/testdox.html"/>
+          <log type="testdox-html" target="./logs/testdox.html"/>
     </logging>
 </phpunit>
