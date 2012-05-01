@@ -11,5 +11,13 @@ class Clinic_RegisterController extends Me_User_Controllers_RegisterController
 ));
         return $form;
     }
+    
+    /**
+     * Displays static content about plans and priceing for Clinics.
+     */
+    public function infoAction()
+    {
+        
+    }
 }
 

@@ -2,7 +2,6 @@
 /**
 * 
 */
-
 class Acl_IndexController extends \Zend_Controller_Action
 {
 	/**
@@ -20,9 +19,9 @@ class Acl_IndexController extends \Zend_Controller_Action
 	 */
 	public function rolesAction()
 	{
-		$roleTable = new Zend_Db_Table('aclrole');
-		
-		if(!$roles = $roleTable->fetchAll()) {
+        $repository = $this->_helper->getEm()->getRepository('\Trendmed\Entity\Role');
+        $roles = $repository->findAll();
+		if(!$roles) {
 			throw new Exception("No roles in the database, that's akward. You should at least have guest role.", 500);
 			
 		}
@@ -35,7 +34,7 @@ class Acl_IndexController extends \Zend_Controller_Action
 		$roleId = $request->getParam('id');
 
 		if(is_numeric($roleId) and $roleId > 0) {
-			if(!$role = $roleTable->find($roleId)->current()) {
+			if(!$role = $repository->find($roleId)) {
 				throw new Exception("No role id DB that have ID=".$roleId, 1);
 			}
 			$form->populate($role->toArray());
@@ -45,11 +44,12 @@ class Acl_IndexController extends \Zend_Controller_Action
 			if($form->isValid($post = $request->getPost())) {
 				
 				if(!isset($role)) { // new role
-					$role = $roleTable->createRow();
+					$role = new \Trendmed\Entity\Role;
 				}
 				
 				$role->name = $post['name'];
-				$role->save();
+				$this->_helper->getEm()->persist($role);
+                $this->_helper->getEm()->flush();
 				$this->_helper->FlashMessenger(array('success' => 'Changes to roles saved successfully'));
 				$this->_helper->Redirector('roles', 'index', 'acl');
 			} else { //form not valid

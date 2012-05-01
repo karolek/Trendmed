@@ -1,4 +1,5 @@
 <h3><?= $this->translate('Roles list'); ?></h3>
+  
 <table class="table table-striped table-bordered table-condensed">
 	<thead>
 		<tr>
@@ -40,7 +41,7 @@ echo $this->form; ?>
 	<?php
 	$form = new Acl_Form_RoleDelete();
 	$form->setName('deleteRoleId'.$role->id);
-	$form->populate($role->toArray());
+	$form->setOptions($role->toArray());
 	echo $form;
 	?>
   </div>

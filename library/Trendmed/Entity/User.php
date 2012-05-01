@@ -8,10 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
  */
-class User extends \Me\Model\ModelAbstract
+class User extends \Me\Model\ModelAbstract implements \Me_User_Model_User_Interface
 {
     public function __construct() {
         $this->created = new \DateTime();
+        $this->salt = $this->_generateSalt();
         return parent::__construct();
     }
     
@@ -97,8 +98,8 @@ class User extends \Me\Model\ModelAbstract
     }
 
     public function setRole($role) {
-        $role->addToUser($this);
         $this->role = $role;
+        $role->addToUser($this);
         return $this;
     }
 
@@ -189,12 +190,12 @@ class User extends \Me\Model\ModelAbstract
      */
     public function sendWelcomeEmail()
     {
-        $mail = new Zend_Mail();
-        $config = Zend_Registry::get('config');
-        $log = Zend_Registry::get('log');
+        $mail = new \Zend_Mail();
+        $config = \Zend_Registry::get('config');
+        $log = \Zend_Registry::get('log');
         $mail->setBodyText('This is the text of the welcome e-mail.');
         $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName);
-        $mail->addTo($this->getEmailaddress(), $this->getUsername());
+        $mail->addTo($this->getEmailaddress(), $this->getLogin());
         $mail->setSubject($config->siteEmail->welcomeEmailSubject);
         $mail->send();
         $log->debug('E-mail send to: ' . $this->getEmailaddress() . ' 
@@ -206,7 +207,7 @@ class User extends \Me\Model\ModelAbstract
         $string = md5($this->getEmailaddress() . $this->getId() . time());
         $token = substr($string, 12);
         $this->setToken($token);
-        $config = Zend_Registry::get('config');
+        $config = \Zend_Registry::get('config');
         // setting the token valid time, it can be changed in config/application.ini;
         
         $h = $config->usersAccounts->tokenValidTimeInHours;
@@ -287,4 +288,33 @@ class User extends \Me\Model\ModelAbstract
     {
         $this->modified = new \DateTime();
     }
+ 
+    /**
+     * @ORM\PreUpdate 
+     * @ORM\PrePersist
+     */
+    public function validate() 
+    {
+        if(!$this->role) {
+            throw new Exception('User must have a role before save');
+        }
+        if(!($this->role instanceof \Trendmed\Entity\Role)) {
+            throw new Exception('User role must be an instance of object Role');
+        }
+    }
+    
+    /**
+     * Implemenet this in Your extending class
+     */
+    public function getEmailaddress()
+    {
+        return;
+    }
+    
+    protected function _generateSalt()
+    {
+        return substr(md5(rand(1,999999).time()), 0, 12);   
+    }
+    
+    
 }

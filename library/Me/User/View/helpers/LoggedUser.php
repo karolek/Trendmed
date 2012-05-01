@@ -32,7 +32,10 @@ class Me_User_View_Helpers_LoggedUser extends Zend_View_Helper_Abstract
 	{
 		$auth = Zend_Auth::getInstance();
 		if($auth->hasIdentity()) {
-			$this->setIdentity($auth->getIdentity());
+            $loggedUserId = $auth->getIdentity();
+            $em = Zend_Registry::get('doctrine')->getEntityManager();
+            $user = $em->getRepository('\Trendmed\Entity\Admin')->find($loggedUserId);
+			$this->setIdentity($user);
 		} else {
 			return false;
 		}

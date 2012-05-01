@@ -8,6 +8,15 @@ class Clinic_Form_ClinicRegistration extends Twitter_Form
         $this->setMethod('post');
         $this->setAttrib('class', 'form-horizontal');
         
+        $type = new Zend_Form_Element_Select('type');
+        $config = Zend_Registry::get('config');
+        $translate = Zend_Registry::get('Zend_Translate');
+        $type->setLabel('Type of Clinic');
+        foreach($config->clinics->types as $key => $value) {
+            $type->addMultiOption($key, $translate->_($value));
+        }
+        $this->addElement($type);
+        
         $name = new Zend_Form_Element_Text('name');
         $name->setLabel('Name of the clinic');
         $name->setRequired(true);
@@ -38,7 +47,7 @@ class Clinic_Form_ClinicRegistration extends Twitter_Form
         }
         $this->addElement($province);
         
-        $this->addDisplayGroup(array('name', 'street', 'city', 'postcode', 'province'), 'addressInfo');
+        $this->addDisplayGroup(array('name', 'type', 'street', 'city', 'postcode', 'province'), 'addressInfo');
         $group = $this->getDisplayGroup('addressInfo');
         $group->setLegend('Address info');
         

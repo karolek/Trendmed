@@ -69,6 +69,4 @@ abstract class Me_User_Controllers_RegisterController extends Zend_Controller_Ac
 	{
 
 	}
-
 }
-

@@ -1,10 +1,11 @@
 <?php
 namespace Trendmed\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Trendmed\Repository;
 /**
  * This is clinic model.
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Trendmed\Repository\ClinicRepository")
  * @ORM\Table(name="clinics")
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
@@ -71,7 +72,7 @@ class Clinic extends \Trendmed\Entity\User {
     protected $repName;
     
     /**
-     * @ORM\Column(type="string");
+     * @ORM\Column(type="string", unique=true);
      * @var type 
      */    
     protected $repEmail;
@@ -258,6 +259,12 @@ class Clinic extends \Trendmed\Entity\User {
     }
 
     /*  END GETTERS AND SETTERS */ 
+    
+    /* METHODS */
+    public function getEmailladdress() 
+    {
+        return $this->getRepEmail();
+    }
     
     public function generateSalt()
     {

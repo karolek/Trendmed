@@ -34,6 +34,11 @@ class Role extends \Me\Model\ModelAbstract {
     /* END PROPERTIES */
     
     /* GETTERS AND STTERS */
+    
+    public function getId() {
+        return $this->id;
+    }
+
     public function getName() {
         return $this->name;
     }
@@ -48,4 +53,12 @@ class Role extends \Me\Model\ModelAbstract {
 
     /* END GETTERS AND SETTERS */
     
+    /* METHODS */
+    public function toArray()
+    {
+        return $arr = array(
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+        );
+    }
 }

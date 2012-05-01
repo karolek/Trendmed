@@ -43,5 +43,32 @@ class Admin_IndexController extends Me_User_Controllers_LoginController
        return $form;
    }
    
+   public function setupAdminAction() {
+        $em = $this->_helper->getEm();
+        $repo = $em->getRepository('\Trendmed\Entity\Admin');
+        $admin = $repo->findOneByLogin('admin');
+        if (!$admin) {
+            $admin = new \Trendmed\Entity\Admin;
+            $admin->login = 'admin';
+            $admin->password = 'admin';
+            
+            //$role = new \Trendmed\Entity\Role;
+            $roleRepo = $em->getRepository('\Trendmed\Entity\Role');
+            $role = $roleRepo->findOneByName('admin');
+            if(!$role) {
+                $role = new \Trendmed\Entity\Role;
+                $role->name = 'admin';
+                $em->persist($role);
+            }
+            $admin->setRole($role);
+            
+            $em->persist($admin);
+            $em->flush();
+        }
+        echo 'login with You admin account';
+        $this->_helper->layout()->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+    }
+   
 }
 

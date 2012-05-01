@@ -17,4 +17,8 @@ class Admin extends \Trendmed\Entity\User {
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    
+    public function getId() {
+        return $this->id;
+    }
 }
