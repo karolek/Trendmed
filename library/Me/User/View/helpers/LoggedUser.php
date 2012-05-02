@@ -32,10 +32,17 @@ class Me_User_View_Helpers_LoggedUser extends Zend_View_Helper_Abstract
 	{
 		$auth = Zend_Auth::getInstance();
 		if($auth->hasIdentity()) {
-            $loggedUserId = $auth->getIdentity();
+            $loggedUserInfo = $auth->getIdentity();
             $em = Zend_Registry::get('doctrine')->getEntityManager();
-            $user = $em->getRepository('\Trendmed\Entity\Admin')->find($loggedUserId);
-			$this->setIdentity($user);
+            // constructing namespace for entity 
+            $namespaces = explode('\\',$loggedUserInfo['entityNamespace']);
+            array_pop($namespaces);
+            
+            $namespaces[] = ucfirst($loggedUserInfo['roleName']);
+            $repoNamespace = implode('\\', $namespaces);
+			
+            $user = $em->getRepository($repoNamespace)->find($loggedUserInfo['id']);
+            $this->setIdentity($user);
 		} else {
 			return false;
 		}

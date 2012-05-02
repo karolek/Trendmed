@@ -22,7 +22,7 @@ class Clinic_Form_ClinicRegistration extends Twitter_Form
         $name->setRequired(true);
         $this->addElement($name);
                 
-        $street = new Zend_Form_Element_Text('street');
+        $street = new Zend_Form_Element_Text('streetaddress');
         $street->setLabel('Street address');
         $street->setRequired(true);
         $this->addElement($street);
@@ -47,30 +47,30 @@ class Clinic_Form_ClinicRegistration extends Twitter_Form
         }
         $this->addElement($province);
         
-        $this->addDisplayGroup(array('name', 'type', 'street', 'city', 'postcode', 'province'), 'addressInfo');
+        $this->addDisplayGroup(array('name', 'type', 'streetaddress', 'city', 'postcode', 'province'), 'addressInfo');
         $group = $this->getDisplayGroup('addressInfo');
         $group->setLegend('Address info');
         
         // reprezentant info        
         
-        $email = new Zend_Form_Element_Text('email');
+        $email = new Zend_Form_Element_Text('repEmail');
         $email->setLabel('Email address');
         $email->addValidator('EmailAddress');
         $email->setRequired(true);
         $this->addElement($email);
         
-        $representantName = new Zend_Form_Element_Text('representantname');
+        $representantName = new Zend_Form_Element_Text('repName');
         $representantName->setLabel('Representant name');
         $representantName->setRequired(true);
         $this->addElement($representantName);
         
-        $phone = new Zend_Form_Element_Text('representantphone');
+        $phone = new Zend_Form_Element_Text('repPhone');
         $phone->setLabel('Representant phone');
         $phone->setRequired(true);
         $this->addElement($phone);
 
         
-        $this->addDisplayGroup(array('email', 'representantname', 'representantphone'), 'representantInfo');
+        $this->addDisplayGroup(array('repEmail', 'repName', 'repPhone'), 'representantInfo');
         $group = $this->getDisplayGroup('representantInfo');
         $group->setLegend('Representant info');
         

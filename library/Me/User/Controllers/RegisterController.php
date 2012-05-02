@@ -18,6 +18,7 @@ abstract class Me_User_Controllers_RegisterController extends Zend_Controller_Ac
     protected $_messageSuccessAfterRegistration = array(
       'success' => 'You have registered succesfuly. You can login now.'
     );
+    protected $_roleModel; // name of the entity with role to attach
 
     public function init()
     {
@@ -40,20 +41,30 @@ abstract class Me_User_Controllers_RegisterController extends Zend_Controller_Ac
 		if($request->isPost()) {
 			$post = $request->getPost();
 			if($form->isValid($post)) { // data in the form are valid so we 
-            // can register new user
+                // can register new user
                 $values = $form->getValues();
 			    $model->setOptions($values);
-                $model->sendWelcomeEmail();
-   			    
+                // adding role to object
+                $role = $em->getRepository('\Trendmed\Entity\Role')
+                        ->findOneByName($model->getRoleName());
+                if(!$role) throw new Exception('Given role ('.$model->getRoleName().'
+                    not found in DB');
+                $model->setRole($role);
                 $em->persist($model);
-
-			    $this->_helper->FlashMessenger($this->_messageSuccessAfterRegistration);
+                $model->sendWelcomeEmail();
+			    
+                $em->flush();
+                
+                $this->_helper->FlashMessenger($this->_messageSuccessAfterRegistration);
 			    $this->_helper->Redirector(
                         $this->_redirectAfterRegistration['action'],
                         $this->_redirectAfterRegistration['controller'],
                         $this->_redirectAfterRegistration['module']
                         );
 			} else {
+                $errors = $form->getErrorMessages();
+                $code = $form->getErrors();
+                $custom = $form->getCustomMessages();
 			    $this->_helper->FlashMessenger(array('error' => 'Please fill out the form correctly'));
 			}
 		}

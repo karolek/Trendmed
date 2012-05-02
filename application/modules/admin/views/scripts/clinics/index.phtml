@@ -13,20 +13,22 @@
 <?php foreach ($this->paginator as $item): ?>
     <tr>
         <td><?= $item->id; ?></td>
-        <td><?= $item->name; ?></td>
+        <td><?= $item->name; ?><br /><strong>Typ:</strong> <?= $this->translate($item->type); ?></td>
         <td><address>
-        <?= $item->street; ?><br />
+        <?= $item->streetaddress; ?><br />
         <?= $item->postcode; ?> <?= $item->city; ?></address></td>
-        <td><?= $item->representantname; ?><br />
-        <?= $item->representantphone; ?><br />
-        <?= $item->email; ?></td>
-        <td><?= date("d/m/Y", $item->created); ?></td>
-        <td><?= date("d/m/Y", $item->lastLoginTime); ?></td>
+        <td><?= $item->repName; ?><br />
+        <?= $item->repPhone; ?><br />
+        <?= $item->repEmail; ?></td>
+        <td><?= $item->created->format('d/m/Y'); ?></td>
+        <td>
+        <? if($item->lastLoginTime): ?>
+        <?= $item->lastLoginTime->format('d/m/Y'); ?>
+        <? else: ?>
+            Klinika się nie logowała.
+        <? endif; ?>
+        </td>
     </tr>
 <?php endforeach; ?>
 </table>
 <?php endif; ?>
- 
-<?php echo $this->paginationControl($this->paginator,
-                                    'Sliding',
-                                    '_adminPagination.phtml'); ?>

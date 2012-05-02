@@ -9,6 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
 class Category extends \Me\Model\ModelAbstract {
+    
+    public function __construct() {
+    }
+
+    
     /* PROPERTIES */
     /**
      * @ORM\Column(name="id", type="integer", nullable=false)

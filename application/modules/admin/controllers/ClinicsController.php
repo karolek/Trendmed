@@ -1,4 +1,5 @@
 <?php
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /*
  * To change this template, choose Tools | Templates
@@ -11,23 +12,23 @@
  * @author Bard
  */
 class Admin_ClinicsController extends Zend_Controller_Action {
-    
-    
     /**
      * Displays list of clinics 
      */
     public function indexAction() {
         $this->view->headTitle('Lista zarejestrowanych obiektów');
-        $clinicMapper = new Clinic_Model_ClinicMapper();
         $request = $this->getRequest();
-        $adapter = new Zend_Paginator_Adapter_DbTableSelect($clinicMapper
-                ->getDbTable()
-                ->select()
-                );
-
-        $paginator = new Zend_Paginator($adapter);
-        $paginator->setItemCountPerPage(1);
-        $paginator->setCurrentPageNumber($request->getParam('page', 1));
+        
+        $qb = $this->_helper->getEm()->createQueryBuilder();
+        $qb->select('c')
+                ->from('\Trendmed\Entity\Clinic', 'c');
+        $qb->setMaxResults(50);
+        $qb->setFirstResult(0);
+        
+        $query = $qb->getQuery();
+        
+        
+        $paginator = new Paginator($query, $fetchJoin = true);
         $this->view->paginator = $paginator;
     }
 }

@@ -34,7 +34,7 @@ class User extends \Me\Model\ModelAbstract implements \Me_User_Model_User_Interf
     protected $salt;
     
     /**
-     * @ORM\ManyToOne(targetEntity="role")
+     * @ORM\ManyToOne(targetEntity="\Trendmed\Entity\Role")
      */
     protected $role;
     
@@ -176,8 +176,12 @@ class User extends \Me\Model\ModelAbstract implements \Me_User_Model_User_Interf
                 // do not remember the session after browser termination
                 \Zend_Session::forgetMe();
             }
-            $idToStore = $this->getId();
-            $auth->getStorage()->write($idToStore); // saveing user.id to session to use by
+            $arrayToStore = array(
+                'id'                => $this->getId(),
+                'roleName'          => $this->getRole()->name,
+                'entityNamespace'   => get_class(),
+            );
+            $auth->getStorage()->write($arrayToStore); // saveing user.id to session to use by
             // Zend_Auth
             return true;
         } else {
@@ -296,10 +300,11 @@ class User extends \Me\Model\ModelAbstract implements \Me_User_Model_User_Interf
     public function validate() 
     {
         if(!$this->role) {
-            throw new Exception('User must have a role before save');
+            throw new \Exception('User must have a role before save');
         }
         if(!($this->role instanceof \Trendmed\Entity\Role)) {
-            throw new Exception('User role must be an instance of object Role');
+            throw new \Exception('User role must be an instance of object Role, and You give:'
+                    .var_dump($this->role));
         }
     }
     
@@ -316,5 +321,9 @@ class User extends \Me\Model\ModelAbstract implements \Me_User_Model_User_Interf
         return substr(md5(rand(1,999999).time()), 0, 12);   
     }
     
+    protected function getUsername()
+    {
+        return $this->getLogin();
+    }
     
 }
