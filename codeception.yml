@@ -12,7 +12,7 @@ settings:
 modules:
     config:
         Db:
-            dsn: ''
-            user: ''
-            password: ''
+            dsn: 'mysql:host=localhost;dbname=trendmed_test'
+            user: 'root'
+            password: 'root'
             dump: tests/_data/dump.sql

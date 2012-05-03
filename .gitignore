@@ -6,3 +6,4 @@ docs/*.html
 /nbproject/private/
 *.log
 data/reports/*
+/.settings/

@@ -7,7 +7,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         $autoloader = \Zend_Loader_Autoloader::getInstance();
         $fmmAutoloader = new \Doctrine\Common\ClassLoader('Bisna');
-        $classLoader = new \Doctrine\Common\ClassLoader('DoctrineExtensions', APPLICATION_PATH . 
+        $classLoader = new \Doctrine\Common\ClassLoader('Gedmo', APPLICATION_PATH . 
                 "/../library");
         $classLoader->register();
         

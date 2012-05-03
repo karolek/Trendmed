@@ -79,14 +79,18 @@ class Noumenal_View_Helper_FlashMessenger extends Zend_View_Helper_Abstract
         }
         //initialise return string
         $output ='';
-
+        
+        // getting Zend_Translate for translateing the msg
+        $translate = \Zend_Registry::get('Zend_Translate');
+        
         //process messages
         foreach ($messages as $message)
         {
             if (is_array($message)) {
                 list($key,$message) = each($message);
             }
-            $output .= sprintf($template,$key,$message);
+            
+            $output .= sprintf($template,$key,$translate->_($message));
         }
         return $output;
     }

@@ -29,6 +29,10 @@
  * @method WebGuy dontSeeInField($field, $value)
  * 
  * Methods from WebHelper
+ * 
+ * Methods from Db
+ * @method WebGuy seeInDatabase($table)
+ * @method WebGuy dontSeeInDatabase($table)
 **/
 
 

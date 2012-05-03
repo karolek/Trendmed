@@ -326,4 +326,17 @@ class User extends \Me\Model\ModelAbstract implements \Me_User_Model_User_Interf
         return $this->getLogin();
     }
     
+    public function sendNewPasswordEmail()
+    {
+    	$mail = new \Zend_Mail();
+    	$config = \Zend_Registry::get('config');
+    	$log = \Zend_Registry::get('log');
+    	$mail->setBodyText('This is the text of new password notification');
+    	$mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName);
+    	$mail->addTo($this->getEmailaddress(), $this->getUsername());
+    	$mail->setSubject($config->siteEmail->newPasswordSubject);
+    	$mail->send();
+    	$log->debug('E-mail send to: ' . $this->getEmailaddress() . '
+    			from '.$mail->getFrom() . ' subject: ' . $mail->getSubject());
+    }
 }

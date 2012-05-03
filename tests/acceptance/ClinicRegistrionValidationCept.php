@@ -1,0 +1,22 @@
+<?php
+$I = new WebGuy($scenario);
+$I->wantToTest('if registration with the same e-mail will fail');
+$I->amOnPage('/clinic/register');
+$I->see('Dane adresowe');
+$I->fillField('name', 'Trendmed');
+$I->selectOption('type', 'Klinika');
+$I->fillField('streetaddress', 'Topolowa 2');
+$I->fillField('city', 'Gdańsk');
+$I->fillField('postcode', '80-255');
+$I->selectOption('province', 'Pomorskie');
+$I->see('Dane osoby reprezentującej');
+$I->fillField('repEmail', 'b@br-design.pl');
+$I->fillField('repName', 'bartosz');
+$I->fillField('repPhone', '512129709');
+$I->see('Dane konta');
+$I->fillField('password', 'nataniel');
+$I->fillField('password_confirmation', 'nataniel');
+$I->click('Zapisz się');
+$I->dontSee('error');
+$I->dontSee('Zostałeś zarejestrowany');
+$I->see('\'b@br-design.pl\' już istnieje');

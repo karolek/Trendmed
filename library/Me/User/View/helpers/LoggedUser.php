@@ -22,7 +22,7 @@ class Me_User_View_Helpers_LoggedUser extends Zend_View_Helper_Abstract
 	
 	public function getIdentity($property = null)
 	{
-		$this->_getUser();
+		if(!$this->_identity) $this->_getUser();
 		if(!$this->_identity) return false;
 		if($property === null) return $this->_identity;
 		return $this->_identity->$property;

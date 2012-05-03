@@ -7,6 +7,7 @@ use Trendmed\Repository;
  *
  * @ORM\Entity(repositoryClass="Trendmed\Repository\ClinicRepository")
  * @ORM\Table(name="clinics")
+ * @ORM\HasLifecycleCallbacks
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
 class Clinic extends \Trendmed\Entity\User {
@@ -96,13 +97,13 @@ class Clinic extends \Trendmed\Entity\User {
     protected $country;
     
     /**
-     * @ORM\Column(type="string");
+     * @ORM\Column(type="string", nullable=true);
      * @var type 
      */    
     protected $geoLat;
     
     /**
-     * @ORM\Column(type="string");
+     * @ORM\Column(type="string", nullable=true);
      * @var type 
      */    
     protected $getLon;
@@ -121,7 +122,7 @@ class Clinic extends \Trendmed\Entity\User {
      * @ORM\Column(type="string")
      * @var type 
      */
-    protected $roleName;
+    protected $roleName; // only use as a internal helper
     
     /* END PROPERTIES */
     /*  GETTERS AND SETTERS */
@@ -271,4 +272,16 @@ class Clinic extends \Trendmed\Entity\User {
         $salt = rand(1, 100000);
         return $salt;
     }
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function setLoginField()
+    {
+        if(!$this->repEmail) {
+            throw new \Exception('No repEmail, cant make login for clinic');
+        }
+        $this->login = $this->getRepEmail();
+    }
+    
 }

@@ -1,18 +1,25 @@
 <?php
 namespace Trendmed\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
+
 /**
  * Description of User
  *
  * @ORM\Table(name="categories")
- * @ORM\Entity
+ * @Gedmo\Tree(type="nested")
+ * use repository for handy tree functions
+ * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
-class Category extends \Me\Model\ModelAbstract {
+class Category extends \Me\Model\ModelAbstract implements \Gedmo\Tree\Node {
     
     public function __construct() {
+    	$this->created = new \DateTime();
+    	$this->serviceCount = 0;
+        return parent::__construct();
     }
-
     
     /* PROPERTIES */
     /**
@@ -25,12 +32,21 @@ class Category extends \Me\Model\ModelAbstract {
     
     /**
      * @ORM\Column(type="string")
+     * @Gedmo\Translatable
      * @var type 
      */
     protected $name;
     
     /**
+     * @Gedmo\Slug(fields={"name"})
+     * @Gedmo\Translatable
+     * @ORM\Column(type="string", length=128, unique=true)
+     */
+    private $slug;    
+    
+    /**
      * @ORM\Column(type="string", nullable=true)
+     * @Gedmo\Translatable
      * @var type 
      */    
     protected $description;
@@ -48,13 +64,114 @@ class Category extends \Me\Model\ModelAbstract {
     protected $serviceCount;
     
     /**
-     * @ORM\Column(type="integer")
-     * @var type 
+     * @Gedmo\TreeLeft
+     * @ORM\Column(name="lft", type="integer")
      */
-    protected $depth;
+    private $lft;
     
     /**
-     * @ORM\OneToOne(targetEntity="\Trendmed\Entity\Category")
+     * @Gedmo\TreeLevel
+     * @ORM\Column(name="lvl", type="integer")
      */
-    protected $parent;
+    private $lvl;
+    
+    /**
+     * @Gedmo\TreeRight
+     * @ORM\Column(name="rgt", type="integer")
+     */
+    private $rgt;
+    
+    /**
+     * @Gedmo\TreeRoot
+     * @ORM\Column(name="root", type="integer", nullable=true)
+     */
+    private $root;
+    
+    /**
+     * @Gedmo\TreeParent
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $parent;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+     * @ORM\OrderBy({"lft" = "ASC"})
+     */
+    private $children;
+    /**
+        * @return the $id
+        */
+    public function getId() {
+            return $this->id;
+    }
+
+    /**
+        * @return the $name
+        */
+    public function getName() {
+            return $this->name;
+    }
+
+    /**
+        * @return the $description
+        */
+    public function getDescription() {
+            return $this->description;
+    }
+
+    /**
+        * @return the $created
+        */
+    public function getCreated() {
+            return $this->created;
+    }
+
+    /**
+        * @return the $serviceCount
+        */
+    public function getServiceCount() {
+            return $this->serviceCount;
+    }
+
+    /**
+        * @return the $parent
+        */
+    public function getParent() {
+            return $this->parent;
+    }
+
+    /**
+        * @param \Trendmed\Entity\type $name
+        */
+    public function setName($name) {
+            $this->name = $name;
+    }
+
+    /**
+        * @param \Trendmed\Entity\type $description
+        */
+    public function setDescription($description) {
+            $this->description = $description;
+    }
+
+    /**
+        * @param \Trendmed\Entity\type $serviceCount
+        */
+    public function setServiceCount($serviceCount) {
+            $this->serviceCount = $serviceCount;
+    }
+
+    /**
+        * @param field_type $parent
+        */
+    public function setParent($parent) {
+            $this->parent = $parent;
+    }
+    
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
 }

@@ -1,0 +1,21 @@
+<?php
+$I = new WebGuy($scenario);
+$I->wantTo('Register New Clinic');
+$I->amOnPage('/clinic/register');
+$I->see('Dane adresowe');
+$I->fillField('name', 'Trendmed');
+$I->selectOption('type', 'Klinika');
+$I->fillField('streetaddress', 'Topolowa 2');
+$I->fillField('city', 'Gdańsk');
+$I->fillField('postcode', '80-255');
+$I->selectOption('province', 'Pomorskie');
+$I->see('Dane osoby reprezentującej');
+$I->fillField('repEmail', 'me@bartoszrychlicki.com');
+$I->fillField('repName', 'bartosz');
+$I->fillField('repPhone', '512129709');
+$I->see('Dane konta');
+$I->fillField('password', 'nataniel');
+$I->fillField('password_confirmation', 'nataniel');
+$I->click('Zapisz się');
+$I->dontSee('error');
+$I->see('Zostałeś zarejestrowany');

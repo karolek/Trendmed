@@ -26,7 +26,7 @@ class Clinic_Form_NewPassword extends Twitter_Form
 		
 		$this->addElement('hidden', 'token');
         
-        $submit->setLabel('Set new password');
+        $submit->setLabel('Zapisz');
 		$this->addElement($submit);
     }
 

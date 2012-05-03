@@ -29,7 +29,10 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
 		$request = $this->getRequest();
 		$form = $this->getLoginForm();
         $model = new $this->_userModel;
+        $log = $this->_helper->getLogger();
         if($request->isPost()) {
+        	
+        	$log->debug('login: is POST');
 			if ($form->isValid($request->getPost())) {
 				$values = $form->getValues();
 				
@@ -63,6 +66,8 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
             } else {
 					$this->_helper->FlashMessenger(array('error' => 'Please fill the form'));
 			}
+		} else {
+			$log->debug('login: is not POST');
 		}
 		$this->view->form = $form;
         $this->view->headTitle('Login');

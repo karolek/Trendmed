@@ -24,8 +24,9 @@ class Patient extends \Trendmed\Entity\User {
      */
     protected $id;
     
+    // TODO: Move to parent class
     /**
-     * @ORM\Column(name="string")
+     * @ORM\Column(type="string")
      * @var type 
      */
     protected $roleName;

@@ -369,7 +369,6 @@ class Container
     public function getEntityManager($emName = null)
     {
         $emName = $emName ?: $this->defaultEntityManager;
-
         // Check if ORM Entity Manager has not yet been initialized
         if ( ! isset($this->entityManagers[$emName])) {
             // Check if ORM EntityManager is configured

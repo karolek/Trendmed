@@ -58,7 +58,13 @@ class Clinic_Form_ClinicRegistration extends Twitter_Form
         $email->addValidator('EmailAddress');
         $email->setRequired(true);
         $this->addElement($email);
-        
+			// rep email must be unique
+		$uniqueRepEmailValidator = new Zend_Validate_Db_NoRecordExists ( array (
+				'table' => 'clinics',
+				'field' => 'repEmail' 
+		) );
+		$email->addValidator($uniqueRepEmailValidator);
+		
         $representantName = new Zend_Form_Element_Text('repName');
         $representantName->setLabel('Representant name');
         $representantName->setRequired(true);

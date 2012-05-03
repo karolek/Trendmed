@@ -4,6 +4,28 @@
 
 /**
 
+ * Methods from ZF1
+ * @method TestGuy amOnPage($page)
+ * @method TestGuy click($link)
+ * @method TestGuy see($text)
+ * @method TestGuy dontSee($text)
+ * @method TestGuy seeLink($text)
+ * @method TestGuy dontSeeLink($text)
+ * @method TestGuy seeInCurrentUrl($uri)
+ * @method TestGuy seeCheckboxIsChecked($checkbox)
+ * @method TestGuy dontSeeCheckboxIsChecked($checkbox)
+ * @method TestGuy seeInField($field, $value)
+ * @method TestGuy dontSeeInField($field, $value)
+ * @method TestGuy submitForm($selector, $params)
+ * @method TestGuy fillField($field, $value)
+ * @method TestGuy selectOption($select, $option)
+ * @method TestGuy checkOption($option)
+ * @method TestGuy uncheckOption($option)
+ * @method TestGuy attachFile($field, $filename)
+ * @method TestGuy sendAjaxGetRequest($uri)
+ * @method TestGuy sendAjaxPostRequest($uri)
+ * @method TestGuy formatResponse($response)
+ * 
  * Methods from Filesystem
  * @method TestGuy amInPath($path)
  * @method TestGuy openFile($filename)

@@ -1,0 +1,51 @@
+<div class="hero-unit">
+    <?= $this->showUserAvatar($this->member->getAvatarfile()); ?>
+    <h3><?= $this->member->displayName; ?></h3>
+    <? if ($this->member->isVisible('gender')): ?>
+        <dl>
+            <dt>Gender:</dt>
+            <dd><?= $this->member->gender; ?></dd>
+        </dl>
+    <? endif; ?>
+    <? if ($this->member->isVisible('location')): ?>
+        <dl>
+            <dt>Location:</dt>
+            <dd><?= $this->member->location; ?></dd>
+        </dl>
+    <? endif; ?>
+    <? if ($this->member->isVisible('emailaddress')): ?>
+        <dl>
+            <dt>Email address:</dt>
+            <dd><?= $this->member->emailaddress; ?></dd>
+        </dl>
+    <? endif; ?>
+    <? if($this->LoggedUser()->id == $this->member->id): // logged user ?>
+        <a href="<?= $this->url(array(
+            'action'    => 'edit-details',
+            'module'    => 'user',
+            'controller' => 'profile',
+        )); ?>" class="btn">Edit profile</a>
+    <? endif; ?>
+</div>
+<? if ($this->member->equipment): ?>
+    <h4>My kit</h4>
+    <?= $this->member->equipment; ?>
+<? endif; ?>
+<? if ($this->member->about): ?>
+    <h4>About me</h4>
+    About me: <?= $this->member->about; ?>
+<? endif; ?>
+<? if ($projects = $this->member->getProjects()): ?>
+    <h4>Member uploads</h4>
+    <?php foreach($projects as $project): ?>
+        <?php if($project->getPhotos()): ?>
+            <?= $this->showPhoto($project->getCoverPhoto(), 'supersmall'); ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+<? endif; ?>
+<? if ($likes = $this->member->getLikedProjects() and $this->member->isVisible('likes')): ?>
+    <h4>Member Likes</h4>
+<? endif; ?>
+<? foreach($this->latestComments as $comment): ?>
+    <h4>Latest comments</h4>
+<? endforeach; ?>

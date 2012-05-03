@@ -7,7 +7,7 @@ use \Doctrine\Common\Util\Debug as Debug;
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
 class ClinicTest extends \ModelTestCase {
-    
+	
     public function testAddingTheSameClinicWillFail()
     {
         $this->setExpectedException('PDOException');
@@ -18,8 +18,8 @@ class ClinicTest extends \ModelTestCase {
         try {
             $this->em->persist($clinic2);
             $this->em->flush();
-        } catch (Exception $e) {
-            
+        } catch (\Exception $e) {
+            echo $e->getMessage();
         }
         $this->fail('You should not be able to save the same clinic,'. $clinic2->name);
     }
@@ -62,6 +62,35 @@ class ClinicTest extends \ModelTestCase {
                 ->findOneByLogin('b@br-design.pl');        
         $result = $clinic->authorize('nataniel1');
         $this->assertFalse($result);       
+    }
+    
+    public function testClinicWillSetUpLoginFromRepEmailAndRole()
+    {
+        $clinic = new \Trendmed\Entity\Clinic;
+        $clinic->name = 'TrendMed2';
+        $clinic->streetaddress = 'Topolowa 2/7';
+        $clinic->province = 'Pomorskie';
+        $clinic->city = 'Gdańsk';
+        $clinic->postcode = '80-233';
+        $clinic->repPhone = '+48 512 129 709';
+        $clinic->repName = 'Bartosz';
+        $clinic->repEmail = 'b@br-design.pl';
+        $clinic->type = 'Clinic';
+        $clinic->password = 'nataniel';
+        $clinic->salt = $clinic->generateSalt();
+        $clinic->geoLat = 54.377608;
+        $clinic->getLon = 18.595605;
+        
+        $role = $this->em->getRepository('\Trendmed\Entity\Role')
+            ->findOneByName($clinic->getRoleName());
+        if(!$role) throw new Exception('Given role ('.$model->getRoleName().'
+            not found in DB');
+        $clinic->setRole($role);
+        
+        $this->em->persist($clinic);
+        
+        $this->assertNotEmpty($clinic->getRole());
+        $this->assertEquals('b@br-design.pl', $clinic->login);
     }
     
 }
