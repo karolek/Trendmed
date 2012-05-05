@@ -64,9 +64,7 @@ class Admin_CategoriesController extends Zend_Controller_Action
                 
                 foreach ($config->languages as $lang) {
                     
-                    Zend_Debug::dump($lang);
                     if ($lang->default == true) { // we must add default values to our main entity
-                        Zend_Debug::dump($values);
                         $model->name = $values['name_'.$lang->code];
                         $model->description = $values['description_'.$lang->code];
                         continue;
@@ -80,7 +78,6 @@ class Admin_CategoriesController extends Zend_Controller_Action
                             $values['description_'.$lang->code]
                     );
                 }
-                Zend_Debug::dump($model);
                 // fetching parent
                 if ($values['parent_id'] == 0) {
                     // setting the root parent

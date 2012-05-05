@@ -12,7 +12,7 @@ class Clinic_Form_ClinicRegistration extends Twitter_Form
         $config = Zend_Registry::get('config');
         $translate = Zend_Registry::get('Zend_Translate');
         $type->setLabel('Type of Clinic');
-        foreach($config->clinics->types as $key => $value) {
+        foreach ($config->clinics->types as $key => $value) {
             $type->addMultiOption($key, $translate->_($value));
         }
         $this->addElement($type);
@@ -47,7 +47,10 @@ class Clinic_Form_ClinicRegistration extends Twitter_Form
         }
         $this->addElement($province);
         
-        $this->addDisplayGroup(array('name', 'type', 'streetaddress', 'city', 'postcode', 'province'), 'addressInfo');
+        $this->addDisplayGroup(
+            array('name', 'type', 'streetaddress', 'city', 'postcode', 'province'),
+            'addressInfo'
+        );
         $group = $this->getDisplayGroup('addressInfo');
         $group->setLegend('Address info');
         
@@ -58,11 +61,14 @@ class Clinic_Form_ClinicRegistration extends Twitter_Form
         $email->addValidator('EmailAddress');
         $email->setRequired(true);
         $this->addElement($email);
-			// rep email must be unique
-		$uniqueRepEmailValidator = new Zend_Validate_Db_NoRecordExists ( array (
-				'table' => 'clinics',
-				'field' => 'repEmail' 
-		) );
+        // rep email must be unique
+
+        $uniqueRepEmailValidator = new Zend_Validate_Db_NoRecordExists(
+            array(
+                'table' => 'clinics',
+                'field' => 'repEmail'
+            )
+        );
 		$email->addValidator($uniqueRepEmailValidator);
 		
         $representantName = new Zend_Form_Element_Text('repName');

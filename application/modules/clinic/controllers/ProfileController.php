@@ -27,6 +27,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
     /**
      * Edits this part of clinics description that is visible to patients
      * like logo, pictures, description
+     * @throws Exception if no logged user in the system
      */
     public function editProfileAction()
     {
@@ -36,7 +37,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
         $user = $this->_em->getRepository('IAA\Entity\User')
                 ->findOneById($loggedUserId);
         if (!$user) {
-            throw new Zend_Exception(
+            throw new Exception(
                 'No logged user found, so now edit Details is possible'
             );
         }
@@ -71,11 +72,12 @@ class Clinic_ProfileController extends Zend_Controller_Action
     }
     
     /**
-     * Place to edit, add, modify cinics services
+     * Place to edit, add, modify clinics services
      */
     public function manageServicesAction()
     {
-        
+        $request = $this->getRequest();
+
     }
     
     /**

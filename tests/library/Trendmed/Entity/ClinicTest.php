@@ -10,15 +10,17 @@ class ClinicTest extends \ModelTestCase {
 	
     public function testAddingTheSameClinicWillFail()
     {
-        $this->setExpectedException('PDOException');
+        $this->setExpectedException('\PDOException');
         $clinic = $this->em->getRepository('\Trendmed\Entity\Clinic')
                 ->findOneAsArray(1);
+
         $clinic2 = new \Trendmed\Entity\Clinic;
         $clinic2->setOptions($clinic);
         try {
+            $clinic2->setRole($this->em->getRepository('\Trendmed\Entity\Role')->findOneByName('clinic'));
             $this->em->persist($clinic2);
             $this->em->flush();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             echo $e->getMessage();
         }
         $this->fail('You should not be able to save the same clinic,'. $clinic2->name);
