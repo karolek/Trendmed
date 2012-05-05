@@ -104,7 +104,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initMail()
     {
         $this->bootstrap('config');
-        $config = Zend_Registry::get('config');
+        $config = \Zend_Registry::get('config');
         if ($config->mail->smtp->enable == true) {
            $tr = new Zend_Mail_Transport_Smtp($config->mail->smtp->host,
                    $config->mail->smtp->params->toArray());

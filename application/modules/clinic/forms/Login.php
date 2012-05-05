@@ -14,7 +14,7 @@ class Clinic_Form_Login extends Twitter_Form
                 array('StringLength', false, array(0, 50)),
             ),
             'required'   => true,
-            'label'      => 'Login:',
+            'label'      => 'E-mail kontaktowy:',
         ));
 
         $this->addElement('password', 'password', array(

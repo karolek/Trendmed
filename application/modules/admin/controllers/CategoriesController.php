@@ -48,6 +48,7 @@ class Admin_CategoriesController extends Zend_Controller_Action
         $form = new Admin_Form_Category();
         $modelId = $request->getParam('category_id', null);
         $em = $this->_helper->getEm();
+        $config = \Zend_Registry::get('config');
 
         if ($modelId) {
             $model = $em->find('\Trendmed\Entity\Category', $modelId);
@@ -59,7 +60,27 @@ class Admin_CategoriesController extends Zend_Controller_Action
             $post = $request->getPost();
             if ($form->isValid($post)) {
                 $values = $form->getValues();
-                $model->setOptions($values);
+                $repository = $em->getRepository('\Trendmed\Entity\Translation');
+                
+                foreach ($config->languages as $lang) {
+                    
+                    Zend_Debug::dump($lang);
+                    if ($lang->default == true) { // we must add default values to our main entity
+                        Zend_Debug::dump($values);
+                        $model->name = $values['name_'.$lang->code];
+                        $model->description = $values['description_'.$lang->code];
+                        continue;
+                    }
+                    $repository->translate(
+                        $model, 'name', $lang->code, 
+                            $values['name_'.$lang->code]
+                    );
+                    $repository->translate(
+                        $model, 'description', $lang->code, 
+                            $values['description_'.$lang->code]
+                    );
+                }
+                Zend_Debug::dump($model);
                 // fetching parent
                 if ($values['parent_id'] == 0) {
                     // setting the root parent
@@ -78,7 +99,9 @@ class Admin_CategoriesController extends Zend_Controller_Action
                     'Category saved'));
                 $this->_helper->Redirector('index');
             } else {
-                $this->_helper->FlashMessenger(array('warning' => 'Correct the errors in the form'));
+                $this->_helper->FlashMessenger(
+                    array('warning' => 'Correct the errors in the form')
+                );
             }
         }
         $this->view->form = $form;

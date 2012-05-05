@@ -9,16 +9,27 @@ class Admin_Form_Category extends Twitter_Form
         $this->setName('login');
         $this->setMethod('post');
         $this->setAttrib('class', 'form-horizontal');
-
-        $this->addElement('text', 'name', array(
-            'filters' => array('StringTrim'),
-            'validators' => array(
+        $config = \Zend_Registry::get('config');
+        
+        foreach ($config->languages as $lang) {
+            $nameElement = new \Zend_Form_Element_Text('name_'.$lang->code);
+            $nameElement->setRequired(true);
+            $nameElement->addValidators(array(
                 array('StringLength', false, array(1, 50)),
-            ),
-            'required' => true,
-            'label' => 'Name',
-        ));
-
+            ));
+            $nameElement->setLabel($lang->name.' nazwa');
+            $this->addElement($nameElement);
+            unset($nameElement);
+            
+            $descriptionElement = new \Zend_Form_Element_Textarea(
+                'description_'.$lang->code);
+            $descriptionElement->setRequired(true);
+            $descriptionElement->addValidators(array(
+                array('StringLength', false, array(1, 250)),
+            ));
+            $descriptionElement->setLabel($lang->name.' opis');
+            $this->addElement($descriptionElement);
+        }
         $select = new \Zend_Form_Element_Select('parent_id');
         $select->setLabel('Position');
         $select->addMultiOption(0, '-- top --');

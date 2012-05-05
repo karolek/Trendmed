@@ -1,5 +1,4 @@
 <?php
-
 // Define path to application directory
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
@@ -13,12 +12,6 @@ set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../library'),
     get_include_path(),
 )));
-
-// Settings errors as exceptions
-function exception_error_handler($errno, $errstr, $errfile, $errline ) {
-    throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
-}
-set_error_handler("exception_error_handler");
 
 /** Zend_Application */
 require_once 'Zend/Application.php';
