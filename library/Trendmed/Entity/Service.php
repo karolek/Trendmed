@@ -17,4 +17,21 @@ class Service extends \Me\Model\ModelAbstract {
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @ORM\Column(type="string")
+     * @var string
+     */
+    protected $description;
+
+    /**
+     * @ORM\Column(type="string")
+     * @var string
+     */
+    protected $pricemin;
+    protected $pricemax;
+    protected $viewcount;
+    protected $isactive;
+    protected $created;
+    protected $modified;
 }

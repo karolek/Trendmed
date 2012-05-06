@@ -30,8 +30,8 @@ class Clinic_RegisterController extends \Me_User_Controllers_RegisterController
     }
 
     /**
-     * Displays static content about plans and priceing for Clinics.
-     * TODO: enter content
+     * Displays static content about plans and pricing for Clinics.
+     * TODO: enter contet of this web page
      */
     public function infoAction()
     {

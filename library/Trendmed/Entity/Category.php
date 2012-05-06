@@ -37,7 +37,7 @@ class Category extends \Me\Model\ModelAbstract implements \Gedmo\Tree\Node
     /**
      * @ORM\Column(type="string")
      * @Gedmo\Translatable
-     * @var type 
+     * @var string
      */
     protected $name;
 

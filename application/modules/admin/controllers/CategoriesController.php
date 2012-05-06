@@ -13,7 +13,7 @@ class Admin_CategoriesController extends Zend_Controller_Action
                             ->findOneByRoot(1);
         if(!$root) {
             $root = new \Trendmed\Entity\Category;
-            $root->name = 'root';
+            $root->setName('root');
             $em->persist($root);
             $em->flush();
         }
@@ -65,17 +65,19 @@ class Admin_CategoriesController extends Zend_Controller_Action
                 foreach ($config->languages as $lang) {
                     
                     if ($lang->default == true) { // we must add default values to our main entity
-                        $model->name = $values['name_'.$lang->code];
-                        $model->description = $values['description_'.$lang->code];
+                        $model->setName($values['name_'.$lang->code]);
+                        $model->setDescription(
+                            $values['description_'.$lang->code]
+                        );
                         continue;
                     }
                     $repository->translate(
                         $model, 'name', $lang->code, 
-                            $values['name_'.$lang->code]
+                        $values['name_'.$lang->code]
                     );
                     $repository->translate(
                         $model, 'description', $lang->code, 
-                            $values['description_'.$lang->code]
+                        $values['description_'.$lang->code]
                     );
                 }
                 // fetching parent
@@ -86,14 +88,16 @@ class Admin_CategoriesController extends Zend_Controller_Action
                     $parent = $em->getRepository('\Trendmed\Entity\Category')
                             ->find($values['parent_id']);
                 }
-                if(!$parent) {
+                if (!$parent) {
                     throw new Exception('Category must have a parent');
                 }
                 $model->setParent($parent);
                 $em->persist($model);
                 $em->flush();
-                $this->_helper->FlashMessenger(array('success' =>
-                    'Category saved'));
+
+                $this->_helper->FlashMessenger(
+                    array('success' => 'Category saved')
+                );
                 $this->_helper->Redirector('index');
             } else {
                 $this->_helper->FlashMessenger(
