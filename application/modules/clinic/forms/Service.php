@@ -5,7 +5,7 @@
  *
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
-class Service extends Twitter_Form
+class Clinic_Form_Service extends Twitter_Form
 {
     /**
      * @var array Translated Category Array Tree

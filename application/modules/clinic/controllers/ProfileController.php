@@ -31,18 +31,19 @@ class Clinic_ProfileController extends Zend_Controller_Action
      */
     public function editProfileAction()
     {
-        $this->view->headTitle('User details change');
-        $form = new User_Form_UserDetails;
-        $loggedUserId = $this->_helper->LoggedUser();
-        $user = $this->_em->getRepository('IAA\Entity\User')
-                ->findOneById($loggedUserId);
+        $request = $this->getRequest();
+
+        $this->view->headTitle('Clinic profile');
+        $form = new Clinic_Form_ClinicProfile();
+        $form->addSubForm(new Clinic_Form_ClinicProfile_Logo(), 'logo');
+        $form->addElement(new Zend_Form_Element_Submit('Save'));
+        $user = $this->_helper->LoggedUser();
         if (!$user) {
             throw new Exception(
                 'No logged user found, so now edit Details is possible'
             );
         }
-        $form->populate($user->toArray());
-        $request = $this->getRequest();
+        //$form->populate($user->toArray());
         if ($request->isPost()) {
             $post = $request->getPost();
             if ($form->isValid($post)) {
@@ -68,7 +69,8 @@ class Clinic_ProfileController extends Zend_Controller_Action
      */
     public function editAccountAction()
     {
-        
+
+
     }
     
     /**
@@ -77,7 +79,8 @@ class Clinic_ProfileController extends Zend_Controller_Action
     public function manageServicesAction()
     {
         $request = $this->getRequest();
-
+        $form = new Clinic_Form_Service();
+        $this->view->form = $form;
     }
     
     /**
@@ -90,7 +93,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
 
         $user = $this->_helper->LoggedUser();
         if (!$user) {
-            throw new Zend_Exception(
+            throw new \Zend_Exception(
                 'No logged user found, so now edit Details is possible'
             );
         }
