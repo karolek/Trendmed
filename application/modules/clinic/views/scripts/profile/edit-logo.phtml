@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="span10">
+        <p class="well">
+            You can change Your avatar by uploading new one.<br/>
+            Remember, your avatar will be cropped down to square proportions. The get the best result supply square image.
+        </p>
+        <?= $this->form;?>
+    </div>
+    <div class="span2">
+        <? if($this->user->getLogoDir()): ?>
+
+        <div class="thumbnail">
+            <?= $this->showClinicLogo($this->user); ?>
+            <p class="caption">
+                <small>This is Your current avatar</small><br />
+                <a class="btn confirm" href="<?= $this->url(
+                    array(
+                        'action' => 'delete-avatar',
+                        'controller' => 'profile',
+                        'module' => 'user'
+                    )
+                , null, true); ?>"><i class="icon-trash"></i>
+                    Delete avatar
+                </a>
+            </p>
+        </div>
+        <? else: ?>
+        <div class="alert alert-block">
+            <a class="close" data-dismiss="alert">×</a>
+            <h4 class="alert-heading">Warning!</h4>
+            You don't have any avatar attached to Your account. Default image will be used instead.
+            Please upload image file to customize Your profile.
+        </div>
+        <? endif; ?>
+    </div>
+
+</div>

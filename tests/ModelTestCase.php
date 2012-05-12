@@ -61,6 +61,10 @@ class ModelTestCase extends \PHPUnit_Framework_TestCase {
         $role = new Trendmed\Entity\Role;
         $role->name = 'clinic';
         $this->em->persist($role);
+
+        $role2 = new Trendmed\Entity\Role;
+        $role2->name = 'guest';
+        $this->em->persist($role2);
         
         $clinic = new Trendmed\Entity\Clinic;
         $clinic->name = 'TrendMed';

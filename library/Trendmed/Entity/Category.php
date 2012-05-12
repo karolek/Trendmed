@@ -11,7 +11,7 @@ use Gedmo\Translatable\Translatable;
  * @ORM\Table(name="categories")
  * @Gedmo\Tree(type="nested")
  * use repository for handy tree functions
- * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
+ * @ORM\Entity(repositoryClass="Trendmed\Repository\CategoryRepository")
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
 class Category extends \Me\Model\ModelAbstract implements \Gedmo\Tree\Node

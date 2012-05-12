@@ -33,35 +33,61 @@ class Clinic_ProfileController extends Zend_Controller_Action
     {
         $request = $this->getRequest();
 
+        $this->_helper->EnableCke($this->view, 'basic');
+
         $this->view->headTitle('Clinic profile');
-        $form = new Clinic_Form_ClinicProfile();
-        $form->addSubForm(new Clinic_Form_ClinicProfile_Logo(), 'logo');
-        $form->addElement(new Zend_Form_Element_Submit('Save'));
+        $form = new Clinic_Form_ClinicProfile_MultiLangDesc();
+        $form->setAction($this->_helper->url('edit-profile'));
+        $form->addElement(new \Zend_Form_Element_Submit('Zapisz'));
+
+        $repository = $this->_em->getRepository('\Trendmed\Entity\Translation');
+
         $user = $this->_helper->LoggedUser();
         if (!$user) {
             throw new Exception(
                 'No logged user found, so now edit Details is possible'
             );
         }
-        //$form->populate($user->toArray());
+
+        // populate form
+        $config = \Zend_Registry::get('config');
+
+        $form->populateFromUser($user);
+
         if ($request->isPost()) {
             $post = $request->getPost();
             if ($form->isValid($post)) {
                 $values = $form->getValues();
-                $user->setOptions($values);
+                foreach ($config->languages as $lang) {
+                    if ($lang->default == 1) { // we must add default values to our main entity
+                        $user->setCustomPromos(
+                            $values['customPromos_'.$lang->code]);
+                        $user->setDescription(
+                            $values['description_'.$lang->code]
+                        );
+                    } else {
+                        $repository->translate(
+                            $user, 'customPromos', $lang->code,
+                            $values['customPromos_'.$lang->code]
+                        );
+                        $repository->translate(
+                            $user, 'description', $lang->code,
+                            $values['description_'.$lang->code]
+                        );
+                    }
+                }
                 $this->_em->persist($user);
                 $this->_em->flush();
                 $this->_helper->FlashMessenger(
                     array('success' => 'You have changed Your details')
                 );
                 $this->_helper->Redirector(
-                    'profile', 'profile', 'user', array('id' => $user->id)
+                    'profile', 'public', 'clinic', array('id' => $user->getId())
                 );
             }
         }
         $this->view->form = $form;
-    }
-    
+     }
     /**
      * Edit those parts of the clinic description that are use for 
      * administration purpuses, like bank account no., 
@@ -113,5 +139,42 @@ class Clinic_ProfileController extends Zend_Controller_Action
             }
         }
         $this->view->form = $form;
+    }
+
+    /**
+     * Editing clinic public logo
+     *
+     */
+    public function editLogoAction()
+    {
+        $this->view->headTitle('Edit my logo');
+        $this->view->user = $user = $this->_helper->LoggedUser();
+
+        $request = $this->getRequest();
+        $form = new Clinic_Form_ClinicProfile_Logo();
+
+        if($request->isPost()) {
+            $post = $request->getPost();
+            if($form->isValid($post)) {
+                $user->processLogo();
+                $this->_em->persist($user);
+                $this->_em->flush();
+                $this->_helper->FlashMessenger('Logo uploaded.');
+                $this->_helper->Redirector('edit-logo');
+            } else {
+                $this->_helper->FlashMessenger('Fix errors with the file');
+            }
+        }
+        $this->view->form = $form;
+    }
+
+    public function deleteAvatarAction()
+    {
+        $user = $this->_helper->LoggedUser()->deleteLogo();
+        $this->_em->persist($user);
+        $this->_em->flush();
+
+        $this->_helper->FlashMessenger(array('success' => 'Your logo has been deleted'));
+        $this->_helper->Redirector('edit-logo');
     }
 }
