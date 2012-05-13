@@ -18,7 +18,7 @@ class Clinic_Form_ClinicProfile_MultiLangDesc extends Twitter_Form
         {
             $desc = new \Zend_Form_Element_Textarea('description_'.$lang->code);
             $desc->setLabel('Opis kliniki w języku: '.$lang->name);
-            $desc->addFilter($stripTagsValidator);
+            //$desc->addFilter($stripTagsValidator);
             $desc->setAttrib('class', 'ckeditor');
             $this->addElement($desc);
 
@@ -26,7 +26,7 @@ class Clinic_Form_ClinicProfile_MultiLangDesc extends Twitter_Form
             $customPromo->setLabel(
                 'Informacje o promocjach dla Twoich gości w języku '.$lang->name
             );
-            $customPromo->addFilter($stripTagsValidator);
+            //$customPromo->addFilter($stripTagsValidator);
             $customPromo->setAttrib('class', 'ckeditor');
             $this->addElement($customPromo);
 

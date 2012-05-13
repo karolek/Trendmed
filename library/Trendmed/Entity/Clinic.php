@@ -19,6 +19,7 @@ class Clinic extends \Trendmed\Entity\User {
         $this->wantBill = false;
         $this->country = 'Poland';
         $this->roleName = 'clinic';
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection;
         return parent::__construct();
     }
     
@@ -150,6 +151,11 @@ class Clinic extends \Trendmed\Entity\User {
      * @var string absolute path to logo directory (public url)
      */
     protected $logoDir;
+
+    /**
+     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\ClinicPhoto", mappedBy="clinic")
+     */
+    protected $photos;
 
     
     /* END PROPERTIES */
@@ -314,7 +320,14 @@ class Clinic extends \Trendmed\Entity\User {
         return $this->slug;
     }
 
+    public function addPhoto($photo) {
+        $this->photos[] = $photo;
+        $photo->setClinic($this);
+    }
 
+    public function getPhotos() {
+        return $this->photos;
+    }
     /*  END GETTERS AND SETTERS */ 
     
     /* METHODS */
@@ -443,7 +456,7 @@ class Clinic extends \Trendmed\Entity\User {
         return true;
     }
 
-    public function deleteAvatar()
+    public function deleteLogo()
     {
         // make sure if its ok to delete
         // delete all files in the photo folder

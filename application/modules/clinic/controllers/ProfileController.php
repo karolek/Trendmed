@@ -51,8 +51,16 @@ class Clinic_ProfileController extends Zend_Controller_Action
 
         // populate form
         $config = \Zend_Registry::get('config');
-
         $form->populateFromUser($user);
+
+        // init the form for new photo
+        $photoForm = new Clinic_Form_ClinicPhoto();
+        $photoForm->setAction($this->view->url(
+            array(
+                'action' => 'add-photo'
+            )
+        ));
+        $this->view->photoForm = $photoForm;
 
         if ($request->isPost()) {
             $post = $request->getPost();
@@ -78,16 +86,50 @@ class Clinic_ProfileController extends Zend_Controller_Action
                 }
                 $this->_em->persist($user);
                 $this->_em->flush();
+
                 $this->_helper->FlashMessenger(
                     array('success' => 'You have changed Your details')
                 );
                 $this->_helper->Redirector(
-                    'profile', 'public', 'clinic', array('id' => $user->getId())
+                    'profile', 'public', 'clinic', array('slug' => $user->getSlug())
                 );
             }
         }
         $this->view->form = $form;
      }
+
+    // TODO: implemnt adding new photo to clinic
+    public function addPhotoAction()
+    {
+        $request = $this->getRequest();
+        $clinic = $this->_helper->LoggedUser();
+        if($request->isPost()) {
+            $photo = new \Trendmed\Entity\ClinicPhoto();
+            $clinic->addPhoto($photo);
+
+            // doing all the upload magic
+            $photo->processFile();
+
+            $this->_em->persist($photo);
+            $this->_em->persist($clinic);
+            $this->_em->flush();
+
+            if($request->isXmlHttpRequest()) {
+                echo 'OK';
+                $this->_helper->layout()->disableLayout();
+                $this->_helper->viewRenderer->setNoRender(true);
+            } else {
+                $this->_helper->FlashMessenger(array(
+                    'success' => 'New photo added'
+                ));
+                $this->_helper->Redirector(
+                    'edit-profile'
+                );
+            }
+        } else {
+            throw new \Exception('Add photo should be a post request');
+        }
+    }
     /**
      * Edit those parts of the clinic description that are use for 
      * administration purpuses, like bank account no., 
@@ -168,7 +210,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
         $this->view->form = $form;
     }
 
-    public function deleteAvatarAction()
+    public function deleteLogoAction()
     {
         $user = $this->_helper->LoggedUser()->deleteLogo();
         $this->_em->persist($user);

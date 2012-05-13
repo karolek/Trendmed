@@ -17,7 +17,18 @@ class Clinic_PublicController extends Zend_Controller_Action
 
     public function profileAction()
     {
+        $request = $this->getRequest();
+        $slug = $request->getParam('slug');
+        if(!$slug) {
+            throw new \Exception('No slug in public profile', 404);
+        }
 
+        $clinic = $this->_em->getRepository('\Trendmed\Entity\Clinic')
+            ->findOneBySlug($slug);
+
+        if(!$clinic) throw new \Exception('No clinic by the slug of '.$slug.' found', 404);
+
+        $this->view->clinic = $clinic;
     }
 
 }
