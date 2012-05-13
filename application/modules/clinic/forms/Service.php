@@ -50,6 +50,8 @@ class Clinic_Form_Service extends Twitter_Form
         $priceMax->addValidator($floatValidator);
         $this->addElement($priceMax);
 
+        $submit = new \Zend_Form_Element_Submit('Save');
+        $this->addElement($submit);
     }
 
     private function _getCategories()
