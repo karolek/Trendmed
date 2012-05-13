@@ -8,8 +8,12 @@
         
         <? if($this->user->getLogoDir()): ?>
 
-        <div class="thumbnail">
+        <div class="thumbnail row">
+            <div class="span2">
             <?= $this->showClinicLogo($this->user); ?>
+                </div>
+            
+            <div class="span7">
             <p class="caption">
                 <small>This is Your current avatar</small><br />
                 <a class="btn confirm" href="<?= $this->url(
@@ -22,6 +26,7 @@
                     Delete avatar
                 </a>
             </p>
+            </div>
         </div>
         <? else: ?>
         <div class="alert alert-block">

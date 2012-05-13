@@ -163,6 +163,8 @@ select {width:340px;}
 
 .alert .close {font-family: Arial; text-decoration: none;}
 
+.row {margin: 0 0 20px; width: 969px; box-shadow: none;}
+
 dd {margin:0;}
 
 /* ==|== media queries ======================================================
