@@ -150,9 +150,9 @@ select {width:340px;}
 .btn-primary:hover {background: #065475;}
 
 #editClinic {padding:18px 0 0;}
-#editClinic .control-group {padding:0 0 18px; border-bottom:1px solid #eeeeee;}
+#editClinic .control-group {padding:0 0 18px; border-bottom:1px solid #eeeeee; width:976px;}
 #editClinic form {margin:0;}
-#editClinic .form-actions {margin:-18px 0 0; padding: 18px 0 17px 295px;}
+#editClinic .form-actions {margin:-18px 0 0; padding: 18px 0 17px 295px; width:682px;}
 #editClinic .controls {padding:0 16px 0 0;}
 
 .textareas textarea {width: 655px;}
