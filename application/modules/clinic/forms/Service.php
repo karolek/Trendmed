@@ -57,18 +57,9 @@ class Clinic_Form_Service extends Twitter_Form
         if(!$this->_translatedCategoryArrayTree) {
             $em = \Zend_Registry::get('doctrine')->getEntityManager();
             $repo = $em->getRepository('Trendmed\Entity\Category');
-            $query = $em
-                ->createQueryBuilder()
-                ->select('node')
-                ->from('Trendmed\Entity\Category', 'node')
-                ->orderBy('node.root, node.lft', 'ASC')
-                ->where('node.lvl = 1')
-                ->getQuery();
-
-            //$options = array('decorate' => true);
-            $this->_translatedCategoryArrayTree = $query->getArrayResult();
+            $tree = $repo->childrenHierarchy();
+            $this->_translatedCategoryArrayTree = $tree[0];
         }
-
         return $this->_translatedCategoryArrayTree;
     }
 }
