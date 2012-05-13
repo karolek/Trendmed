@@ -7,7 +7,7 @@
         <br /><br />
 
         <h3 style="padding:0 0 10px;"><?= $this->translate('Here You can add any photos of Your object, that will be shown on Your public profile'); ?>.</h3>
-        <?= $this->photoForm; ?>
+        <div id="photoUpload"><?= $this->photoForm; ?></div>
         <? if(count($this->LoggedUser()->photos)>0): ?>
             <ul class="thumbnails">
             <? foreach($this->LoggedUser()->photos as $photo): ?>
