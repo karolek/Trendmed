@@ -98,7 +98,6 @@ class Clinic_ProfileController extends Zend_Controller_Action
         $this->view->form = $form;
      }
 
-    // TODO: implemnt adding new photo to clinic
     public function addPhotoAction()
     {
         $request = $this->getRequest();
@@ -147,8 +146,23 @@ class Clinic_ProfileController extends Zend_Controller_Action
     public function manageServicesAction()
     {
         $request = $this->getRequest();
-        $form = new Clinic_Form_Service();
+        $this->view->headTitle($this->view->translate('Managing Your clinic services'));
+        //$repo = $this->_em->getRepository('Trendmed\Entity\Category');
+        $query = $this->_em
+            ->createQueryBuilder()
+            ->select('node')
+            ->from('Trendmed\Entity\Category', 'node')
+            ->orderBy('node.root, node.lft', 'ASC')
+            ->where('node.root = 1')
+            ->andWhere('node.lvl = 1')
+            ->getQuery();
+
+        //$options = array('decorate' => true);
+        $tree = $query->getArrayResult();
+        $form = new Clinic_Form_Service(array('categories' => $tree));
+
         $this->view->form = $form;
+
     }
     
     /**

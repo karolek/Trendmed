@@ -53,8 +53,8 @@ class Admin_Form_Category extends Twitter_Form
                 ->select('node')
                 ->from('Trendmed\Entity\Category', 'node')
                 ->orderBy('node.root, node.lft', 'ASC')
-                ->where('node.root = 1')
-                ->andWhere('node.lvl = 1')
+                //->where('node.root = 1')
+                ->where('node.lvl = 1')
                 ->getQuery();
         
         //$options = array('decorate' => true);
