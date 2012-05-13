@@ -8,11 +8,11 @@
         <? if($this->user->getLogoDir()): ?>
 
         <div class="thumbnail row">
-            <div class="span2">
+            <div class="span2" style="padding: 0 0 0 285px;">
             <?= $this->showClinicLogo($this->user); ?>
                 </div>
             
-            <div class="span7">
+            <div class="span4">
             <p class="caption">
                 <small><?= $this->translate('To jest Twoje aktualne logo'); ?></small><br />
                 <a class="btn confirm" href="<?= $this->url(
