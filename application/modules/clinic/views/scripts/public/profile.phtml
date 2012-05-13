@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="span5">
+        <h3><?= $this->clinic->name; ?></h3>
+        <address>
+            <?= $this->clinic->streetaddress; ?>, <?= $this->clinic->postcode; ?> <?= $this->clinic->city; ?>,
+            <?= $this->clinic->province; ?>
+        </address>
+    </div>
+    <div class="span4">
+        <a href="#">Fav</a>
+        Rating XX based on YY reviews
+    </div>
+
+</div>
+<div class="row">
+    <ul class="thumbnails">
+        <li class="thumbnail">
+            <?= $this->ShowClinicLogo($this->clinic); ?>
+        </li>
+        <? foreach($this->clinic->photos as $photo): ?>
+
+        <? endforeach; ?>
+    </ul>
+</div>
+<div class="row">
+    <a href="#" class="btn btn-primary"><?= $this->translate('Book now'); ?></a>
+</div>
+<div class="row">
+    <h4><?= $this->translate('Description'); ?></h4>
+    <?= $this->clinic->description; ?>
+</div>
+<div class="row">
+    <h4><?= $this->translate('Promotions'); ?></h4>
+    <?= $this->clinic->customPromos; ?>
+</div>
+<div class="row" id="clinic-grouppromotion">
+    Group promotion ad
+</div>

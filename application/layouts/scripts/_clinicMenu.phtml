@@ -8,5 +8,7 @@
         <li><a href="<?= $this->url(array('module' => 'clinic', 'action' => 'edit-account', 'controller' => 'profile')); ?>"><?= $this->translate('Twoje konto'); ?></a></li>
         <li><a href="<?= $this->url(array('module' => 'clinic', 'action' => 'change-password', 'controller' => 'profile')); ?>"><?= $this->translate('Zmień hasło dostępu'); ?></a></li>
         <li><a href="<?= $this->url(array('module' => 'clinic', 'action' => 'edit-logo', 'controller' => 'profile')); ?>"><?= $this->translate('Zmień logo'); ?></a></li>
+        <li><a href="<?= $this->url(array('module' => 'clinic', 'action' => 'profile', 'controller' => 'public',
+        'slug' => $this->LoggedUser()->slug), null, true); ?>"><?= $this->translate('See public profile'); ?></a></li>
     </ul>
 </li>

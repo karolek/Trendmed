@@ -87,6 +87,8 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 .navbar .nav .dropdown-toggle .caret, .navbar .nav .open.dropdown .caret {border-bottom-color: #000000; border-top-color: #000000;}
 .dropdown.open .dropdown-toggle {color:#000000;}
 
+.navbar .dropdown-menu {margin-top:9px;}
+
 /* CONTAINER */
 
 .container, 

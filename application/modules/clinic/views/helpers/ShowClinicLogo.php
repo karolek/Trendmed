@@ -23,7 +23,7 @@ class Clinic_View_Helper_ShowClinicLogo extends Zend_View_Helper_Abstract
 	 * Checks what kind of user is logged and returns user menu for it role
 	 *
 	 */
-	public function ShowUserAvatar($user, $size = "medium", $makeLinkToProfile = false)
+	public function ShowClinicLogo($user, $size = "medium", $makeLinkToProfile = false)
 	{
 
         $config = Zend_Registry::get('config');
