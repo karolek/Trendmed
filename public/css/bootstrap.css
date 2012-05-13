@@ -2425,7 +2425,7 @@ input[type="submit"].btn.btn-mini {
   filter: alpha(opacity=75);
 }
 .alert {
-  padding: 8px 35px 8px 14px;
+  padding: 9px 35px 8px 24px;
   margin-bottom: 18px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   background-color: #fcf8e3;
@@ -2858,7 +2858,7 @@ input[type="submit"].btn.btn-mini {
 .navbar .brand:hover {
   text-decoration: none;
 }
-.navbar .brand {
+/*.navbar .brand {
   float: left;
   display: block;
   padding: 8px 20px 12px;
@@ -2867,7 +2867,7 @@ input[type="submit"].btn.btn-mini {
   font-weight: 200;
   line-height: 1;
   color: #ffffff;
-}
+}*/
 .navbar .navbar-text {
   margin-bottom: 0;
   line-height: 40px;
