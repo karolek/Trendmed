@@ -72,7 +72,9 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 .navbar .pull-right a.link {color: #107BA8; display: inline; float: none; margin: auto; padding: 0; text-decoration: underline; text-transform: none;}
 .navbar .pull-right a.link:hover {text-decoration: none;}
 .navbar .pull-right .login {background:#0d7dac; text-shadow:1px 1px #0b688f;}
+.navbar .pull-right .login:hover {background: #0b688f;}
 .navbar .pull-right .register {background:#53d7f8; text-shadow:1px 1px #45b3ce;}
+.navbar .pull-right .register:hover {background: #45b3ce;}
 .navbar .pull-right .userPanel {display: block; line-height: 16px; margin: 0 -10px 0 0; padding: 31px 0 0 10px; text-align: right;}
 
 .navbar .brand {width:250px; height:93px; display: block; float:left; background: url(../img/logo.png) -8px 0px no-repeat; text-indent: -9999px;}

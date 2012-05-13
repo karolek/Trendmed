@@ -2425,7 +2425,7 @@ input[type="submit"].btn.btn-mini {
   filter: alpha(opacity=75);
 }
 .alert {
-  padding: 9px 35px 8px 24px;
+  padding: 9px 35px 7px 24px;
   margin-bottom: 18px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   background-color: #fcf8e3;

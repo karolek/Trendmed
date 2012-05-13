@@ -1,8 +1,8 @@
 
         <div class="alert alert-info">
             <a class="close" data-dismiss="alert">×</a>
-            <h4 class="alert-heading">You can change Your avatar by uploading new one.</h4>
-            Remember, your avatar will be cropped down to square proportions. The get the best result supply square image.
+            <h4 class="alert-heading"><?= $this->translate('You can change Your avatar by uploading new one'); ?>.</h4>
+            <?= $this->translate('Remember, your avatar will be cropped down to square proportions. The get the best result supply square image'); ?>.
         </div>
         
         
@@ -26,9 +26,9 @@
         <? else: ?>
         <div class="alert alert-block">
             <a class="close" data-dismiss="alert">×</a>
-            <h4 class="alert-heading">Warning!</h4>
-            You don't have any avatar attached to Your account. Default image will be used instead.
-            Please upload image file to customize Your profile.
+            <h4 class="alert-heading"><?= $this->translate('Warning!'); ?></h4>
+            <?= $this->translate('Warning!'); ?>
+            You don't have any avatar attached to Your account. Default image will be used instead. Please upload image file to customize Your profile.
         </div>
         <? endif; ?>
         
