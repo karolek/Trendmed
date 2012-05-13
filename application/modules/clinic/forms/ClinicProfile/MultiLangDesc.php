@@ -32,6 +32,7 @@ class Clinic_Form_ClinicProfile_MultiLangDesc extends Twitter_Form
 
         }
 
+
     }
 
     public function populateFromUser($clinic)

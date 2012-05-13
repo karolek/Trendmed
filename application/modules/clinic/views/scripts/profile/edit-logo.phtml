@@ -1,7 +1,6 @@
-
         <div class="alert alert-info">
             <a class="close" data-dismiss="alert">×</a>
-            <h4 class="alert-heading"><?= $this->translate('You can change Your avatar by uploading new one'); ?>.</h4>
+            <h4 class="alert-heading"><?= $this->translate('You can change Your logo by uploading a new file'); ?>.</h4>
             <?= $this->translate('Remember, your avatar will be cropped down to square proportions. The get the best result supply square image'); ?>.
         </div>
         
@@ -11,7 +10,7 @@
         <div class="thumbnail">
             <?= $this->showClinicLogo($this->user); ?>
             <p class="caption">
-                <small>This is Your current avatar</small><br />
+                <small><?= $this->translate('To jest Twoje aktualne logo'); ?></small><br />
                 <a class="btn confirm" href="<?= $this->url(
                     array(
                         'action' => 'delete-logo',
@@ -19,7 +18,7 @@
                         'module' => 'clinic'
                     )
                 , null, true); ?>"><i class="icon-trash"></i>
-                    Delete avatar
+                    <?= $this->translate('Delete logo'); ?>
                 </a>
             </p>
         </div>

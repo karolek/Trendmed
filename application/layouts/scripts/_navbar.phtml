@@ -13,7 +13,7 @@
 		<p class="navbar-text pull-right">
 		<?php if($this->LoggedUser()):?>
                 <span class="userPanel">
-			Logged in as <a class="link" href="<?= $this->url(array(
+			<?= $this->translate('Logged in as');?> <a class="link" href="<?= $this->url(array(
                 'module'        => 'patient', 
                 'controller'    => 'profile', 
                 'action'        => 'index'));?>">
@@ -21,7 +21,7 @@
             <br /><a class="link" href="<?= $this->url(array(
                 'action'        => 'logout', 
                 'controller'    => 'index', 
-                'module'        => 'patient')); ?>">Log out</a> perhaps?
+                'module'        => 'patient')); ?>"><?= $this->translate('Log out?');?></a>
                 </span>
 		<?php else: ?>
             <a class="login" href="<?= $this->url(array('action' => 'index', 'controller' => 'index', 'module' => 'patient')); ?>"><?= $this->translate('Patient login'); ?></a>
