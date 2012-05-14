@@ -55,12 +55,10 @@ class Clinic_Form_ClinicProfile_MultiLangDesc extends Twitter_Form
                     )
                 );
             } else {
-                $this->setDefaults(
-                    array(
-                        'description_'.$lang->code => $trans[$lang->code]['description'],
-                        'customPromos_'.$lang->code => $trans[$lang->code]['customPromos'],
-                    )
-                );
+                if (isset($trans[$lang->code])) {
+                    $this->setDefault('description_'.$lang->code, $trans[$lang->code]['description']);
+                    $this->setDefault('customPromos_'.$lang->code, $trans[$lang->code]['customPromos']);
+                }
             }
 
         }
