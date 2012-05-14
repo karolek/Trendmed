@@ -7,3 +7,4 @@ docs/*.html
 *.log
 data/reports/*
 /.settings/
+.idea
