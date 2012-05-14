@@ -11,15 +11,16 @@ class Clinic_Form_Service extends Twitter_Form
      * @var array Translated Category Array Tree
      */
     protected $_translatedCategoryArrayTree = null;
+
     public function init()
     {
         $config = Zend_Registry::get('config');
         $this->setMethod('post');
 
         // category
-        if (!$this->getCategories()) {
+        if (!$categories = $this->_getCategories()) {
             throw new Zend_Form_Exception(
-                'Form needs to have categories attached to it'
+                'No categories defined in DB'
             );
         }
         // TODO: make selects with parent and children categories
@@ -40,22 +41,27 @@ class Clinic_Form_Service extends Twitter_Form
         $priceMin->setLabel('Cena minimalna za usługę w EURO');
         $floatValidator = new Zend_Validate_Float();
         $priceMin->addValidator($floatValidator);
+        $this->addElement($priceMin);
 
         // price max in EURO (optional)
         $priceMax = new Zend_Form_Element_Text('pricemax');
         $priceMax->setRequired(false);
         $priceMax->setLabel('Cena maksymalna za usługę w EURO (opcjonalnie)');
         $priceMax->addValidator($floatValidator);
+        $this->addElement($priceMax);
 
+        $submit = new \Zend_Form_Element_Submit('Save');
+        $this->addElement($submit);
     }
 
-    public function setCategories($array)
+    private function _getCategories()
     {
-        $this->_translatedCategoryArrayTree = $array;
-    }
-
-    public function getCategories()
-    {
+        if(!$this->_translatedCategoryArrayTree) {
+            $em = \Zend_Registry::get('doctrine')->getEntityManager();
+            $repo = $em->getRepository('Trendmed\Entity\Category');
+            $tree = $repo->childrenHierarchy();
+            $this->_translatedCategoryArrayTree = $tree[0];
+        }
         return $this->_translatedCategoryArrayTree;
     }
 }

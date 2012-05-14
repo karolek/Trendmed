@@ -40,7 +40,7 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
 				$model  = $this->_helper->getEm()->getRepository($this->_userModel)
                         ->findOneByLogin($values['username']);
 				if (!$model) { // we didnt find the user in DB
-				    $this->_helper->FlashMessenger(array('error' => 'No such user in database as: '.$values['username']));
+				    $this->_helper->FlashMessenger(array('error' => 'Given clinic e-mail not found in database'));
 				} else {
 				    if ($values['rememberMe'] == 1) {
 				        $config = Zend_Registry::get('config'); 

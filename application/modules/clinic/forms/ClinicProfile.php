@@ -15,6 +15,7 @@ class Clinic_Form_ClinicProfile extends Twitter_Form
         $this->setAttrib('class', 'form-horizontal');
 
         $this->addSubForm(new Clinic_Form_ClinicProfile_Logo(), 'logo');
+        $this->addSubForm(new Clinic_Form_ClinicProfile_MultiLangDesc(), 'description');
 
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Save');

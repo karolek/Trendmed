@@ -10,7 +10,11 @@ class Clinic_Form_ClinicProfile_Logo extends Twitter_Form
 {
     public function init()
     {
+        $this->setName("login");
+        $this->setMethod('post');
+        $this->setAttrib('class', 'form-horizontal');
         $this->setAttrib('enctype', 'multipart/form-data');
+
         $file = new Zend_Form_Element_File('logo');
         $file->setLabel('Logo file (jpg, png, gif)');
         // ensure only 1 file
@@ -21,5 +25,10 @@ class Clinic_Form_ClinicProfile_Logo extends Twitter_Form
         $file->addValidator('Extension', false, 'jpg,png,gif');
 
         $this->addElement($file);
+
+        $submit      = new Zend_Form_Element_Submit('signin');
+        $submit->setLabel('Upload');
+
+        $this->addElement($submit);
     }
 }

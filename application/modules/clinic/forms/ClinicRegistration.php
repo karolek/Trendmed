@@ -60,6 +60,8 @@ class Clinic_Form_ClinicRegistration extends Twitter_Form
         $email->setLabel('Email address');
         $email->addValidator('EmailAddress');
         $email->setRequired(true);
+        $email->setDescription('This will be Your account login');
+
         $this->addElement($email);
         // rep email must be unique
 

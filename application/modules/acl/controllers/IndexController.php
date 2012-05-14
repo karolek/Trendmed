@@ -47,7 +47,7 @@ class Acl_IndexController extends \Zend_Controller_Action
 					$role = new \Trendmed\Entity\Role;
 				}
 				
-				$role->name = $post['name'];
+				$role->setName($post['name']);
 				$this->_helper->getEm()->persist($role);
                 $this->_helper->getEm()->flush();
 				$this->_helper->FlashMessenger(array('success' => 'Changes to roles saved successfully'));

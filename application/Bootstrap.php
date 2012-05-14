@@ -36,6 +36,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view = $this->getResource('view');
 
         $view->headLink()->appendStylesheet('/css/bootstrap.css');
+        $view->headLink()->appendStylesheet('/css/trendmed.css');
         $view->headLink()->appendStylesheet('/css/bootstrap-responsive.css');
         $view->headLink()->appendStylesheet('/css/datepicker.css');
         

@@ -10,7 +10,7 @@ class Admin_CategoriesController extends Zend_Controller_Action
 
         //ensure that there is allways a root node
         $root = $em->getRepository('\Trendmed\Entity\Category') // this is main root of the menu
-                            ->findOneByRoot(1);
+                            ->findOneByLvl(0);
         if(!$root) {
             $root = new \Trendmed\Entity\Category;
             $root->setName('root');

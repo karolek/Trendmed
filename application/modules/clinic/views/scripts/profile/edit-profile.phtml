@@ -1,1 +1,19 @@
-<?= $this->form; ?>
+
+    
+        <div id="editClinic" class="form-horizontal">
+            <?= $this->form; ?>
+        </div>
+        
+        <br /><br />
+
+        <h3 style="padding:0 0 10px;"><?= $this->translate('Here You can add any photos of Your object, that will be shown on Your public profile'); ?>.</h3>
+        <div id="photoUpload"><?= $this->photoForm; ?></div>
+        <? if(count($this->LoggedUser()->photos)>0): ?>
+            <ul class="thumbnails">
+            <? foreach($this->LoggedUser()->photos as $photo): ?>
+                <li class="thumbnail"><?= $this->ShowClinicPhoto($photo, 'medium'); ?></li>
+            <? endforeach; ?>
+            </ul>
+        <? endif; ?>
+   
+

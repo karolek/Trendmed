@@ -1,0 +1,45 @@
+        <div class="alert alert-info">
+            <a class="close" data-dismiss="alert">×</a>
+            <h4 class="alert-heading"><?= $this->translate('You can change Your logo by uploading a new file'); ?>.</h4>
+            <?= $this->translate('Remember, your avatar will be cropped down to square proportions. The get the best result supply square image'); ?>.
+        </div>
+        
+        
+        <? if($this->user->getLogoDir()): ?>
+
+        <div class="thumbnail row">
+            <div class="span2" style="padding: 0 0 0 285px;">
+            <?= $this->showClinicLogo($this->user); ?>
+                </div>
+            
+            <div class="span4">
+            <p class="caption">
+                <small><?= $this->translate('To jest Twoje aktualne logo'); ?></small><br />
+                <a class="btn confirm" href="<?= $this->url(
+                    array(
+                        'action' => 'delete-logo',
+                        'controller' => 'profile',
+                        'module' => 'clinic'
+                    )
+                , null, true); ?>"><i class="icon-trash"></i>
+                    <?= $this->translate('Delete logo'); ?>
+                </a>
+            </p>
+            </div>
+        </div>
+        <? else: ?>
+        <div class="alert alert-block">
+            <a class="close" data-dismiss="alert">×</a>
+            <h4 class="alert-heading"><?= $this->translate('Warning!'); ?></h4>
+            <?= $this->translate('Warning!'); ?>
+            You don't have any avatar attached to Your account. Default image will be used instead. Please upload image file to customize Your profile.
+        </div>
+        <? endif; ?>
+        
+        
+        <?= $this->form;?>
+  
+        
+        
+        
+  

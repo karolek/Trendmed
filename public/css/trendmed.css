@@ -1,0 +1,227 @@
+/*
+ * HTML5 Boilerplate
+ *
+ * What follows is the result of much research on cross-browser styling.
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ *
+ * Detailed information about this CSS: h5bp.com/css
+ *
+ * ==|== normalize ==========================================================
+ */
+
+
+/* =============================================================================
+   HTML5 display definitions
+   ========================================================================== */
+
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block; }
+audio, canvas, video { display: inline-block; *display: inline; *zoom: 1; }
+audio:not([controls]) { display: none; }
+[hidden] { display: none; }
+
+
+@font-face {
+    font-family: 'TeXGyreHerosBold';
+    src: url('../fonts/texgyreheros-boldwebfont.woff') format('woff'),
+         url('../fonts/texgyreheros-boldwebfont.ttf') format('truetype'),
+         url('../fonts/texgyreheros-boldwebfont.svg#TeXGyreHerosBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TeXGyreHerosRegular';
+    src: url('../fonts/texgyreheros-regularwebfont.woff') format('woff'),
+         url('../fonts/texgyreheros-regularwebfont.ttf') format('truetype'),
+         url('../fonts/texgyreheros-regularwebfont.svg#TeXGyreHerosRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TeXGyreHerosCnBold';
+    src: url('../fonts/texgyreheroscn-boldwebfont.woff') format('woff'),
+         url('../fonts/texgyreheroscn-boldwebfont.ttf') format('truetype'),
+         url('../fonts/texgyreheroscn-boldwebfont.svg#TeXGyreHerosCnBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+body {background:#f2efe5 url(../img/bg.png) top left repeat-x; padding:0 0 20px; margin:0; font-size:12px; color:#7e7d7d; font-family: 'TeXGyreHerosRegular';}
+
+h1, h2, h3, h4, h5 {color:#292828; font-family: 'TeXGyreHerosBold'; font-weight: normal;}
+
+a {color:#107ba8; text-decoration:underline;}
+a:hover {text-decoration:none;}
+
+p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
+
+.shadow {width:1130px; height:800px; position: absolute; z-index: 1; background:url(../img/shadow.png) top left no-repeat; left: 50%; margin: 0 0 0 -566px;}
+
+/* HEADER */
+
+.navbar-fixed-top .container {padding:0; width:999px;}
+.navbar-fixed-top {position: relative; margin:16px auto 0; width:999px; background: #ffffff; border-radius: 5px 5px 0 0; -moz-border-radius: 5px 5px 0 0; -webkit-border-radius: 5px 5px 0 0;}
+.navbar-fixed-top .navbar-inner {background:none; box-shadow:none;}
+.navbar-inner .container {width:auto; min-height:1px;}
+
+.navbar .pull-right {padding:0 35px 0 0;}
+.navbar .pull-right a {display:block; color:#ffffff; padding: 7px 10px; text-decoration:none; margin:35px 0 0 9px; float:left; line-height: 13px; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; font-size:12px; font-family: 'TeXGyreHerosCnBold'; text-transform: uppercase;}
+.navbar .pull-right a.link {color: #107BA8; display: inline; float: none; margin: auto; padding: 0; text-decoration: underline; text-transform: none;}
+.navbar .pull-right a.link:hover {text-decoration: none;}
+.navbar .pull-right .login {background:#0d7dac; text-shadow:1px 1px #0b688f;}
+.navbar .pull-right .login:hover {background: #0b688f;}
+.navbar .pull-right .register {background:#53d7f8; text-shadow:1px 1px #45b3ce;}
+.navbar .pull-right .register:hover {background: #45b3ce;}
+.navbar .pull-right .userPanel {display: block; line-height: 16px; margin: 0 -10px 0 0; padding: 31px 0 0 10px; text-align: right;}
+
+.navbar .brand {width:250px; height:93px; display: block; float:left; background: url(../img/logo.png) -8px 0px no-repeat; text-indent: -9999px;}
+.navbar .paski {width:999px; height:16px; background: url(../img/paski.png) top left no-repeat; position: absolute; margin:-16px 0 0;}
+.navbar .clear {width:999px; height:1px; clear:both; background: url(../img/clear.png) top left no-repeat;}
+
+.navbar .nav {float:right;}
+.navbar .nav > li {border-right:1px solid #ebf1f3;}
+.navbar .nav > li > a {font-size:15px; font-family: 'TeXGyreHerosCnBold'; text-shadow:none; color:#0e6082; padding:38px 16px 0;}
+.navbar .nav > li > a:hover {text-decoration:underline; color:#000000; cursor: pointer;}
+
+.navbar .nav .dropdown-toggle .caret, .navbar .nav .open.dropdown .caret {border-bottom-color: #000000; border-top-color: #000000;}
+.dropdown.open .dropdown-toggle {color:#000000;}
+
+.navbar .dropdown-menu {margin-top:9px;}
+
+/* CONTAINER */
+
+.container, 
+.container-fluid {width:979px; clear:both; margin:0 auto; background: #ffffff; padding:9px 10px; border-radius:0 0 5px 5px; -webkit-border-radius:0 0 5px 5px; -moz-border-radius:0 0 5px 5px; z-index: 2; position: relative;}
+.container {min-height:465px;}
+
+#content {width:681px; float:right; margin:0;}
+#content .hero-unit {padding:24px; background:#ffffff; border:1px solid #eeeeee;}
+#content .hero-unit p {font-size:12px; line-height: 17px; padding:13px 0 0; margin:0;}
+#content .hero-unit h1 {font-size:32px; font-family: 'TeXGyreHerosBold'; color:#292828;}
+
+#sidebar {float:left; width:276px; padding:0; margin:0;}
+#sidebar .sidebar-nav {box-shadow:none; border:none; background: #024764; color:#ffffff; padding: 20px 19px 19px 9px;}
+#sidebar .sidebar-nav .nav-header {font-size:18px; color:#ffffff; font-family: 'TeXGyreHerosBold'; text-transform: none; text-shadow:none; font-weight: normal;}
+#sidebar .sidebar-nav a {font-size:12px; color:#ffffff; font-family: 'TeXGyreHerosBold'; text-shadow:none; text-decoration: none;}
+#sidebar .sidebar-nav .active a {background: #115470;}
+
+.page-header {border: medium none; margin: 18px 0 27px; padding: 0 0 0 24px;}
+
+section {padding:24px;}
+
+
+/* FORMS */
+
+.form-horizontal {border:1px solid #EEEEEE; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;}
+.form-horizontal fieldset {width:929px; border-bottom: 1px solid #eeeeee;}
+.form-horizontal fieldset legend {border:none; font-family: 'TeXGyreHerosBold'; margin: 0; padding:18px 24px 0;}
+.form-horizontal fieldset dl {padding:0 24px;}
+.form-horizontal dd {border-bottom:1px solid #EEEEEE;}
+
+.form-horizontal .control-label {width:270px;}
+.form-horizontal .controls {margin-left:295px;}
+
+.form-actions {border-top: medium none; margin: 0;}
+.form-horizontal .form-actions {padding:18px 0 17px 320px;}
+
+#photoUpload .form-horizontal .control-label {width:255px;}
+#photoUpload .form-horizontal .controls {margin-left:270px;}
+#photoUpload .form-horizontal .form-actions {padding:18px 0 17px 295px;}
+
+.form-horizontal .form-horizontal {border:none;}
+
+form#login fieldset {padding:24px 24px 0;}
+form#login #fieldset-login {padding:24px 0 0;}
+form#login #fieldset-login .control-group {padding:0 0 0 24px;}
+form#newpassword, 
+#patientRegister fieldset {padding: 24px 0 0;}
+form#newpassword .control-group, 
+#patientRegister fieldset div.control-group {padding:0 0 0 24px;}
+
+input, textarea, select, .uneditable-input {width:330px;}
+select {width:340px;}
+
+.btn {background: #dedbdb; text-decoration:none; padding: 9px 14px 7px; font-size:14px; font-family: 'TeXGyreHerosCnBold'; text-transform: uppercase; border:none; box-shadow: none; color:#5a5a5a; margin:0 8px 0 0;}
+.btn:hover {background:#b8b6b6;}
+.btn-primary {background:#53d7f8; color:#ffffff; padding: 8px 14px 6px; font-size:16px; font-family: 'TeXGyreHerosCnBold'; text-transform: uppercase; border:none; text-shadow:1px 1px #47b8d4; box-shadow: none;}
+.btn-primary:hover {background: #065475;}
+
+#editClinic {padding:18px 0 0;}
+#editClinic .control-group {padding:0 0 18px; border-bottom:1px solid #eeeeee; width:976px;}
+#editClinic form {margin:0;}
+#editClinic .form-actions {margin:-18px 0 0; padding: 18px 0 17px 295px; width:682px;}
+#editClinic .controls {padding:0 16px 0 0;}
+
+.textareas textarea {width: 655px;}
+
+#register a[rel="tooltip"] {width:33px; height:31px; display:inline-block; background: url(../img/tooltip.png) top left no-repeat; text-indent: -9999px; top:3px; margin: 0 0 0 12px; position: relative;}
+
+.well {box-shadow: none; font-size:12px; border:none; background:#f1f1f1 url(../img/icon_info.png) top left no-repeat; padding: 20px 19px 19px 51px; font-size:12px; color:#626262;}
+
+.alert .close {font-family: Arial; text-decoration: none;}
+
+.row {margin: 0 0 20px; width: 969px; box-shadow: none;}
+
+dd {margin:0;}
+
+/* ==|== media queries ======================================================
+   EXAMPLE Media Query for Responsive Design.
+   This example overrides the primary ('mobile first') styles
+   Modify as content requires.
+   ========================================================================== */
+
+@media only screen and (min-width: 35em) {
+  /* Style adjustments for viewports that meet the condition */
+}
+
+
+
+/* ==|== non-semantic helper classes ========================================
+   Please define your styles before this section.
+   ========================================================================== */
+
+/* For image replacement */
+.ir { display: block; border: 0; text-indent: -999em; overflow: hidden; background-color: transparent; background-repeat: no-repeat; text-align: left; direction: ltr; *line-height: 0; }
+.ir br { display: none; }
+
+/* Hide from both screenreaders and browsers: h5bp.com/u */
+.hidden { display: none !important; visibility: hidden; }
+
+/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
+.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+
+/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: h5bp.com/p */
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
+
+/* Hide visually and from screenreaders, but maintain layout */
+.invisible { visibility: hidden; }
+
+/* Contain floats: h5bp.com/q */
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1; }
+
+
+
+/* ==|== print styles =======================================================
+   Print styles.
+   Inlined to avoid required HTTP connection: h5bp.com/r
+   ========================================================================== */
+
+@media print {
+  * { background: transparent !important; color: black !important; box-shadow:none !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } /* Black prints faster: h5bp.com/s */
+  a, a:visited { text-decoration: underline; }
+  a[href]:after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }  /* Don't show links for images, or javascript/internal links */
+  pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
+  thead { display: table-header-group; } /* h5bp.com/t */
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page { margin: 0.5cm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3 { page-break-after: avoid; }
+}
