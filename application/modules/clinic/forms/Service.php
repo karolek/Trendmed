@@ -24,6 +24,11 @@ class Clinic_Form_Service extends Twitter_Form
             );
         }
         // TODO: make selects with parent and children categories
+        $categorySelect = new Zend_Form_Element_Select('categories');
+        $categorySelect->setLabel('Service category');
+        $categorySelect->addMultiOptions($categories);
+        $this->addElement($categorySelect);
+        //$this->addElement('select', 'fruits', array('label'=>'Fruits','required'=> true,'multioptions'=> $categories));
 
         // description of the service should be translatable with html editor
         foreach ($config->languages as $lang) {
@@ -60,7 +65,17 @@ class Clinic_Form_Service extends Twitter_Form
             $em = \Zend_Registry::get('doctrine')->getEntityManager();
             $repo = $em->getRepository('Trendmed\Entity\Category');
             $tree = $repo->childrenHierarchy();
-            $this->_translatedCategoryArrayTree = $tree[0];
+            if (count($tree[0]['__children'])) { //checking if first found root has some categories
+                foreach($tree[0]['__children'] as $mainCategory) { //iterating though main catgegories
+                    if (count($mainCategory['__children']) > 0 ) { // checking if main cat. has children cats
+                        $map[$mainCategory['name']] = array(); // instancing the main category in array
+                        foreach ($mainCategory['__children'] as $subCategory) {
+                            $map[$mainCategory['name']][$subCategory['id']] = $subCategory['name'];
+                        }
+                    }
+                }
+            }
+            $this->_translatedCategoryArrayTree = $map;
         }
         return $this->_translatedCategoryArrayTree;
     }

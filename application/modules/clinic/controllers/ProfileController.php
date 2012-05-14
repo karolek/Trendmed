@@ -147,19 +147,15 @@ class Clinic_ProfileController extends Zend_Controller_Action
     {
         $request = $this->getRequest();
         $this->view->headTitle($this->view->translate('Managing Your clinic services'));
-        //$repo = $this->_em->getRepository('Trendmed\Entity\Category');
-        $query = $this->_em
-            ->createQueryBuilder()
-            ->select('node')
-            ->from('Trendmed\Entity\Category', 'node')
-            ->orderBy('node.root, node.lft', 'ASC')
-            ->where('node.root = 1')
-            ->andWhere('node.lvl = 1')
-            ->getQuery();
+        $form = new Clinic_Form_Service();
 
-        //$options = array('decorate' => true);
-        $tree = $query->getArrayResult();
-        $form = new Clinic_Form_Service(array('categories' => $tree));
+        if ($request->isPost()) {
+            $post = $request->getPost();
+            if ($form->isValid($post)) {
+                $values = $form->getValues();
+                // TODO
+            }
+        }
 
         $this->view->form = $form;
 

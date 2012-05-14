@@ -37,7 +37,7 @@ class Admin_CategoriesController extends Zend_Controller_Action
                 $this->_rootNode, /* starting from root nodes */ false, /* load all children, not only direct */ $options
         );
         $this->view->categories = $htmlTree;
-        $form = new \Admin_Form_Category(); 
+        $form = new \Admin_Form_Category();
         $form->setAction($this->_helper->url('save', 'categories'));
         $this->view->form = $form;
     }
