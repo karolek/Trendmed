@@ -3,7 +3,7 @@
 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">
         <?= $this->translate('Zarządzanie kliniką'); ?><b class="caret"></b></a>
     <ul class="dropdown-menu">
-        <li><a href="<?= $this->url(array('module' => 'clinic', 'action' => 'manage-services', 'controller' => 'profile')); ?>"><?= $this->translate('Twoja oferta dla pacjentów'); ?></a></li>
+        <li><a href="<?= $this->url(array('module' => 'clinic', 'action' => 'index', 'controller' => 'services')); ?>"><?= $this->translate('Twoja oferta dla pacjentów'); ?></a></li>
         <li><a href="<?= $this->url(array('module' => 'clinic', 'action' => 'edit-profile', 'controller' => 'profile')); ?>"><?= $this->translate('Opis kliniki'); ?></a></li>
         <li><a href="<?= $this->url(array('module' => 'clinic', 'action' => 'edit-account', 'controller' => 'profile')); ?>"><?= $this->translate('Twoje konto'); ?></a></li>
         <li><a href="<?= $this->url(array('module' => 'clinic', 'action' => 'change-password', 'controller' => 'profile')); ?>"><?= $this->translate('Zmień hasło dostępu'); ?></a></li>

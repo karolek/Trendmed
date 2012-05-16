@@ -1,0 +1,14 @@
+<a class="btn" href="<?= $this->url(array('action' => 'manage-services')); ?>"><?= $this->translate('Add new service'); ?></a>
+    <ul>
+    <? foreach($this->services as $service): ?>
+        <li>
+            <?= $service->category->name; ?>
+            <p>
+                <?= $service->description; ?>
+            </p>
+            <a href="<?= $this->url(array('action' => 'manage-services',    'id' => $service->getId())); ?>"><?= $this->translate('Edit'); ?></a>
+            <a href="<?= $this->url(array('action' => 'delete-service',     'id' => $service->getId())); ?>"><?= $this->translate('Delete'); ?></a>
+
+        </li>
+    <? endforeach; ?>
+    </ul>

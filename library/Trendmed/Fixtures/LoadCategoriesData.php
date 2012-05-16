@@ -48,9 +48,25 @@ class LoadCategoriesData extends \Doctrine\Common\DataFixtures\AbstractFixture i
             }
             $categoryObject->setParent($root);
             $manager->persist($categoryObject);
+            $lastCategory = $categoryObject;
         }
-        // dodqaje jeszcze jeden children categorie
-        $subcategory = new \Trendmed\Entity\Category();
+
+        foreach ($this->_subcategoriesNames as $subcategoryName) {
+            $categoryObject = new \Trendmed\Entity\Category();
+            foreach ($config->languages as $lang) {
+                if ($lang->default == true) { // we must add default values to our main entity
+                    $categoryObject->setName($subcategoryName[$lang->code]);
+                    continue;
+                }
+                $repository->translate(
+                    $categoryObject, 'name', $lang->code,
+                    $subcategoryName[$lang->code]
+                );
+            }
+            $categoryObject->setParent($lastCategory);
+            $manager->persist($categoryObject);
+        }
+
         $manager->flush();
     }
 

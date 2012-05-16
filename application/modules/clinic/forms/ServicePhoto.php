@@ -51,8 +51,7 @@ class Clinic_Form_Service extends Twitter_Form
         // price min in EURO
         $priceMin = new Zend_Form_Element_Text('pricemin');
         $priceMin->setRequired(true);
-        $priceMin->setLabel('Cena minimalna za usługę');
-        $priceMin->setDescription('W walucie EURO');
+        $priceMin->setLabel('Cena minimalna za usługę w EURO');
         $floatValidator = new Zend_Validate_Float();
         $priceMin->addValidator($floatValidator);
         $valid  = new Zend_Validate_GreaterThan(array('min' => 1));
@@ -63,8 +62,7 @@ class Clinic_Form_Service extends Twitter_Form
         // price max in EURO (optional)
         $priceMax = new Zend_Form_Element_Text('pricemax');
         $priceMax->setRequired(false);
-        $priceMax->setLabel('Cena maksymalna za usługę');
-        $priceMax->setDescription('W walucie EURO');
+        $priceMax->setLabel('Cena maksymalna za usługę w EURO (opcjonalnie)');
         $priceMax->addValidator($floatValidator);
         $this->addElement($priceMax);
 

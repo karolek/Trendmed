@@ -8,3 +8,7 @@ docs/*.html
 data/reports/*
 /.settings/
 .idea
+.buildpath
+.project
+/tests/data/*
+/public/clinicLogos/*

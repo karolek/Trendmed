@@ -111,6 +111,12 @@ class Category extends \Trendmed\Entity\Category implements \Doctrine\ORM\Proxy\
         return parent::getSlug();
     }
 
+    public function setTranslatableLocale($locale)
+    {
+        $this->__load();
+        return parent::setTranslatableLocale($locale);
+    }
+
     public function __set($name, $value)
     {
         $this->__load();
