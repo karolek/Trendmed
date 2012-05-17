@@ -62,7 +62,13 @@ class Clinic_ProfileController extends Zend_Controller_Action
         ));
         $this->view->photoForm = $photoForm;
 
-        if ($request->isPost()) {
+        // init the form for clinic addres data
+        $accountForm = new Clinic_Form_ClinicProfile_Account();
+        // populating with hydrated to array logged user
+        $accountForm->populate($this->_em->getRepository('\Trendmed\Entity\Clinic')->findOneAsArray($user->getId()));
+        $this->view->accountForm = $accountForm;
+
+        if ($request->isPost()) { // saveing form with description
             $post = $request->getPost();
             if ($form->isValid($post)) {
                 $values = $form->getValues();
@@ -96,8 +102,12 @@ class Clinic_ProfileController extends Zend_Controller_Action
             }
         }
         $this->view->form = $form;
-     }
+    }
 
+    /**
+     * Saveing photo upload
+     * @throws Exception
+     */
     public function addPhotoAction()
     {
         $request = $this->getRequest();
@@ -136,7 +146,9 @@ class Clinic_ProfileController extends Zend_Controller_Action
      */
     public function editAccountAction()
     {
+        $form = new \Clinic_Form_ClinicProfile_Account();
 
+        $this->view->form = $form;
 
     }
 
@@ -209,5 +221,43 @@ class Clinic_ProfileController extends Zend_Controller_Action
 
         $this->_helper->FlashMessenger(array('success' => 'Your logo has been deleted'));
         $this->_helper->Redirector('edit-logo');
+    }
+
+
+    /**
+     * This is for saveing form with clinic address data
+     */
+    public function saveClinicDetailsAction() {
+        $request = $this->getRequest();
+
+        $form = new Clinic_Form_ClinicProfile_Account();
+
+        $user = $this->_helper->LoggedUser();
+        if (!$user) {
+            throw new Exception(
+                'No logged user found, so now edit Details is possible'
+            );
+        }
+
+        if ($request->isPost()) { // saveing form with description
+            $post = $request->getPost();
+            if ($form->isValid($post)) {
+                $values = $form->getValues();
+                $user->setOptions($values);
+
+                $this->_em->persist($user);
+                $this->_em->flush();
+
+                $this->_helper->FlashMessenger(
+                    array('success' => 'You have changed Your details')
+                );
+                $this->_helper->Redirector(
+                    'index', 'public', 'clinic'
+                );
+            }
+        } else {
+            throw new \Exception('Request should be post');
+        }
+        $this->view->form = $form;
     }
 }

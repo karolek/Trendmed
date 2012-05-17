@@ -10,5 +10,5 @@ data/reports/*
 .idea/*
 .buildpath
 .project
-/tests/data/*
+/tests/_data/*
 /public/clinicLogos/*

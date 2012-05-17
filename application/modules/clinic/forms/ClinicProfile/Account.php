@@ -4,7 +4,7 @@
  *
  * @author Bard
  */
-class Clinic_Form_ClinicDetails extends Twitter_Form
+class Clinic_Form_ClinicProfile_Account extends Twitter_Form
 {
     public function init()
     {
