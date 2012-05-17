@@ -148,12 +148,30 @@ class Clinic_ProfileController extends Zend_Controller_Action
         $request = $this->getRequest();
         $this->view->headTitle($this->view->translate('Managing Your clinic services'));
         $form = new Clinic_Form_Service();
+        $config = \Zend_Registry::get('config');
 
         if ($request->isPost()) {
             $post = $request->getPost();
             if ($form->isValid($post)) {
                 $values = $form->getValues();
-                // TODO
+                foreach ($config->languages as $lang) {
+                    if ($lang->default == 1) { // we must add default values to our main entity
+                        $user->setCustomPromos(
+                            $values['customPromos_'.$lang->code]);
+                        $user->setDescription(
+                            $values['description_'.$lang->code]
+                        );
+                    } else {
+                        $repository->translate(
+                            $user, 'customPromos', $lang->code,
+                            $values['customPromos_'.$lang->code]
+                        );
+                        $repository->translate(
+                            $user, 'description', $lang->code,
+                            $values['description_'.$lang->code]
+                        );
+                    }
+                }
             }
         }
 

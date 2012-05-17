@@ -9,6 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
 class Service extends \Me\Model\ModelAbstract {
+
+    public function __construct()
+    {
+        $this->viewcount = 0;
+        $this->created = new \DateTime();
+    }
     /* PROPERTIES */
     /**
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -29,9 +35,34 @@ class Service extends \Me\Model\ModelAbstract {
      * @var string
      */
     protected $pricemin;
+
+    /**
+     * @ORM\Column(type="string")
+     * @var string
+     */
     protected $pricemax;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @var string
+     */
     protected $viewcount;
+
+    /**
+     * @ORM\Column(type="boolean")
+     * @var string
+     */
     protected $isactive;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var string
+     */
     protected $created;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var string
+     */
     protected $modified;
 }
