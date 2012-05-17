@@ -139,48 +139,11 @@ class Clinic_ProfileController extends Zend_Controller_Action
 
 
     }
-    
-    /**
-     * Place to edit, add, modify clinics services
-     */
-    public function manageServicesAction()
-    {
-        $request = $this->getRequest();
-        $this->view->headTitle($this->view->translate('Managing Your clinic services'));
-        $form = new Clinic_Form_Service();
-        $config = \Zend_Registry::get('config');
 
-        if ($request->isPost()) {
-            $post = $request->getPost();
-            if ($form->isValid($post)) {
-                $values = $form->getValues();
-                foreach ($config->languages as $lang) {
-                    if ($lang->default == 1) { // we must add default values to our main entity
-                        $user->setCustomPromos(
-                            $values['customPromos_'.$lang->code]);
-                        $user->setDescription(
-                            $values['description_'.$lang->code]
-                        );
-                    } else {
-                        $repository->translate(
-                            $user, 'customPromos', $lang->code,
-                            $values['customPromos_'.$lang->code]
-                        );
-                        $repository->translate(
-                            $user, 'description', $lang->code,
-                            $values['description_'.$lang->code]
-                        );
-                    }
-                }
-            }
-        }
-
-        $this->view->form = $form;
-
-    }
-    
     /**
      * Action for changing password of clinic account
+     *
+     * @throws \Exception
      */
     public function changePasswordAction() 
     {
@@ -189,7 +152,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
 
         $user = $this->_helper->LoggedUser();
         if (!$user) {
-            throw new \Zend_Exception(
+            throw new \Exception(
                 'No logged user found, so now edit Details is possible'
             );
         }
@@ -217,7 +180,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
      */
     public function editLogoAction()
     {
-        $this->view->headTitle('Edit my logo');
+        $this->view->headTitle($this->view->translate('Edit my logo'));
         $this->view->user = $user = $this->_helper->LoggedUser();
 
         $request = $this->getRequest();
