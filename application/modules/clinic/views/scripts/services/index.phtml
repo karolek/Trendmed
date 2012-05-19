@@ -1,3 +1,9 @@
+<? if (count($this->services) < 1 ): ?>
+<div class="alert alert-info">
+    <strong>Nie dodałeś żadnych usług</strong><br />
+    Usługi pozwolą Twoim potencjalnym pocjentom odnaleźć Cię w naszym katalogu. To prostę, zacznij od dodania nowej usługi.
+</div>
+<? endif; ?>
 <a class="btn" href="<?= $this->url(array('action' => 'manage-services')); ?>"><?= $this->translate('Add new service'); ?></a>
 <? if (count($this->services) > 0 ): ?>
     <table class="table">
@@ -23,4 +29,6 @@
     <? endforeach; ?>
         </tbody>
     </table>
+<? else: ?>
+
 <? endif; ?>
