@@ -80,14 +80,23 @@ class Clinic_ServicesController extends Zend_Controller_Action
 
         // we must remove from the categories of service, allready added categories
         $result = $form->getElement('categories')->getMultiOptions();
-
-        foreach ($this->_helper->LoggedUser()->services as $clinicServices) {
-            foreach($result as &$optgroup) {
-                if(isset($optgroup[$clinicServices->category->id]) and
-                    $clinicServices->category->id != $service->getCategory()->getId()) {
-                    unset($optgroup[$clinicServices->category->id]);
+        if( count($this->_helper->LoggedUser()->services) >0 ) { // if user has services remove categories from form
+            foreach ($this->_helper->LoggedUser()->services as $clinicServices) {
+                foreach($result as &$optgroup) {
+                    if(isset($optgroup[$clinicServices->category->id]) ) { // clinic allready has this category service
+                        // we have to check also if clinic is just not editing has service,
+                        // if se we let him keep his catgegory on the form
+                        // let's check if we are id "edit" mode
+                        echo 'a';
+                        if($service->getId() > 0 ) { // yes we are
+                            echo $clinicServices->category->id.'='.$service->getCategory()->getId();
+                            if($clinicServices->category->id != $service->getCategory()->getId()) {
+                                echo 'c';
+                                unset($optgroup[$clinicServices->category->id]);
+                            }
+                        }
+                    }
                 }
-
             }
         }
         $form->getElement('categories')->setMultiOptions($result);
@@ -96,5 +105,26 @@ class Clinic_ServicesController extends Zend_Controller_Action
         $this->_helper->EnableCke($this->view);
     }
     
+    public function deleteServiceAction()
+    {
+        $request    = $this->getRequest();
+        $serviceId  = $request->getParam('id', null);
 
+        // fetching the service
+        $repo = $this->_em->getRepository('\Trendmed\Entity\Service');
+        $service = $repo->find($serviceId);
+        if(!$service) throw new \Exception('no service found with id: '.$serviceId);
+
+        // checking owner
+        if($service->clinic->id != $this->_helper->LoggedUser()->id) {
+            throw new \Exception('security breach, attempt to delete clinic by no owner');
+        }
+
+        // removing the service and it's photos
+        $this->_em->remove($service);
+        $this->_em->flush();
+
+        $this->_helper->FlashMessenger(array('success' => 'Your service has been deleted'));
+        $this->_helper->Redirector('index');
+    }
 }

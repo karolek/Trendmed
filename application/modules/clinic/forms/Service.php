@@ -66,6 +66,7 @@ class Clinic_Form_Service extends Twitter_Form
         $priceMax->setLabel('Cena maksymalna za usługę');
         $priceMax->setDescription('W walucie EURO');
         $priceMax->addValidator($floatValidator);
+        $priceMax->addValidator(new Me_Validate_ServicePrice());
         $this->addElement($priceMax);
 
         $submit = new \Zend_Form_Element_Submit('Save');

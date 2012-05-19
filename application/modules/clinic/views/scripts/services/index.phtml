@@ -1,14 +1,26 @@
 <a class="btn" href="<?= $this->url(array('action' => 'manage-services')); ?>"><?= $this->translate('Add new service'); ?></a>
-    <ul>
+<? if (count($this->services) > 0 ): ?>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Kategoria</th>
+                <th>Opis</th>
+                <th>Cena od - do</th>
+                <th>Opcje</th>
+            </tr>
+        </thead>
+        <tbody>
     <? foreach($this->services as $service): ?>
-        <li>
-            <?= $service->category->name; ?>
-            <p>
-                <?= $service->description; ?>
-            </p>
-            <a href="<?= $this->url(array('action' => 'manage-services',    'id' => $service->getId())); ?>"><?= $this->translate('Edit'); ?></a>
-            <a href="<?= $this->url(array('action' => 'delete-service',     'id' => $service->getId())); ?>"><?= $this->translate('Delete'); ?></a>
-
-        </li>
+        <tr>
+            <td><?= $service->category->name; ?></td>
+            <td><?= $service->description; ?></td>
+            <td><?= $service->pricemin; ?> - <?= $service->pricemax; ?></td>
+            <td>
+                <a href="<?= $this->url(array('action' => 'manage-services',    'id' => $service->getId())); ?>"><?= $this->translate('Edit'); ?></a>
+                <a href="<?= $this->url(array('action' => 'delete-service',     'id' => $service->getId())); ?>"><?= $this->translate('Delete'); ?></a>
+            </td>
+        </tr>
     <? endforeach; ?>
-    </ul>
+        </tbody>
+    </table>
+<? endif; ?>
