@@ -14,10 +14,11 @@ class Service extends \Me\Model\ModelAbstract {
 
     public function __construct()
     {
-        parent::__construct();
         $this->created = new \DateTime();
         $this->isactive = true;
         $this->viewcount = 0;
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection;
+        return parent::__construct();
     }
 
     /* PROPERTIES */
@@ -28,6 +29,12 @@ class Service extends \Me\Model\ModelAbstract {
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Trendmed\Entity\ServicePhoto", mappedBy="service", cascade="delete")
+     *
+     */
+    protected $photos;
 
     /**
      * @ORM\Column(type="string")
@@ -255,6 +262,16 @@ class Service extends \Me\Model\ModelAbstract {
 
         );
         return $arr;
+    }
+
+    public function setPhotos($photos)
+    {
+        $this->photos = $photos;
+    }
+
+    public function getPhotos()
+    {
+        return $this->photos;
     }
 
 

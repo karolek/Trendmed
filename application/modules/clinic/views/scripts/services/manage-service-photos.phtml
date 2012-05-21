@@ -1,0 +1,19 @@
+<p>Tutaj możesz zmienić zdjęcia które wyświetlą się przy Twojej ofercie w kategorii "<?=$this->service->category->name; ?>".</p>
+<? if (count ($this->service->getPhotos()) > 0): ?>
+<ul class="thumbnails">
+    <? foreach($this->service->getPhotos() as $photo): ?>
+    <li class="thumbnail">
+        <?= $this->ShowClinicPhoto($photo, 'medium'); ?>
+        <p class="caption"><a href="<?= $this->url(
+            array(
+                'action' => 'delete-clinic-photo',
+                'controller' => 'profile',
+                'module' => 'clinic',
+                'id'    => $photo->id,
+            )
+        ); ?>" class="btn btn-danger confirm"> <i class="icon-white icon-trash"> </i></a> </p>
+    </li>
+    <? endforeach; ?>
+</ul>
+<? endif; ?>
+<?= $this->form; ?>

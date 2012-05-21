@@ -10,7 +10,7 @@ class Clinic_Form_ClinicPhoto extends Twitter_Form
 {
     public function init()
     {
-        $this->setName("login");
+        $this->setName("clinic_photo");
         $this->setMethod('post');
         $this->setAttrib('class', 'form-horizontal');
         $this->setAttrib('enctype', 'multipart/form-data');
@@ -26,7 +26,7 @@ class Clinic_Form_ClinicPhoto extends Twitter_Form
 
         $this->addElement($file);
 
-        $submit      = new Zend_Form_Element_Submit('signin');
+        $submit      = new Zend_Form_Element_Submit('upload');
         $submit->setLabel('Upload');
 
         $this->addElement($submit);

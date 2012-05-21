@@ -42,6 +42,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         
         $view->headScript()->appendFile('/js/bootstrap.min.js', $type = 'text/javascript');
         $view->headScript()->appendFile('/js/bootstrap-datepicker.js', $type = 'text/javascript');   
+        $view->headScript()->appendFile('/js/general.js', $type = 'text/javascript');
     }
     
     protected function _initViewHelpersPaths()

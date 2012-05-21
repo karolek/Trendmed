@@ -50,7 +50,6 @@ class Clinic_ServicesController extends Zend_Controller_Action
             $this->view->headTitle('Dodawanie usługi');
         }
 
-
         if ($request->isPost()) {
             $post = $request->getPost();
             if ($form->isValid($post)) {
@@ -78,7 +77,9 @@ class Clinic_ServicesController extends Zend_Controller_Action
             }
         }
 
+
         // we must remove from the categories of service, allready added categories
+        // TODO: przepisać to jakoś
         $result = $form->getElement('categories')->getMultiOptions();
         if( count($this->_helper->LoggedUser()->services) >0 ) { // if user has services remove categories from form
             foreach ($this->_helper->LoggedUser()->services as $clinicServices) {
@@ -87,11 +88,8 @@ class Clinic_ServicesController extends Zend_Controller_Action
                         // we have to check also if clinic is just not editing has service,
                         // if se we let him keep his catgegory on the form
                         // let's check if we are id "edit" mode
-                        echo 'a';
                         if($service->getId() > 0 ) { // yes we are
-                            echo $clinicServices->category->id.'='.$service->getCategory()->getId();
                             if($clinicServices->category->id != $service->getCategory()->getId()) {
-                                echo 'c';
                                 unset($optgroup[$clinicServices->category->id]);
                             }
                         }
@@ -100,6 +98,7 @@ class Clinic_ServicesController extends Zend_Controller_Action
             }
         }
         $form->getElement('categories')->setMultiOptions($result);
+        $this->view->service = $service;
 
         $this->view->form = $form;
         $this->_helper->EnableCke($this->view);
@@ -126,5 +125,51 @@ class Clinic_ServicesController extends Zend_Controller_Action
 
         $this->_helper->FlashMessenger(array('success' => 'Your service has been deleted'));
         $this->_helper->Redirector('index');
+    }
+
+    public function manageServicePhotosAction()
+    {
+        $request    = $this->getRequest();
+        $serviceId  = $request->getParam('id', null);
+
+        // fetching the service
+        $repo = $this->_em->getRepository('\Trendmed\Entity\Service');
+        $service = $repo->find($serviceId);
+        if(!$service) throw new \Exception('no service found with id: '.$serviceId);
+
+        // checking owner
+        if($service->clinic->id != $this->_helper->LoggedUser()->id) {
+            throw new \Exception('security breach, attempt to delete clinic by no owner');
+        }
+
+        $form = new Clinic_Form_ServicePhoto();
+
+        if($request->isPost()) {
+            $photo = new \Trendmed\Entity\ServicePhoto();
+            $clinic->addPhoto($photo);
+
+            // doing all the upload magic
+            $photo->processFile();
+
+            $this->_em->persist($photo);
+            $this->_em->persist($clinic);
+            $this->_em->flush();
+
+            if($request->isXmlHttpRequest()) {
+                echo 'OK';
+                $this->_helper->layout()->disableLayout();
+                $this->_helper->viewRenderer->setNoRender(true);
+            } else {
+                $this->_helper->FlashMessenger(array(
+                    'success' => 'New photo added'
+                ));
+                $this->_helper->Redirector(
+                    'edit-profile'
+                );
+            }
+        }
+        $this->view->service = $service;
+        $this->view->headTitle('Zdjęcia usługi');
+        $this->view->form = $form;
     }
 }

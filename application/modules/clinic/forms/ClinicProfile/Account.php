@@ -8,7 +8,7 @@ class Clinic_Form_ClinicProfile_Account extends Twitter_Form
 {
     public function init()
     {
-        $this->setName("login");
+        $this->setName("account");
         $this->setMethod('post');
         $this->setAttrib('class', 'form-horizontal');
 
@@ -55,19 +55,7 @@ class Clinic_Form_ClinicProfile_Account extends Twitter_Form
         $group = $this->getDisplayGroup('addressInfo');
         $group->setLegend('Address info');
 
-        // reprezentant info        
-
-        $email = new Zend_Form_Element_Text('repEmail');
-        $email->setLabel('Email address');
-        $email->addValidator('EmailAddress');
-        $email->setRequired(true);
-        $this->addElement($email);
-        // rep email must be unique
-        $uniqueRepEmailValidator = new Zend_Validate_Db_NoRecordExists(array(
-                    'table' => 'clinics',
-                    'field' => 'repEmail'
-                        ));
-        $email->addValidator($uniqueRepEmailValidator);
+        // reprezentant info
 
         $representantName = new Zend_Form_Element_Text('repName');
         $representantName->setLabel('Representant name');
@@ -83,5 +71,9 @@ class Clinic_Form_ClinicProfile_Account extends Twitter_Form
         $this->addDisplayGroup(array('repEmail', 'repName', 'repPhone'), 'representantInfo');
         $group = $this->getDisplayGroup('representantInfo');
         $group->setLegend('Representant info');
+
+        $submit = new \Zend_Form_Element_Submit('submit');
+        $submit->setLabel('Save');
+        $this->addElement($submit);
     }
 }

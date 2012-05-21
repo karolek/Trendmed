@@ -22,8 +22,24 @@
             <td><?= $service->description; ?></td>
             <td><?= $service->pricemin; ?> - <?= $service->pricemax; ?></td>
             <td>
-                <a href="<?= $this->url(array('action' => 'manage-services',    'id' => $service->getId())); ?>"><?= $this->translate('Edit'); ?></a>
-                <a href="<?= $this->url(array('action' => 'delete-service',     'id' => $service->getId())); ?>"><?= $this->translate('Delete'); ?></a>
+                <div class="btn-group">
+                    <button class="btn"><a href="<?= $this->url(array('action' => 'manage-services',    'id' => $service->getId())); ?>"><?= $this->translate('Edit'); ?></a></button>
+                    <button class="btn dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <!-- dropdown menu links -->
+                        <li>
+                            <a href="<?= $this->url(array('action' => 'manage-service-photos', 'controller' => 'services',
+                                'id' => $service->getId())); ?>"><?= $this->translate('Manage photos'); ?></a>
+                        </li>
+                        <li>
+                            <a href="<?= $this->url(array('action' => 'delete-service',
+                                'id' => $service->getId())); ?>"><?= $this->translate('Delete'); ?></a>
+                        </li>
+                    </ul>
+                </div>
+
             </td>
         </tr>
     <? endforeach; ?>

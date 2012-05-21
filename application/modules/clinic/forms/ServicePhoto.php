@@ -5,89 +5,29 @@
  *
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
-class Clinic_Form_Service extends Twitter_Form
+class Clinic_Form_ServicePhoto extends Twitter_Form
 {
-    /**
-     * @var array Translated Category Array Tree
-     */
-    protected $_translatedCategoryArrayTree = null;
-
     public function init()
     {
-        $config = Zend_Registry::get('config');
+        $this->setName("service_photo");
         $this->setMethod('post');
+        $this->setAttrib('class', 'form-horizontal');
+        $this->setAttrib('enctype', 'multipart/form-data');
 
-        // category
-        if (!$categories = $this->_getCategories()) {
-            throw new Zend_Form_Exception(
-                'No categories defined in DB'
-            );
-        }
+        $file = new Zend_Form_Element_File('photo');
+        $file->setLabel('Photo file (jpg, png, gif)');
+        // ensure only 1 file
+        $file->addValidator('Count', false, 1);
+        // limit to 100K
+        $file->addValidator('Size', false, 102400 * 10);
+        // only JPEG, PNG, and GIFs
+        $file->addValidator('Extension', false, 'jpg,png,gif');
 
-        $categorySelect = new Zend_Form_Element_Select('categories');
-        $categorySelect->setLabel('Service category');
-        $categorySelect->addMultiOption('0', '-- WYBIERZ --');
-        $categorySelect->addMultiOptions($categories);
-        $this->addElement($categorySelect);
-        //$this->addElement('select', 'fruits', array('label'=>'Fruits','required'=> true,'multioptions'=> $categories));
+        $this->addElement($file);
 
-        // description of the service should be translatable with html editor
-        foreach ($config->languages as $lang) {
+        $submit      = new Zend_Form_Element_Submit('upload');
+        $submit->setLabel('Upload');
 
-            $description = new Zend_Form_Element_Textarea('description_'.$lang->code);
-            $description->setRequired(true);
-            $description->setAttrib('class', 'ckeditor');
-            $description->setLabel(
-                'Opis wykonywanej usługi w języku: ' . $lang->name
-            );
-
-            // overwriting for default values
-            if($lang->default) {
-                $description->setName('description');
-            }
-            $this->addElement($description);
-        }
-
-        // price min in EURO
-        $priceMin = new Zend_Form_Element_Text('pricemin');
-        $priceMin->setRequired(true);
-        $priceMin->setLabel('Cena minimalna za usługę w EURO');
-        $floatValidator = new Zend_Validate_Float();
-        $priceMin->addValidator($floatValidator);
-        $valid  = new Zend_Validate_GreaterThan(array('min' => 1));
-        $priceMin->addValidator($valid);
-        $this->addElement($priceMin);
-
-
-        // price max in EURO (optional)
-        $priceMax = new Zend_Form_Element_Text('pricemax');
-        $priceMax->setRequired(false);
-        $priceMax->setLabel('Cena maksymalna za usługę w EURO (opcjonalnie)');
-        $priceMax->addValidator($floatValidator);
-        $this->addElement($priceMax);
-
-        $submit = new \Zend_Form_Element_Submit('Save');
         $this->addElement($submit);
-    }
-
-    private function _getCategories()
-    {
-        if(!$this->_translatedCategoryArrayTree) {
-            $em = \Zend_Registry::get('doctrine')->getEntityManager();
-            $repo = $em->getRepository('Trendmed\Entity\Category');
-            $tree = $repo->childrenHierarchy();
-            if (count($tree[0]['__children'])) { //checking if first found root has some categories
-                foreach($tree[0]['__children'] as $mainCategory) { //iterating though main catgegories
-                    if (count($mainCategory['__children']) > 0 ) { // checking if main cat. has children cats
-                        $map[$mainCategory['name']] = array(); // instancing the main category in array
-                        foreach ($mainCategory['__children'] as $subCategory) {
-                            $map[$mainCategory['name']][$subCategory['id']] = $subCategory['name'];
-                        }
-                    }
-                }
-            }
-            $this->_translatedCategoryArrayTree = $map;
-        }
-        return $this->_translatedCategoryArrayTree;
     }
 }

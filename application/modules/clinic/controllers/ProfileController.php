@@ -51,6 +51,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
 
         // populate form
         $config = \Zend_Registry::get('config');
+        $this->view->config = $config;
         $form->populateFromUser($user);
 
         // init the form for new photo
@@ -61,12 +62,6 @@ class Clinic_ProfileController extends Zend_Controller_Action
             )
         ));
         $this->view->photoForm = $photoForm;
-
-        // init the form for clinic addres data
-        $accountForm = new Clinic_Form_ClinicProfile_Account();
-        // populating with hydrated to array logged user
-        $accountForm->populate($this->_em->getRepository('\Trendmed\Entity\Clinic')->findOneAsArray($user->getId()));
-        $this->view->accountForm = $accountForm;
 
         if ($request->isPost()) { // saveing form with description
             $post = $request->getPost();
@@ -223,14 +218,30 @@ class Clinic_ProfileController extends Zend_Controller_Action
         $this->_helper->Redirector('edit-logo');
     }
 
+    public function deleteClinicPhotoAction()
+    {
+        $request = $this->getRequest();
+        $id = $request->getParam('id');
+        $photo = $this->_em->find('\Trendmed\Entity\ClinicPhoto', $id);
+
+        if($photo->clinic->id != $this->_helper->LoggedUser()->id) {
+            throw new \Exception('Security breach, trying to delete not Your photo');
+        }
+
+        $this->_em->remove($photo);
+        $this->_em->flush();
+
+        $this->_helper->FlashMessenger(array('success' => 'Zdjęcie zostało usunięte'));
+        $this->_helper->Redirector('edit-profile', 'profile');
+    }
+
 
     /**
      * This is for saveing form with clinic address data
+     * @throws \Exception
      */
     public function saveClinicDetailsAction() {
         $request = $this->getRequest();
-
-        $form = new Clinic_Form_ClinicProfile_Account();
 
         $user = $this->_helper->LoggedUser();
         if (!$user) {
@@ -238,6 +249,16 @@ class Clinic_ProfileController extends Zend_Controller_Action
                 'No logged user found, so now edit Details is possible'
             );
         }
+
+        // init the form for clinic addres data
+        $form = new Clinic_Form_ClinicProfile_Account();
+        // populating with hydrated to array logged user
+        $form->populate($this->_em->getRepository('\Trendmed\Entity\Clinic')->findOneAsArray($user->getId()));
+        $form->setAction($this->view->url(array(
+            'action'        => 'save-clinic-details',
+            'controller'    => 'profile',
+            'module'        => 'clinic'
+        )));
 
         if ($request->isPost()) { // saveing form with description
             $post = $request->getPost();
@@ -252,11 +273,9 @@ class Clinic_ProfileController extends Zend_Controller_Action
                     array('success' => 'You have changed Your details')
                 );
                 $this->_helper->Redirector(
-                    'index', 'public', 'clinic'
+                    'index', 'profile', 'clinic'
                 );
             }
-        } else {
-            throw new \Exception('Request should be post');
         }
         $this->view->form = $form;
     }
