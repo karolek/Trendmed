@@ -333,6 +333,18 @@ class Clinic extends \Trendmed\Entity\Clinic implements \Doctrine\ORM\Proxy\Prox
         return parent::getLogin();
     }
 
+    public function setBankAccount($bankAccount)
+    {
+        $this->__load();
+        return parent::setBankAccount($bankAccount);
+    }
+
+    public function getBankAccount()
+    {
+        $this->__load();
+        return parent::getBankAccount();
+    }
+
     public function setLogin($login)
     {
         $this->__load();
@@ -504,7 +516,7 @@ class Clinic extends \Trendmed\Entity\Clinic implements \Doctrine\ORM\Proxy\Prox
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'name', 'streetaddress', 'province', 'city', 'postcode', 'repPhone', 'repName', 'repEmail', 'type', 'wantBill', 'country', 'geoLat', 'getLon', 'description', 'customPromos', 'roleName', 'slug', 'logoDir', 'login', 'password', 'salt', 'token', 'tokenValidUntil', 'lastLoginTime', 'created', 'modified', 'services', 'photos', 'role');
+        return array('__isInitialized__', 'id', 'name', 'streetaddress', 'province', 'city', 'postcode', 'repPhone', 'repName', 'repEmail', 'type', 'wantBill', 'country', 'geoLat', 'getLon', 'description', 'customPromos', 'roleName', 'slug', 'logoDir', 'bankAccount', 'login', 'password', 'salt', 'token', 'tokenValidUntil', 'lastLoginTime', 'created', 'modified', 'services', 'photos', 'role');
     }
 
     public function __clone()

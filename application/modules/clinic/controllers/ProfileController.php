@@ -279,6 +279,10 @@ class Clinic_ProfileController extends Zend_Controller_Action
         $clinic     = $this->_helper->LoggedUser();
         $config     = \Zend_Registry::get('config');
         $form       = new \Clinic_Form_Settings();
+        $form->populate(array(
+            'wantBill' => $clinic->wantBill,
+            'backAccount' => $clinic->bankAccount,
+        ));
 
         if($request->isPost())
         {
@@ -286,7 +290,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
             if($form->isValid($post)) {
                 $values = $form->getValues();
                 $clinic->setWantBill($values['wantBill']);
-                $clinic->setBackAccount($values['backAccount']);
+                $clinic->setBankAccount($values['bankAccount']);
                 $this->_em->persist($clinic);
                 $this->_em->flush();
                 $this->_helper->FlashMessenger(array('success' => 'Ustawienia zostały zapisane'));
