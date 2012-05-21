@@ -114,7 +114,7 @@ class ClinicPhoto extends \Trendmed\Entity\PhotoSet {
             if ($handle->processed) {
                 //$handle->clean();
             } else {
-                throw new Exception('Upload errors: '.$handle->error);
+                throw new \Exception('Upload errors: '.$handle->error);
             }
 
             // big
@@ -131,7 +131,7 @@ class ClinicPhoto extends \Trendmed\Entity\PhotoSet {
             if ($handle->processed) {
                 //$handle->clean();
             } else {
-                throw new Exception('Upload errors: '.$handle->error);
+                throw new \Exception('Upload errors: '.$handle->error);
             }
 
             // medium
@@ -147,7 +147,7 @@ class ClinicPhoto extends \Trendmed\Entity\PhotoSet {
             if ($handle->processed) {
                 //$handle->clean();
             } else {
-                throw new Exception('Upload errors: '.$handle->error);
+                throw new \Exception('Upload errors: '.$handle->error);
             }
 
             // small
@@ -163,7 +163,7 @@ class ClinicPhoto extends \Trendmed\Entity\PhotoSet {
             if ($handle->processed) {
                 $handle->clean();
             } else {
-                throw new Exception('Upload errors: '.$handle->error);
+                throw new \Exception('Upload errors: '.$handle->error);
             }
             $filename = $dir;
         }

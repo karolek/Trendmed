@@ -35,7 +35,7 @@ class Clinic_RegisterController extends \Me_User_Controllers_RegisterController
      */
     public function infoAction()
     {
-        
+        $this->view->headTitle('Informacja o cenach i abonamentach');
     }
 
 }

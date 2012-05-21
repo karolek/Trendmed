@@ -3,18 +3,34 @@
 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">
         <?= $this->translate('Zarządzanie kliniką'); ?><b class="caret"></b></a>
     <ul class="dropdown-menu">
-        <li><a href="<?= $this->url(array('module' => 'clinic', 'action' => 'index', 'controller' => 'services')); ?>"><?= $this->translate('Twoja oferta dla pacjentów'); ?></a></li>
-        <li><a href="<?= $this->url(array('module' => 'clinic', 'action' => 'edit-profile', 'controller' => 'profile')); ?>"><?= $this->translate('Opis kliniki'); ?></a></li>
-        <li><a href="<?= $this->url(array('module' => 'clinic', 'action' => 'save-clinic-details', 'controller' => 'profile')); ?>"><?= $this->translate('Dane teleadresowe i kontaktowe'); ?></a></li>
-        <li><a href="<?= $this->url(array('module' => 'clinic', 'action' => 'edit-logo', 'controller' => 'profile')); ?>"><?= $this->translate('Zmień logo'); ?></a></li>
+        <li><a href="<?= $this->url(
+            array('module' => 'clinic', 'action' => 'index', 'controller' => 'profile')
+        ); ?>"><?= $this->translate('Dashboard'); ?></a></li>
+        <li><a href="<?= $this->url(
+            array('module' => 'clinic', 'action' => 'edit-description', 'controller' => 'profile')
+        ); ?>"><?= $this->translate('Edytuj opis kliniki'); ?></a></li>
+        <li><a href="<?= $this->url(
+            array('module' => 'clinic', 'action' => 'index', 'controller' => 'services')
+        ); ?>"><?= $this->translate('Edytuj usługi kliniki'); ?></a></li>
+        <li><a href="<?= $this->url(
+            array('module' => 'clinic', 'action' => 'edit-address', 'controller' => 'profile')
+        ); ?>"><?= $this->translate('Edytuj dane adresowe'); ?></a></li>
+        <li><a href="<?= $this->url(
+            array('module' => 'clinic', 'action' => 'edit-logo', 'controller' => 'profile')
+        ); ?>"><?= $this->translate('Edytuj logo'); ?></a></li>
         <li class="divider"></li>
-        <li><a href="<?= $this->url(array('module' => 'clinic', 'action' => 'edit-account', 'controller' => 'profile')); ?>"><?= $this->translate('Twoje konto'); ?></a></li>
-        <li><a href="<?= $this->url(array('module' => 'clinic', 'action' => 'change-password', 'controller' => 'profile')); ?>"><?= $this->translate('Zmień hasło dostępu'); ?></a></li>
+        <li><a href="<?= $this->url(
+            array('module' => 'clinic', 'action' => 'edit-settings', 'controller' => 'profile')
+        ); ?>"><?= $this->translate('Edytuj ustawienia'); ?></a></li>
+        <li><a href="<?= $this->url(
+            array('module' => 'clinic', 'action' => 'change-password', 'controller' => 'profile')
+        ); ?>"><?= $this->translate('Edytuj hasło dostępu'); ?></a></li>
         <li class="divider"></li>
         <li>
-            <a href="<?= $this->url(array('module' => 'clinic', 'action' => 'profile', 'controller' => 'public',
+            <a href="<?= $this->url(
+                array('module' => 'clinic', 'action' => 'profile', 'controller' => 'public',
         'slug' => $this->LoggedUser()->slug), null, true); ?>">
-
-                <?= $this->translate('See public profile'); ?></a></li>
+            <?= $this->translate('See public profile'); ?></a>
+        </li>
     </ul>
 </li>

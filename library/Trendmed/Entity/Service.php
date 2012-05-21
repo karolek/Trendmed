@@ -274,5 +274,11 @@ class Service extends \Me\Model\ModelAbstract {
         return $this->photos;
     }
 
+    public function addPhoto($photo)
+    {
+        $this->photos[] = $photo;
+        $photo->setService($this);
+    }
+
 
 }

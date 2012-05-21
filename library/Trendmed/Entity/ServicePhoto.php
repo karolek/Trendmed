@@ -108,7 +108,7 @@ class ServicePhoto extends \Trendmed\Entity\PhotoSet {
             if ($handle->processed) {
                 //$handle->clean();
             } else {
-                throw new Exception('Upload errors: '.$handle->error);
+                throw new \Exception('Upload errors: '.$handle->error);
             }
 
             // big
@@ -125,7 +125,7 @@ class ServicePhoto extends \Trendmed\Entity\PhotoSet {
             if ($handle->processed) {
                 //$handle->clean();
             } else {
-                throw new Exception('Upload errors: '.$handle->error);
+                throw new \Exception('Upload errors: '.$handle->error);
             }
 
             // medium
@@ -141,7 +141,7 @@ class ServicePhoto extends \Trendmed\Entity\PhotoSet {
             if ($handle->processed) {
                 //$handle->clean();
             } else {
-                throw new Exception('Upload errors: '.$handle->error);
+                throw new \Exception('Upload errors: '.$handle->error);
             }
 
             // small
@@ -157,9 +157,11 @@ class ServicePhoto extends \Trendmed\Entity\PhotoSet {
             if ($handle->processed) {
                 $handle->clean();
             } else {
-                throw new Exception('Upload errors: '.$handle->error);
+                throw new \Exception('Upload errors: '.$handle->error);
             }
             $filename = $dir;
+        } else {
+            throw new \Exception('File for service photo not in $_FILES array: '.$handle->error);
         }
         $this->setPhotoDir($filename);
         return true;

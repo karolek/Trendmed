@@ -4,7 +4,7 @@
     Usługi pozwolą Twoim potencjalnym pocjentom odnaleźć Cię w naszym katalogu. To prostę, zacznij od dodania nowej usługi.
 </div>
 <? endif; ?>
-<a class="btn" href="<?= $this->url(array('action' => 'manage-services')); ?>"><?= $this->translate('Add new service'); ?></a>
+<a class="btn" href="<?= $this->url(array('action' => 'edit-services')); ?>"><?= $this->translate('Add new service'); ?></a>
 <? if (count($this->services) > 0 ): ?>
     <table class="table">
         <thead>
@@ -23,7 +23,7 @@
             <td><?= $service->pricemin; ?> - <?= $service->pricemax; ?></td>
             <td>
                 <div class="btn-group">
-                    <button class="btn"><a href="<?= $this->url(array('action' => 'manage-services',    'id' => $service->getId())); ?>"><?= $this->translate('Edit'); ?></a></button>
+                    <button class="btn"><a href="<?= $this->url(array('action' => 'edit-services',    'id' => $service->getId())); ?>"><?= $this->translate('Edit'); ?></a></button>
                     <button class="btn dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                     </button>
@@ -34,7 +34,7 @@
                                 'id' => $service->getId())); ?>"><?= $this->translate('Manage photos'); ?></a>
                         </li>
                         <li>
-                            <a href="<?= $this->url(array('action' => 'delete-service',
+                            <a class="confirm" href="<?= $this->url(array('action' => 'delete-service',
                                 'id' => $service->getId())); ?>"><?= $this->translate('Delete'); ?></a>
                         </li>
                     </ul>

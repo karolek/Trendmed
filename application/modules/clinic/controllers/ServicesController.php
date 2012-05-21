@@ -30,7 +30,7 @@ class Clinic_ServicesController extends Zend_Controller_Action
      *
      * @throws \Exception
      */
-    public function manageServicesAction()
+    public function editServicesAction()
     {
         $request = $this->getRequest();
         $form = new Clinic_Form_Service();
@@ -78,26 +78,7 @@ class Clinic_ServicesController extends Zend_Controller_Action
         }
 
 
-        // we must remove from the categories of service, allready added categories
-        // TODO: przepisać to jakoś
-        $result = $form->getElement('categories')->getMultiOptions();
-        if( count($this->_helper->LoggedUser()->services) >0 ) { // if user has services remove categories from form
-            foreach ($this->_helper->LoggedUser()->services as $clinicServices) {
-                foreach($result as &$optgroup) {
-                    if(isset($optgroup[$clinicServices->category->id]) ) { // clinic allready has this category service
-                        // we have to check also if clinic is just not editing has service,
-                        // if se we let him keep his catgegory on the form
-                        // let's check if we are id "edit" mode
-                        if($service->getId() > 0 ) { // yes we are
-                            if($clinicServices->category->id != $service->getCategory()->getId()) {
-                                unset($optgroup[$clinicServices->category->id]);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        $form->getElement('categories')->setMultiOptions($result);
+        // TODO: we must remove from the categories of service, allready added categories
         $this->view->service = $service;
 
         $this->view->form = $form;
@@ -146,13 +127,11 @@ class Clinic_ServicesController extends Zend_Controller_Action
 
         if($request->isPost()) {
             $photo = new \Trendmed\Entity\ServicePhoto();
-            $clinic->addPhoto($photo);
 
             // doing all the upload magic
             $photo->processFile();
-
+            $service->addPhoto($photo);
             $this->_em->persist($photo);
-            $this->_em->persist($clinic);
             $this->_em->flush();
 
             if($request->isXmlHttpRequest()) {

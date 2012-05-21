@@ -67,6 +67,22 @@ class Clinic_Form_ClinicProfile_Account extends Twitter_Form
         $phone->setRequired(true);
         $this->addElement($phone);
 
+        $email = new Zend_Form_Element_Text('repEmail');
+        $email->setLabel('Email address');
+        $email->addValidator('EmailAddress');
+        $email->setRequired(true);
+        $email->setDescription('Pamiętaj, że login do konta się nie zmieni');
+
+        $this->addElement($email);
+        // rep email must be unique
+
+        $uniqueRepEmailValidator = new Zend_Validate_Db_NoRecordExists(
+            array(
+                'table' => 'clinics',
+                'field' => 'repEmail'
+            )
+        );
+        $email->addValidator($uniqueRepEmailValidator);
 
         $this->addDisplayGroup(array('repEmail', 'repName', 'repPhone'), 'representantInfo');
         $group = $this->getDisplayGroup('representantInfo');

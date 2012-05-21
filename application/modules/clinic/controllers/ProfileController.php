@@ -18,26 +18,30 @@ class Clinic_ProfileController extends Zend_Controller_Action
 
     /** 
      * Dashboard for logged clinic. Shows latest reservations and infos.
+     * Also, shows info about completition of adding information to profile
      */
     public function indexAction()
     {
-    
+        $this->view->headTitle('Jak zacząć');
+        $this->view->clinic = $this->_helper->LoggedUser();
     }
 
     /**
      * Edits this part of clinics description that is visible to patients
-     * like logo, pictures, description
+     * like pictures, description
      * @throws Exception if no logged user in the system
      */
-    public function editProfileAction()
+    public function editDescriptionAction()
     {
+        $this->view->headTitle('Edycja opisu kliniki');
+
         $request = $this->getRequest();
 
         $this->_helper->EnableCke($this->view, 'basic');
 
-        $this->view->headTitle('Clinic profile');
+
         $form = new Clinic_Form_ClinicProfile_MultiLangDesc();
-        $form->setAction($this->_helper->url('edit-profile'));
+        $form->setAction($this->_helper->url('edit-description'));
         $form->addElement(new \Zend_Form_Element_Submit('Zapisz'));
 
         $repository = $this->_em->getRepository('\Trendmed\Entity\Translation');
@@ -92,7 +96,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
                     array('success' => 'You have changed Your details')
                 );
                 $this->_helper->Redirector(
-                    'profile', 'public', 'clinic', array('slug' => $user->getSlug())
+                    'index', 'profile', 'clinic', array('slug' => $user->getSlug())
                 );
             }
         }
@@ -133,18 +137,6 @@ class Clinic_ProfileController extends Zend_Controller_Action
         } else {
             throw new \Exception('Add photo should be a post request');
         }
-    }
-    /**
-     * Edit those parts of the clinic description that are use for 
-     * administration purpuses, like bank account no., 
-     * want bill setting, rep email or address.
-     */
-    public function editAccountAction()
-    {
-        $form = new \Clinic_Form_ClinicProfile_Account();
-
-        $this->view->form = $form;
-
     }
 
     /**
@@ -240,9 +232,9 @@ class Clinic_ProfileController extends Zend_Controller_Action
      * This is for saveing form with clinic address data
      * @throws \Exception
      */
-    public function saveClinicDetailsAction() {
+    public function editAddressAction() {
+        $this->view->headTitle('Edycja danych adresowych');
         $request = $this->getRequest();
-
         $user = $this->_helper->LoggedUser();
         if (!$user) {
             throw new Exception(
@@ -255,7 +247,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
         // populating with hydrated to array logged user
         $form->populate($this->_em->getRepository('\Trendmed\Entity\Clinic')->findOneAsArray($user->getId()));
         $form->setAction($this->view->url(array(
-            'action'        => 'save-clinic-details',
+            'action'        => 'edit-address',
             'controller'    => 'profile',
             'module'        => 'clinic'
         )));
@@ -278,5 +270,34 @@ class Clinic_ProfileController extends Zend_Controller_Action
             }
         }
         $this->view->form = $form;
+    }
+
+    public function editSettingsAction()
+    {
+        $this->view->headTitle('Zarządzanie ustawieniami kliniki');
+        $request    = $this->getRequest();
+        $clinic     = $this->_helper->LoggedUser();
+        $config     = \Zend_Registry::get('config');
+        $form       = new \Clinic_Form_Settings();
+
+        if($request->isPost())
+        {
+            $post = $request->getPost();
+            if($form->isValid($post)) {
+                $values = $form->getValues();
+                $clinic->setWantBill($values['wantBill']);
+                $clinic->setBackAccount($values['backAccount']);
+                $this->_em->persist($clinic);
+                $this->_em->flush();
+                $this->_helper->FlashMessenger(array('success' => 'Ustawienia zostały zapisane'));
+                $this->_helper->Redirector('index');
+
+            } else {
+                $this->_helper->FlashMessenger(array('warning' => 'Popraw błędy w formularzu'));
+            }
+        }
+
+        $this->view->form = $form;
+
     }
 }
