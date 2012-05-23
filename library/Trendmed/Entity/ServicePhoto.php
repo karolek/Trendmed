@@ -137,7 +137,7 @@ class ServicePhoto extends \Trendmed\Entity\PhotoSet {
             $handle->image_ratio_crop = true;
             $handle->file_new_name_body = 'medium';
             $handle->file_new_name_ext = 'jpg';
-            $handle->process($config->clinics->photo->uploadDir . $dir);
+            $handle->process($config->services->photo->uploadDir . $dir);
             if ($handle->processed) {
                 //$handle->clean();
             } else {
@@ -153,7 +153,7 @@ class ServicePhoto extends \Trendmed\Entity\PhotoSet {
             $handle->image_ratio_crop = true;
             $handle->file_new_name_body = 'small';
             $handle->file_new_name_ext = 'jpg';
-            $handle->process($config->clinics->photo->uploadDir . $dir);
+            $handle->process($config->services->photo->uploadDir . $dir);
             if ($handle->processed) {
                 $handle->clean();
             } else {

@@ -3,11 +3,11 @@
 <ul class="thumbnails">
     <? foreach($this->service->getPhotos() as $photo): ?>
     <li class="thumbnail">
-        <?= $this->ShowClinicPhoto($photo, 'medium'); ?>
+        <?= $this->ShowServicePhoto($photo, 'medium'); ?>
         <p class="caption"><a href="<?= $this->url(
             array(
-                'action' => 'delete-clinic-photo',
-                'controller' => 'profile',
+                'action' => 'delete-service-photo',
+                'controller' => 'services',
                 'module' => 'clinic',
                 'id'    => $photo->id,
             )

@@ -133,22 +133,27 @@ class Clinic_ServicesController extends Zend_Controller_Action
             $service->addPhoto($photo);
             $this->_em->persist($photo);
             $this->_em->flush();
-
-            if($request->isXmlHttpRequest()) {
-                echo 'OK';
-                $this->_helper->layout()->disableLayout();
-                $this->_helper->viewRenderer->setNoRender(true);
-            } else {
-                $this->_helper->FlashMessenger(array(
-                    'success' => 'New photo added'
-                ));
-                $this->_helper->Redirector(
-                    'edit-profile'
-                );
-            }
+            $this->_helper->FlashMessenger(array('success' => 'Dodano nowe zdjęcie do usługi'));
         }
         $this->view->service = $service;
         $this->view->headTitle('Zdjęcia usługi');
         $this->view->form = $form;
+    }
+
+    public function deleteServicePhotoAction()
+    {
+        $request = $this->getRequest();
+        $id = $request->getParam('id');
+        $photo = $this->_em->find('\Trendmed\Entity\ServicePhoto', $id);
+        $serviceId = $photo->service->id;
+        if($photo->service->clinic->id != $this->_helper->LoggedUser()->id) {
+            throw new \Exception('Security breach, trying to delete not Your photo');
+        }
+
+        $this->_em->remove($photo);
+        $this->_em->flush();
+
+        $this->_helper->FlashMessenger(array('success' => 'Zdjęcie zostało usunięte'));
+        $this->_helper->Redirector('manage-service-photos', 'services', 'clinic', array('id' => $serviceId));
     }
 }

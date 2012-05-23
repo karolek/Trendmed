@@ -131,7 +131,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
                     'success' => 'New photo added'
                 ));
                 $this->_helper->Redirector(
-                    'edit-profile'
+                    'edit-description'
                 );
             }
         } else {
@@ -224,7 +224,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
         $this->_em->flush();
 
         $this->_helper->FlashMessenger(array('success' => 'Zdjęcie zostało usunięte'));
-        $this->_helper->Redirector('edit-profile', 'profile');
+        $this->_helper->Redirector('edit-description', 'profile');
     }
 
 
