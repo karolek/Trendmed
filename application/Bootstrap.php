@@ -3,12 +3,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     public function _initAutoloaderNamespaces()
     {
-        require_once APPLICATION_PATH . '/../vendor/autoload.php';
-
         $autoloader = \Zend_Loader_Autoloader::getInstance();
         $fmmAutoloader = new \Doctrine\Common\ClassLoader('Bisna');
         $classLoader = new \Doctrine\Common\ClassLoader('Gedmo', APPLICATION_PATH . 
-                "/../library");
+                "/../vendor/gedmo/doctrine-extensions/lib");
         $classLoader->register();
         
         $autoloader->pushAutoloader(array($fmmAutoloader, 'loadClass'), 'Bisna');
