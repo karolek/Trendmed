@@ -1,0 +1,9 @@
+{
+    "require": {
+        "doctrine/orm": "2.2.0",
+        "doctrine/data-fixtures": "1.0.0-ALPHA2",
+        "symfony/console": "2.0.14",
+        "symfony/yaml": "2.0.14",
+        "gedmo/doctrine-extensions": "2.2.2"
+    }
+}
