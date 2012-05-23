@@ -25,7 +25,7 @@ class Clinic_Form_Settings extends Twitter_Form
 
         // bank account no
         $bankAccount = new \Zend_Form_Element_Text('bankAccount');
-        $bankAccount->setLabel('Numer konta kliniki');
+        $bankAccount->setLabel('Numer konta placówki');
         $bankAccount->setDescription(
             'Na ten numer konta będą wpływać kaucje od użytkowników, w przypadku opłaty kaucji'
         );

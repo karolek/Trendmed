@@ -33,7 +33,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
      */
     public function editDescriptionAction()
     {
-        $this->view->headTitle('Edycja opisu kliniki');
+        $this->view->headTitle('Edycja opisu placówki');
 
         $request = $this->getRequest();
 
@@ -274,7 +274,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
 
     public function editSettingsAction()
     {
-        $this->view->headTitle('Zarządzanie ustawieniami kliniki');
+        $this->view->headTitle('Zarządzanie ustawieniami placówki');
         $request    = $this->getRequest();
         $clinic     = $this->_helper->LoggedUser();
         $config     = \Zend_Registry::get('config');

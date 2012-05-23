@@ -17,7 +17,7 @@ class Clinic_Form_ClinicProfile_MultiLangDesc extends Twitter_Form
         foreach($config->languages as $lang)
         {
             $desc = new \Zend_Form_Element_Textarea('description_'.$lang->code);
-            $desc->setLabel('Opis kliniki w języku: '.$lang->name);
+            $desc->setLabel('Opis placówki w języku: '.$lang->name);
             //$desc->addFilter($stripTagsValidator);
             $desc->setAttrib('class', 'ckeditor');
             $this->addElement($desc);

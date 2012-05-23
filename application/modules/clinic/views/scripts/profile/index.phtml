@@ -8,7 +8,7 @@
                         'controller'    => 'profile',
                         'module'        => 'clinic',
                     )
-                ); ?>">Uzupełnij opis swojej kliniki</a> widoczny dla Twoich potencjalnych pacjentów oraz dodaj zdjęcia.
+                ); ?>">Uzupełnij opis swojej placówki</a> widoczny dla Twoich potencjalnych pacjentów oraz dodaj zdjęcia.
         </div>
     <? endif;?>
     <? if (count($this->clinic->services) < 1): ?>
@@ -20,7 +20,7 @@
                     'controller'    => 'services',
                     'module'        => 'clinic',
                 )
-            ); ?>">Dodaj usługi</a> swojej kliniki, aby być widocznych  w naszym katalogu.
+            ); ?>">Dodaj usługi</a> swojej placówki, aby być widocznych  w naszym katalogu.
         </div>
     <? endif;?>
     <? if (!$this->clinic->logoDir): ?>
@@ -32,7 +32,7 @@
                     'controller'    => 'profile',
                     'module'        => 'clinic',
                 )
-            ); ?>">Wgraj logo</a> swojej kliniki.
+            ); ?>">Wgraj logo</a> swojej placówki.
         </div>
     <? endif;?>
 </div>
