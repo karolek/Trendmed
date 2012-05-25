@@ -8,7 +8,7 @@
 
         <br /><br />
 
-        <h3 style="padding:0 0 10px;">Zdjęcia Twojej kliniki</h3>
+        <h3 style="padding:0 0 10px;">Zdjęcia Twojej placówki</h3>
         <? if( count($this->LoggedUser()->photos) < $this->config->clinics->photo->limit): ?>
             <p><?= $this->translate('Here You can add any photos of Your object, that will be shown on Your public profile'); ?>.</p>
             <div id="photoUpload"><?= $this->photoForm; ?></div>
