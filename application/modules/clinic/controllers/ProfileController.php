@@ -37,7 +37,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
 
         $request = $this->getRequest();
 
-        $this->_helper->EnableCke($this->view, 'basic');
+        $this->_helper->EnableCke($this->view, array(), 'ClinicToolbar');
 
 
         $form = new Clinic_Form_ClinicProfile_MultiLangDesc();
