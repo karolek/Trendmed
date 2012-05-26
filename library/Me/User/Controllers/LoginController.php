@@ -6,7 +6,7 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
       'success' => 'You have successfully logged in'  
     );
     protected $_messageAfterLogout = array(
-      'success' => 'You have successfully logged in'  
+      'success' => 'You have successfully logged out'
     );
     protected $_redirectAfterLogin = array(
         'action'        => 'index',
