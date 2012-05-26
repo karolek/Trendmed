@@ -1,5 +1,5 @@
 <?php
-namespace IAA\Trendmed;
+namespace Trendmed\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -19,6 +19,7 @@ class Page extends \Me\Model\ModelAbstract
         $this->modified = new \DateTime;
         $this->type = 'Text page';
         $this->isActive = true;
+        $this->isSystemic = false;
         parent::__construct($options);
     }
 
@@ -67,6 +68,12 @@ class Page extends \Me\Model\ModelAbstract
      * @ORM\Column(type="boolean")
      */
     protected $isActive;
+
+    /**
+     * @ORM\Column(type="boolean")
+     * @var isSystemic state if this page is important frm the system point of view if yes, than it can't be deleted by user
+     */
+    protected $isSystemic;
 
 
     public function setContent($content)
@@ -177,4 +184,30 @@ class Page extends \Me\Model\ModelAbstract
     {
         $this->modified = new \DateTime();
     }
+
+    /**
+     * @ORM\PreRemove
+     * @throws \Exception
+     */
+    public function onRemove()
+    {
+        if($this->isSystemic) throw new \Exception('This page is systemic and cannot be removed');
+    }
+
+    /**
+     * @param \Trendmed\Entity\isSystemic $isSystemic
+     */
+    public function setIsSystemic($isSystemic)
+    {
+        $this->isSystemic = $isSystemic;
+    }
+
+    /**
+     * @return \Trendmed\Entity\isSystemic
+     */
+    public function getIsSystemic()
+    {
+        return $this->isSystemic;
+    }
+
 }

@@ -13,6 +13,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../library'),
     get_include_path(),
 )));
+echo "Boostraping application for ".APPLICATION_ENV." enviroment... \n";
 
 /** Zend_Application */
 require_once 'Zend/Application.php';
