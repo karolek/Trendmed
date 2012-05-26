@@ -3,7 +3,7 @@
         "name": "doctrine/dbal",
         "version": "2.2.2",
         "version_normalized": "2.2.2.0",
-        "time": "2012-04-13 07:56:12",
+        "time": "2012-04-13 05:56:12",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/dbal",
@@ -68,7 +68,7 @@
         "name": "doctrine/common",
         "version": "2.2.2",
         "version_normalized": "2.2.2.0",
-        "time": "2012-04-13 07:46:44",
+        "time": "2012-04-13 05:46:44",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/common",
@@ -140,7 +140,7 @@
         "version": "v2.0.14",
         "version_normalized": "2.0.14.0",
         "target-dir": "Symfony/Component/Yaml",
-        "time": "2012-05-15 16:56:32",
+        "time": "2012-05-15 14:56:32",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/Yaml",
@@ -187,7 +187,7 @@
         "version": "v2.0.14",
         "version_normalized": "2.0.14.0",
         "target-dir": "Symfony/Component/Console",
-        "time": "2012-05-16 09:10:06",
+        "time": "2012-05-16 07:10:06",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/Console",
@@ -230,68 +230,10 @@
         }
     },
     {
-        "name": "gedmo/doctrine-extensions",
-        "version": "v2.2.2",
-        "version_normalized": "2.2.2.0",
-        "time": "2012-05-01 14:45:11",
-        "source": {
-            "type": "git",
-            "url": "git://github.com/l3pp4rd/DoctrineExtensions.git",
-            "reference": "v2.2.2"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://github.com/l3pp4rd/DoctrineExtensions/zipball/v2.2.2",
-            "reference": "v2.2.2",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.2",
-            "doctrine/common": ">=2.1"
-        },
-        "suggest": {
-            "doctrine/orm": ">=2.1",
-            "doctrine/mongodb-odm": "*"
-        },
-        "type": "library",
-        "installation-source": "dist",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Gediminas Morkevicius",
-                "email": "gediminas.morkevicius@gmail",
-                "homepage": null,
-                "role": null
-            }
-        ],
-        "description": "Doctrine2 behavioral extensions",
-        "homepage": "http://gediminasm.org/",
-        "keywords": [
-            "tree",
-            "behaviors",
-            "doctrine2",
-            "extensions",
-            "gedmo",
-            "sluggable",
-            "loggable",
-            "translatable",
-            "nestedset",
-            "sortable",
-            "timestampable"
-        ],
-        "autoload": {
-            "psr-0": {
-                "Gedmo": "lib/"
-            }
-        }
-    },
-    {
         "name": "doctrine/data-fixtures",
         "version": "v1.0.0-ALPHA2",
         "version_normalized": "1.0.0.0-alpha2",
-        "time": "2012-01-25 22:23:47",
+        "time": "2012-01-25 21:23:47",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/data-fixtures.git",
@@ -334,7 +276,7 @@
         "name": "doctrine/orm",
         "version": "2.2.0",
         "version_normalized": "2.2.0.0",
-        "time": "2012-01-29 16:04:23",
+        "time": "2012-01-29 15:04:23",
         "source": {
             "type": "git",
             "url": "git://github.com/doctrine/doctrine2.git",

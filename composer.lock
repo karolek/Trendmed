@@ -1,5 +1,5 @@
 {
-    "hash": "0249934b33780b30f8a862a4ef56fde4",
+    "hash": "28542229e2ff5b56f64e4da374a6cf2d",
     "packages": [
         {
             "package": "doctrine/common",
@@ -16,10 +16,6 @@
         {
             "package": "doctrine/orm",
             "version": "2.2.0"
-        },
-        {
-            "package": "gedmo/doctrine-extensions",
-            "version": "v2.2.2"
         },
         {
             "package": "symfony/console",
