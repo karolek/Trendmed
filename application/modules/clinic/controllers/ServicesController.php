@@ -82,7 +82,7 @@ class Clinic_ServicesController extends Zend_Controller_Action
         $this->view->service = $service;
 
         $this->view->form = $form;
-        $this->_helper->EnableCke($this->view);
+        $this->_helper->EnableCke($this->view, array());
     }
     
     public function deleteServiceAction()
