@@ -109,4 +109,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
            Zend_Mail::setDefaultTransport($tr); 
         }
     }
+
+    public function _initDoctype()
+    {
+        $doctypeHelper = new Zend_View_Helper_Doctype();
+        $doctypeHelper->doctype('HTML5');
+    }
 }
