@@ -131,15 +131,14 @@ class Me_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         //go from more specific to less specific
         $moduleLevel = 'mvc:'.$module;
         $controllerLevel = $moduleLevel . '.' . $controller;
-        $privilege = $action;
+
         if ($acl->has($controllerLevel)) {
             $resource = $controllerLevel;
         } else {
             $resource = $moduleLevel;
         }
         /** Check if the controller/action can be accessed by the current user */
-        var_dump($resource);
-        var_dump($role);
+
         if ($acl->has($resource)) {
           if (!$this->getAcl()->isAllowed($role, $resource, $action)) {
               /** Redirect to access denied page */
