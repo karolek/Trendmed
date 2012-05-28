@@ -38,7 +38,7 @@ class Patient_Form_PatientRegistration extends Twitter_Form
 	    
 		$submit      = new Zend_Form_Element_Submit('register');
         
-        $submit->setLabel('Reigster for free!');
+        $submit->setLabel('Register for free!');
 		$this->addElement($submit);
     }
 
