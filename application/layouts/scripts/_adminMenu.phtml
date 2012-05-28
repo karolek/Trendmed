@@ -1,13 +1,14 @@
 <li class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown">Placówki<b class="caret"></b></a>
     <ul class="dropdown-menu">
-        <li><a href="<?= $this->url(array('module' => 'admin', 'action' => 'index', 'controller' => 'clinics')); ?>"><?= $this->translate('Lista placówek'); ?></a></li>
+        <li><a href="<?= $this->url(array('module' => 'admin', 'action' => 'index', 'controller' => 'clinics'), 'default', true); ?>"><?= $this->translate('Lista placówek'); ?></a></li>
     </ul>
 </li>
 <li class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown">Kategorie<b class="caret"></b></a>
     <ul class="dropdown-menu">
-        <li><a href="<?= $this->url(array('module' => 'admin', 'action' => 'index', 'controller' => 'categories')); ?>"><?= $this->translate('Lista kategorii'); ?></a></li>
+        <li><a href="<?= $this->url(array('module' => 'admin', 'action' => 'index', 'controller' => 'categories'), 'default', true); ?>">
+            <?= $this->translate('Lista kategorii'); ?></a></li>
     </ul>
 </li>
 <li class="dropdown">
