@@ -7,7 +7,10 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <a class="brand" href="<?= $this->url(array('action' => 'index', 'controller' => 'index', 'module' => 'default')); ?>">Trendmed</a>
+      <a class="brand" href="<?= $this->url(
+          array('action' => 'index',
+              'controller' => 'index',
+              'module' => 'default'), 'default', true); ?>">Trendmed</a>
       <div class="nav-collapse">
         
 		<p class="navbar-text pull-right">
@@ -16,12 +19,12 @@
 			<?= $this->translate('Logged in as');?> <a class="link" href="<?= $this->url(array(
                 'module'        => 'patient', 
                 'controller'    => 'profile', 
-                'action'        => 'index'));?>">
+                'action'        => 'index'), 'default', true);?>">
             <?= $this->LoggedUser('username'); ?></a>. 
             <br /><a class="link" href="<?= $this->url(array(
                 'action'        => 'logout', 
                 'controller'    => 'index', 
-                'module'        => 'patient')); ?>"><?= $this->translate('Log out?');?></a>
+                'module'        => 'patient'), 'default', true); ?>"><?= $this->translate('Log out?');?></a>
                 </span>
 		<?php else: ?>
             <a class="login" href="<?= $this->url(array('action' => 'index', 'controller' => 'index', 'module' => 'patient')); ?>"><?= $this->translate('Patient login'); ?></a>
@@ -30,20 +33,22 @@
 		</p>
                 
                 
-                <ul class="nav">
-			<li class=""><a href="/"><?= $this->translate('Articles'); ?></a></li>
+        <ul class="nav">
 			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">
                 <?= $this->translate('For clinics'); ?><b class="caret"></b></a>
 				<ul class="dropdown-menu">
-                    <li><a href="<?= $this->url(array('module'=> 'clinic', 'action' => 'info', 'controller' => 'register'));?>"><?= $this->translate('Plans and priceing'); ?></a></li>
-					<li><a href="<?= $this->url(array('module'=> 'clinic', 'action' => 'index', 'controller' => 'register'));?>"><?= $this->translate('Register'); ?></a></li>
-					<li><a href="<?= $this->url(array('module'=> 'clinic', 'action' => 'index', 'controller' => 'index'));?>"><?= $this->translate('Login into panel'); ?></a></li>
-				</ul>
-			</li>
-			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">More<b class="caret"></b></a>
-				<ul class="dropdown-menu">
-					<li><a href="<?= $this->url(array('module'=> 'acl', 'action' => 'roles', 'controller' => 'index'));?>"><?= $this->translate('Role management'); ?></a></li>
-					
+                    <li><a href="<?= $this->url(
+                        array('module'=> 'clinic',
+                            'action' => 'info',
+                            'controller' => 'register'), 'default', true);?>"><?= $this->translate('Plans and pricing'); ?></a></li>
+					<li><a href="<?= $this->url(array(
+                        'module'=> 'clinic',
+                        'action' => 'index',
+                        'controller' => 'register'), 'default', true);?>"><?= $this->translate('Register'); ?></a></li>
+					<li><a href="<?= $this->url(array(
+                        'module'=> 'clinic',
+                        'action' => 'index',
+                        'controller' => 'index'), 'default', true);?>"><?= $this->translate('Login into panel'); ?></a></li>
 				</ul>
 			</li>
 			<?= $this->userMenu(); // displays menu items, rendered by layouts/_userMenu.phtml; ?>

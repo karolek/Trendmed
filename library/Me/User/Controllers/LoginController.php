@@ -6,7 +6,7 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
       'success' => 'You have successfully logged in'  
     );
     protected $_messageAfterLogout = array(
-      'success' => 'You have successfully logged in'  
+      'success' => 'You have successfully logged out'
     );
     protected $_redirectAfterLogin = array(
         'action'        => 'index',
@@ -70,7 +70,7 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
 			$log->debug('login: is not POST');
 		}
 		$this->view->form = $form;
-        $this->view->headTitle('Login');
+        $this->view->headTitle($this->view->translate('Login'));
     }
     
     /**
@@ -113,7 +113,7 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
 	
 	public function passwordRecoveryAction() 
     {
-        $this->view->headTitle('Password recovery');
+        $this->view->headTitle($this->view->translate('Password recovery'));
         $form = $this->getPasswordRecoveryForm();
         $request = $this->getRequest();
         $model = new $this->_userModel;
@@ -147,7 +147,7 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
     
     public function newPasswordFromTokenAction()
     {
-        $this->view->headTitle('Seting up of a new password');
+        $this->view->headTitle($this->view->translate('Setup Your new password'));
         
         $request    = $this->getRequest();
         $token      = $request->getParam('token', ''); // either get or post param

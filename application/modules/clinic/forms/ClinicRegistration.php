@@ -108,6 +108,14 @@ class Clinic_Form_ClinicRegistration extends Twitter_Form
         $this->addDisplayGroup(array('password', 'password_confirmation'), 'accountInfo');
         $group = $this->getDisplayGroup('accountInfo');
         $group->setLegend('Account info');
+
+        $terms = new Zend_Form_Element_Checkbox('regulamin');
+        $terms->setLabel('Rejestrując się zgadzam się na <a href="/page/regulamin-dla-klinik">warunki regulaminu</a> serwisu.');
+        $terms->setRequired(true);
+        $checkboxValidator = new Zend_Validate_InArray(array(1));
+        $checkboxValidator->setMessage('Akceptacja regulaminu jest wymagana', Zend_Validate_InArray::NOT_IN_ARRAY);
+        $terms->addValidator($checkboxValidator); //  litle trick to get the validation
+        $this->addElement($terms);
         
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Sign in!');

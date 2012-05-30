@@ -27,7 +27,7 @@ class Clinic_View_Helper_ShowClinicPhoto extends Zend_View_Helper_Abstract
 	{
         $config = Zend_Registry::get('config');
         // set up default image and alt
-        $src = $config->clinic->photo->publicDir . 'default/' . $size . '.png';
+        $src = $config->clinics->photo->publicDir . 'default/' . $size . '.png';
         $alt = 'Photo placeholder';
 
         if($photo instanceof \Trendmed\Entity\ClinicPhoto) { // if photo object is given

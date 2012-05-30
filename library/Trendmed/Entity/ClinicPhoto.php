@@ -8,6 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="clinic_photos")
  * @ORM\Entity(repositoryClass="Gedmo\Sortable\Entity\Repository\SortableRepository")
+ * @ORM\HasLifecycleCallbacks
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
 class ClinicPhoto extends \Trendmed\Entity\PhotoSet {
@@ -113,7 +114,7 @@ class ClinicPhoto extends \Trendmed\Entity\PhotoSet {
             if ($handle->processed) {
                 //$handle->clean();
             } else {
-                throw new Exception('Upload errors: '.$handle->error);
+                throw new \Exception('Upload errors: '.$handle->error);
             }
 
             // big
@@ -130,7 +131,7 @@ class ClinicPhoto extends \Trendmed\Entity\PhotoSet {
             if ($handle->processed) {
                 //$handle->clean();
             } else {
-                throw new Exception('Upload errors: '.$handle->error);
+                throw new \Exception('Upload errors: '.$handle->error);
             }
 
             // medium
@@ -146,7 +147,7 @@ class ClinicPhoto extends \Trendmed\Entity\PhotoSet {
             if ($handle->processed) {
                 //$handle->clean();
             } else {
-                throw new Exception('Upload errors: '.$handle->error);
+                throw new \Exception('Upload errors: '.$handle->error);
             }
 
             // small
@@ -162,7 +163,7 @@ class ClinicPhoto extends \Trendmed\Entity\PhotoSet {
             if ($handle->processed) {
                 $handle->clean();
             } else {
-                throw new Exception('Upload errors: '.$handle->error);
+                throw new \Exception('Upload errors: '.$handle->error);
             }
             $filename = $dir;
         }
@@ -176,6 +177,25 @@ class ClinicPhoto extends \Trendmed\Entity\PhotoSet {
 
     }
 
+    /**
+     * @ORM\PreRemove
+     * @return ClinicPhoto
+     * @throws \Exception
+     */
+    public function onDelete()
+    {
+        // make sure if its ok to delete
+        // delete all files in the photo folder
+        $dir = $this->getPhotoDir();
+        if(!$dir) {
+            throw new \Exception('No directory for files of photo object');
+        }
+        $config = \Zend_Registry::get('config');
+        $dir = $config->clinics->photo->uploadDir . $dir;
+        \Me\Common\Dir::rrmdir($dir);
+        $this->setPhotoDir(null);
+        return $this;
+    }
 
     /* END METHODS */
 

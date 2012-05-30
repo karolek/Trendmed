@@ -1,0 +1,37 @@
+{
+    "hash": "28542229e2ff5b56f64e4da374a6cf2d",
+    "packages": [
+        {
+            "package": "doctrine/common",
+            "version": "2.2.2"
+        },
+        {
+            "package": "doctrine/data-fixtures",
+            "version": "v1.0.0-ALPHA2"
+        },
+        {
+            "package": "doctrine/dbal",
+            "version": "2.2.2"
+        },
+        {
+            "package": "doctrine/orm",
+            "version": "2.2.0"
+        },
+        {
+            "package": "symfony/console",
+            "version": "v2.0.14"
+        },
+        {
+            "package": "symfony/yaml",
+            "version": "v2.0.14"
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "dev",
+    "stability-flags": [
+
+    ]
+}

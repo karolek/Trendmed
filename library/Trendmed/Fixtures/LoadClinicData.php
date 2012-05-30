@@ -20,7 +20,7 @@ class LoadClinicData extends \Doctrine\Common\DataFixtures\AbstractFixture imple
         $clinic->setRole($this->getReference('clinic-role'));
         $clinic->setPassword('nataniel');
         $clinic->setCity('Gdańsk');
-        $clinic->setDescription('To jest pierwsza klinika testowa w systemie');
+        $clinic->setDescription('To jest pierwsza placówka testowa w systemie');
         $clinic->setPostcode('80-033');
         $clinic->setType('Klinika');
         $clinic->setStreetaddress('Rubinowa 4');

@@ -16,7 +16,7 @@ abstract class Me_User_Controllers_RegisterController extends Zend_Controller_Ac
         'module'        => 'default',
     );
     protected $_messageSuccessAfterRegistration = array(
-      'success' => 'You have registered succesfuly. You can login now.'
+      'success' => 'You have registered successfully. You can login now.'
     );
     protected $_roleModel; // name of the entity with role to attach
 
@@ -28,6 +28,7 @@ abstract class Me_User_Controllers_RegisterController extends Zend_Controller_Ac
 	/**
 	 * This action is resonsible for regestring new user in the system. 
 	 *
+     * @throws \Exception when role for this user not present
 	 */
     public function indexAction()
     {
@@ -47,7 +48,7 @@ abstract class Me_User_Controllers_RegisterController extends Zend_Controller_Ac
                 // adding role to object
                 $role = $em->getRepository('\Trendmed\Entity\Role')
                         ->findOneByName($model->getRoleName());
-                if(!$role) throw new Exception('Given role ('.$model->getRoleName().'
+                if(!$role) throw new \Exception('Given role ('.$model->getRoleName().'
                     not found in DB');
                 $model->setRole($role);
                 $em->persist($model);
@@ -62,14 +63,12 @@ abstract class Me_User_Controllers_RegisterController extends Zend_Controller_Ac
                         $this->_redirectAfterRegistration['module']
                         );
 			} else {
-                $errors = $form->getErrorMessages();
-                $code = $form->getErrors();
-                $custom = $form->getCustomMessages();
 			    $this->_helper->FlashMessenger(array('error' => 'Please fill out the form correctly'));
 			}
 		}
-		
-        $this->view->headTitle(ucfirst($model->getRoleName()).' registration');
+        $this->view->headTitle($this->view->translate(
+            "%1\$s registration", $this->view->translate(ucfirst($model->getRoleName())))
+        );
 		$this->view->form = $form;
     }
 

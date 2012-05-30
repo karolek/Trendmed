@@ -73,6 +73,13 @@ class Nested implements Strategy
     private $nodePositions = array();
 
     /**
+     * Stores a list of delayed nodes for correct order of updates
+     *
+     * @var array
+     */
+    private $delayedNodes = array();
+
+    /**
      * {@inheritdoc}
      */
     public function __construct(TreeListener $listener)
@@ -86,24 +93,6 @@ class Nested implements Strategy
     public function getName()
     {
         return Strategy::NESTED;
-    }
-
-    /**
-     * get DQL expression for id value
-     *
-     * @param integer|string $id
-     * @param EntityManager $em
-     * @return string
-     */
-    private function getIdExpression($id, EntityManager $em)
-    {
-        if (is_string($id)) {
-            $id = $em->getExpressionBuilder()->literal($id);
-        }
-        if ($id === null) {
-            $id = 'NULL';
-        }
-        return (string)$id;
     }
 
     /**
@@ -210,15 +199,21 @@ class Nested implements Strategy
         $rootId = isset($config['root']) ? $wrapped->getPropertyValue($config['root']) : null;
         $diff = $rightValue - $leftValue + 1;
         if ($diff > 2) {
-            $dql = "SELECT node FROM {$config['useObjectClass']} node";
-            $dql .= " WHERE node.{$config['left']} BETWEEN :left AND :right";
+            $qb = $em->createQueryBuilder();
+            $qb->select('node')
+                ->from($config['useObjectClass'], 'node')
+                ->where($qb->expr()->between('node.'.$config['left'], '?1', '?2'))
+                ->setParameters(array(1 => $leftValue, 2 => $rightValue))
+            ;
+
             if (isset($config['root'])) {
-                $dql .= " AND node.{$config['root']} = ".$this->getIdExpression($rootId, $em);
+                $qb->andWhere($rootId === null ?
+                    $qb->expr()->isNull('node.'.$config['root']) :
+                    $qb->expr()->eq('node.'.$config['root'], is_string($rootId) ? $qb->expr()->literal($rootId) : $rootId)
+                );
             }
-            $q = $em->createQuery($dql);
+            $q = $qb->getQuery();
             // get nodes for deletion
-            $q->setParameter('left', $leftValue + 1);
-            $q->setParameter('right', $rightValue - 1);
             $nodes = $q->getResult();
             foreach ((array)$nodes as $removalNode) {
                 $uow->scheduleForDelete($removalNode);
@@ -314,8 +309,18 @@ class Nested implements Strategy
             $wrappedParent = AbstractWrapper::wrap($parent, $em);
 
             $parentRootId = isset($config['root']) ? $wrappedParent->getPropertyValue($config['root']) : null;
+            $parentOid = spl_object_hash($parent);
             $parentLeft = $wrappedParent->getPropertyValue($config['left']);
             $parentRight = $wrappedParent->getPropertyValue($config['right']);
+            if (empty($parentLeft) && empty($parentRight)) {
+                // parent node is a new node, but wasn't processed yet (due to Doctrine commit order calculator redordering)
+                // We delay processing of node to the moment parent node will be processed
+                if (!isset($this->delayedNodes[$parentOid])) {
+                    $this->delayedNodes[$parentOid] = array();
+                }
+                $this->delayedNodes[$parentOid][] = array('node' => $node, 'position' => $position);
+                return;
+            }
             if (!$isNewNode && $rootId === $parentRootId && $parentLeft >= $left && $parentRight <= $right) {
                 throw new UnexpectedValueException("Cannot set child as parent to node: {$nodeId}");
             }
@@ -392,7 +397,10 @@ class Nested implements Strategy
             $qb = $em->createQueryBuilder();
             $qb->update($config['useObjectClass'], 'node');
             if (isset($config['root'])) {
-                $qb->set('node.' . $config['root'], $this->getIdExpression($newRootId, $em));
+                $qb->set('node.'.$config['root'], null === $newRootId ?
+                    'NULL' :
+                    (is_string($newRootId) ? $qb->expr()->literal($newRootId) : $newRootId)
+                );
                 $wrapped->setPropertyValue($config['root'], $newRootId);
                 $em->getUnitOfWork()->setOriginalEntityProperty($oid, $config['root'], $newRootId);
             }
@@ -404,18 +412,27 @@ class Nested implements Strategy
             if (isset($newParent)) {
                 $wrappedNewParent = AbstractWrapper::wrap($newParent, $em);
                 $newParentId = $wrappedNewParent->getIdentifier();
-                $qb->set('node.' . $config['parent'], $this->getIdExpression($newParentId, $em));
+                $qb->set('node.'.$config['parent'], null === $newParentId ?
+                    'NULL' :
+                    (is_string($newParentId) ? $qb->expr()->literal($newParentId) : $newParentId)
+                );
                 $wrapped->setPropertyValue($config['parent'], $newParent);
                 $em->getUnitOfWork()->setOriginalEntityProperty($oid, $config['parent'], $newParent);
             }
             $qb->set('node.' . $config['left'], $left + $diff);
             $qb->set('node.' . $config['right'], $right + $diff);
-            $qb->where("node.{$identifierField} = ".$this->getIdExpression($nodeId, $em));
+            // node id cannot be null
+            $qb->where($qb->expr()->eq('node.'.$identifierField, is_string($nodeId) ? $qb->expr()->literal($nodeId) : $nodeId));
             $qb->getQuery()->getSingleScalarResult();
             $wrapped->setPropertyValue($config['left'], $left + $diff);
             $wrapped->setPropertyValue($config['right'], $right + $diff);
             $em->getUnitOfWork()->setOriginalEntityProperty($oid, $config['left'], $left + $diff);
             $em->getUnitOfWork()->setOriginalEntityProperty($oid, $config['right'], $right + $diff);
+        }
+        if (isset($this->delayedNodes[$oid])) {
+            foreach($this->delayedNodes[$oid] as $nodeData) {
+                $this->updateNode($em, $nodeData['node'], $node, $nodeData['position']);
+            }
         }
     }
 
@@ -431,13 +448,18 @@ class Nested implements Strategy
     {
         $meta = $em->getClassMetadata($class);
         $config = $this->listener->getConfiguration($em, $meta->name);
+        $qb = $em->createQueryBuilder();
+        $qb->select($qb->expr()->max('node.'.$config['right']))
+            ->from($config['useObjectClass'], 'node')
+        ;
 
-        $dql = "SELECT MAX(node.{$config['right']}) FROM {$config['useObjectClass']} node";
         if (isset($config['root']) && $rootId) {
-            $dql .= " WHERE node.{$config['root']} = ".$this->getIdExpression($rootId, $em);
+            $qb->where($rootId === null ?
+                $qb->expr()->isNull('node.'.$config['root']) :
+                $qb->expr()->eq('node.'.$config['root'], is_string($rootId) ? $qb->expr()->literal($rootId) : $rootId)
+            );
         }
-
-        $query = $em->createQuery($dql);
+        $query = $qb->getQuery();
         $right = $query->getSingleScalarResult();
         return intval($right);
     }
@@ -459,24 +481,32 @@ class Nested implements Strategy
 
         $sign = ($delta >= 0) ? ' + ' : ' - ';
         $absDelta = abs($delta);
-
-        $dql = "UPDATE {$meta->name} node";
-        $dql .= " SET node.{$config['left']} = node.{$config['left']} {$sign} {$absDelta}";
-        $dql .= " WHERE node.{$config['left']} >= {$first}";
+        $qb = $em->createQueryBuilder();
+        $qb->update($config['useObjectClass'], 'node')
+            ->set('node.'.$config['left'], "node.{$config['left']} {$sign} {$absDelta}")
+            ->where($qb->expr()->gte('node.'.$config['left'], $first))
+        ;
         if (isset($config['root'])) {
-            $dql .= " AND node.{$config['root']} = ".$this->getIdExpression($rootId, $em);
+            $qb->andWhere($rootId === null ?
+                $qb->expr()->isNull('node.'.$config['root']) :
+                $qb->expr()->eq('node.'.$config['root'], is_string($rootId) ? $qb->expr()->literal($rootId) : $rootId)
+            );
         }
-        $q = $em->createQuery($dql);
-        $q->getSingleScalarResult();
+        $qb->getQuery()->getSingleScalarResult();
 
-        $dql = "UPDATE {$meta->name} node";
-        $dql .= " SET node.{$config['right']} = node.{$config['right']} {$sign} {$absDelta}";
-        $dql .= " WHERE node.{$config['right']} >= {$first}";
+        $qb = $em->createQueryBuilder();
+        $qb->update($config['useObjectClass'], 'node')
+            ->set('node.'.$config['right'], "node.{$config['right']} {$sign} {$absDelta}")
+            ->where($qb->expr()->gte('node.'.$config['right'], $first))
+        ;
         if (isset($config['root'])) {
-            $dql .= " AND node.{$config['root']} = ".$this->getIdExpression($rootId, $em);
+            $qb->andWhere($rootId === null ?
+                $qb->expr()->isNull('node.'.$config['root']) :
+                $qb->expr()->eq('node.'.$config['root'], is_string($rootId) ? $qb->expr()->literal($rootId) : $rootId)
+            );
         }
-        $q = $em->createQuery($dql);
-        $q->getSingleScalarResult();
+
+        $qb->getQuery()->getSingleScalarResult();
         // update in memory nodes increases performance, saves some IO
         foreach ($em->getUnitOfWork()->getIdentityMap() as $className => $nodes) {
             // for inheritance mapped classes, only root is always in the identity map
@@ -527,22 +557,27 @@ class Nested implements Strategy
         $levelSign = ($levelDelta >= 0) ? ' + ' : ' - ';
         $absLevelDelta = abs($levelDelta);
 
-        $dql = "UPDATE {$meta->name} node";
-        $dql .= " SET node.{$config['left']} = node.{$config['left']} {$sign} {$absDelta}";
-        $dql .= ", node.{$config['right']} = node.{$config['right']} {$sign} {$absDelta}";
+        $qb = $em->createQueryBuilder();
+        $qb->update($config['useObjectClass'], 'node')
+            ->set('node.'.$config['left'], "node.{$config['left']} {$sign} {$absDelta}")
+            ->set('node.'.$config['right'], "node.{$config['right']} {$sign} {$absDelta}")
+            ->where($qb->expr()->gte('node.'.$config['left'], $first))
+            ->andWhere($qb->expr()->lte('node.'.$config['right'], $last))
+        ;
         if (isset($config['root'])) {
-            $dql .= ", node.{$config['root']} = ".$this->getIdExpression($destRootId, $em);
+            $qb->set(
+                'node.'.$config['root'],
+                is_string($destRootId) ? $qb->expr()->literal($destRootId) : $destRootId
+            );
+            $qb->andWhere($rootId === null ?
+                $qb->expr()->isNull('node.'.$config['root']) :
+                $qb->expr()->eq('node.'.$config['root'], is_string($rootId) ? $qb->expr()->literal($rootId) : $rootId)
+            );
         }
         if (isset($config['level'])) {
-            $dql .= ", node.{$config['level']} = node.{$config['level']} {$levelSign} {$absLevelDelta}";
+            $qb->set('node.'.$config['level'], "node.{$config['level']} {$levelSign} {$absLevelDelta}");
         }
-        $dql .= " WHERE node.{$config['left']} >= {$first}";
-        $dql .= " AND node.{$config['right']} <= {$last}";
-        if (isset($config['root'])) {
-            $dql .= " AND node.{$config['root']} = ".$this->getIdExpression($rootId, $em);
-        }
-        $q = $em->createQuery($dql);
-        $q->getSingleScalarResult();
+        $qb->getQuery()->getSingleScalarResult();
         // update in memory nodes increases performance, saves some IO
         foreach ($em->getUnitOfWork()->getIdentityMap() as $className => $nodes) {
             // for inheritance mapped classes, only root is always in the identity map

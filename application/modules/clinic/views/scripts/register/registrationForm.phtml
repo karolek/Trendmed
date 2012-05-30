@@ -1,6 +1,6 @@
 <fieldset>
     <legend>
-        <?= $this->translate('Address info'); ?><a href="#" rel="tooltip" title="first tooltip">i</a>
+        <?= $this->translate('Address info'); ?>
     </legend>
     <?= $this->element->type ?>
     <?= $this->element->name ?>
@@ -11,7 +11,8 @@
 </fieldset>
 <fieldset>
     <legend>
-        <?= $this->translate('Contact person'); ?><a href="#" rel="tooltip" title="first tooltip">i</a>
+        <?= $this->translate('Contact person'); ?><a href="#" rel="tooltip" title="Podaj dane osoby kontaktowej,
+        która będzie prowadziła sprawy placówki na portalu Trendmed. Podany e-mail będzie zarazem loginem do konta.">i</a>
     </legend>
     <?= $this->element->repName ?>
     <?= $this->element->repEmail ?>
@@ -19,14 +20,16 @@
 </fieldset>
 <fieldset>
     <legend>
-        <?= $this->translate('Account info'); ?><a href="#" rel="tooltip" title="first tooltip">i</a>
+        <?= $this->translate('Account info'); ?>
     </legend>
     <?= $this->element->password; ?>
     <?= $this->element->password_confirmation; ?>
+    <?= $this->element->regulamin ?>
+
 </fieldset>
 <div class="form-actions">
 	<?= $this->element->submit ?>
-	<a href="<?= $this->url(array('action' => 'index', 'controller' => 'index', 'module' => 'user')); ?>" class="btn">
+	<a href="<?= $this->url(array('action' => 'index', 'controller' => 'index', 'module' => 'clinic')); ?>" class="btn">
         <?= $this->translate('Already have an account?'); ?></a>
 </div>
 <script>

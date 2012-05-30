@@ -157,6 +157,11 @@ class Clinic extends \Trendmed\Entity\User {
      */
     protected $photos;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $bankAccount;
+
     
     /* END PROPERTIES */
     /*  GETTERS AND SETTERS */
@@ -217,7 +222,7 @@ class Clinic extends \Trendmed\Entity\User {
         return $this->repName;
     }
 
-    public function setRepName($repName) {
+   public function setRepName($repName) {
         $this->repName = $repName;
     }
 
@@ -384,9 +389,10 @@ class Clinic extends \Trendmed\Entity\User {
         // since this is avatar we want that every new
         // avatar will overwrite the old ones
 
-
         $config = \Zend_Registry::get('config');
         $log = \Zend_Registry::get('log');
+        $log->debug('checking if logo file is uploaded');
+
         if ($handle->uploaded) {
             $log->debug('logo file uploaded');
             // original
@@ -399,7 +405,7 @@ class Clinic extends \Trendmed\Entity\User {
             if ($handle->processed) {
                 //$handle->clean();
             } else {
-                throw new Exception('Upload errors: '.$handle->error);
+                throw new \Exception('Upload errors: '.$handle->error);
             }
 
             // big
@@ -416,7 +422,7 @@ class Clinic extends \Trendmed\Entity\User {
             if ($handle->processed) {
                 //$handle->clean();
             } else {
-                throw new Exception('Upload errors: '.$handle->error);
+                throw new \Exception('Upload errors: '.$handle->error);
             }
 
             // medium
@@ -432,7 +438,7 @@ class Clinic extends \Trendmed\Entity\User {
             if ($handle->processed) {
                 //$handle->clean();
             } else {
-                throw new Exception('Upload errors: '.$handle->error);
+                throw new \Exception('Upload errors: '.$handle->error);
             }
 
             // small
@@ -448,9 +454,12 @@ class Clinic extends \Trendmed\Entity\User {
             if ($handle->processed) {
                 $handle->clean();
             } else {
-                throw new Exception('Upload errors: '.$handle->error);
+                throw new \Exception('Upload errors: '.$handle->error);
             }
             $filename = $dir;
+        } else {
+            $log->debug('logo file is not uploaded: '.$handle->error);
+            return false;
         }
         $this->setLogoDir($filename);
         return true;
@@ -478,7 +487,41 @@ class Clinic extends \Trendmed\Entity\User {
 
     public function getLogin()
     {
-        return $this->repEmail;
+        return $this->login;
     }
 
+    public function setBankAccount($bankAccount)
+    {
+        $this->bankAccount = $bankAccount;
+    }
+
+    public function getBankAccount()
+    {
+        return $this->bankAccount;
+    }
+
+    /**
+     * This function sends a welcome e-mail to model e-mail address.
+     */
+    public function sendWelcomeEmail()
+    {
+        $mail = new \Zend_Mail();
+        $config = \Zend_Registry::get('config');
+        $log = \Zend_Registry::get('log');
+        $mail->setBodyText("Dzień Dobry, dokonaliście Państwo udanej rejestracji w portalu\n
+Trendmed.eu, Jesteśmy wyszukiwarką usług medycznych, kosmetycznych,\n
+sanatoriów,spa-weelness przeznaczoną głownie dla obcokrajowców.\n
+Prosimy o zamieszczenie swojej oferty w panelu pod adresem: \n
+
+http://www.trendmed.eu/clinic\n
+
+Zespół Trendmed
+");
+        $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName);
+        $mail->addTo($this->getEmailaddress(), $this->getLogin());
+        $mail->setSubject($config->siteEmail->welcomeEmailSubject);
+        $mail->send();
+        $log->debug('E-mail send to: ' . $this->getEmailaddress() . '
+        from '.$mail->getFrom() . ' subject: ' . $mail->getSubject());
+    }
 }

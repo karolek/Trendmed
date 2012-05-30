@@ -1,9 +1,40 @@
-Name of the clinic;Nazwa kliniki
+Edit page; Edytuj treść
+Page title;Tytuł strony
+Page content;Treść strony
+Page type;Typ strony
+Page has been saved;Strona zapisana
+Not active;Nie aktywna
+Content;Treści
+List pages;Lista treści
+Add new page;Dodaj nową stronę
+Title;Tytuł
+Type;Typ
+Last Edited;Ostatnia edycja
+Created;Utworzono
+See;Podejrzyj
+Delete Page;Usuń podstronę
+Toggle active;Przełącz tryb aktywności
+Active state changed;Zmieniono tryb aktywności
+Page has been deleted;Podstrona została usunięta
+
+You have successfully logged in;Zalogowano poprawnie
+You have successfully logged out;Wylogowano z systemu pomyślnie
+Please fill out the form correctly;Proszę wypełnić poprawnie formularz
+Your e-mail;Twój adres e-mail
+Recover;Odzyskaj
+Logo uploaded.;Logo wgrane
+Manage photos;Zarządzaj zdjęciami
+Changes saved;Zmiany zachowane
+See public profile;Zobacz profil publiczny
+Add new service;Dodaj nową usługę
+Edit;Edytuj
+Delete;Usuń
+Name of the clinic;Nazwa placówki
 Password;Hasło
 Heading;Nagłówek
 Patient login;Logowanie pacjenta
 Patient signup;Rejestracja pacjenta
-For clinics;Dla klinik
+For clinics;Dla placówek
 Register;Rejestracja
 Login into panel;Zaloguj się do panelu
 Street address;Ulica i numer lokalu
@@ -23,6 +54,7 @@ Value is required and can't be empty;Pole jest wymagane
 '%value%' is no valid email address in the basic format local-part@hostname;Podaj poprawny adres e-mail
 A record matching '%value%' was found;'%value%' już istnieje
 Clinic;Klinika
+'%value%' does not appear to be a float;'%value%' nie jest poprawną liczbą, oddzielaj ułamki przecinkiem
 Dental gabinet;Gabinet dentystyczny
 Type of Clinic;Typ obiektu
 You have registered succesfuly. You can login now.;Zostałeś zarejestrowany. Możesz się teraz zalogować.
@@ -35,13 +67,13 @@ Password change;Zmiana hasła
 Wrong login or password supplied;Zły e-mail lub hasło
 Please fill the form;Proszę wypełnić formularz
 Given clinic e-mail not found in database;Podany e-mail nie został znaleziony w bazie
-Remember me for 7 days;Pamiętaj mnie przez 7 dni
+Remember me for 7 days;Nie wylogowuj mnie
 You have changed Your details;Informacje zapisane
 Edit my logo;Edycja logo
 New photo added;Zdjęcie dodane
 Photo file (jpg, png, gif);Plik zdjęcia (format jpg, png, gif)
 Here You can add any photos of Your object, that will be shown on Your public profile;Tutaj możesz dodać zdjęcia swojego obiektu, które będą widoczne na Twoim profilu
-Managing Your clinic services;Zarządzanie usługami Twojej kliniki
+Managing Your clinic services;Zarządzanie usługami Twojej placówki
 You can change Your avatar by uploading new one;You can change Your avatar by uploading new one
 Remember, your avatar will be cropped down to square proportions. The get the best result supply square image;Pamiętaj, Twoje logo zostanie skadrowane od odpowiednich formatów. Aby uzyskać najlepsze efekty wgraj plik o rozmiarach 250px x 150 px
 This is Your dashboard;To jest Twój dashboard
@@ -54,3 +86,18 @@ Delete logo;Usuń logo
 Logged in as;Zalogowany jako
 Log out?;Wylogować?
 Save;Zapisz
+Create account for free!;Zarejestruj się za darmo
+Password recovery;Nie pamiętasz hasła?
+Trendmed / Password recovery;Trendmed / Odzyskiwanie hasła
+Service category;Kategoria usługi
+Please correct the form;Popraw błędy w formularzu
+Logo file (jpg, png, gif);Plik logo (jpg, png, gif)
+You don't have any logo attached to Your account. Default image will be used instead. Please upload image file to customize Your profile.;Nie masz dodanego logo do swojego profilu. Wgraj plik logo aby ulepszyć swój profil.
+Warning!;Uwaga!
+Edit my logo;Edycja logo
+Your service has been deleted;Usługa została usunięta
+Setup Your new password;Ustaw nowe hasło
+%1$s registration;Rejestracja
+Plans and pricing;Oferta i abonamenty
+Articles;Artykuły
+You have registered successfully. You can login now.;Dziękujemy za rejestracje. Możesz zalogować się teraz do panelu zarządzania.

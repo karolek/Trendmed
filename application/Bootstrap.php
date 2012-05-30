@@ -3,16 +3,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     public function _initAutoloaderNamespaces()
     {
-        require_once APPLICATION_PATH . '/../library/Doctrine/lib/vendor/doctrine-common/lib/Doctrine/Common/ClassLoader.php';
+        require_once APPLICATION_PATH . '/../vendor/autoload.php';
 
         $autoloader = \Zend_Loader_Autoloader::getInstance();
         $fmmAutoloader = new \Doctrine\Common\ClassLoader('Bisna');
-        $classLoader = new \Doctrine\Common\ClassLoader('Gedmo', APPLICATION_PATH . 
-                "/../library");
-        $classLoader->register();
-        
         $autoloader->pushAutoloader(array($fmmAutoloader, 'loadClass'), 'Bisna');
-        $autoloader->pushAutoloader(array($classLoader, 'loadClass'), 'DoctrineExtensions');
+
     }
     protected function _initLocale()
     {
@@ -42,6 +38,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         
         $view->headScript()->appendFile('/js/bootstrap.min.js', $type = 'text/javascript');
         $view->headScript()->appendFile('/js/bootstrap-datepicker.js', $type = 'text/javascript');   
+        $view->headScript()->appendFile('/js/general.js', $type = 'text/javascript');
     }
     
     protected function _initViewHelpersPaths()
@@ -110,6 +107,55 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
            $tr = new Zend_Mail_Transport_Smtp($config->mail->smtp->host,
                    $config->mail->smtp->params->toArray());
            Zend_Mail::setDefaultTransport($tr); 
+        }
+    }
+
+    public function _initDoctype()
+    {
+        $doctypeHelper = new Zend_View_Helper_Doctype();
+        $doctypeHelper->doctype('HTML5');
+    }
+
+    public function _initAcl()
+    {
+        $this->bootstrap('config');
+        $config = \Zend_Registry::get('config');
+        if ($config->acl->use == TRUE) {
+            /** Creating the ACL object */
+            require_once 'Zend/Acl.php';
+            $myAcl = new Zend_Acl();
+
+            /** Creating Roles */
+            require_once 'Zend/Acl/Role.php';
+            $myAcl->addRole(new Zend_Acl_Role('guest'))
+                ->addRole(new Zend_Acl_Role('clinic'), 'guest')
+                ->addRole(new Zend_Acl_Role('patient'), 'guest')
+                ->addRole(new Zend_Acl_Role('admin'), 'guest')
+                ->addRole(new Zend_Acl_Role('god'), 'admin');
+
+            /** Creating resources */
+            require_once 'Zend/Acl/Resource.php';
+            $myAcl->addResource(new Zend_Acl_Resource('mvc:admin'))
+            ->addResource(new Zend_Acl_Resource('mvc:admin.index', 'mvc:admin'));
+
+            /** Creating permissions */
+            $myAcl->deny('guest', 'mvc:admin')
+                ->allow('admin', 'mvc:admin')
+                ->allow('guest', 'mvc:admin.index', 'index');
+
+            /** Getting the user role */
+            $auth = \Zend_Auth::getInstance();
+            if ($auth->hasIdentity()) {
+                $user = $auth->getIdentity();
+                $role = $user['roleName'];
+            } else {
+                $role = 'guest';
+            }
+
+            if (empty($role)) throw new \Exception('No role setup for user in this request. Cant proceed with ACL');
+
+            $fc = Zend_Controller_Front::getInstance();
+            $fc->registerPlugin(new \Me_Controller_Plugin_Acl($myAcl, $role));
         }
     }
 }

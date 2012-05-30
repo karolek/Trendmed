@@ -1,0 +1,47 @@
+        <div class="alert alert-block alert-notice">
+            <button class="close" data-dismiss="alert">×</button>
+
+            Podaj interesujące informacje dla swoich klientów np.
+            <ul>
+                <li>w jakiej dziedzinie Państwo się specjalizują,</li>
+                <li>co oferują,</li>
+                <li>informacje o personelu, udogodnieniach, certyfikatach
+                <li>specjalistycznych szkoleniach,</li>
+                <li>urządzeniach którymi warto się pochwalić,</li>
+                <li>lokalizacji,</li>
+                <li>o ewentualnych usługach dodatkowych</li>
+            </ul>
+            Zdjęcia które Państwo załączą do tej treści powinny pokazywać
+            ogólnie obiekt, personel , urządzenia czy dyplomy.<br />Zdjęcia powinny
+            wzbudzić zaufanie do Państwa placówki.
+        </div>
+        <div id="editClinic" class="form-horizontal">
+            <?= $this->form; ?>
+        </div>
+
+        <br /><br />
+
+        <h3 style="padding:0 0 10px;">Zdjęcia Twojej placówki</h3>
+        <? if( count($this->LoggedUser()->photos) < $this->config->clinics->photo->limit): ?>
+            <p><?= $this->translate('Here You can add any photos of Your object, that will be shown on Your public profile'); ?>.</p>
+            <div id="photoUpload"><?= $this->photoForm; ?></div>
+        <? else: ?>
+            <p>Nie możesz dodać więcej zdjęć z uwagi na limit (<?= $this->config->clinics->photo->limit; ?>)</p>
+        <? endif;?>
+        <? if(count($this->LoggedUser()->photos)>0): ?>
+            <ul class="thumbnails">
+            <? foreach($this->LoggedUser()->photos as $photo): ?>
+                <li class="thumbnail">
+                    <?= $this->ShowClinicPhoto($photo, 'medium'); ?>
+                    <p class="caption"><a href="<?= $this->url(
+                        array(
+                            'action' => 'delete-clinic-photo',
+                            'controller' => 'profile',
+                            'module' => 'clinic',
+                            'id'    => $photo->id,
+                        )
+                    ); ?>" class="btn btn-danger confirm"> <i class="icon-white icon-trash"> </i></a> </p>
+                </li>
+            <? endforeach; ?>
+            </ul>
+        <? endif; ?>
