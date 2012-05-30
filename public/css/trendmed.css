@@ -58,6 +58,8 @@ a:hover {text-decoration:none;}
 
 p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 
+.btn-group .btn:first-child {margin:0;}
+
 .shadow {width:1130px; height:800px; position: absolute; z-index: 1; background:url(../img/shadow.png) top left no-repeat; left: 50%; margin: 0 0 0 -566px;}
 
 /* HEADER */
@@ -181,7 +183,13 @@ dd {margin:0;}
 #treatmentsList .list ul li {line-height: 20px;}
 
 
+/* TEXT PAGE */
+#textPage {padding: 0 27px 15px;}
+#textPage p {font-size:12px;}
 
+
+/* FOOTER */
+footer {clear:both;}
 
 
 
