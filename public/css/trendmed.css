@@ -165,7 +165,25 @@ select {width:340px;}
 
 .row {margin: 0 0 20px; width: 969px; box-shadow: none;}
 
+.table thead th {color: #545454;}
+
 dd {margin:0;}
+
+
+/* ADMIN */
+#treatmentsList {}
+#treatmentsList .form-horizontal {width:690px; float:right;}
+#treatmentsList .form-horizontal .control-label {width:200px;}
+#treatmentsList .form-horizontal .controls {margin-left: 225px;}
+#treatmentsList .form-horizontal .form-actions {padding:18px 0 17px 250px;}
+#treatmentsList .list {border: 1px solid #EEEEEE; border-radius: 5px 5px 5px 5px; float: left; padding: 24px 11px 21px 28px; width: 233px;}
+#treatmentsList .list ul {list-style: circle inside none; margin: 10px 0 0 2px;}
+#treatmentsList .list ul li {line-height: 20px;}
+
+
+
+
+
 
 /* ==|== media queries ======================================================
    EXAMPLE Media Query for Responsive Design.

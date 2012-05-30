@@ -1,8 +1,16 @@
-<h3>Lista kategorii usług</h3>
-<?= $this->categories; ?>
-<?= $this->form; ?>
-<script>
-    $("a.confirm").click(function() {
-        return confirm('Are You sure?');
-    });
-</script>
+<div id="treatmentsList">
+	
+	<div class="list">
+		<h3>Lista kategorii usług</h3>
+		<?= $this->categories; ?>
+	</div>
+	
+	<?= $this->form; ?>
+	
+	<script>
+	    $("a.confirm").click(function() {
+	        return confirm('Are You sure?');
+	    });
+	</script>
+
+</div>
