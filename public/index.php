@@ -15,11 +15,19 @@ set_include_path(implode(PATH_SEPARATOR, array(
 
 /** Zend_Application */
 require_once 'Zend/Application.php';
+require_once 'Zend/Registry.php';
+require_once 'Zend/Config/Ini.php';
+/** Merging configs to use in application Bootstrap */
+$appConfig = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini',
+    APPLICATION_ENV, TRUE);
+$dbConfig = new Zend_Config_Ini(APPLICATION_PATH . '/configs/database.ini',
+    APPLICATION_ENV);
+$appConfig->merge($dbConfig);
+Zend_Registry::set('config', $appConfig);
 
 // Create application, bootstrap, and run
 $application = new Zend_Application(
-    APPLICATION_ENV,
-    APPLICATION_PATH . '/configs/application.ini'
+    APPLICATION_ENV, $appConfig
 );
 $application->bootstrap()
             ->run();
