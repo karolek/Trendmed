@@ -27,7 +27,7 @@ class Clinic_PublicController extends Zend_Controller_Action
             ->findOneBySlug($slug);
 
         if(!$clinic) throw new \Exception('No clinic by the slug of '.$slug.' found', 404);
-
+        $this->view->headTitle($clinic->name);
         $this->view->clinic = $clinic;
     }
 
