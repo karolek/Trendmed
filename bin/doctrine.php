@@ -13,7 +13,6 @@ set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../library'),
     get_include_path(),
 )));
-echo "Boostraping application for ".APPLICATION_ENV." enviroment... \n";
 
 /** Zend_Application */
 require_once 'Zend/Application.php';
@@ -34,6 +33,7 @@ $application = new Zend_Application(
 
 // Bootstrapping resources
 $bootstrap = $application->bootstrap()->getBootstrap();
+echo "Boostraping application for ".APPLICATION_ENV." enviroment... \n";
 
 // Retrieve Doctrine Container resource
 $container = $bootstrap->getResource('doctrine');

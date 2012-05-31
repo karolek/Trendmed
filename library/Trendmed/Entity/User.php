@@ -49,7 +49,7 @@ class User extends \Me\Model\ModelAbstract implements \Me_User_Model_User_Interf
     protected $tokenValidUntil;
     
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     protected $lastLoginTime;
 
@@ -181,6 +181,7 @@ class User extends \Me\Model\ModelAbstract implements \Me_User_Model_User_Interf
                 'roleName'          => $this->getRole()->name,
                 'entityNamespace'   => get_class(),
             );
+            $this->setLastLoginTime(new \DateTime());
             $auth->getStorage()->write($arrayToStore); // saveing user.id to session to use by
             // Zend_Auth
             return true;

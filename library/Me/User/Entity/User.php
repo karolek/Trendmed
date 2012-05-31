@@ -109,7 +109,7 @@ abstract class User extends Me\Model
 	            // do not remember the session after browser termination
 	            Zend_Session::forgetMe();
 	        }
-            $this->setLastLoginTime(time());
+            $this->setLastLoginTime(new \DateTime());
 	        $auth->getStorage()->write($this); // saveing userModel to session to use by
 	        // Zend_Auth
 	        return true;
