@@ -85,7 +85,7 @@ class Service extends \Me\Model\ModelAbstract {
     protected $clinic;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Trendmed\Entity\Category")
+     * @ORM\ManyToOne(targetEntity="\Trendmed\Entity\Category", inversedBy="services")
      */
     protected $category;
 
@@ -112,8 +112,9 @@ class Service extends \Me\Model\ModelAbstract {
         $this->modified = new \DateTime();
     }
 
-    public function setCategory($category)
+    public function setCategory(\Trendmed\Entity\Category $category)
     {
+        $category->addService($this);
         $this->category = $category;
     }
 
@@ -122,7 +123,7 @@ class Service extends \Me\Model\ModelAbstract {
         return $this->category;
     }
 
-    public function setClinic($clinic)
+    public function setClinic(\Trendmed\Entity\Clinic $clinic)
     {
         $this->clinic = $clinic;
     }

@@ -35,9 +35,9 @@ $application = new Zend_Application(
     APPLICATION_ENV, $appConfig
 );
 
-print "Bootstraping the application for ENV: ".APPLICATION_ENV."\n";
 // Bootstrapping resources
 $bootstrap = $application->bootstrap()->getBootstrap();
+print "Bootstraping the application for ENV: ".APPLICATION_ENV."\n";
 
 print "Retrieve Doctrine resources\n";
 // Retrieve Doctrine Container resource

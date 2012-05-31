@@ -1,4 +1,6 @@
 Edit page; Edytuj treść
+Category saved;Zmiany do kategorii zapisane
+Category has been deleted. All children elements has been reordered.;Kategoria usunięta, podkategorie zostały odpowiednio przesunięte
 Page title;Tytuł strony
 Page content;Treść strony
 Page type;Typ strony
@@ -16,7 +18,6 @@ Delete Page;Usuń podstronę
 Toggle active;Przełącz tryb aktywności
 Active state changed;Zmieniono tryb aktywności
 Page has been deleted;Podstrona została usunięta
-
 You have successfully logged in;Zalogowano poprawnie
 You have successfully logged out;Wylogowano z systemu pomyślnie
 Please fill out the form correctly;Proszę wypełnić poprawnie formularz

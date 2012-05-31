@@ -9,7 +9,7 @@ class CategoryRepository extends \Gedmo\Tree\Entity\Repository\NestedTreeReposit
     
     public function findAllAsArray($rootId = 1, $recursive = true)
     {
-        $query = $em
+        $query = $this->_em
             ->createQueryBuilder()
             ->select('node')
             ->from('Trendmed\Entity\Category', 'node')
@@ -20,5 +20,18 @@ class CategoryRepository extends \Gedmo\Tree\Entity\Repository\NestedTreeReposit
 
         //$options = array('decorate' => true);
         $tree = $query->getArrayResult();
+    }
+
+    public function findOneAsArray($id)
+    {
+        $query = $this->_em
+            ->createQueryBuilder()
+            ->select('node')
+            ->from('Trendmed\Entity\Category', 'node')
+            ->where('node.id = ?1')
+            ->getQuery();
+        $query->setParameter(1, $id);
+        $tree = $query->getArrayResult();
+        return $tree[0]; //return only first element
     }
 }
