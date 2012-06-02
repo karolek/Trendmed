@@ -90,7 +90,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->jQuery()->enable()->setVersion('1.7.2'); //jQuery version, automatically 1.5 = 1.5.latest
         $config = \Zend_Registry::get('config');
         if($config->jquery->distribution->local == true) {
-            $view->jQuery()->enable()->setLocalPath('js/jquery-1.7.1.min.js');
+            $view->jQuery()->enable()->setLocalPath('/js/jquery-1.7.1.min.js');
         }
     }
     

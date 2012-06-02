@@ -21,6 +21,9 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
     {
         $category = $this->_fetchCategoryFromParams();
         $this->view->category = $category;
+        $this->view->headTitle($category->name);
+        $this->_helper->_layout->setLayout('homepage');
+        $this->view->selectedCategory = $category->slug;
     }
 
     protected function _fetchCategoryFromParams()
