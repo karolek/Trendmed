@@ -50,6 +50,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	{
         $this->bootstrap('view');
         $view = $this->getResource('view');
+        // saveing view to registry
+        \Zend_Registry::set('view', $view);
 		$view->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Noumenal_View_Helper');
 		$view->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Br_View_Helper');
 		$view->addHelperPath(APPLICATION_PATH . '/modules/user/views/helpers', 'Br_View_Helper');

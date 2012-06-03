@@ -62,6 +62,8 @@ class User extends \Me\Model\ModelAbstract implements \Me_User_Model_User_Interf
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $modified;
+
+    protected $_welcomeEmailScript = null; //implement in subclass, this is file of view with HTML content of welcome email
     /* END PROPERTIES */
     
     /* GETTERS AND SETTERS */
@@ -195,12 +197,20 @@ class User extends \Me\Model\ModelAbstract implements \Me_User_Model_User_Interf
      */
     public function sendWelcomeEmail()
     {
-        $mail = new \Zend_Mail();
+        $mail = new \Zend_Mail('UTF-8');
         $config = \Zend_Registry::get('config');
         $log = \Zend_Registry::get('log');
-        $mail->setBodyText('This is the text of the welcome e-mail.');
+
+        // checking if template file is defined
+        if(empty($this->_welcomeEmailScript)) {
+            throw new \Exception('No content template (_welcomeEmailScript) defined for class '.__CLASS__);
+        }
+        $view = \Zend_Registry::get('view');
+        $htmlContent = $view->render($this->_welcomeEmailScript); // rendering a view template for content
+        $mail->setBodyHtml($htmlContent);
         $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName);
         $mail->addTo($this->getEmailaddress(), $this->getLogin());
+        $mail->addBcc($config->siteEmail->fromAddress, 'Redaktor Trendmed.eu'); //Adding copy for admin
         $mail->setSubject($config->siteEmail->welcomeEmailSubject);
         $mail->send();
         $log->debug('E-mail send to: ' . $this->getEmailaddress() . ' 

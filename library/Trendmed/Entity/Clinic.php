@@ -162,6 +162,8 @@ class Clinic extends \Trendmed\Entity\User {
      */
     protected $bankAccount;
 
+    protected $_welcomeEmailScript = 'register/_welcomeEmail.phtml';
+
     
     /* END PROPERTIES */
     /*  GETTERS AND SETTERS */
@@ -498,30 +500,5 @@ class Clinic extends \Trendmed\Entity\User {
     public function getBankAccount()
     {
         return $this->bankAccount;
-    }
-
-    /**
-     * This function sends a welcome e-mail to model e-mail address.
-     */
-    public function sendWelcomeEmail()
-    {
-        $mail = new \Zend_Mail();
-        $config = \Zend_Registry::get('config');
-        $log = \Zend_Registry::get('log');
-        $mail->setBodyText("Dzień Dobry, dokonaliście Państwo udanej rejestracji w portalu\n
-Trendmed.eu, Jesteśmy wyszukiwarką usług medycznych, kosmetycznych,\n
-sanatoriów,spa-weelness przeznaczoną głownie dla obcokrajowców.\n
-Prosimy o zamieszczenie swojej oferty w panelu pod adresem: \n
-
-http://www.trendmed.eu/clinic\n
-
-Zespół Trendmed
-");
-        $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName);
-        $mail->addTo($this->getEmailaddress(), $this->getLogin());
-        $mail->setSubject($config->siteEmail->welcomeEmailSubject);
-        $mail->send();
-        $log->debug('E-mail send to: ' . $this->getEmailaddress() . '
-        from '.$mail->getFrom() . ' subject: ' . $mail->getSubject());
     }
 }
