@@ -8,10 +8,10 @@ $(document).ready(function(){
                parentId: parentId
            },
            beforeSend: function() {
-               $("#maincategory #loader").removeClass("hidden");
+               $("#subcategory").attr("disabled", "disabled");
            },
            complete: function() {
-               $("#maincategory #loader").addClass("hidden");
+               $("#subcategory").removeAttr("disabled");
            },
            success: function(data) {
                $("#subcategory").children().remove();
