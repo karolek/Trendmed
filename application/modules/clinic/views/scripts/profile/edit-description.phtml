@@ -31,7 +31,7 @@
 	            <ul class="thumbnails">
 	            <? foreach($this->LoggedUser()->photos as $photo): ?>
 	                <li class="thumbnail">
-	                    <?= $this->ShowClinicPhoto($photo, 'medium'); ?>
+	                    <?= $this->ShowClinicPhoto($photo, 'small'); ?>
 	                    <p class="caption"><a href="<?= $this->url(
 	                        array(
 	                            'action' => 'delete-clinic-photo',
