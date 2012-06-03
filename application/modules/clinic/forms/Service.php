@@ -18,18 +18,28 @@ class Clinic_Form_Service extends Twitter_Form
         $this->setMethod('post');
 
         // category
-        if (!$categories = $this->_getCategories()) {
+        if (!$mainCategories = $this->_getCategories()) {
             throw new Zend_Form_Exception(
                 'No categories defined in DB'
             );
         }
 
-        $categorySelect = new Zend_Form_Element_Select('categories');
-        $categorySelect->setLabel('Service category');
+        // adding main category selector
+        $categorySelect = new Zend_Form_Element_Select('main-category', array(
+            'escape' => false,
+        ));
+        $categorySelect->setLabel('Service main category');
         $categorySelect->addMultiOption('0', '-- WYBIERZ --');
-        $categorySelect->addMultiOptions($categories);
+        $categorySelect->addMultiOptions($mainCategories);
+
         $this->addElement($categorySelect);
-        //$this->addElement('select', 'fruits', array('label'=>'Fruits','required'=> true,'multioptions'=> $categories));
+
+        // this is subcategory selecter, should be populated with ajax req. based on main category selection
+        $subcategorySelect = new \Zend_Form_Element_Select('sub-category');
+        $subcategorySelect->setLabel('Service sub-category');
+        $subcategorySelect->addMultiOption(0, '-- WYBIERZ GŁÓWNĄ KATEGORIE --');
+        $subcategorySelect->setRequired(true);
+        $this->addElement($subcategorySelect);
 
         // description of the service should be translatable with html editor
         foreach ($config->languages as $lang) {
@@ -73,24 +83,17 @@ class Clinic_Form_Service extends Twitter_Form
         $this->addElement($submit);
     }
 
-    private function _getCategories()
+    private function _getCategories($parentId = 1)
     {
-        if(!$this->_translatedCategoryArrayTree) {
-            $em = \Zend_Registry::get('doctrine')->getEntityManager();
-            $repo = $em->getRepository('Trendmed\Entity\Category');
-            $tree = $repo->childrenHierarchy();
-            if (count($tree[0]['__children'])) { //checking if first found root has some categories
-                foreach($tree[0]['__children'] as $mainCategory) { //iterating though main catgegories
-                    if (count($mainCategory['__children']) > 0 ) { // checking if main cat. has children cats
-                        $map[$mainCategory['name']] = array(); // instancing the main category in array
-                        foreach ($mainCategory['__children'] as $subCategory) {
-                            $map[$mainCategory['name']][$subCategory['id']] = $subCategory['name'];
-                        }
-                    }
-                }
-            }
-            $this->_translatedCategoryArrayTree = $map;
+        $em = \Zend_Registry::get('doctrine')->getEntityManager();
+        $repo = $em->getRepository('Trendmed\Entity\Category');
+        $tree = $repo->findForParentAsArray($parentId);
+        // parse the result for
+        $map = array();
+        foreach ($tree as $node) {
+            $map[$node['id']] = $node['name'];
         }
-        return $this->_translatedCategoryArrayTree;
+        return $map;
     }
+
 }

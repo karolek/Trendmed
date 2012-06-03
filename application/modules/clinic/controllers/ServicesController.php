@@ -37,6 +37,7 @@ class Clinic_ServicesController extends Zend_Controller_Action
         $id = $request->getParam('id', null);
         $config = \Zend_Registry::get('config');
         $repository = $this->_em->getRepository('\Trendmed\Entity\Translation');
+        $this->view->headScript()->appendFile('/js/servicesSelect.js');
 
 
         if ($id) { //edit
@@ -112,6 +113,7 @@ class Clinic_ServicesController extends Zend_Controller_Action
     {
         $request    = $this->getRequest();
         $serviceId  = $request->getParam('id', null);
+        $this->view->headScript()->appendFile('/js/servicesSelect.js');
 
         // fetching the service
         $repo = $this->_em->getRepository('\Trendmed\Entity\Service');
