@@ -1,5 +1,5 @@
 $(document).ready(function(){
-   $("#maincategory").change(function() {
+   $("#mainCategory").change(function() {
        var parentId = $(this).val();
        $.ajax({
            url: "/index/get-categories",
@@ -8,17 +8,23 @@ $(document).ready(function(){
                parentId: parentId
            },
            beforeSend: function() {
-               $("#subcategory").attr("disabled", "disabled");
+               $("#subCategory").attr("disabled", "disabled");
            },
            complete: function() {
-               $("#subcategory").removeAttr("disabled");
+               $("#subCategory").removeAttr("disabled");
            },
            success: function(data) {
-               $("#subcategory").children().remove();
-               $.each(data, function(i, item) {
-                   $("#subcategory").append($('<option>', { value : item.id })
-                       .text(item.name));
-               });
+               $("#subCategory").children().remove();
+               // if response is empty we will copy main cat to sub cat
+               if($.isEmptyObject(data)) {
+                   alert('Błąd. Wybrana kategoria główna nie ma podkategorii. ' +
+                       'Prosimy o wybranie innej kategorii glównej.');
+               } else {
+                   $.each(data, function(i, item) {
+                       $("#subCategory").append($('<option>', { value : item.id })
+                           .text(item.name));
+                   });
+               }
            },
            type: 'POST'
        });

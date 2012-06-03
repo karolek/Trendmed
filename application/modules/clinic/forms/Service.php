@@ -25,20 +25,23 @@ class Clinic_Form_Service extends Twitter_Form
         }
 
         // adding main category selector
-        $categorySelect = new Zend_Form_Element_Select('main-category', array(
+        $categorySelect = new Zend_Form_Element_Select('mainCategory', array(
             'escape' => false,
         ));
         $categorySelect->setLabel('Service main category');
         $categorySelect->addMultiOption('0', '-- WYBIERZ --');
         $categorySelect->addMultiOptions($mainCategories);
+        $categorySelect->addValidator('GreaterThan', false, array('min' => 1));
 
         $this->addElement($categorySelect);
 
         // this is subcategory selecter, should be populated with ajax req. based on main category selection
-        $subcategorySelect = new \Zend_Form_Element_Select('sub-category');
+        $subcategorySelect = new \Zend_Form_Element_Select('subCategory');
         $subcategorySelect->setLabel('Service sub-category');
         $subcategorySelect->addMultiOption(0, '-- WYBIERZ GŁÓWNĄ KATEGORIE --');
-        $subcategorySelect->setRequired(true);
+        $subcategorySelect->addValidator('GreaterThan', false, array('min' => 1));
+
+
         $this->addElement($subcategorySelect);
 
         // description of the service should be translatable with html editor
@@ -75,6 +78,8 @@ class Clinic_Form_Service extends Twitter_Form
         $priceMax->setRequired(false);
         $priceMax->setLabel('Cena maksymalna za usługę');
         $priceMax->setDescription('W walucie EURO');
+        $priceMax->addFilter('StringTrim');
+        $priceMax->addFilter('StripTags');
         $priceMax->addValidator($floatValidator);
         $priceMax->addValidator(new Me_Validate_ServicePrice());
         $this->addElement($priceMax);
@@ -94,6 +99,15 @@ class Clinic_Form_Service extends Twitter_Form
             $map[$node['id']] = $node['name'];
         }
         return $map;
+    }
+
+    public function addCategoriesToSelect($elementName, $parentId, $selected = null)
+    {
+        $select = $this->getElement($elementName);
+        $select->addMultiOptions($this->_getCategories($parentId));
+        if($selected) {
+            $select->setValue($selected);
+        }
     }
 
 }
