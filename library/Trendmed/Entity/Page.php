@@ -2,6 +2,8 @@
 namespace Trendmed\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
+
 
 /**
 * Description of Page
@@ -41,11 +43,13 @@ class Page extends \Me\Model\ModelAbstract
 
     /**
      * @ORM\Column(type="string", unique=true)
+     * @Gedmo\Translatable
      */
     protected $title;
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Gedmo\Translatable
      */
     protected $content;
 
@@ -74,6 +78,13 @@ class Page extends \Me\Model\ModelAbstract
      * @var isSystemic state if this page is important frm the system point of view if yes, than it can't be deleted by user
      */
     protected $isSystemic;
+
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
 
 
     public function setContent($content)
@@ -162,6 +173,10 @@ class Page extends \Me\Model\ModelAbstract
         return $this->isActive;
     }
 
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
+    }
 
     /**
      * @ORM\PrePersist, @ORM\PreUpdate

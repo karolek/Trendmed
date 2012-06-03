@@ -57,10 +57,10 @@ class Admin_CategoriesController extends Zend_Controller_Action
         $modelId = $request->getParam('category_id', null);
         $em = $this->_helper->getEm();
         $config = \Zend_Registry::get('config');
+        $repository = $em->getRepository('Gedmo\Translatable\Entity\Translation');
 
         if ($modelId) {
             $model = $em->find('\Trendmed\Entity\Category', $modelId);
-            $repository = $em->getRepository('Gedmo\Translatable\Entity\Translation');
             $translations = $repository->findTranslations($model);
             $form->setDefault('name', $model->getName());
             $form->setDefault('description', $model->getDescription());
@@ -77,8 +77,7 @@ class Admin_CategoriesController extends Zend_Controller_Action
             $post = $request->getPost();
             if ($form->isValid($post)) {
                 $values = $form->getValues();
-                $repository = $em->getRepository('\Trendmed\Entity\Translation');
-                
+
                 foreach ($config->languages as $lang) {
                     
                     if ($lang->default == true) { // we must add default values to our main entity
