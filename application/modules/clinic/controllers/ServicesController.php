@@ -38,6 +38,7 @@ class Clinic_ServicesController extends Zend_Controller_Action
         $config = \Zend_Registry::get('config');
         $repository = $this->_em->getRepository('\Trendmed\Entity\Translation');
         $this->view->headScript()->appendFile('/js/servicesSelect.js');
+        $this->view->headScript()->appendFile('/js/jquery.html5uploader.min.js');
 
 
         if ($id) { //edit
@@ -82,6 +83,20 @@ class Clinic_ServicesController extends Zend_Controller_Action
                 }
                 $service->setClinic($this->_helper->LoggedUser());
                 $service->setCategory($this->_em->find('\Trendmed\Entity\Category', $values['subCategory']));
+
+                $session = new \Zend_Session_Namespace('service_photos_'.$this->_helper->LoggedUser()->getId());
+                $log = \Zend_Registry::get('log');
+                if(is_array($session->photos)) {
+                    $log->debug('sa zdjecia w sesji');
+                    foreach ($session->photos as $photo) {
+                        $photo->setService($service);
+                        $service->addPhoto($photo);
+                        $this->_em->persist($photo);
+                    }
+                } else {
+                    $log->debug('nie ma zdjec w sesji');
+                }
+
                 $this->_em->persist($service);
                 $this->_em->flush();
 
@@ -175,5 +190,21 @@ class Clinic_ServicesController extends Zend_Controller_Action
 
         $this->_helper->FlashMessenger(array('success' => 'Zdjęcie zostało usunięte'));
         $this->_helper->Redirector('manage-service-photos', 'services', 'clinic', array('id' => $serviceId));
+    }
+
+    /**
+     * For AJAX Request
+     */
+    public function addPhotoToServiceAction()
+    {
+        $request = $this->getRequest();
+        $entryPhoto = new \Trendmed\Entity\ServicePhoto();
+        $filename = $entryPhoto->processFile();
+        $session = new \Zend_Session_Namespace('service_photos_'.$this->_helper->LoggedUser()->getId());
+        $session->photos[] = $entryPhoto;
+
+        echo $filename;
+        $this->_helper->layout()->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 }
