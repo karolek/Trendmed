@@ -53,6 +53,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         // saveing view to registry
         \Zend_Registry::set('view', $view);
 		$view->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Noumenal_View_Helper');
+		$view->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Trendmed_View_Helper');
 		$view->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Br_View_Helper');
 		$view->addHelperPath(APPLICATION_PATH . '/modules/user/views/helpers', 'Br_View_Helper');
         		$view->addHelperPath(APPLICATION_PATH . '/../library/Me/User/View/helpers',
@@ -82,12 +83,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     protected function _initJquery() {
         $this->bootstrap('view');
+        $this->bootstrap('config');
         $view = $this->getResource('view'); //get the view object
         //add the jquery view helper path into your project
         $view->addHelperPath("ZendX/JQuery/View/Helper", "ZendX_JQuery_View_Helper");
 
         //jquery lib includes here (default loads from google CDN)
         $view->jQuery()->enable()->setVersion('1.7.2'); //jQuery version, automatically 1.5 = 1.5.latest
+        $config = \Zend_Registry::get('config');
+        if($config->jquery->distribution->local == true) {
+            $view->jQuery()->enable()->setLocalPath('/js/jquery-1.7.1.min.js');
+        }
     }
     
     protected function _initHeadMeta()
