@@ -18,9 +18,8 @@ class Admin_CategoriesController extends Zend_Controller_Action
             $em->flush();
         }
         $this->_rootNode = $root;
-    }
-    
-    public function indexAction() {
+
+        // adding extiting categories to view
         $em = $this->_helper->getEm();
         $repo = $em->getRepository('\Trendmed\Entity\Category');
         $options = array(
@@ -30,16 +29,25 @@ class Admin_CategoriesController extends Zend_Controller_Action
             'childOpen' => '<li>',
             'childClose' => '</li>',
             'nodeDecorator' => function($node) {
-                return '<a class="confirm" href="/admin/categories/delete/node_id/'.$node['id'].'">' . $node['name'] . '</a>';
+                return $node['name'] . ' <a href="/admin/categories/save/category_id/'.$node['id'].'"><i class="icon-pencil"></i></a>
+                <a class="confirm" href="/admin/categories/delete/node_id/'.$node['id'].'"><i class="icon-trash"></i></a>';
+
             }
         );
         $htmlTree = $repo->childrenHierarchy(
-                $this->_rootNode, /* starting from root nodes */ false, /* load all children, not only direct */ $options
+            $this->_rootNode,
+            /* starting from root nodes */ false,
+            /* load all children, not only direct */ $options
         );
         $this->view->categories = $htmlTree;
+    }
+    
+    public function indexAction() {
+
         $form = new \Admin_Form_Category();
         $form->setAction($this->_helper->url('save', 'categories'));
         $this->view->form = $form;
+        $this->view->headTitle('Zarządzanie kategoriami');
     }
     
     public function saveAction()
@@ -49,9 +57,18 @@ class Admin_CategoriesController extends Zend_Controller_Action
         $modelId = $request->getParam('category_id', null);
         $em = $this->_helper->getEm();
         $config = \Zend_Registry::get('config');
+        $repository = $em->getRepository('Gedmo\Translatable\Entity\Translation');
 
         if ($modelId) {
             $model = $em->find('\Trendmed\Entity\Category', $modelId);
+            $translations = $repository->findTranslations($model);
+            $form->setDefault('name', $model->getName());
+            $form->setDefault('description', $model->getDescription());
+            foreach($translations as $transCode => $trans) {
+                $form->setDefault('name_'.$transCode, $trans['name']);
+                $form->setDefault('description_'.$transCode, $trans['description']);
+            }
+            $this->view->headTitle('Edycja kategorii '.$model->getName());
         } else {
             $model = new \Trendmed\Entity\Category();
         }
@@ -60,14 +77,13 @@ class Admin_CategoriesController extends Zend_Controller_Action
             $post = $request->getPost();
             if ($form->isValid($post)) {
                 $values = $form->getValues();
-                $repository = $em->getRepository('\Trendmed\Entity\Translation');
-                
+
                 foreach ($config->languages as $lang) {
                     
                     if ($lang->default == true) { // we must add default values to our main entity
-                        $model->setName($values['name_'.$lang->code]);
+                        $model->setName($values['name']);
                         $model->setDescription(
-                            $values['description_'.$lang->code]
+                            $values['description']
                         );
                         continue;
                     }
@@ -122,8 +138,7 @@ class Admin_CategoriesController extends Zend_Controller_Action
         }
         $repo->removeFromTree($node);
         $em->clear();
-        $this->_helper->FlashMessenger(array('success' => 'Category has been deleted.
-            All children elements has been reordered.'));
+        $this->_helper->FlashMessenger(array('success' => 'Category has been deleted. All children elements has been reordered.'));
         $this->_helper->Redirector('index');
     }
 }

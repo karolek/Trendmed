@@ -3,14 +3,10 @@
 	<div class="list">
 		<h3>Lista kategorii usług</h3>
 		<?= $this->categories; ?>
+        <div class="alert alert-block alert-warning">
+            <strong>Uwaga!</strong> Usunięcie kategorii spowoduje równierz usunięcie wszystkich usług w tej kategorii.
+        </div>
 	</div>
-	
-	<?= $this->form; ?>
-	
-	<script>
-	    $("a.confirm").click(function() {
-	        return confirm('Are You sure?');
-	    });
-	</script>
 
+	<?= $this->form; ?>
 </div>

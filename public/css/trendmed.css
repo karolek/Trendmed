@@ -69,7 +69,7 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 /* HEADER */
 
 .navbar-fixed-top .container {padding:0; width:999px;}
-.navbar-fixed-top {position: relative; margin:16px auto 0; width:999px; background: #ffffff; border-radius: 5px 5px 0 0; -moz-border-radius: 5px 5px 0 0; -webkit-border-radius: 5px 5px 0 0;}
+.navbar-fixed-top {position: relative; margin:16px auto 0; z-index: 2; width:999px; background: #ffffff; border-radius: 5px 5px 0 0; -moz-border-radius: 5px 5px 0 0; -webkit-border-radius: 5px 5px 0 0;}
 .navbar-fixed-top .navbar-inner {background:none; box-shadow:none;}
 .navbar-inner .container {width:auto; min-height:1px;}
 
@@ -91,16 +91,34 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 .navbar .nav > li {border-right:1px solid #ebf1f3;}
 .navbar .nav > li > a {font-size:15px; font-family: 'TeXGyreHerosCnBold'; text-shadow:none; color:#0e6082; padding:38px 16px 0;}
 .navbar .nav > li > a:hover {text-decoration:underline; color:#000000; cursor: pointer;}
+.navbar .nav > li:last-child {border:none;}
 
 .navbar .nav .dropdown-toggle .caret, .navbar .nav .open.dropdown .caret {border-bottom-color: #000000; border-top-color: #000000;}
 .dropdown.open .dropdown-toggle {color:#000000;}
-
 .navbar .dropdown-menu {margin-top:9px;}
+
+#menuFloat {width:969px; padding: 8px 15px; background:#ffffff; margin:0 auto; height:18px; position:relative; z-index:3; box-shadow:0 2px 6px -6px #000000; -webkit-box-shadow:0 2px 6px -6px #000000; -moz-box-shadow:0 2px 6px -6px #000000; border-radius:0 0 5px 5px; -moz-border-radius:0 0 5px 5px; -webkit-border-radius:0 0 5px 5px;}
+#menuFloat a {cursor:pointer;}
+#menuFloat ul {margin:0; list-style:inside none; float:left;}
+#menuFloat .pull-right {border-right: 1px solid #EEEEEE; float: left; margin: 0 15px 0 0; padding: 0 15px 0 0;}
+#menuFloat .dropdown.open {float:left; position: relative;}
+#menuFloat .dropdown.open .dropdown-toggle {background:none;}
+
+/*
+#menuFloat * {display:block; float:left;}
+#menuFloat label {font-weight:bold; color:#FFFFFF;}
+#menuFloat ul {}
+#menuFloat ul li {margin:0 5px;}
+#menuFloat ul li.divider {}
+#menuFloat ul li a {color:#ffffff; font-size:11px;}
+*/
+
+
 
 /* CONTAINER */
 
 .container, 
-.container-fluid {width:979px; clear:both; margin:0 auto; background: #ffffff; padding:9px 10px; border-radius:0 0 5px 5px; -webkit-border-radius:0 0 5px 5px; -moz-border-radius:0 0 5px 5px; z-index: 2; position: relative;}
+.container-fluid {width:979px; clear:both; margin:0 auto; background: #ffffff; padding:9px 10px; border-radius:0 0 5px 5px; -webkit-border-radius:0 0 5px 5px; -moz-border-radius:0 0 5px 5px; z-index: 1; position: relative;}
 .container {min-height:465px;}
 
 #content {width:681px; float:right; margin:0;}

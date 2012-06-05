@@ -18,9 +18,7 @@ class Admin_Form_Category extends Twitter_Form
                 array('StringLength', false, array(1, 50)),
             ));
             $nameElement->setLabel($lang->name.' nazwa');
-            $this->addElement($nameElement);
-            unset($nameElement);
-            
+
             $descriptionElement = new \Zend_Form_Element_Textarea(
                 'description_'.$lang->code);
             $descriptionElement->setRequired(true);
@@ -28,7 +26,16 @@ class Admin_Form_Category extends Twitter_Form
                 array('StringLength', false, array(1, 250)),
             ));
             $descriptionElement->setLabel($lang->name.' opis');
+            if($lang->default) {
+                $nameElement->setName('name');
+                $descriptionElement->setName('description');
+            }
+            $this->addElement($nameElement);
             $this->addElement($descriptionElement);
+
+            unset($nameElement);
+            unset($descriptionElement);
+
         }
         $select = new \Zend_Form_Element_Select('parent_id');
         $select->setLabel('Position');

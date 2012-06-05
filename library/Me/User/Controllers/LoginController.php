@@ -51,7 +51,9 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
 				    
 				    // authorizing the user
 				    $result = $model->authorize($values['password'], $rememberMe);
-				    if ($result === true) { // access granted
+                    if ($result === true) { // access granted
+                        $this->_helper->getEm()->persist($model);
+                        $this->_helper->getEm()->flush();
     					$this->_helper->FlashMessenger->clearCurrentMessages(); // to remove any ACL "You dont have access messages if any"
     					$this->_helper->FlashMessenger($this->_messageAfterLogin);
     					$this->_helper->Redirector(
@@ -161,7 +163,7 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
         // we have to find user by token
         $user = $userMapper->findByToken($token);
         if(!$user) {
-            throw new Expcetion('No user with this token found in DB', 500);
+            throw new \Exception('No user with this token found in DB', 500);
         }
         // checking if token is valid
         if (false === $user->tokenIsValid($token)) {

@@ -7,16 +7,28 @@ class Admin_Form_Page extends Twitter_Form
         $this->setName("login");
         $this->setMethod('post');
         $this->setAttrib('class', 'form-horizontal');
+        $config = \Zend_Registry::get('config');
 
-        $this->addElement('text', 'title', array(
-            'filters'    => array('StripTags'),
-            'required'   => true,
-            'label'      => 'Page title',
-        ));
+        foreach ($config->languages as $lang) {
+            $title = new \Zend_Form_Element_Text('title_' . $lang->code);
+            $title->addFilter('StripTags');
+            $title->setRequired(true);
+            $title->setLabel('Tytuł dla ' . $lang->name);
 
-        $this->addElement('textarea', 'content', array(
-            'label'      => 'Page content',
-        ));
+            $content = new \Zend_Form_Element_Textarea('content_' . $lang->code);
+            $content->setLabel('Treść dla ' . $lang->name);
+
+            if($lang->default) {
+                $title->setName('title');
+                $content->setName('content');
+            }
+            $this->addElement($title);
+            $this->addElement($content);
+
+            unset($title);
+            unset($content);
+
+        }
 
         // adding page types
         $config = \Zend_Registry::get('config');

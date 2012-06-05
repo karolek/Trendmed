@@ -10,6 +10,12 @@
  */
 class Clinic_RegisterController extends \Me_User_Controllers_RegisterController
 {
+    protected $_redirectAfterRegistration = array(
+        'action'        => 'index',
+        'controller'    => 'index',
+        'module'        => 'clinic',
+    );
+
     /**
      * @var string Class name of the user model
      */

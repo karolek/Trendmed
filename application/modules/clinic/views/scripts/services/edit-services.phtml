@@ -6,3 +6,55 @@
     Dodane zdjęcia będą wspólne dla wszystkich wersji językowych usługi.
 </div>
 <div id="editClinic" class="form-horizontal textareas"><?= $this->form; ?></div>
+<script type="text/javascript">
+    $(function() {
+        var fileTemplate="<div id=\"{{id}}\">";
+        fileTemplate+="<div class=\"progressbar\"></div>";
+        fileTemplate+="<div class=\"preview\"></div>";
+        fileTemplate+="</div>";
+
+        function slugify(text){
+            text=text.replace(/[^-a-zA-Z0-9,&\s]+/ig,'');
+            text=text.replace(/-/gi,"_");
+            text=text.replace(/\s/gi,"-");
+            return text;
+        }
+
+        $("#dropbox, #multiple").html5Uploader({
+            name: "photo",
+            postUrl: "/clinic/services/add-photo-to-service",
+            onClientLoadStart:function(e,file) {
+                var upload=$("#upload");
+                if(upload.is(":hidden")){
+                    upload.show();
+                }
+                upload.append(
+                    fileTemplate.replace(/{{id}}/g,slugify(file.name)).replace(/{{filename}}/g,file.name)
+                );
+            },
+            onClientLoad:function(e,file){
+                $("#upload").append(
+                    "<li><img width=\"180\" class=\"thumbnail\" src=\""+e.target.result+"\" alt=\"\"></li>"
+                );
+                $("#"+slugify(file.name)).find(".progressbar").append(
+                    //"Uploading..."
+                );
+            },
+            onServerLoad:function(e,file){
+               // $("#"+slugify(file.name)).find(".progressbar").append("Uploaded");
+            }
+        });
+
+        $("#dropbox").mouseover(function(div) {
+            $(this).addClass("hoverarea");
+        });
+
+        $("#dropbox").mouseout(function(div) {
+            $(this).removeClass("hoverarea");
+        });
+    });
+</script>
+<div id="dropbox" style="height: 150px; border: 1px dotted black">
+    Zaznacz i przenieś swoje zdjęcia bezpośrednio na ten obszar.
+    <ul id="upload" class="thumbnails"></ul>
+</div>

@@ -18,6 +18,8 @@ class Clinic_PublicController extends Zend_Controller_Action
     public function profileAction()
     {
         $request = $this->getRequest();
+        $this->_helper->_layout->setLayout('homepage');
+
         $slug = $request->getParam('slug');
         if(!$slug) {
             throw new \Exception('No slug in public profile', 404);
@@ -27,7 +29,7 @@ class Clinic_PublicController extends Zend_Controller_Action
             ->findOneBySlug($slug);
 
         if(!$clinic) throw new \Exception('No clinic by the slug of '.$slug.' found', 404);
-
+        $this->view->headTitle($clinic->name);
         $this->view->clinic = $clinic;
     }
 

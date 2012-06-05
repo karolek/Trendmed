@@ -164,7 +164,7 @@ class ServicePhoto extends \Trendmed\Entity\PhotoSet {
             throw new \Exception('File for service photo not in $_FILES array: '.$handle->error);
         }
         $this->setPhotoDir($filename);
-        return true;
+        return $filename;
     }
 
     public function _generateDirectoryForPhoto()

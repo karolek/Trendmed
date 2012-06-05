@@ -1,6 +1,11 @@
 <?php
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
+    public function _initSession()
+    {
+        \Zend_Session::start();
+    }
+
     public function _initAutoloaderNamespaces()
     {
         require_once APPLICATION_PATH . '/../vendor/autoload.php';
@@ -45,6 +50,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	{
         $this->bootstrap('view');
         $view = $this->getResource('view');
+        // saveing view to registry
+        \Zend_Registry::set('view', $view);
 		$view->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Noumenal_View_Helper');
 		$view->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Br_View_Helper');
 		$view->addHelperPath(APPLICATION_PATH . '/modules/user/views/helpers', 'Br_View_Helper');

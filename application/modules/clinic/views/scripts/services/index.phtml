@@ -1,7 +1,8 @@
 <? if (count($this->services) < 1 ): ?>
 <div class="alert alert-info">
     <strong>Nie dodałeś żadnych usług</strong><br />
-    Usługi pozwolą Twoim potencjalnym pocjentom odnaleźć Cię w naszym katalogu. To prostę, zacznij od dodania nowej usługi.
+    Usługi pozwolą Twoim potencjalnym pocjentom odnaleźć Cię w naszym katalogu.
+    Dodaj usługi wykonywane w Twojej placówce.
 </div>
 <? endif; ?>
 <a class="btn" href="<?= $this->url(array('action' => 'edit-services')); ?>"><?= $this->translate('Add new service'); ?></a>
@@ -23,7 +24,13 @@
             <td><?= $service->pricemin; ?> - <?= $service->pricemax; ?></td>
             <td>
                 <div class="btn-group">
-                    <button class="btn"><a href="<?= $this->url(array('action' => 'edit-services',    'id' => $service->getId())); ?>"><?= $this->translate('Edit'); ?></a></button>
+                    <button class="btn"><a href="<?= $this->url(
+                        array(
+                            'action' => 'edit-services',
+                            'controller' => 'services',
+                            'module' => 'clinic',
+                            'id' => $service->getId()
+                        ), 'default', true); ?>"><?= $this->translate('Edit'); ?></a></button>
                     <button class="btn dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                     </button>

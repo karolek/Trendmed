@@ -36,17 +36,25 @@ class Admin_PagesController extends \Zend_Controller_Action
     {
         $req = $this->getRequest();
         $pageId = $req->getParam('id', null);
-
+        $config = \Zend_Registry::get('config');
+        $repository = $this->_em->getRepository('Gedmo\Translatable\Entity\Translation');
         $form = new Admin_Form_Page();
 
         if($pageId) {
             $entity = $this->_repo->find($pageId);
+            $translations = $repository->findTranslations($entity);
+
             $form->setDefault('id', $pageId);
             $form->populate(array(
                 'title' => $entity->getTitle(),
                 'content' => $entity->getContent(),
                 'type'      => $entity->getType(),
             ));
+
+            foreach($translations as $transCode => $trans) {
+                $form->setDefault('title_'.$transCode, $trans['title']);
+                $form->setDefault('content_'.$transCode, $trans['content']);
+            }
             $this->view->headTitle('Edit page');
         } else {
             $this->view->headTitle('Add new page');
@@ -58,6 +66,26 @@ class Admin_PagesController extends \Zend_Controller_Action
             if($form->isValid($post)) {
                 $values = $form->getValues();
                 $entity->setOptions($values);
+
+                foreach ($config->languages as $lang) {
+
+                    if ($lang->default == true) { // we must add default values to our main entity
+                        $entity->setTitle($values['title']);
+                        $entity->setContent(
+                            $values['content']
+                        );
+                        continue;
+                    }
+                    $repository->translate(
+                        $entity, 'title', $lang->code,
+                        $values['title_'.$lang->code]
+                    );
+                    $repository->translate(
+                        $entity, 'content', $lang->code,
+                        $values['content_'.$lang->code]
+                    );
+                }
+
                 $this->_em->persist($entity);
                 $this->_em->flush();
                 $this->_helper->FlashMessenger(array('success' => 'Page has been saved'));
@@ -68,7 +96,7 @@ class Admin_PagesController extends \Zend_Controller_Action
         }
 
         $this->view->form = $form;
-        $this->_helper->EnableCke($this->view, array('content'), 'AdminToolbar');
+        $this->_helper->EnableCke($this->view, array('content', 'content_de_de', 'content_en_GB'), 'AdminToolbar');
     }
 
     public function deletePageAction()
