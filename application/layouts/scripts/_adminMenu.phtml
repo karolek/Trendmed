@@ -1,3 +1,22 @@
+<div id="menuFloat">
+
+<p class="navbar-text pull-right">
+	<?php if($this->LoggedUser()):?>
+            <span class="userPanel">
+		<?= $this->translate('Logged in as');?> <a class="link" href="<?= $this->url(array(
+            'module'        => 'patient', 
+            'controller'    => 'profile', 
+            'action'        => 'index'), 'default', true);?>">
+        <?= $this->LoggedUser('username'); ?></a>. 
+        <a class="link" href="<?= $this->url(array(
+            'action'        => 'logout', 
+            'controller'    => 'index', 
+            'module'        => 'patient'), 'default', true); ?>"><?= $this->translate('Log out?');?></a>
+            </span>
+	<?php endif; ?>
+	</p>
+
+<ul>
 <li class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown">Placówki<b class="caret"></b></a>
     <ul class="dropdown-menu">
@@ -30,3 +49,6 @@
         </li>
     </ul>
 </li>
+</ul>
+
+</div>
