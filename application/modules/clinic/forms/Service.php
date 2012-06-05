@@ -75,7 +75,7 @@ class Clinic_Form_Service extends Twitter_Form
 
         // price max in EURO (optional)
         $priceMax = new Zend_Form_Element_Text('pricemax');
-        $priceMax->setRequired(false);
+        $priceMax->setRequired(true);
         $priceMax->setLabel('Cena maksymalna za usługę');
         $priceMax->setDescription('W walucie EURO');
         $priceMax->addFilter('StringTrim');

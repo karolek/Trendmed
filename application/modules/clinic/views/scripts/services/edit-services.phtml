@@ -58,3 +58,22 @@
     Zaznacz i przenieś swoje zdjęcia bezpośrednio na ten obszar.
     <ul id="upload" class="thumbnails"></ul>
 </div>
+<? if(count($this->photos) > 1): ?>
+    <h3>Zdjęcia usługi</h3>
+    <ul class="thumbnails">
+    <? foreach($this->photos as $photo): ?>
+    <li class="thumbnail">
+        <?= $this->ShowServicePhoto($photo, 'medium'); ?>
+        <p class="caption"><a href="<?= $this->url(
+            array(
+                'action' => 'delete-service-photo',
+                'controller' => 'services',
+                'module' => 'clinic',
+                'id'    => $photo->id,
+            )
+        ); ?>" class="btn btn-danger confirm"> <i class="icon-white icon-trash"> </i></a> </p>
+    </li>
+    <? endforeach; ?>
+    </ul>
+<? endif; ?>
+
