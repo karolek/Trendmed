@@ -58,6 +58,8 @@ class Clinic_ServicesController extends Zend_Controller_Action
                 $form->setDefault('description_'.$transCode, $trans['description']);
             }
             $this->view->headTitle('Edycja usługi');
+            // fetching photos
+            $this->view->photos = $service->getPhotos();
         } else { // new
             $service = new \Trendmed\Entity\Service();
             $this->view->headTitle('Dodawanie usługi');
@@ -93,6 +95,7 @@ class Clinic_ServicesController extends Zend_Controller_Action
                         $service->addPhoto($photo);
                         $this->_em->persist($photo);
                     }
+                    unset($session->photos);
                 } else {
                     $log->debug('nie ma zdjec w sesji');
                 }
@@ -106,7 +109,11 @@ class Clinic_ServicesController extends Zend_Controller_Action
                 $this->_helper->FlashMessenger(array('error' => 'Please correct the form'));
                 // we have to populate the subcategory form again
                 $values = $form->getValues();
-
+                // we must fetch photos from session if any to display them to user
+                $session = new \Zend_Session_Namespace('service_photos_'.$this->_helper->LoggedUser()->getId());
+                if(is_array($session->photos)) {
+                    $this->view->photos = $session->photos;
+                }
 
             }
         }
