@@ -142,7 +142,7 @@ section {padding:24px;}
 .form-horizontal {border:1px solid #EEEEEE; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;}
 .form-horizontal fieldset {width:929px; border-bottom: 1px solid #eeeeee;}
 .form-horizontal fieldset legend {border:none; font-family: 'TeXGyreHerosBold'; margin: 0; padding:18px 24px 0;}
-.form-horizontal fieldset dl {padding:0 24px;}
+/*.form-horizontal fieldset dl {padding:0 24px;}*/
 .form-horizontal dd {border-bottom:1px solid #EEEEEE;}
 
 .form-horizontal .control-label {width:270px;}
@@ -163,6 +163,19 @@ section {padding:24px;}
 #photoUpload .form-horizontal .form-actions {padding:18px 0 17px 295px;}
 */
 
+#editClinic {padding:18px 0 0;}
+#editClinic .control-group {padding:0 0 18px; border-bottom:1px solid #eeeeee; width:976px;}
+#editClinic form {margin:0;}
+#editClinic .form-actions {margin:-18px 0 0; padding: 18px 0 17px 295px; width:682px;}
+#editClinic .controls {padding:0 16px 0 0;}
+
+#editClinicAddress form {margin:0;}
+#editClinicAddress dt {display:none;}
+#editClinicAddress dd fieldset {border:none;}
+#editClinicAddress fieldset {width: 977px;}
+#editClinicAddress .form-actions {padding: 18px 0 17px 296px;}
+
+
 .form-horizontal .form-horizontal {border:none;}
 
 form#login fieldset {padding:24px 24px 0;}
@@ -180,12 +193,6 @@ select {width:340px;}
 .btn:hover {background:#b8b6b6;}
 .btn-primary {background:#53d7f8; color:#ffffff; padding: 8px 14px 6px; font-size:16px; font-family: 'TeXGyreHerosCnBold'; text-transform: uppercase; border:none; text-shadow:1px 1px #47b8d4; box-shadow: none;}
 .btn-primary:hover {background: #065475;}
-
-#editClinic {padding:18px 0 0;}
-#editClinic .control-group {padding:0 0 18px; border-bottom:1px solid #eeeeee; width:976px;}
-#editClinic form {margin:0;}
-#editClinic .form-actions {margin:-18px 0 0; padding: 18px 0 17px 295px; width:682px;}
-#editClinic .controls {padding:0 16px 0 0;}
 
 .textareas textarea {width: 655px;}
 
