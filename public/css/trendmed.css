@@ -87,7 +87,7 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 .navbar .paski {width:999px; height:16px; background: url(../img/paski.png) top left no-repeat; position: absolute; margin:-16px 0 0;}
 .navbar .clear {width:999px; height:1px; clear:both; background: url(../img/clear.png) top left no-repeat;}
 
-.navbar .nav {float:right;}
+.navbar .nav {float: left; margin: 0 0 0 59px;}
 .navbar .nav > li {border-right:1px solid #ebf1f3;}
 .navbar .nav > li > a {font-size:15px; font-family: 'TeXGyreHerosCnBold'; text-shadow:none; color:#0e6082; padding:38px 16px 0;}
 .navbar .nav > li > a:hover {text-decoration:underline; color:#000000; cursor: pointer;}
