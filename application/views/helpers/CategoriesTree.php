@@ -47,7 +47,7 @@ class Trendmed_View_Helper_CategoriesTree extends Zend_View_Helper_Abstract
         // formating the tree for categories
         $output = "";
         foreach($htmlTree as $node) {
-            $output .= '<li class="nav-header"><a href="#">'. $node["name"] . '</a> (' . count($node['__children']). ')</li>';
+            $output .= '<li class="nav-header"><a href="#">'. $node["name"] . '</a><span>(' . count($node['__children']). ')</span></li>';
             if (count($node['__children']) > 0) {
                 $output .= '<ul class="hidden">'; //class hidden is for show/hide behavior
                 foreach($node['__children'] as $subcategory) {

@@ -127,10 +127,19 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #content .hero-unit h1 {font-size:32px; font-family: 'TeXGyreHerosBold'; color:#292828;}
 
 #sidebar {float:left; width:276px; padding:0; margin:0;}
-#sidebar .sidebar-nav {box-shadow:none; border:none; background: #024764; color:#ffffff; padding: 20px 19px 19px 9px;}
-#sidebar .sidebar-nav .nav-header {font-size:18px; color:#ffffff; font-family: 'TeXGyreHerosBold'; text-transform: none; text-shadow:none; font-weight: normal;}
-#sidebar .sidebar-nav a {font-size:12px; color:#ffffff; font-family: 'TeXGyreHerosBold'; text-shadow:none; text-decoration: none;}
+#sidebar h3 {font-size:20px; font-family: 'TeXGyreHerosRegular'; font-weight:normal; color:#ffffff; letter-spacing:-1px; text-shadow:0px 1px #023f58; border-bottom:1px solid #21596f; margin: 0 15px 20px; padding: 0 0 14px;}
+#sidebar .sidebar-nav {box-shadow:none; border:none; background: #024764; color:#ffffff; padding: 20px 11px 19px 9px;}
+#sidebar .sidebar-nav .nav-header {font-size:18px; color:#ffffff; height:23px; font-family: 'TeXGyreHerosBold'; text-transform: none; text-shadow:none; font-weight: normal; clear:both; background:#115470; margin:1px 0 0; border-radius:2px; -moz-border-radius:2px; -webkit-border-radius:2px;}
+#sidebar .sidebar-nav .nav-header a {font-size:14px; color:#ffffff; font-family: 'TeXGyreHerosBold'; text-shadow:none; text-decoration: none; float:left; display:block;}
+#sidebar .sidebar-nav .nav-header a:hover {background:none;}
+#sidebar .sidebar-nav .nav-header span {font-family: 'TeXGyreHerosRegular'; color:#33cddf; font-size:12px; float:left; display:block; padding:0 0 0 6px; margin:3px 0 0;}
 #sidebar .sidebar-nav .active a {background: #115470;}
+
+#sidebar .sidebar-nav ul ul {background:#023f58; list-style: disc inside none; margin: 0; padding: 7px 0 7px 15px;}
+#sidebar .sidebar-nav ul ul li {margin:2px 0; color:#33cddf;}
+#sidebar .sidebar-nav ul ul li a {font-size:12px; font-family: 'TeXGyreHerosRegular'; color:#ffffff;}
+
+#sidebar .clear {width:100px; height:1px; clear:both;}
 
 .page-header {border: medium none; margin: 18px 0 27px; padding: 0 0 0 24px;}
 
