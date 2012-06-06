@@ -1,49 +1,73 @@
+<div id="clinicProfile">
+
 <div class="row">
-    <div class="span5">
-        <h3><?= $this->clinic->name; ?></h3>
-        <address>
-            <?= $this->clinic->streetaddress; ?>, <?= $this->clinic->postcode; ?> <?= $this->clinic->city; ?>,
-            <?= $this->clinic->province; ?>
-        </address>
+	
+	<div class="left">
+		<h1><?= $this->clinic->name; ?></h1>
+	    <address>
+	        <?= $this->clinic->streetaddress; ?>, <?= $this->clinic->postcode; ?> <?= $this->clinic->city; ?>,
+	        <?= $this->clinic->province; ?>
+	    </address>
     </div>
-    <div class="span4">
+        
+    <div class="right rating">
+        <span class="count">86%</span>
         <a href="#">Fav</a>
-        Rating XX based on YY reviews
+        <big>Rating</big><br/ >
+		<small>based on YY reviews</small>
     </div>
-
-</div>
-<div class="row">
-    <div class="span5">
-        <ul class="thumbnails">
-            <li class="thumbnail">
-                <?= $this->ShowClinicLogo($this->clinic); ?>
-            </li>
-            <? foreach($this->clinic->photos as $photo): ?>
-            <?= $this->ShowClinicPhoto($photo, 'small'); ?>
-            <? endforeach; ?>
-        </ul>
-    </div>
-    <div class="span3">
-        <div class="hidden" style="position: absolute;" id="image-holder"> </div>
-    </div>
-
-</div>
-<div class="row">
-    <a href="#" class="btn btn-primary"><?= $this->translate('Book now'); ?></a>
-</div>
-<div class="row">
-    <h4><?= $this->translate('Description'); ?></h4>
+    
+    <div class="globalClear"></div>
+    
+    <ul class="thumbnails">
+        <li class="thumbnail">
+            <?= $this->ShowClinicLogo($this->clinic); ?>
+        </li>
+        <? foreach($this->clinic->photos as $photo): ?>
+        <?= $this->ShowClinicPhoto($photo, 'small'); ?>
+        <? endforeach; ?>
+    </ul>
+    
+    <div class="hidden" style="position: absolute;" id="image-holder"> </div>
+    
+    <script>
+	    $(document).ready(function() {
+	       $(".photo-small").mouseover(function() {
+	            var src = $(this).attr("src");
+	            var src =src.replace("small", "medium");
+	
+	            $("#image-holder").removeClass('hidden').html('<img src=' + src + '>');
+	       });
+	       $(".photo-small").mouseout(function() {
+	           $("#image-holder").addClass('hidden');
+	       })
+	    });
+	</script>
+    
+    <a id="buttonBook" href="#" class="btn btn-primary"><?= $this->translate('Book now'); ?></a>
+    
     <?= $this->clinic->description; ?>
+    
 </div>
+
+
+
+
+
 <div class="row">
-    <h4><?= $this->translate('Promotions'); ?></h4>
+    <h2><?= $this->translate('Promotions'); ?></h2>
     <?= $this->clinic->customPromos; ?>
 </div>
 <div class="row" id="clinic-grouppromotion">
-    Group promotion ad
+    <img src="/img/group_promotion.png" />
 </div>
+
+
+<? if (count($this->clinic->services) >0 ) : ?>
 <div class="row">
-    <? if (count($this->clinic->services) >0 ) : ?>
+    
+    	<h2>Services of <?= $this->clinic->name; ?></h2>
+    	
         <table class="table">
             <thead>
                 <tr>
@@ -64,18 +88,7 @@
                 <? endforeach; ?>
             </tbody>
         </table>
-    <? endif; ?>
 </div>
-<script>
-    $(document).ready(function() {
-       $(".photo-small").mouseover(function() {
-            var src = $(this).attr("src");
-            var src =src.replace("small", "medium");
+<? endif; ?>
 
-            $("#image-holder").removeClass('hidden').html('<img src=' + src + '>');
-       });
-       $(".photo-small").mouseout(function() {
-           $("#image-holder").addClass('hidden');
-       })
-    });
-</script>
+</div>

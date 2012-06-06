@@ -87,7 +87,7 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 .navbar .paski {width:999px; height:16px; background: url(../img/paski.png) top left no-repeat; position: absolute; margin:-16px 0 0;}
 .navbar .clear {width:999px; height:1px; clear:both; background: url(../img/clear.png) top left no-repeat;}
 
-.navbar .nav {float:right;}
+.navbar .nav {float: left; margin: 0 0 0 59px;}
 .navbar .nav > li {border-right:1px solid #ebf1f3;}
 .navbar .nav > li > a {font-size:15px; font-family: 'TeXGyreHerosCnBold'; text-shadow:none; color:#0e6082; padding:38px 16px 0;}
 .navbar .nav > li > a:hover {text-decoration:underline; color:#000000; cursor: pointer;}
@@ -138,19 +138,40 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 section {padding:24px;}
 
 
-/* FORMS */
+/* CLINIC PUBLIC PROFILE */
 
-.form-horizontal {border:1px solid #EEEEEE; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;}
-.form-horizontal fieldset {width:929px; border-bottom: 1px solid #eeeeee;}
-.form-horizontal fieldset legend {border:none; font-family: 'TeXGyreHerosBold'; margin: 0; padding:18px 24px 0;}
-/*.form-horizontal fieldset dl {padding:0 24px;}*/
-.form-horizontal dd {border-bottom:1px solid #EEEEEE;}
+#clinicProfile p {margin:0; font-size:12px; text-align:justify;}
+#clinicProfile h2 {font-family: 'TeXGyreHerosBold'; font-size:26px; color:#292828;}
+#clinicProfile .row {padding:25px; margin:0; width:630px; border-bottom:none;}
+#clinicProfile .row:first-child {border-radius:6px 6px 0 0; -webkit-border-radius:6px 6px 0 0; -moz-border-radius:6px 6px 0 0;}
+#clinicProfile .row:last-child {border-bottom:1px solid #EEEEEE; border-radius:0 0 6px 6px; -webkit-border-radius:0 0 6px 6px; -moz-border-radius:0 0 6px 6px;}
+#clinicProfile #image-holder {margin:-25px 0 0 -25px; padding:25px; background:#ffffff; text-align:center; width: 629px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);}
 
-.form-horizontal .control-label {width:270px;}
-.form-horizontal .controls {margin-left:295px;}
+#clinicProfile .left {width:410px; float:left;}
+#clinicProfile .right {width:210px; float:right;}
+#clinicProfile h1 {font-size:32px; color:#292828; font-family: 'TeXGyreHerosBold'; width:410px;}
+#clinicProfile address {color:#292828; font-size:16px; width:410px;}
+#clinicProfile #buttonBook {position:absolute; margin: -55px 0 0 527px;}
 
-.form-actions {border-top: medium none; margin: 0;}
-.form-horizontal .form-actions {padding:18px 0 17px 320px;}
+#clinicProfile .rating {text-align:right; color:#292828;font-family: 'TeXGyreHerosBold'; padding: 21px 0 0;}
+#clinicProfile .rating a {width:16px; height:16px; display:inline-block; background:url(../img/fav.png) top left no-repeat; text-indent:9999px; position:relative; top:-2px; margin:0 2px 0 0;}
+#clinicProfile .rating big {font-size:18px;}
+#clinicProfile .rating small {font-size:13px; position: relative; top: -4px;}
+#clinicProfile .rating .count {font-size: 26px; margin:0 0 0 11px; padding: 7px; float:right; display:block; font-family: 'TeXGyreHerosRegular'; background:#e7e6e6; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
+
+#clinicProfile .thumbnail {}
+#clinicProfile .photo-small {margin:0 0 12px 12px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
+
+#clinicProfile #clinic-grouppromotion {height: 184px;}
+#clinicProfile #clinic-grouppromotion img {position: absolute; margin: -40px 0 0 -24px;}
+
+#clinicProfile .table {margin:10px 0 0;}
+#clinicProfile .table th {color:#292828;}
+#clinicProfile .table td {border-top:1px dotted #DDDDDD;}
+
+
+
+/* EDIT CLINIC */
 
 #photoUpload {width:700px; height:55px;}
 #photoUpload * {display:block; float:left; clear:none; width:auto; margin:0; padding:0;}
@@ -158,11 +179,6 @@ section {padding:24px;}
 #photoUpload .form-actions {background:none;}
 #photoUpload input#upload {padding:8px 14px 6px; margin: -3px 0 0 17px;}
 #photoUpload #clinic_photo {border:none;}
-/*
-#photoUpload .form-horizontal .control-label {width:255px;}
-#photoUpload .form-horizontal .controls {margin-left:270px;}
-#photoUpload .form-horizontal .form-actions {padding:18px 0 17px 295px;}
-*/
 
 #editClinic {padding:18px 0 0;}
 #editClinic .control-group {padding:0 0 18px; border-bottom:1px solid #eeeeee; width:976px;}
@@ -176,7 +192,22 @@ section {padding:24px;}
 #editClinicAddress fieldset {width: 977px;}
 #editClinicAddress .form-actions {padding: 18px 0 17px 296px;}
 
+#clinicServicesTable {margin: 0 24px; width: 932px;}
+#addNewService {position:absolute; margin: -60px 0 0 802px;}
 
+/* FORMS */
+
+.form-horizontal {border:1px solid #EEEEEE; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;}
+.form-horizontal fieldset {width:929px; border-bottom: 1px solid #eeeeee;}
+.form-horizontal fieldset legend {border:none; font-family: 'TeXGyreHerosBold'; margin: 0; padding:18px 24px 0;}
+/*.form-horizontal fieldset dl {padding:0 24px;}*/
+.form-horizontal dd {border-bottom:1px solid #EEEEEE;}
+
+.form-horizontal .control-label {width:270px;}
+.form-horizontal .controls {margin-left:295px;}
+
+.form-actions {border-top: medium none; margin: 0;}
+.form-horizontal .form-actions {padding:18px 0 17px 320px;}
 .form-horizontal .form-horizontal {border:none;}
 
 form#login fieldset {padding:24px 24px 0;}
@@ -195,6 +226,7 @@ select {width:340px;}
 .btn-primary {background:#53d7f8; color:#ffffff; padding: 8px 14px 6px; font-size:16px; font-family: 'TeXGyreHerosCnBold'; text-transform: uppercase; border:none; text-shadow:1px 1px #47b8d4; box-shadow: none;}
 .btn-primary:hover {background: #065475;}
 .btn-group {min-width:107px;}
+.btn-group .btn a {color: #5A5A5A; text-decoration:none;}
 
 .textareas textarea {width: 655px;}
 
