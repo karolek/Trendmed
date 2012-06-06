@@ -67,7 +67,7 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 .navbar .pull-right .register:hover {background: #45b3ce;}
 .navbar .pull-right .userPanel {display: block; line-height: 16px; margin: 0 -10px 0 0; padding: 31px 0 0 10px; text-align: right;}
 
-.navbar .brand {width:250px; height:93px; display: block; float:left; background: url(../img/logo.png) -8px 0px no-repeat; text-indent: -9999px;}
+.navbar .brand {width:250px; height:93px; display: block; float:left; background: url(../img/logo.png) -8px 0px no-repeat; text-indent: -9999px; outline: none;}
 .navbar .paski {width:999px; height:16px; background: url(../img/paski.png) top left no-repeat; position: absolute; margin:-16px 0 0;}
 .navbar .clear {width:999px; height:1px; clear:both; background: url(../img/clear.png) top left no-repeat;}
 
