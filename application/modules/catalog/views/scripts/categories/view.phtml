@@ -1,0 +1,8 @@
+<ul class="nav nav-tabs" id="myTab">
+    <li class="active"><a href="#home"><?= $this->translate('Wszystkie placówki'); ?></a></li>
+    <li><a href="#profile"><?= $this->translate('Tylko szpitale, kliniki i sanatoria'); ?></a></li>
+    <li><a href="#messages"><?= $this->translate('Tylko gabinety, salony i spa'); ?></a></li>
+</ul>
+<? foreach($this->services as $service): ?>
+    <h3><?= $service->clinic->name; ?></h3>
+<? endforeach;?>
