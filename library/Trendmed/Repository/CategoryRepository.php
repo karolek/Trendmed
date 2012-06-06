@@ -13,7 +13,7 @@ class CategoryRepository extends \Gedmo\Tree\Entity\Repository\NestedTreeReposit
             ->createQueryBuilder()
             ->select('node')
             ->from('Trendmed\Entity\Category', 'node')
-            ->orderBy('node.root, node.lft', 'ASC')
+            ->orderBy('node.name, node.lft', 'ASC')
             ->where('node.root = 1')
             ->andWhere('node.lvl = 1')
             ->getQuery();
@@ -33,5 +33,22 @@ class CategoryRepository extends \Gedmo\Tree\Entity\Repository\NestedTreeReposit
         $query->setParameter(1, $id);
         $tree = $query->getArrayResult();
         return $tree[0]; //return only first element
+    }
+
+    public function findForParentAsArray($parentId = 1)
+    {
+        $query = $this->_em
+            ->createQueryBuilder()
+            ->select('node')
+            ->from('Trendmed\Entity\Category', 'node')
+            ->orderBy('node.name, node.lft', 'ASC')
+            ->where('node.parent = ?1')
+            //->andWhere('node.lvl = 1')
+            ->getQuery();
+
+        $query->setParameter(1, $parentId);
+        //$options = array('decorate' => true);
+        $tree = $query->getArrayResult();
+        return $tree;
     }
 }

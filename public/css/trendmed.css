@@ -69,7 +69,7 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 /* HEADER */
 
 .navbar-fixed-top .container {padding:0; width:999px;}
-.navbar-fixed-top {position: relative; margin:16px auto 0; width:999px; background: #ffffff; border-radius: 5px 5px 0 0; -moz-border-radius: 5px 5px 0 0; -webkit-border-radius: 5px 5px 0 0;}
+.navbar-fixed-top {position: relative; margin:16px auto 0; z-index: 2; width:999px; background: #ffffff; border-radius: 5px 5px 0 0; -moz-border-radius: 5px 5px 0 0; -webkit-border-radius: 5px 5px 0 0;}
 .navbar-fixed-top .navbar-inner {background:none; box-shadow:none;}
 .navbar-inner .container {width:auto; min-height:1px;}
 
@@ -91,16 +91,34 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 .navbar .nav > li {border-right:1px solid #ebf1f3;}
 .navbar .nav > li > a {font-size:15px; font-family: 'TeXGyreHerosCnBold'; text-shadow:none; color:#0e6082; padding:38px 16px 0;}
 .navbar .nav > li > a:hover {text-decoration:underline; color:#000000; cursor: pointer;}
+.navbar .nav > li:last-child {border:none;}
 
 .navbar .nav .dropdown-toggle .caret, .navbar .nav .open.dropdown .caret {border-bottom-color: #000000; border-top-color: #000000;}
 .dropdown.open .dropdown-toggle {color:#000000;}
-
 .navbar .dropdown-menu {margin-top:9px;}
+
+#menuFloat {width:969px; padding: 8px 15px; background:#ffffff; margin:0 auto; height:18px; position:relative; z-index:3; box-shadow:0 2px 6px -6px #000000; -webkit-box-shadow:0 2px 6px -6px #000000; -moz-box-shadow:0 2px 6px -6px #000000; border-radius:0 0 5px 5px; -moz-border-radius:0 0 5px 5px; -webkit-border-radius:0 0 5px 5px;}
+#menuFloat a {cursor:pointer;}
+#menuFloat ul {margin:0; list-style:inside none; float:left;}
+#menuFloat .pull-right {border-right: 1px solid #EEEEEE; float: left; margin: 0 15px 0 0; padding: 0 15px 0 0;}
+#menuFloat .dropdown.open {float:left; position: relative;}
+#menuFloat .dropdown.open .dropdown-toggle {background:none;}
+
+/*
+#menuFloat * {display:block; float:left;}
+#menuFloat label {font-weight:bold; color:#FFFFFF;}
+#menuFloat ul {}
+#menuFloat ul li {margin:0 5px;}
+#menuFloat ul li.divider {}
+#menuFloat ul li a {color:#ffffff; font-size:11px;}
+*/
+
+
 
 /* CONTAINER */
 
 .container, 
-.container-fluid {width:979px; clear:both; margin:0 auto; background: #ffffff; padding:9px 10px; border-radius:0 0 5px 5px; -webkit-border-radius:0 0 5px 5px; -moz-border-radius:0 0 5px 5px; z-index: 2; position: relative;}
+.container-fluid {width:979px; clear:both; margin:0 auto; background: #ffffff; padding:9px 10px; border-radius:0 0 5px 5px; -webkit-border-radius:0 0 5px 5px; -moz-border-radius:0 0 5px 5px; z-index: 1; position: relative;}
 .container {min-height:465px;}
 
 #content {width:681px; float:right; margin:0;}
@@ -109,10 +127,19 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #content .hero-unit h1 {font-size:32px; font-family: 'TeXGyreHerosBold'; color:#292828;}
 
 #sidebar {float:left; width:276px; padding:0; margin:0;}
-#sidebar .sidebar-nav {box-shadow:none; border:none; background: #024764; color:#ffffff; padding: 20px 19px 19px 9px;}
-#sidebar .sidebar-nav .nav-header {font-size:18px; color:#ffffff; font-family: 'TeXGyreHerosBold'; text-transform: none; text-shadow:none; font-weight: normal;}
-#sidebar .sidebar-nav a {font-size:12px; color:#ffffff; font-family: 'TeXGyreHerosBold'; text-shadow:none; text-decoration: none;}
+#sidebar h3 {font-size:20px; font-family: 'TeXGyreHerosRegular'; font-weight:normal; color:#ffffff; letter-spacing:-1px; text-shadow:0px 1px #023f58; border-bottom:1px solid #21596f; margin: 0 15px 20px; padding: 0 0 14px;}
+#sidebar .sidebar-nav {box-shadow:none; border:none; background: #024764; color:#ffffff; padding: 20px 11px 19px 9px;}
+#sidebar .sidebar-nav .nav-header {font-size:18px; color:#ffffff; height:23px; font-family: 'TeXGyreHerosBold'; text-transform: none; text-shadow:none; font-weight: normal; clear:both; background:#115470; margin:1px 0 0; border-radius:2px; -moz-border-radius:2px; -webkit-border-radius:2px;}
+#sidebar .sidebar-nav .nav-header a {font-size:14px; color:#ffffff; font-family: 'TeXGyreHerosBold'; text-shadow:none; text-decoration: none; float:left; display:block;}
+#sidebar .sidebar-nav .nav-header a:hover {background:none;}
+#sidebar .sidebar-nav .nav-header span {font-family: 'TeXGyreHerosRegular'; color:#33cddf; font-size:12px; float:left; display:block; padding:0 0 0 6px; margin:3px 0 0;}
 #sidebar .sidebar-nav .active a {background: #115470;}
+
+#sidebar .sidebar-nav ul ul {background:#023f58; list-style: disc inside none; margin: 0; padding: 7px 0 7px 15px;}
+#sidebar .sidebar-nav ul ul li {margin:2px 0; color:#33cddf;}
+#sidebar .sidebar-nav ul ul li a {font-size:12px; font-family: 'TeXGyreHerosRegular'; color:#ffffff;}
+
+#sidebar .clear {width:100px; height:1px; clear:both;}
 
 .page-header {border: medium none; margin: 18px 0 27px; padding: 0 0 0 24px;}
 
@@ -124,7 +151,7 @@ section {padding:24px;}
 .form-horizontal {border:1px solid #EEEEEE; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;}
 .form-horizontal fieldset {width:929px; border-bottom: 1px solid #eeeeee;}
 .form-horizontal fieldset legend {border:none; font-family: 'TeXGyreHerosBold'; margin: 0; padding:18px 24px 0;}
-.form-horizontal fieldset dl {padding:0 24px;}
+/*.form-horizontal fieldset dl {padding:0 24px;}*/
 .form-horizontal dd {border-bottom:1px solid #EEEEEE;}
 
 .form-horizontal .control-label {width:270px;}
@@ -145,6 +172,19 @@ section {padding:24px;}
 #photoUpload .form-horizontal .form-actions {padding:18px 0 17px 295px;}
 */
 
+#editClinic {padding:18px 0 0;}
+#editClinic .control-group {padding:0 0 18px; border-bottom:1px solid #eeeeee; width:976px;}
+#editClinic form {margin:0;}
+#editClinic .form-actions {margin:-18px 0 0; padding: 18px 0 17px 295px; width:682px;}
+#editClinic .controls {padding:0 16px 0 0;}
+
+#editClinicAddress form {margin:0;}
+#editClinicAddress dt {display:none;}
+#editClinicAddress dd fieldset {border:none;}
+#editClinicAddress fieldset {width: 977px;}
+#editClinicAddress .form-actions {padding: 18px 0 17px 296px;}
+
+
 .form-horizontal .form-horizontal {border:none;}
 
 form#login fieldset {padding:24px 24px 0;}
@@ -162,12 +202,6 @@ select {width:340px;}
 .btn:hover {background:#b8b6b6;}
 .btn-primary {background:#53d7f8; color:#ffffff; padding: 8px 14px 6px; font-size:16px; font-family: 'TeXGyreHerosCnBold'; text-transform: uppercase; border:none; text-shadow:1px 1px #47b8d4; box-shadow: none;}
 .btn-primary:hover {background: #065475;}
-
-#editClinic {padding:18px 0 0;}
-#editClinic .control-group {padding:0 0 18px; border-bottom:1px solid #eeeeee; width:976px;}
-#editClinic form {margin:0;}
-#editClinic .form-actions {margin:-18px 0 0; padding: 18px 0 17px 295px; width:682px;}
-#editClinic .controls {padding:0 16px 0 0;}
 
 .textareas textarea {width: 655px;}
 

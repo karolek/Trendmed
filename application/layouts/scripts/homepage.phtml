@@ -10,7 +10,9 @@
 <?php echo $this->headTitle(); ?>
 </head>
 <body>
-    
+	
+	<?= $this->userMenu(); ?>
+	
     <div class="shadow"></div>
         
 	<?= $this->render('_navbar.phtml'); ?>
@@ -19,11 +21,14 @@
 	      <div class="row-fluid">
 	        <div id="sidebar" class="span3">
 	          <div class="well sidebar-nav">
+	        	<h3>List of medical services:</h3>
 	            <ul class="nav nav-list">
                     <?= $this->CategoriesTree($this->selectedCategory); ?>
 	            </ul>
-	          </div><!--/.well -->
-	        </div><!--/span-->
+	            <div class="clear"></div>
+	          </div>
+	          <div class="clear"></div>
+	        </div>
                 
                 
 	        <div id="content" class="span9">

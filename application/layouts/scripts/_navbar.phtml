@@ -15,17 +15,7 @@
         
 		<p class="navbar-text pull-right">
 		<?php if($this->LoggedUser()):?>
-                <span class="userPanel">
-			<?= $this->translate('Logged in as');?> <a class="link" href="<?= $this->url(array(
-                'module'        => 'patient', 
-                'controller'    => 'profile', 
-                'action'        => 'index'), 'default', true);?>">
-            <?= $this->LoggedUser('username'); ?></a>. 
-            <br /><a class="link" href="<?= $this->url(array(
-                'action'        => 'logout', 
-                'controller'    => 'index', 
-                'module'        => 'patient'), 'default', true); ?>"><?= $this->translate('Log out?');?></a>
-                </span>
+           
 		<?php else: ?>
             <a class="login" href="<?= $this->url(array('action' => 'index', 'controller' => 'index', 'module' => 'patient')); ?>"><?= $this->translate('Patient login'); ?></a>
 			<a class="register" href="<?= $this->url(array('action' => 'index', 'controller' => 'register', 'module' => 'patient')); ?>"><?= $this->translate('Patient signup'); ?></a>
@@ -51,7 +41,7 @@
                         'controller' => 'index'), 'default', true);?>"><?= $this->translate('Login into panel'); ?></a></li>
 				</ul>
 			</li>
-			<?= $this->userMenu(); // displays menu items, rendered by layouts/_userMenu.phtml; ?>
+			
         </ul>
                 
                 

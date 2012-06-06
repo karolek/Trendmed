@@ -102,3 +102,4 @@ Setup Your new password;Ustaw nowe hasło
 Plans and pricing;Oferta i abonamenty
 Articles;Artykuły
 You have registered successfully. You can login now.;Dziękujemy za rejestracje. Możesz zalogować się teraz do panelu zarządzania.
+Maximum allowed size for file '%value%' is '%max%' but '%size%' detected;Plik jest za duży, maksymalny rozmiar to '%max%', podałeś plik o rozmiarze '%size%'

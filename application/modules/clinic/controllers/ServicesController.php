@@ -37,13 +37,26 @@ class Clinic_ServicesController extends Zend_Controller_Action
         $id = $request->getParam('id', null);
         $config = \Zend_Registry::get('config');
         $repository = $this->_em->getRepository('\Trendmed\Entity\Translation');
+        $this->view->headScript()->appendFile('/js/servicesSelect.js');
+        $this->view->headScript()->appendFile('/js/jquery.html5uploader.min.js');
 
 
         if ($id) { //edit
             $service = $this->_em->find('\Trendmed\Entity\Service', $id);
             if (!$service) throw new \Exception('Bad parameters');
-            $form->populate(array('id' => $service->getId()));
             $form->populate($service->toArray());
+            $form->populate(
+                array(
+                    'id'            => $service->getId(),
+                    'mainCategory'   => $service->getCategory()->parent->id,
+                )
+            );
+            $form->addCategoriesToSelect('subCategory', $service->getCategory()->parent->id, $service->getCategory()->getId());
+            $translations = $repository->findTranslations($service);
+
+            foreach($translations as $transCode => $trans) {
+                $form->setDefault('description_'.$transCode, $trans['description']);
+            }
             $this->view->headTitle('Edycja usługi');
         } else { // new
             $service = new \Trendmed\Entity\Service();
@@ -52,6 +65,9 @@ class Clinic_ServicesController extends Zend_Controller_Action
 
         if ($request->isPost()) {
             $post = $request->getPost();
+            // this is to baypass the validation
+            $form->addCategoriesToSelect('subCategory', $post['mainCategory'], $post['subCategory']);
+
             if ($form->isValid($post)) {
                 $values = $form->getValues();
                 $service->setOptions($values);
@@ -66,7 +82,21 @@ class Clinic_ServicesController extends Zend_Controller_Action
                     }
                 }
                 $service->setClinic($this->_helper->LoggedUser());
-                $service->setCategory($this->_em->find('\Trendmed\Entity\Category', $values['categories']));
+                $service->setCategory($this->_em->find('\Trendmed\Entity\Category', $values['subCategory']));
+
+                $session = new \Zend_Session_Namespace('service_photos_'.$this->_helper->LoggedUser()->getId());
+                $log = \Zend_Registry::get('log');
+                if(is_array($session->photos)) {
+                    $log->debug('sa zdjecia w sesji');
+                    foreach ($session->photos as $photo) {
+                        $photo->setService($service);
+                        $service->addPhoto($photo);
+                        $this->_em->persist($photo);
+                    }
+                } else {
+                    $log->debug('nie ma zdjec w sesji');
+                }
+
                 $this->_em->persist($service);
                 $this->_em->flush();
 
@@ -74,6 +104,10 @@ class Clinic_ServicesController extends Zend_Controller_Action
                 $this->_helper->Redirector('index');
             } else {
                 $this->_helper->FlashMessenger(array('error' => 'Please correct the form'));
+                // we have to populate the subcategory form again
+                $values = $form->getValues();
+
+
             }
         }
 
@@ -112,6 +146,7 @@ class Clinic_ServicesController extends Zend_Controller_Action
     {
         $request    = $this->getRequest();
         $serviceId  = $request->getParam('id', null);
+        $this->view->headScript()->appendFile('/js/servicesSelect.js');
 
         // fetching the service
         $repo = $this->_em->getRepository('\Trendmed\Entity\Service');
@@ -155,5 +190,21 @@ class Clinic_ServicesController extends Zend_Controller_Action
 
         $this->_helper->FlashMessenger(array('success' => 'Zdjęcie zostało usunięte'));
         $this->_helper->Redirector('manage-service-photos', 'services', 'clinic', array('id' => $serviceId));
+    }
+
+    /**
+     * For AJAX Request
+     */
+    public function addPhotoToServiceAction()
+    {
+        $request = $this->getRequest();
+        $entryPhoto = new \Trendmed\Entity\ServicePhoto();
+        $filename = $entryPhoto->processFile();
+        $session = new \Zend_Session_Namespace('service_photos_'.$this->_helper->LoggedUser()->getId());
+        $session->photos[] = $entryPhoto;
+
+        echo $filename;
+        $this->_helper->layout()->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 }
