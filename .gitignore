@@ -12,3 +12,4 @@ data/reports/*
 .project
 /tests/_data/*
 /public/clinicLogos/*
+.idea

@@ -48,7 +48,7 @@ class Page extends \Me\Model\ModelAbstract
     protected $title;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      * @Gedmo\Translatable
      */
     protected $content;
