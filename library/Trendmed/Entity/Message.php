@@ -23,7 +23,7 @@ class Message extends \Me\Model\ModelAbstract
     protected $id;
 
     /**
-     * @ORM\Column(name="message", type="string", nullable=false)
+     * @ORM\Column(name="message", type="text", nullable=false)
      */
     protected $message;
     

@@ -51,7 +51,7 @@ class Category extends \Me\Model\ModelAbstract implements \Gedmo\Tree\Node
     private $slug;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      * @Gedmo\Translatable
      * @var type 
      */

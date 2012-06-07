@@ -19,7 +19,7 @@ class Clinic_Form_Service extends Twitter_Form
 
         // category
         if (!$mainCategories = $this->_getCategories()) {
-            throw new Zend_Form_Exception(
+            throw new \Exception(
                 'No categories defined in DB'
             );
         }

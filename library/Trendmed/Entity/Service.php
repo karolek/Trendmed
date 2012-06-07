@@ -37,7 +37,7 @@ class Service extends \Me\Model\ModelAbstract {
     protected $photos;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      * @Gedmo\Translatable
      * @var string
      */

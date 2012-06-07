@@ -113,13 +113,13 @@ class Clinic extends \Trendmed\Entity\User {
     
     /**
      * @Gedmo\Translatable
-     * @ORM\Column(type="string", nullable=true);
+     * @ORM\Column(type="text", nullable=true);
      */
     protected $description;
 
     /**
      * @Gedmo\Translatable
-     * @ORM\Column(type="string", nullable=true);
+     * @ORM\Column(type="text", nullable=true);
      */
     protected $customPromos;
 
