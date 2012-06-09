@@ -2,15 +2,15 @@
 use \Trendmed\Entity\Category;
 class Admin_CategoriesController extends Zend_Controller_Action
 {
-    protected $_rootNode; 
-    
-    public function init()
+    protected $_rootNode;
+
+    protected function _getTree()
     {
         $em = $this->_helper->getEm();
 
         //ensure that there is allways a root node
         $root = $em->getRepository('\Trendmed\Entity\Category') // this is main root of the menu
-                            ->findOneByLvl(0);
+            ->findOneByLvl(0);
         if(!$root) {
             $root = new \Trendmed\Entity\Category;
             $root->setName('root');
@@ -31,18 +31,21 @@ class Admin_CategoriesController extends Zend_Controller_Action
             'nodeDecorator' => function($node) {
                 return $node['name'] . ' <a href="/admin/categories/save/category_id/'.$node['id'].'"><i class="icon-pencil"></i></a>
                 <a class="confirm" href="/admin/categories/delete/node_id/'.$node['id'].'"><i class="icon-trash"></i></a>
-                <a class="confirm" href="/admin/categories/move-category/node_id/'.$node['id'].'/direction/up"><i class="icon-arrow-up"></i></a>
-                <a class="confirm" href="/admin/categories/move-category/node_id/'.$node['id'].'/direction/down"><i class="icon-arrow-down"></i></a>
+                <a class="ajax" href="/admin/categories/move-category/node_id/'.$node['id'].'/direction/up"><i class="icon-arrow-up"></i></a>
+                <a class="ajax" href="/admin/categories/move-category/node_id/'.$node['id'].'/direction/down"><i class="icon-arrow-down"></i></a>
                 ';
 
             }
         );
-        $htmlTree = $repo->childrenHierarchy(
-            $this->_rootNode,
-            /* starting from root nodes */ false,
-            /* load all children, not only direct */ $options
-        );
-        $this->view->categories = $htmlTree;
+        $tree = $repo->findAllAsArrayTree($options);
+        return $tree;
+    }
+    
+    public function init()
+    {
+        $this->view->categories = $this->_getTree();
+        // adding javascript for tree managemtn
+        $this->view->headScript()->appendFile('/js/admin/categoriesTree.js');
     }
     
     public function indexAction() {
@@ -171,10 +174,11 @@ class Admin_CategoriesController extends Zend_Controller_Action
         $result = $repo->recover();
         $em->clear(); // clear cached nodes
         if($request->isXmlHttpRequest()) {
-            $this->_helper->viewRenderer->setNoRender();
-            $jsonData = \Zend_Json::Encode($node);
-            $this->response->appendBody($jsonData);
+            $this->_helper->layout()->disableLayout();
+            $this->_helper->viewRenderer->setNoRender(true);
+            echo $this->_getTree();
         } else {
+
             $this->_helper->Redirector('index');
         }
     }
