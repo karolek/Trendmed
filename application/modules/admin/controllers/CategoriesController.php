@@ -30,7 +30,10 @@ class Admin_CategoriesController extends Zend_Controller_Action
             'childClose' => '</li>',
             'nodeDecorator' => function($node) {
                 return $node['name'] . ' <a href="/admin/categories/save/category_id/'.$node['id'].'"><i class="icon-pencil"></i></a>
-                <a class="confirm" href="/admin/categories/delete/node_id/'.$node['id'].'"><i class="icon-trash"></i></a>';
+                <a class="confirm" href="/admin/categories/delete/node_id/'.$node['id'].'"><i class="icon-trash"></i></a>
+                <a class="confirm" href="/admin/categories/move-category/node_id/'.$node['id'].'/direction/up"><i class="icon-arrow-up"></i></a>
+                <a class="confirm" href="/admin/categories/move-category/node_id/'.$node['id'].'/direction/down"><i class="icon-arrow-down"></i></a>
+                ';
 
             }
         );
@@ -140,5 +143,39 @@ class Admin_CategoriesController extends Zend_Controller_Action
         $em->clear();
         $this->_helper->FlashMessenger(array('success' => 'Category has been deleted. All children elements has been reordered.'));
         $this->_helper->Redirector('index');
+    }
+
+    public function moveCategoryAction()
+    {
+        $request = $this->getRequest();
+        $nodeId = $request->getParam('node_id');
+        $em = $this->_helper->getEm();
+        $repo = $em->getRepository('\Trendmed\Entity\Category');
+        $node = $repo->find($nodeId);
+        if(!$node) {
+            throw new \Exception('No node found with ID:'. $nodeId.', cant
+                delete node');
+        }
+        $direction  = $request->getParam('direction');
+        $toEnd      = (bool) $request->getParam('toEnd', false);
+        if($toEnd !== FALSE) {
+            $toEnd = 1; // move by one place
+        }
+        // costruncting method name
+        $method = 'move' . ucfirst($direction);
+        $repo->$method($node, 1);
+
+        // verification and recovery of tree
+        $repo->verify();
+// can return TRUE if tree is valid, or array of errors found on tree
+        $result = $repo->recover();
+        $em->clear(); // clear cached nodes
+        if($request->isXmlHttpRequest()) {
+            $this->_helper->viewRenderer->setNoRender();
+            $jsonData = \Zend_Json::Encode($node);
+            $this->response->appendBody($jsonData);
+        } else {
+            $this->_helper->Redirector('index');
+        }
     }
 }
