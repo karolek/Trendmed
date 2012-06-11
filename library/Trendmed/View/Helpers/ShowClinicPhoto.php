@@ -5,7 +5,7 @@
 * @package Br
 * @author Bartosz Rychlicki <b@br-design.pl>
 */
-class Clinic_View_Helper_ShowServicePhoto extends Zend_View_Helper_Abstract
+class Trendmed_View_Helpers_ShowClinicPhoto extends Zend_View_Helper_Abstract
 {
 	public $view;
 	
@@ -19,21 +19,24 @@ class Clinic_View_Helper_ShowServicePhoto extends Zend_View_Helper_Abstract
         return $this->view->getScriptPath($script);
     }
 	
-
-	public function ShowServicePhoto($photo, $size = "small")
+	/**
+	 * Checks what kind of user is logged and returns user menu for it role
+	 *
+	 */
+	public function ShowClinicPhoto($photo, $size = "small")
 	{
         $config = Zend_Registry::get('config');
         // set up default image and alt
-        $src = $config->services->photo->publicDir . 'default/' . $size . '.png';
+        $src = $config->clinics->photo->publicDir . 'default/' . $size . '.png';
         $alt = 'Photo placeholder';
 
-        if($photo instanceof \Trendmed\Entity\ServicePhoto) { // if photo object is given
-            $filePath = $config->services->photo->uploadDir . $photo->getPhotoDir() . '/' . $size . '.jpg';
-            $fileUrl = $config->services->photo->publicDir . $photo->getPhotoDir() . '/' . $size . '.jpg';
+        if($photo instanceof \Trendmed\Entity\ClinicPhoto) { // if photo object is given
+            $filePath = $config->clinics->photo->uploadDir . $photo->getPhotoDir() . '/' . $size . '.jpg';
+            $fileUrl = $config->clinics->photo->publicDir . $photo->getPhotoDir() . '/' . $size . '.jpg';
 
             if (file_exists($filePath)) {
                 $src = $fileUrl;
-                $alt = $photo->service->category->name;
+                $alt = $photo->clinic->name;
             }
         }
         $output = '<img src="' . $src . '" alt="Photo: ' . $alt . '" class="photo-' . $size . '" />';
