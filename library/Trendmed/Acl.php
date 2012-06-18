@@ -17,7 +17,6 @@ class Trendmed_Acl extends Zend_Acl
 
     protected static $_instance;
 
-    /* Singleton pattern */
     protected function __construct()
     {
         $this->addRole(new Zend_Acl_Role(self::ROLE_GUEST));
@@ -37,8 +36,10 @@ class Trendmed_Acl extends Zend_Acl
         $this->addResource(new Zend_Acl_Resource('mvc:clinic'));
         $this->addResource(new Zend_Acl_Resource('mvc:patient'));
 
-        $this->deny('guest', 'admin')
-            ->allow('guest', 'admin:login');
+        $this->deny('guest', 'mvc:admin')
+            ->deny('guest', 'mvc:clinic')
+            ->allow('guest', 'mvc:clinic.index', 'index')
+            ->allow('guest', 'mvc:admin:login');
 
         return $this;
     }

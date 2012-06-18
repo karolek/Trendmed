@@ -88,11 +88,15 @@ class Clinic_Form_Service extends Twitter_Form
         $this->addElement($submit);
     }
 
-    private function _getCategories($parentId = 1)
+    private function _getCategories($parentId = 0)
     {
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
         $repo = $em->getRepository('Trendmed\Entity\Category');
-        $tree = $repo->findForParentAsArray($parentId);
+        if ($parentId < 1) {
+            $tree = $repo->findAllMainCategoriesAsArray();
+        } else {
+            $tree = $repo->findForParentAsArray($parentId);
+        }
         // parse the result for
         $map = array();
         foreach ($tree as $node) {

@@ -90,4 +90,20 @@ class CategoryRepository extends \Gedmo\Tree\Entity\Repository\NestedTreeReposit
 
         return $tree;
     }
+
+    public function findAllMainCategoriesAsArray()
+    {
+        $query = $this->_em
+            ->createQueryBuilder()
+            ->select('node')
+            ->from('Trendmed\Entity\Category', 'node')
+            ->orderBy('node.name, node.lft', 'ASC')
+            ->where('node.lvl = 1')
+            //->andWhere('node.lvl = 1')
+            ->getQuery();
+
+        //$options = array('decorate' => true);
+        $tree = $query->getArrayResult();
+        return $tree;
+    }
 }
