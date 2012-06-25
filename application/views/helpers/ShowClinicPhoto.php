@@ -5,7 +5,7 @@
 * @package Br
 * @author Bartosz Rychlicki <b@br-design.pl>
 */
-class Clinic_View_Helper_ShowClinicPhoto extends Zend_View_Helper_Abstract
+class Trendmed_View_Helper_ShowClinicPhoto extends Zend_View_Helper_Abstract
 {
 	public $view;
 	

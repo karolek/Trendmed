@@ -3,6 +3,37 @@
     <li><a href="#profile"><?= $this->translate('Tylko szpitale, kliniki i sanatoria'); ?></a></li>
     <li><a href="#messages"><?= $this->translate('Tylko gabinety, salony i spa'); ?></a></li>
 </ul>
+<div>
+    <?= $this->translate('Sort by'); ?>:
+    <ul>
+        <li><?= $this->translate('Patient rating'); ?></li>
+        <li><?= $this->translate('Popularity'); ?></li>
+        <li><?= $this->translate('Price'); ?></li>
+    </ul>
+    <?= $this->translate('choose city'); ?>:
+    <?= $this->cityForm; ?>
+</div>
 <? foreach($this->services as $service): ?>
-    <h3><?= $service->clinic->name; ?></h3>
+    <h3><a href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>"><?= $service->clinic->name; ?></a></h3>
+    <address><?= $service->clinic->city; ?> <?= $this->ShowOnMap($service->clinic); ?></address>
+    <ul class="thumbnails">
+        <li class="thumbnail">
+            <?= $this->ShowClinicLogo($service->clinic); ?>
+        </li>
+        <? foreach($service->photos as $photo): ?>
+            <?= $this->ShowServicePhoto($photo, 'small'); ?>
+        <? endforeach; ?>
+    </ul>
+    <h4>Service description</h4>
+    <p>
+        <?= $service->description; ?>
+    </p>
+    <h4>Other services of this clinic</h4>
+        <ul>
+        <? foreach($service->clinic->services as $service): ?>
+            <li><?= $service->category->name; ?></li>
+        <? endforeach;?>
+        </ul>
+        <a href="">Show all services</a>
+
 <? endforeach;?>
