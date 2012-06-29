@@ -23,7 +23,7 @@ class Trendmed_View_Helper_ShowPhoto extends Zend_View_Helper_Abstract
 	 * Checks what kind of user is logged and returns user menu for it role
 	 * @todo implement
 	 */
-	public function ShowClinicLogo($photo, $size = "medium", $type = 'clinicPhoto')
+	public function ShowClinicLogo($user, $size = "medium", $type = 'clinicPhoto', $makeLinkToProfile = false)
 	{
 
         $config = Zend_Registry::get('config');

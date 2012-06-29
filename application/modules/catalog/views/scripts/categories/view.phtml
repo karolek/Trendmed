@@ -3,6 +3,16 @@
     <li><a href="#profile"><?= $this->translate('Tylko szpitale, kliniki i sanatoria'); ?></a></li>
     <li><a href="#messages"><?= $this->translate('Tylko gabinety, salony i spa'); ?></a></li>
 </ul>
+<div>
+    <?= $this->translate('Sort by'); ?>:
+    <ul>
+        <li><?= $this->translate('Patient rating'); ?></li>
+        <li><?= $this->translate('Popularity'); ?></li>
+        <li><?= $this->translate('Price'); ?></li>
+    </ul>
+    <?= $this->translate('choose city'); ?>:
+    <?= $this->cityForm; ?>
+</div>
 <? foreach($this->services as $service): ?>
     <h3><?= $service->clinic->name; ?></h3>
     <address><?= $service->clinic->city; ?></address>
@@ -46,4 +56,4 @@
             </tbody>
         </table>
     <? endif; ?>
-<? endforeach;?>
+<? endforeach; ?>

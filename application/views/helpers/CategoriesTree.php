@@ -39,7 +39,7 @@ class Trendmed_View_Helper_CategoriesTree extends Zend_View_Helper_Abstract
                     $link   = $this->view->url(array('slug' => $subcategory['slug']), 'category', false);
                     $class = 'class="';
                     if ($subcategory['slug'] == $selected) {
-                        $class .= 'active ';
+                        $class .= 'active';
                     }
                     $class .= '" ';
                     $output .= '<li><a href="'.$link.'" ' . $class . '>' . $subcategory['name'] . '</a></li>';

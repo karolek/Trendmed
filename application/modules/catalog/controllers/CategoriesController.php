@@ -7,7 +7,6 @@
  *
  */
 use Doctrine\ORM\Tools\Pagination\Paginator;
-
 class Catalog_CategoriesController extends \Zend_Controller_Action
 {
 

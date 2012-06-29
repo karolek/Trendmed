@@ -106,3 +106,4 @@ Maximum allowed size for file '%value%' is '%max%' but '%size%' detected;Plik je
 Service main category;Główna kategoria usługi
 Service sub-category;Podkategoria usługi
 '%value%' is not greater than '%min%';Wybór jest wymagany
+Correct the errors in the form;Popraw błędy w formularzu
