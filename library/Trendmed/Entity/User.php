@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
  */
-class User extends \Me\Model\ModelAbstract implements \Me_User_Model_User_Interface
+abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_User_Interface
 {
     public function __construct() {
         $this->created = new \DateTime();
@@ -20,11 +20,13 @@ class User extends \Me\Model\ModelAbstract implements \Me_User_Model_User_Interf
     
     /**
      * @ORM\Column(type="string")
+     * @var string user login
      */
     protected $login;
     
     /**
      * @ORM\Column(type="string")
+     * @var string user
      */
     protected $password;
     
