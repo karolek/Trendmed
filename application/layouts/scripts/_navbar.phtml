@@ -17,8 +17,8 @@
 		<?php if($this->LoggedUser()):?>
            
 		<?php else: ?>
-            <a class="login" href="<?= $this->url(array('action' => 'index', 'controller' => 'index', 'module' => 'patient')); ?>"><?= $this->translate('Patient login'); ?></a>
-			<a class="register" href="<?= $this->url(array('action' => 'index', 'controller' => 'register', 'module' => 'patient')); ?>"><?= $this->translate('Patient signup'); ?></a>
+            <a class="login" href="<?= $this->url(array('action' => 'index', 'controller' => 'index', 'module' => 'patient'), 'default', true); ?>"><?= $this->translate('Patient login'); ?></a>
+			<a class="register" href="<?= $this->url(array('action' => 'index', 'controller' => 'register', 'module' => 'patient'), 'default', true); ?>"><?= $this->translate('Patient signup'); ?></a>
 		<?php endif; ?>
 		</p>
                 
