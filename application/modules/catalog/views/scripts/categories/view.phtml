@@ -16,6 +16,7 @@
 <? foreach($this->services as $service): ?>
     <h3><a href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>"><?= $service->clinic->name; ?></a></h3>
     <address><?= $service->clinic->city; ?> <?= $this->ShowOnMap($service->clinic); ?></address>
+    <?= $this->AddToFavorite($service->clinic); ?>
     <ul class="thumbnails">
         <li class="thumbnail">
             <?= $this->ShowClinicLogo($service->clinic); ?>

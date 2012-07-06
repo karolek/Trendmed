@@ -12,7 +12,12 @@
         
     <div class="right rating">
         <span class="count">86%</span>
-        <a href="#">Fav</a>
+        <a class="ajax-post" data-type="html" href="<?= $this->url(array(
+            'action'        => 'add-favorite-clinic',
+            'controller'    => 'profile',
+            'module'        => 'patient',
+            'clinic_id'     => $this->clinic->id
+        , 'default', true)); ?>">Fav</a>
         <big>Rating</big><br/ >
 		<small>based on YY reviews</small>
     </div>
@@ -92,3 +97,10 @@
 <? endif; ?>
 
 </div>
+<script type="text/javascript">
+    $(document).ready(function(){
+       $("a.ajax-post").click(function() {
+           $.post($(this).attr("href"), { format: $(this).attr("data-type") });
+       });
+    });
+</script>

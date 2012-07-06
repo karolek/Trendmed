@@ -8,13 +8,13 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
-class Patient extends \Trendmed\Entity\User {
-    
+class Patient extends \Trendmed\Entity\User
+{
     public function __construct() {
         $this->roleName = 'patient';
+        return parent::__construct();
     }
 
-    
     /* PROPERTIES */
     /**
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -30,7 +30,13 @@ class Patient extends \Trendmed\Entity\User {
      * @var type 
      */
     protected $roleName;
-    
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Trendmed\Entity\Clinic", inversedBy="favoredByUsers")
+     * @var \Doctrine\Common\Collections\ArrayCollection one way connection
+     */
+    protected $favoriteClinics;
+
     /* GETTERS AND SETTERS */
     public function getId() {
         return $this->id;
@@ -42,6 +48,36 @@ class Patient extends \Trendmed\Entity\User {
 
     public function setRoleName($roleName) {
         $this->roleName = $roleName;
+    }
+
+    protected $_welcomeEmailScript = 'register/_welcomeEmail.phtml';
+
+
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $favoriteClinics
+     */
+    public function addFavoriteClinic(\Trendmed\Entity\Clinic $favoriteClinics)
+    {
+        $this->favoriteClinics[] = $favoriteClinics;
+        $favoriteClinics->addFavoredByUser($this);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getFavoriteClinics()
+    {
+        return $this->favoriteClinics;
+    }
+
+    public function isFavoringClinic(\Trendmed\Entity\Clinic $clinic)
+    {
+        return $this->favoriteClinics->contains($clinic);
+    }
+
+    public function getEmailaddress()
+    {
+        return $this->login;
     }
 
 

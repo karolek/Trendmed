@@ -12,7 +12,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\HasLifecycleCallbacks
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
-class Clinic extends \Trendmed\Entity\User {
+class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favoritable
+{
     
     public function __construct() {
         $this->services = new \Doctrine\Common\Collections\ArrayCollection;
@@ -20,6 +21,7 @@ class Clinic extends \Trendmed\Entity\User {
         $this->country = 'Poland';
         $this->roleName = 'clinic';
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection;
+        $this->favoredByUsers = new \Doctrine\Common\Collections\ArrayCollection;
         return parent::__construct();
     }
     
@@ -161,6 +163,11 @@ class Clinic extends \Trendmed\Entity\User {
      * @ORM\Column(type="string", nullable=true)
      */
     protected $bankAccount;
+
+    /**
+     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\Patient", mappedBy="favoriteClinics")
+     */
+    protected $favoredByUsers;
 
     protected $_welcomeEmailScript = 'register/_welcomeEmail.phtml';
 
@@ -500,5 +507,26 @@ class Clinic extends \Trendmed\Entity\User {
     public function getBankAccount()
     {
         return $this->bankAccount;
+    }
+
+    public function setFavoredByUsers($favoredByUsers)
+    {
+        $this->favoredByUsers = $favoredByUsers;
+    }
+
+    public function getFavoredByUsers()
+    {
+        return $this->favoredByUsers;
+    }
+
+    public function addFavoredByUser(\Trendmed\Entity\Patient $patient)
+    {
+        $this->favoredByUsers[] = $patient;
+        return $this;
+    }
+
+    public function isFavoredByUser(\Trendmed\Entity\User $user)
+    {
+        return $this->favoredByUsers->contains($user);
     }
 }

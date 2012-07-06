@@ -29,7 +29,7 @@ class User extends \Me\Model\ModelAbstract implements \Me_User_Model_User_Interf
     protected $password;
     
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $salt;
     
@@ -317,8 +317,18 @@ class User extends \Me\Model\ModelAbstract implements \Me_User_Model_User_Interf
             throw new \Exception('User role must be an instance of object Role, and You give:'
                     .var_dump($this->role));
         }
+
+        if(!$this->login) {
+            throw new \Exception('User must have a login');
+        }
+        if(!$this->getEmailaddress()) {
+            throw new \Exception('User must have a emailaddress');
+        }
+        if(!$this->password) {
+            throw new \Exception('User must have a login');
+        }
     }
-    
+
     /**
      * Implemenet this in Your extending class
      */
@@ -326,7 +336,7 @@ class User extends \Me\Model\ModelAbstract implements \Me_User_Model_User_Interf
     {
         return;
     }
-    
+
     protected function _generateSalt()
     {
         return substr(md5(rand(1,999999).time()), 0, 12);   
