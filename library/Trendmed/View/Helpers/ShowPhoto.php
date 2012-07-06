@@ -5,7 +5,7 @@
 * @package Br
 * @author Bartosz Rychlicki <b@br-design.pl>
 */
-class Trendmed_View_Helper_ShowClinicLogo extends Zend_View_Helper_Abstract
+class Trendmed_View_Helper_ShowPhoto extends Zend_View_Helper_Abstract
 {
 	public $view;
 	
@@ -21,19 +21,20 @@ class Trendmed_View_Helper_ShowClinicLogo extends Zend_View_Helper_Abstract
 	
 	/**
 	 * Checks what kind of user is logged and returns user menu for it role
-	 *
+	 * @todo implement
 	 */
-	public function ShowClinicLogo(\Trendmed\Entity\Clinic $user, $size = "medium", $makeLinkToProfile = false)
+	public function ShowClinicLogo($user, $size = "medium", $type = 'clinicPhoto', $makeLinkToProfile = false)
 	{
 
         $config = Zend_Registry::get('config');
         // set up default image and alt
         $src = $config->clinics->logo->publicDir . 'default/' . $size . '.png';
-        $alt = $user->getName() . ' logo';
+        $alt = $user->name.' logo';
 
         if($user instanceof \Trendmed\Entity\Clinic) {
             $filePath = $config->clinics->logo->uploadDir . $user->getLogoDir() . '/' . $size . '.jpg';
             $fileUrl = $config->clinics->logo->publicDir . $user->getLogoDir() . '/' . $size . '.jpg';
+
             if (file_exists($filePath)) {
                 $src = $fileUrl;
             }
