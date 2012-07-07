@@ -36,8 +36,8 @@ class Trendmed_View_Helper_ShowPhoto extends Zend_View_Helper_Abstract
         $alt = 'Photo placeholder';
 
         if($photo instanceof \Trendmed\Interfaces\Photo) { // if photo object is given
-            $filePath = $config->$type->uploadDir . $photo->getFilename() . '/' . $size . '.jpg';
-            $fileUrl = $config->$type->publicDir . $photo->getFilename() . '/' . $size . '.jpg';
+            $filePath = $config->$type->photo->uploadDir . $photo->getFilename() . '/' . $size . '.jpg';
+            $fileUrl = $config->$type->photo->publicDir . $photo->getFilename() . '/' . $size . '.jpg';
             if (file_exists($filePath)) {
                 $src = $fileUrl;
                 $alt = $photo->getDescription();

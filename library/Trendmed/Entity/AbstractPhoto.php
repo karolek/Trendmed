@@ -341,15 +341,12 @@ abstract class AbstractPhoto extends \Me\Model\ModelAbstract
             }
             // and now we iterate through all photo configurations in application.ini
             foreach ($this->getPhotoConfig()->sizes as $key  => $value) {
+                $log->debug('Procesowanie rozmiaru: '.$key);
                 $handle->file_new_name_body = $key;
 
                 // checking if we should crop the image
-                $log->debug($value->crop);
-                $log->debug(empty($cropOptions));
-
                 if($value->crop == true AND !empty($cropOptions)) {
-                    $log->debug('bedzie cropowanie dla '.$key);
-                    $log->debug('crop options: '.$cropOptions);
+                    $log->debug('cropowanie... '.$key);
                     $calculations = $this->_calculateCrop(
                         $cropOptions['left'],
                         $cropOptions['top'],
@@ -366,15 +363,20 @@ abstract class AbstractPhoto extends \Me\Model\ModelAbstract
                 } else {
                     $log->debug('nie bedzie cropowanie dla '.$key);
                 }
-
+                // checking if config has width value defined
+                if($value->width > 0) {
+                    $handle->image_resize       = true;
+                    $handle->image_x            = $value->width;
+                    $handle->image_ratio_y      = true;
+                    $log->debug('skalowanie do szerokosci '.$value->width);
+                }
                 $handle->jpeg_quality       = $this->_processFileCompression; // you can overwrite it in You subclass
                 $handle->file_new_name_ext  = 'jpg';
                 $handle->image_convert      = 'jpg';
-                $handle->image_resize   = true;
-                $handle->image_x        = $value->maxWidth;
-                $handle->image_ratio_y  = true;
-                $handle->file_overwrite = true;
-
+                $handle->file_overwrite     = true;
+                $log->debug(
+                    'process dla rozmiaru '. $key .' do katalogu '.$this->getPhotoConfig()->uploadDir . $dir
+                );
                 $handle->process($this->getPhotoConfig()->uploadDir . $dir);
                 if ($handle->processed) {
                     //$handle->clean();  // clean will remove the original file
@@ -476,7 +478,8 @@ abstract class AbstractPhoto extends \Me\Model\ModelAbstract
     protected function _preserveOriginalFile($filesArray)
     {
         $log = \Zend_Registry::get('log');
-        $uploadsDirectory = APPLICATION_PATH . '/../public/projects/originals/' . $this->_generateDirectoryForPhoto();
+        $config = $this->getPhotoConfig();
+        $uploadsDirectory = $config->uploadDir . '/originals/' . $this->_generateDirectoryForPhoto();
         $log->debug('move uploaded file to ' . $uploadsDirectory . '/'.$filesArray['name']. ' from '.$filesArray['tmp_name']);
         mkdir($uploadsDirectory);
         if(false === file_exists($uploadsDirectory)) {

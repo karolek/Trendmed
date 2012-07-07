@@ -2,3 +2,5 @@
 *
 # Except this file
 !.gitignore
+# except originals dir
+!originals
