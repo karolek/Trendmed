@@ -323,9 +323,6 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
         if(!$this->login) {
             throw new \Exception('User must have a login');
         }
-        if(!$this->getEmailaddress()) {
-            throw new \Exception('User must have a emailaddress');
-        }
         if(!$this->password) {
             throw new \Exception('User must have a login');
         }

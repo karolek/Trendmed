@@ -25,6 +25,7 @@ class LoadClinicData extends \Doctrine\Common\DataFixtures\AbstractFixture imple
         $clinic->setType('Klinika');
         $clinic->setStreetaddress('Rubinowa 4');
         $clinic->setRepEmail('b@br-design.pl');
+        $clinic->setLogin('b@br-design.pl');
         $clinic->setProvince('Pomorskie');
         $clinic->setRepPhone('+48512129709');
         $clinic->setRepName('Bartosz Rychlicki');

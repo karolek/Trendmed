@@ -14,7 +14,7 @@
     <?= $this->cityForm; ?>
 </div>
 <? foreach($this->services as $service): ?>
-    <h3><a href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>"><?= $service->clinic->name; ?></a></h3>
+l    <h3><a href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>"><?= $service->clinic->name; ?></a></h3>
     <address><?= $service->clinic->city; ?> <?= $this->ShowOnMap($service->clinic); ?></address>
     <?= $this->AddToFavorite($service->clinic); ?>
     <ul class="thumbnails">
@@ -22,7 +22,7 @@
             <?= $this->ShowClinicLogo($service->clinic); ?>
         </li>
         <? foreach($service->photos as $photo): ?>
-            <?= $this->ShowServicePhoto($photo, 'small'); ?>
+            <?= $this->ShowPhoto($photo, 'small', 'services'); ?>
         <? endforeach; ?>
     </ul>
     <h4>Service description</h4>

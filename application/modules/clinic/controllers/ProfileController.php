@@ -116,7 +116,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
             $clinic->addPhoto($photo);
 
             // doing all the upload magic
-            $photo->processFile();
+            $photo->processUpload();
 
             $this->_em->persist($photo);
             $this->_em->persist($clinic);
