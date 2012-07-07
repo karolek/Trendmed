@@ -194,6 +194,9 @@ abstract class AbstractPhoto extends \Me\Model\ModelAbstract
             // fetching config for this photo entity
             $config = \Zend_Registry::get('config');
             $configName = $this->_photoTypeName;
+            if(!$configName) {
+                throw new \Exception('_photoTypeName variable not defined for '.get_class($this));
+            }
             if(!$photoConfig = $config->$configName->photo) throw new \Exception(
                 'No config in application.ini for photo '.$configName.', please define it'
             );
@@ -479,7 +482,7 @@ abstract class AbstractPhoto extends \Me\Model\ModelAbstract
     {
         $log = \Zend_Registry::get('log');
         $config = $this->getPhotoConfig();
-        $uploadsDirectory = $config->uploadDir . '/originals/' . $this->_generateDirectoryForPhoto();
+        $uploadsDirectory = $config->uploadDir . 'originals/' . $this->_generateDirectoryForPhoto();
         $log->debug('move uploaded file to ' . $uploadsDirectory . '/'.$filesArray['name']. ' from '.$filesArray['tmp_name']);
         mkdir($uploadsDirectory);
         if(false === file_exists($uploadsDirectory)) {

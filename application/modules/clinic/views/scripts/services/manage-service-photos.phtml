@@ -3,7 +3,7 @@
 <ul class="thumbnails">
     <? foreach($this->service->getPhotos() as $photo): ?>
     <li class="thumbnail">
-        <?= $this->ShowServicePhoto($photo, 'medium'); ?>
+        <?= $this->ShowPhoto($photo, 'medium', 'services'); ?>
         <p class="caption"><a href="<?= $this->url(
             array(
                 'action' => 'delete-service-photo',

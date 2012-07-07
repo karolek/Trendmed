@@ -13,6 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class ServicePhoto extends \Trendmed\Entity\AbstractPhoto
 implements \Trendmed\Interfaces\Photo
 {
+    protected $_photoTypeName = 'services';
 
     /**
      * @ORM\ManyToOne(targetEntity="Trendmed\Entity\Service", inversedBy="photos")

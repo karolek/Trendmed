@@ -171,7 +171,7 @@ class Clinic_ServicesController extends Zend_Controller_Action
             $photo = new \Trendmed\Entity\ServicePhoto();
 
             // doing all the upload magic
-            $photo->processFile();
+            $photo->processUpload();
             $service->addPhoto($photo);
             $this->_em->persist($photo);
             $this->_em->flush();
@@ -206,7 +206,7 @@ class Clinic_ServicesController extends Zend_Controller_Action
     {
         $request = $this->getRequest();
         $entryPhoto = new \Trendmed\Entity\ServicePhoto();
-        $filename = $entryPhoto->processFile();
+        $filename = $entryPhoto->processUpload();
         $session = new \Zend_Session_Namespace('service_photos_'.$this->_helper->LoggedUser()->getId());
         $session->photos[] = $entryPhoto;
 
