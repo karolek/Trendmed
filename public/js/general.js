@@ -24,9 +24,9 @@ $(document).ready(function() {
         var url = $(this).attr("href");
         var clickedLink = this;
         $.post(url, {
-            entity: $(clickedLink).attr("entity")
+            entity: $(clickedLink).attr("entity"),
+            format: "html"
         }, function(response) {
-            alert(response);
             if($(clickedLink).hasClass('fav')) {
                 $(clickedLink).addClass('unfav');
                 $(clickedLink).removeClass('fav');
@@ -36,5 +36,12 @@ $(document).ready(function() {
             }
         })
         e.preventDefault();
+    })
+    .ajaxStart(function(){
+        $(this).addClass("loading");
+    })
+    .ajaxComplete(function() {
+        $(this).removeClass("loading");
     });
-})
+});
+

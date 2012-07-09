@@ -18,6 +18,7 @@ class Patient_ProfileController extends Zend_Controller_Action
             $user = $this->_helper->LoggedUser();
             $values = $request->getPost();
             $entityName = $values['entity'];
+            $entityName = '\Trendmed\Entity\Clinic';
             $entityId   = $request->getParam('entity_id');
             // Im leaving up to ACL that only patient should be able to add fav clinic
             if (!$user instanceof \Trendmed\Entity\Patient) {
@@ -26,16 +27,18 @@ class Patient_ProfileController extends Zend_Controller_Action
             $clinic = $this->_em->find($entityName, $entityId);
             if(!$clinic)
                 throw new \Exception('No entity with ID ' . $entityId . ' found');
-            $user->addFavoriteClinic($clinic);
+            $result = $user->toggleFavoriteClinic($clinic);
+
             $this->_em->persist($user);
-        //    $this->_em->persist($clinic);
-            exit('a');
+            $this->_em->persist($clinic);
             $this->_em->flush();
             $this->view->clinic     = $clinic;
             $this->view->user       = $user;
-
+            echo $result;
         } else {
             throw new \Exception('Request should be POST');
         }
     }
+
+
 }

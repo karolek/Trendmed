@@ -12,16 +12,11 @@
         
     <div class="right rating">
         <span class="count">86%</span>
-        <a class="ajax-post" data-type="html" href="<?= $this->url(array(
-            'action'        => 'add-favorite-clinic',
-            'controller'    => 'profile',
-            'module'        => 'patient',
-            'clinic_id'     => $this->clinic->id
-        , 'default', true)); ?>">Fav</a>
         <big>Rating</big><br/ >
 		<small>based on YY reviews</small>
     </div>
-    
+    <?= $this->AddToFavorite($this->clinic); ?>
+
     <div class="globalClear"></div>
     
     <ul class="thumbnails">
@@ -29,7 +24,7 @@
             <?= $this->ShowClinicLogo($this->clinic); ?>
         </li>
         <? foreach($this->clinic->photos as $photo): ?>
-        <?= $this->ShowClinicPhoto($photo, 'small'); ?>
+        <?= $this->ShowPhoto($photo, 'small'); ?>
         <? endforeach; ?>
     </ul>
     

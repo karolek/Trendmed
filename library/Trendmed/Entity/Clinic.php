@@ -22,6 +22,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
         $this->roleName = 'clinic';
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection;
         $this->favoredByUsers = new \Doctrine\Common\Collections\ArrayCollection;
+
         return parent::__construct();
     }
     
@@ -165,7 +166,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
     protected $bankAccount;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\Patient", mappedBy="favoriteClinics")
+     * @ORM\ManyToMany(targetEntity="\Trendmed\Entity\Patient", mappedBy="favoriteClinics")
      */
     protected $favoredByUsers;
 
@@ -519,7 +520,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
         return $this->favoredByUsers;
     }
 
-    public function addFavoredByUser(\Trendmed\Entity\Patient $patient)
+    public function addFavoredByUser(\Trendmed\Entity\User $patient)
     {
         $this->favoredByUsers[] = $patient;
         return $this;
@@ -528,5 +529,10 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
     public function isFavoredByUser(\Trendmed\Entity\User $user)
     {
         return $this->favoredByUsers->contains($user);
+    }
+
+    public function removeFavoredByUser(\Trendmed\Entity\User $user)
+    {
+        $this->favoredByUsers->removeElement($user);
     }
 }

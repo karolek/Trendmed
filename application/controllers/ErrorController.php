@@ -33,7 +33,6 @@ class ErrorController extends Zend_Controller_Action
         // Log exception, if logger available
         if ($log = $this->getLog()) {
             $log->log($this->view->message.':'.$errors->exception->getMessage(), $priority, $errors->exception);
-            $log->debug($errors->exception->getTrace());
             $log->log('Request Parameters', $priority, $errors->request->getParams());
         }
         

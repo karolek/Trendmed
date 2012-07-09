@@ -305,3 +305,7 @@ footer .columnFacebook {}
   p, h2, h3 { orphans: 3; widows: 3; }
   h2, h3 { page-break-after: avoid; }
 }
+
+.loading {
+    font-style: italic;
+}

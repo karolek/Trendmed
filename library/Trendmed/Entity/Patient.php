@@ -12,7 +12,9 @@ class Patient extends \Trendmed\Entity\User
 {
     public function __construct() {
         $this->roleName = 'patient';
-        return parent::__construct();
+        $this->favoriteClinics = new \Doctrine\Common\Collections\ArrayCollection;
+
+        parent::__construct();
     }
 
     /* PROPERTIES */
@@ -32,7 +34,7 @@ class Patient extends \Trendmed\Entity\User
     protected $roleName;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Trendmed\Entity\Clinic", inversedBy="favoredByUsers")
+     * @ORM\ManyToMany(targetEntity="Trendmed\Entity\Clinic", inversedBy="favoredByUsers")
      * @var \Doctrine\Common\Collections\ArrayCollection one way connection
      */
     protected $favoriteClinics;
@@ -56,10 +58,15 @@ class Patient extends \Trendmed\Entity\User
     /**
      * @param \Doctrine\Common\Collections\ArrayCollection $favoriteClinics
      */
-    public function addFavoriteClinic(\Trendmed\Entity\Clinic $favoriteClinics)
+    public function addFavoriteClinic(\Trendmed\Entity\Clinic $clinic)
     {
-        $this->favoriteClinics[] = $favoriteClinics;
-        $favoriteClinics->addFavoredByUser($this);
+        $this->favoriteClinics[] = $clinic;
+        $clinic->addFavoredByUser($this);
+    }
+
+    public function removeFavoriteClinic(\Trendmed\Entity\Clinic $clinic)
+    {
+        $this->favoriteClinics->removeElement($clinic);
     }
 
     /**
@@ -78,6 +85,18 @@ class Patient extends \Trendmed\Entity\User
     public function getEmailaddress()
     {
         return $this->login;
+    }
+
+    public function toggleFavoriteClinic(\Trendmed\Entity\Clinic $clinic)
+    {
+        if($this->isFavoringClinic($clinic)) {
+            $result = 'unlike';
+            $this->removeFavoriteClinic($clinic);
+        } else {
+            $result = 'like';
+            $this->addFavoriteClinic($clinic);
+        }
+        return $result;
     }
 
 
