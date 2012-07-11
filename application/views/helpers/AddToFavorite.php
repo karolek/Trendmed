@@ -14,7 +14,7 @@ class Trendmed_View_Helper_AddToFavorite extends Zend_View_Helper_Abstract
         return $this->view->getScriptPath($script);
     }
 
-    public function AddToFavorite($entity)
+    public function AddToFavorite($entity, $text = 'Add to favorite')
     {
         // add javascript to make a ajax request
         $this->view->headScript()->appendFile('/js/general.js');
@@ -36,10 +36,10 @@ class Trendmed_View_Helper_AddToFavorite extends Zend_View_Helper_Abstract
                 $class = 'fav';
             }
         } else { // user not logged, making special LoggedLink
-            return $this->view->LoggedLink('Add to favorite', array());
+            return $this->view->LoggedLink($text, array());
         }
 
-        $output = '<a entity="' . $entityName . '" href="' . $linkUrl . '" class="'. $class .' add-to-fav">Add to favorite</a>';
+        $output = '<a entity="' . $entityName . '" href="' . $linkUrl . '" class="'. $class .' add-to-fav">' . $text . '</a>';
 
         return $output;
     }

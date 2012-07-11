@@ -1,0 +1,6 @@
+<div class="clinic-favorite">
+	<?= $this->ShowClinicLogo($this->clinic); ?>
+	<?= $this->clinic->name; ?><br>
+	<?= $this->clinic->city; ?><br>
+	<?= $this->AddToFavorite($this->clinic, 'remove'); ?>
+</div>

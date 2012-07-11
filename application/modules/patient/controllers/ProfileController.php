@@ -10,6 +10,14 @@ class Patient_ProfileController extends Zend_Controller_Action
         $this->_em =  $this->_helper->getEm();
 
     }
+    
+    /**
+     * This is patient dashboard, displays he's reservations and fav. clinics
+     */
+    public function indexAction()
+    {
+        
+    }
 
     public function addFavoriteClinicAction()
     {

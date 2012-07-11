@@ -51,6 +51,7 @@ class LoadCategoriesData extends \Doctrine\Common\DataFixtures\AbstractFixture i
             $lastCategory = $categoryObject;
         }
 
+        $i = 1;
         foreach ($this->_subcategoriesNames as $subcategoryName) {
             $categoryObject = new \Trendmed\Entity\Category();
             foreach ($config->languages as $lang) {
@@ -65,6 +66,8 @@ class LoadCategoriesData extends \Doctrine\Common\DataFixtures\AbstractFixture i
             }
             $categoryObject->setParent($lastCategory);
             $manager->persist($categoryObject);
+            $this->addReference('subcategory-'.$i, $categoryObject);
+            $i++;
         }
 
         $manager->flush();
