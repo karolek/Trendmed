@@ -39,6 +39,36 @@ class Patient extends \Trendmed\Entity\User
      */
     protected $favoriteClinics;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * @var string $name User real name
+     */
+    protected $name;
+
+    /**
+     * @var string $title One of user titles like (Mr, Ms, Dr and such)
+     * @ORM\Column(type="string", nullable=true);
+     */
+    protected $title;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * @var string $country User real country name
+     */
+    protected $country;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * @var string $facebookId User facebook account ID (if connected)
+     */
+    protected $facebookId;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * @var string $phoneNumber User real phone number
+     */
+    protected $phoneNumber;
+
     /* GETTERS AND SETTERS */
     public function getId() {
         return $this->id;
@@ -54,9 +84,8 @@ class Patient extends \Trendmed\Entity\User
 
     protected $_welcomeEmailScript = 'register/_welcomeEmail.phtml';
 
-
     /**
-     * @param \Doctrine\Common\Collections\ArrayCollection $favoriteClinics
+     * @param Clinic $clinic
      */
     public function addFavoriteClinic(\Trendmed\Entity\Clinic $clinic)
     {
@@ -87,6 +116,10 @@ class Patient extends \Trendmed\Entity\User
         return $this->login;
     }
 
+    /**
+     * @param Clinic $clinic
+     * @return string "unlike" if user was unlinking the clinic, "like" if user was liking
+     */
     public function toggleFavoriteClinic(\Trendmed\Entity\Clinic $clinic)
     {
         if($this->isFavoringClinic($clinic)) {
@@ -99,5 +132,84 @@ class Patient extends \Trendmed\Entity\User
         return $result;
     }
 
+    /**
+     * @param string $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param string $facebookId
+     */
+    public function setFacebookId($facebookId)
+    {
+        $this->facebookId = $facebookId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFacebookId()
+    {
+        return $this->facebookId;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $phoneNumber
+     */
+    public function setPhoneNumber($phoneNumber)
+    {
+        $this->phoneNumber = $phoneNumber;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhoneNumber()
+    {
+        return $this->phoneNumber;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
 }
