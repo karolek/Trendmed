@@ -82,7 +82,8 @@ class Patient extends \Trendmed\Entity\User
         $this->roleName = $roleName;
     }
 
-    protected $_welcomeEmailScript = 'register/_welcomeEmail.phtml';
+    protected $_welcomeEmailScript  = 'register/_welcomeEmail.phtml';
+    protected $_newPasswordScript   = 'register/_newPassword.phtml';
 
     /**
      * @param Clinic $clinic
