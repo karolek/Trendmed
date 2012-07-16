@@ -84,6 +84,8 @@ class Patient extends \Trendmed\Entity\User
 
     protected $_welcomeEmailScript  = 'register/_welcomeEmail.phtml';
     protected $_newPasswordScript   = 'register/_newPassword.phtml';
+    protected $_newEmailScript      = 'profile/_newEmail.phtml';
+    protected $_moduleName = 'patient';
 
     /**
      * @param Clinic $clinic
@@ -211,6 +213,11 @@ class Patient extends \Trendmed\Entity\User
     public function getTitle()
     {
         return $this->title;
+    }
+
+    public function setEmailAddress($email)
+    {
+        $this->setLogin($email);
     }
 
 }

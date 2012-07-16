@@ -30,6 +30,11 @@
                     array('module' => 'patient', 'action' => 'change-password', 'controller' => 'profile'),
                     'default', true); ?>"><?= $this->translate('Change my password'); ?></a>
                 </li>
+                <li>
+                    <a href="<?= $this->url(
+                    array('module' => 'patient', 'action' => 'change-email', 'controller' => 'profile'),
+                    'default', true); ?>"><?= $this->translate('Change my e-mail address'); ?></a>
+                </li>
 		    </ul>
 		</li>
 		<li class=""><a href="<?= $this->url(array('module' => 'patient', 'action' => 'index', 'controller' => 'profile'), 'default', true); ?>"><?= $this->translate('My reservations'); ?></a></li>

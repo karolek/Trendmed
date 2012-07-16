@@ -24,6 +24,13 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
         'module'        => 'default'
     );
 
+    protected $_em;
+
+    public function init()
+    {
+        $this->_em = \Zend_Registry::get('doctrine')->getEntityManager();
+    }
+
     public function indexAction()
     {
 		$request = $this->getRequest();
@@ -194,6 +201,32 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
            }
         }
         $this->view->form = $form;
-    }    
+    }
+
+    public function newEmailAddressFromTokenAction()
+    {
+        $request = $this->getRequest();
+        $this->view->headTitle('E-mail change confirmation');
+        $token      = $request->getParam('token'); // either get or post param
+        // we have to find user by token
+        $user = $this->_em->getRepository($this->_userModel)->findOneByToken($token);
+        if(!$user) {
+            throw new \Exception('No user with this token found in DB', 500);
+        }
+
+        // checking if token is valid
+        if (false === $user->tokenIsValid($token)) {
+            $this->_helper->FlashMessenger(array('error' => 'The token You have supplied in URL
+		    is either incorrect or not valid anymore'));
+            $this->_helper->Redirector('index', 'index', 'user');
+        } else {
+            // we can now activate the new e-mail
+            $user->activateEmaillAddressFromTemp();
+            $this->_em->persist($user);
+            $this->_em->flush();
+            $this->_helper->FlashMessenger(array('success' => 'New e-mail address confirmed. Please notice that this also changes Your login.'));
+            $this->_helper->Redirector('index', 'index', 'default');
+        }
+    }
 }
 
