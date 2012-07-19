@@ -171,8 +171,10 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
     protected $favoredByUsers;
 
     protected $_welcomeEmailScript = 'register/_welcomeEmail.phtml';
+    protected $_newPasswordScript   = 'register/_newPassword.phtml';
+    protected $_newEmailScript      = 'profile/_newEmail.phtml';
 
-    
+
     /* END PROPERTIES */
     /*  GETTERS AND SETTERS */
     public function getId() {

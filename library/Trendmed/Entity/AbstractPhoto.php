@@ -198,7 +198,8 @@ abstract class AbstractPhoto extends \Me\Model\ModelAbstract
                 throw new \Exception('_photoTypeName variable not defined for '.get_class($this));
             }
             if(!$photoConfig = $config->$configName->photo) throw new \Exception(
-                'No config in application.ini for photo '.$configName.', please define it'
+                'No config in application.ini for photo '.$configName.', please define it. E.g.
+                photoTypeName.photo.uploadDir = x'
             );
             // checking if config is valid
             if(count($photoConfig->sizes) < 1) {

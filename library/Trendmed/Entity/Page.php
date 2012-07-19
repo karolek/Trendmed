@@ -7,7 +7,7 @@ use Gedmo\Translatable\Translatable;
 
 /**
 * Description of Page
-* @ORM\Entity
+* @ORM\Entity(repositoryClass="Trendmed\Repository\PagesRepository")
 * @ORM\Table(name="pages")
 * @ORM\HasLifecycleCallbacks
 * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
@@ -24,6 +24,12 @@ class Page extends \Me\Model\ModelAbstract
         $this->isSystemic = false;
         parent::__construct($options);
     }
+
+    public static $pageTypes = array(
+        'textpage'          => 'Podstrona tekstowa',
+        'article_normal'    => 'Artykuł zwyczajny',
+        'aritcle_sponsored' => 'Artykuł sponsorowany'
+    );
 
 
     /* PROPERTIES */
@@ -75,7 +81,7 @@ class Page extends \Me\Model\ModelAbstract
 
     /**
      * @ORM\Column(type="boolean")
-     * @var isSystemic state if this page is important frm the system point of view if yes, than it can't be deleted by user
+     * @var isSystemic state if this page is important from the system point of view if yes, than it can't be deleted by user
      */
     protected $isSystemic;
 
@@ -85,6 +91,11 @@ class Page extends \Me\Model\ModelAbstract
      * this is not a mapped field of entity metadata, just a simple property
      */
     private $locale;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Trendmed\Entity\ArticlePhoto")
+     */
+    protected $leadPhoto;
 
 
     public function setContent($content)
@@ -143,14 +154,22 @@ class Page extends \Me\Model\ModelAbstract
         return $this->title;
     }
 
-    public function setType($type)
+    public function setType($key)
     {
-        $this->type = $type;
+        if(!array_key_exists($key, self::$pageTypes)) {
+            throw new \Exception('Page type: "'.$key.'" in not defined in '.__CLASS__);
+        }
+        $this->type = $key;
     }
 
     public function getType()
     {
         return $this->type;
+    }
+
+    public function getTypeName()
+    {
+        return self::$pageTypes[$this->getType()];
     }
 
     public function setSlug($slug)
@@ -223,6 +242,21 @@ class Page extends \Me\Model\ModelAbstract
     public function getIsSystemic()
     {
         return $this->isSystemic;
+    }
+
+    public function setLeadPhoto(\Trendmed\Entity\ArticlePhoto $photo)
+    {
+        $this->leadPhoto = $photo;
+    }
+
+    public function getLeadPhoto()
+    {
+        return $this->leadPhoto;
+    }
+
+    public function removeLeadPhoto()
+    {
+        $this->leadPhoto = null;
     }
 
 }

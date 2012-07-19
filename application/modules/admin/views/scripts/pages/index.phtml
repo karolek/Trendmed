@@ -5,6 +5,7 @@
     <tr>
         <th>#Id</th>
         <th><?= $this->translate('Title'); ?></th>
+        <th><?= $this->translate('Lead photo'); ?></th>
         <th><?= $this->translate('Type'); ?></th>
         <th><?= $this->translate('Link'); ?></th>
         <th><?= $this->translate('Last Edited'); ?></th>
@@ -17,7 +18,8 @@
     <tr>
         <td><?= $page->id; ?></td>
         <td><?= $page->title; ?> <? if(!$page->isActive()): ?><small><em>(<?= $this->translate('not active');?>)</em></small><? endif;?></td>
-        <td><?= $page->type; ?></td>
+        <td><?php if($page->getLeadPhoto()): ?><?= $this->ShowPhoto($page->leadPhoto, 'small', 'ArticlePhoto'); ?><?php endif; ?></td>
+        <td><?= $page->getTypeName(); ?></td>
         <td>
             <input disabled="disabled" type="text" value="http://<?= $_SERVER['HTTP_HOST'].$this->url( array('slug' => $page->slug), 'page', true); ?>"/>
         </td>

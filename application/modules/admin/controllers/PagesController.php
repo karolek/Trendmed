@@ -49,7 +49,12 @@ class Admin_PagesController extends \Zend_Controller_Action
                 'title' => $entity->getTitle(),
                 'content' => $entity->getContent(),
                 'type'      => $entity->getType(),
+
             ));
+
+            if($entity->getLeadPhoto()) {
+                $form->addPhoto($entity->getLeadPhoto(), $this->view->getHelper('ShowPhoto'));
+            }
 
             foreach($translations as $transCode => $trans) {
                 $form->setDefault('title_'.$transCode, $trans['title']);
@@ -64,7 +69,22 @@ class Admin_PagesController extends \Zend_Controller_Action
         if($req->isPost()) {
             $post = $req->getPost();
             if($form->isValid($post)) {
+                // we need to process the lead photo before $form->getValues as it clears the $_FILES array
+                if($_FILES['leadPhoto']['tmp_name']) {
+                    $articlePhoto = new \Trendmed\Entity\ArticlePhoto();
+                    $articlePhoto->processUpload();
+                    // remove old photo
+                    if($entity->getLeadPhoto()) {
+                        $this->_em->remove($entity->getLeadPhoto());
+                        $this->_em->flush();
+                    }
+                    $articlePhoto->setArticle($entity);
+
+                    $this->_em->persist($articlePhoto);
+
+                }
                 $values = $form->getValues();
+                unset($values['leadPhoto']);
                 $entity->setOptions($values);
 
                 foreach ($config->languages as $lang) {

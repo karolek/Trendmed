@@ -1,6 +1,24 @@
 <?php
 class Patient_Form_NewPassword extends Twitter_Form
 {
+
+    public function setNotFromToken()
+    {
+
+        // adding old password for verify
+        $passwordValidator = new Zend_Validate_StringLength(array('min' => 6, 'max' => 20, 'encoding' => 'utf-8'));
+        $this->addElement('password', 'old_password', array(
+            'filters'    => array('StringTrim'),
+            'required'   => true,
+            'label'      => 'Old password',
+            'validators' => array($passwordValidator),
+            'order'      => 0,
+        ));
+
+        $this->removeElement('token');
+    }
+
+
     public function init()
     {
         $this->setName("newpassword");
@@ -14,7 +32,10 @@ class Patient_Form_NewPassword extends Twitter_Form
             'label'      => 'Old password',
             'validators' => array($passwordValidator),
         ));
-        
+        //adding token hidden field
+        $this->addElement('hidden', 'token');
+
+
         $passwordValidator = new Zend_Validate_StringLength(array('min' => 6, 'max' => 20, 'encoding' => 'utf-8'));
         $this->addElement('password', 'password', array(
             'filters'    => array('StringTrim'),
@@ -31,9 +52,7 @@ class Patient_Form_NewPassword extends Twitter_Form
 	    ));
 	    
 		$submit      = new Zend_Form_Element_Submit('register');
-		
-		$this->addElement('hidden', 'token');
-        
+
         $submit->setLabel('Set new password');
 		$this->addElement($submit);
     }

@@ -29,13 +29,23 @@ class Admin_Form_Page extends Twitter_Form
             unset($content);
 
         }
+        // lead photo
+        $file = new \Zend_Form_Element_File('leadPhoto');
+        $file->setLabel('Lead photo');
+        $file->setDescription('Zdjęcie przypisane do artykułu');
+        // ensure only 1 file
+        $file->addValidator('Count', false, 1);
+        // limit to 100K
+        $file->addValidator('Size', false, 102400 * 10);
+        // only JPEG, PNG, and GIFs
+        $file->addValidator('Extension', false, 'jpg,png,gif');
+        $this->addElement($file);
 
         // adding page types
-        $config = \Zend_Registry::get('config');
         $type = new \Zend_Form_Element_Select('type');
         $type->setLabel('Page type');
-        foreach ($config->pages->types as $typ) {
-            $type->addMultiOption($typ, $typ);
+        foreach (\Trendmed\Entity\Page::$pageTypes as $key => $label) {
+            $type->addMultiOption($key, $label);
         }
         //$type->setDescription('Type will determine some minor features. E.g. Articles and Camera Reviews can be liked
         //by users, text pages don\'t. Use Text pages for general information, like policies, about us, terms and conditions etc.');
@@ -48,6 +58,13 @@ class Admin_Form_Page extends Twitter_Form
 
         // hidden for edit
         $this->addElement('hidden', 'id');
+    }
+
+    public function addPhoto(\Trendmed\Entity\ArticlePhoto $photo, Zend_View_Helper_Abstract $showPhotoHelper)
+    {
+        $element = $this->getElement('leadPhoto');
+        $element->getDecorator('Description')->setEscape(false);
+        $element->setDescription($showPhotoHelper->showPhoto($photo, 'small', 'ArticlePhoto').' wybranie nowego zdjęcia napisze aktualne zdjęcie');
     }
 
 }

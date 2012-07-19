@@ -165,10 +165,10 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
             throw new Exception('No token given in URL', 404);
         }
         $model = new $this->_userModel;
-        $userMapper = $model->getMapper();
- 	   
+        $userMapper = $this->_em->getRepository($this->_userModel);
+
         // we have to find user by token
-        $user = $userMapper->findByToken($token);
+        $user = $userMapper->findOneByToken($token);
         if(!$user) {
             throw new \Exception('No user with this token found in DB', 500);
         }
@@ -187,8 +187,9 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
                $user->setPassword($values['password']);
                $user->setToken(null);
                $user->setTokenValidUntil(null);
-               $mapper = $user->getMapper();
-               $mapper->save($user);
+               $this->_em->persist($user);
+               $this->_em->flush();
+
                $this->_helper->FlashMessenger(array('success' => 'New password set for user: '.$user->getUsername()));
                
                $this->_helper->Redirector(

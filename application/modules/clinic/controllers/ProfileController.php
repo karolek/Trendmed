@@ -146,31 +146,39 @@ class Clinic_ProfileController extends Zend_Controller_Action
      */
     public function changePasswordAction() 
     {
-        $this->view->headTitle($this->view->translate('Password change'));
         $form = new Clinic_Form_NewPassword();
+        // this form will not use token to authorize
+        $form->setNotFromToken();
 
         $user = $this->_helper->LoggedUser();
         if (!$user) {
-            throw new \Exception(
-                'No logged user found, so now edit Details is possible'
-            );
+            throw new \Exception('No logged user found, so now edit Details
+               is possible');
         }
 
         $request = $this->getRequest();
         if ($request->isPost()) {
             $post = $request->getPost();
+            // we should authorize the user with an old password
+            //checking password
+            if(!$user->authorize($post['old_password'])) {
+                $form->getElement('old_password')->addError('Password does not match with Your account password');
+            }
             if ($form->isValid($post)) {
                 $values = $form->getValues();
                 $user->setPassword($values['password']);
                 $user->sendNewPasswordEmail();
                 $this->_em->persist($user);
                 $this->_em->flush();
-                $this->_helper->FlashMessenger(
-                    array('success' => 'You have changed Your password')
-                );
+                $this->_helper->FlashMessenger(array('success' => 'You have changed Your password'));
+            } else {
+                $form->getElement('old_password')->markAsError();
+                $this->_helper->FlashMessenger(array('warning' => 'Please fix the errors in the form'));
             }
         }
         $this->view->form = $form;
+        $this->view->headTitle('Change my password');
+
     }
 
     /**

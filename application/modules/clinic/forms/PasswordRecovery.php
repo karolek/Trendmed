@@ -15,6 +15,7 @@ class Clinic_Form_PasswordRecovery extends Twitter_Form
             ),
             'required'   => true,
             'label'      => 'Your e-mail',
+            'description'=> 'Login to Your account'
         ));
 		
 		$submit      = new Zend_Form_Element_Submit('Recover');
