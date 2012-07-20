@@ -21,19 +21,23 @@ class PagesRepository extends \Doctrine\ORM\EntityRepository {
 
         switch($limitToType) {
             case false:
-                $qb->where('p.type = "aritcle_sponsored"')
-                    ->andWhere('p.type = "article_normal"');
+                $qb->where('p.type = ?1')
+                   ->orWhere('p.type = ?2');
                 break;
             case 'sponsored':
-                //TODO
+                $qb->where('p.type = ?1');
                 break;
             case 'normal':
-                //todo
+                $qb->where('p.type = ?2');
                 break;
         }
+        $qb->setParameters(array(
+            '1' => 'aritcle_sponsored',
+            '2' => 'article_normal'
+        ));
         $qb->setMaxResults($limit);
         $query = $qb->getQuery();
-        $result = $query->getArrayResult();
-        return $result[0];
+        $result = $query->getResult();
+        return $result;
     }
 }

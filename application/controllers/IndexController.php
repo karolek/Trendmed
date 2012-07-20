@@ -16,6 +16,10 @@ class IndexController extends \Zend_Controller_Action
         // action body
         $this->view->headTitle('Homepage');
         $this->_helper->layout()->setLayout('homepage');
+
+        // fetching latest articles for home page
+        $this->view->articles = $this->_em->getRepository('\Trendmed\Entity\Page')
+            ->fetchLatestArticles(3);
     }
 
     /**

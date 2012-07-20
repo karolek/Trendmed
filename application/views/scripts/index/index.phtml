@@ -20,3 +20,13 @@
   <p>Więcej na temat tego czym jest <strong>Trendmed</strong> możesz dowiedzieć się z naszej prezentacji. </p>
   <p><a class="btn btn-primary btn-large" href="http://www.trendmed.eu/prezentacja/trendmed.pdf">Pobierz PDF &raquo;</a></p>
 </div>
+<!-- @todo ostylować -->
+<?php if(count($this->articles) > 0): ?>
+    <?php foreach($this->articles as $article): ?>
+        <h2><?= $article->getTitle(); ?></h2>
+        <?php if($article->getLeadPhoto()): ?>
+            <?= $this->ShowPhoto($article->getLeadPhoto(), 'small', 'ArticlePhoto'); ?>
+        <?php endif; ?>
+        <?= $article->content; ?>
+    <?php endforeach; ?>
+<?php endif; ?>
