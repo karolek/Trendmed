@@ -1,0 +1,33 @@
+<form method="GET" action="<?= $this->url(array(
+    'action'        => 'archive',
+    'controller'    => 'pages',
+    'module'        => 'default'
+), 'default', true); ?>">
+    <label><?= $this->translate('Search for article'); ?><input value="<?= $this->article_search; ?>" type="text" name="article_search"></label>
+</form>
+<?php if($this->article_search): ?>
+    <div class="alert alert-success">
+        <?= $this->translate("Articles found: %1\$s", count($this->articles)); ?>
+    </div>
+<?php endif; ?>
+
+<?php if (count($this->articles) > 0): ?>
+<?php echo $this->paginationControl($this->zendPaginator, 'Sliding', '_defaultPagination.phtml'); ?>
+<ol>
+    <?php foreach ($this->articles as $article): ?>
+        <li>
+            <a href="<?= $this->url(array('slug' => $article->slug), 'page', true); ?>"><?= $article->getTitle(); ?></a>
+            <p>
+                <?php if($article->getLeadPhoto()): ?>
+                    <?= $this->ShowPhoto($article->getLeadPhoto(), 'small', 'ArticlePhoto'); ?>
+                <?php endif; ?>
+                <?= $this->Truncate($article->content)->toLength(100); ?>
+            </p>
+
+        </li>
+    <?php endforeach;?>
+</ol>
+<?php else: ?>
+    <?= $this->translate('No articles in the system')
+    ; ?>
+<?php endif; ?>

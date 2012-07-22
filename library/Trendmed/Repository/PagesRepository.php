@@ -5,7 +5,8 @@ namespace Trendmed\Repository;
  *
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
-class PagesRepository extends \Doctrine\ORM\EntityRepository {
+class PagesRepository extends \Doctrine\ORM\EntityRepository
+{
 
     /**
      * @param int $limit
@@ -19,21 +20,28 @@ class PagesRepository extends \Doctrine\ORM\EntityRepository {
         $qb->select('p')
             ->from('\Trendmed\Entity\Page', 'p');
 
-        switch($limitToType) {
+        switch ($limitToType) {
             case false:
-                $qb->where('p.type = "aritcle_sponsored"')
-                    ->andWhere('p.type = "article_normal"');
+                $qb->where('p.type = ?1')
+                    ->orWhere('p.type = ?2');
                 break;
             case 'sponsored':
-                //TODO
+                $qb->where('p.type = ?1');
                 break;
             case 'normal':
-                //todo
+                $qb->where('p.type = ?2');
                 break;
         }
+        $qb->andWhere('p.isActive = ?3'); // for active
+        $qb->setParameters(array(
+            '1' => 'aritcle_sponsored',
+            '2' => 'article_normal',
+            '3' => 1
+        ));
         $qb->setMaxResults($limit);
         $query = $qb->getQuery();
-        $result = $query->getArrayResult();
-        return $result[0];
+        $result = $query->getResult();
+        return $result;
     }
+
 }

@@ -2,11 +2,12 @@
 /**
  * Controller takes care of displaying the clinics in categories
  * with pagination and sorting
- * 
+ *
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  *
  */
 use Doctrine\ORM\Tools\Pagination\Paginator;
+
 class Catalog_CategoriesController extends \Zend_Controller_Action
 {
 
@@ -28,17 +29,17 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
         $this->_helper->_layout->setLayout('homepage');
         $config = \Zend_Registry::get('config');
 
-        $request    = $this->getRequest();
-        $page       = $request->getParam('page', 1);
-        $order      = $request->getParam('order', 'created');
-        $direction  = $request->getParam('direction', 'DESC');
+        $request = $this->getRequest();
+        $page = $request->getParam('page', 1);
+        $order = $request->getParam('order', 'created');
+        $direction = $request->getParam('direction', 'DESC');
 
         // fetching data to paginator
         $qb = $this->_em->createQueryBuilder()
             ->select('s')
             ->from('\Trendmed\Entity\Service', 's')
             ->join('s.clinic', 'c')
-            ->orderBy('s.'.$order, $direction)
+            ->orderBy('s.' . $order, $direction)
             ->where('s.category = ?1')
             ->setFirstResult(($config->pagination->catalog->clinics * $page) - $config->pagination->catalog->clinics)
             ->setMaxResults($config->pagination->catalog->clinics);
@@ -52,7 +53,7 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
         // Making of a Zend_Paginator
         $zendPaginator = \Zend_Paginator::factory($c);
         $zendPaginator->setCurrentPageNumber($page);
-        $zendPaginator->setItemCountPerPage($config->pagination->homePage->projects);
+        $zendPaginator->setItemCountPerPage($config->pagination->catalog->clinics);
         $this->view->zendPaginator = $zendPaginator;
         $this->view->numOfPages = $numOfPages;
         $this->view->services = $paginator;
@@ -63,10 +64,10 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
     {
         $request = $this->getRequest();
         $slug = $request->getParam('slug');
-        if(!$slug) throw new \Exception('No param given in '.__FUNCTION__);
+        if (!$slug) throw new \Exception('No param given in ' . __FUNCTION__);
         // fetching the category
         $category = $this->_repo->findOneBySlug($slug);
-        if(!$category) throw new \Exception('No category with slug: '.$slug, 404);
+        if (!$category) throw new \Exception('No category with slug: ' . $slug, 404);
         return $category;
     }
 
