@@ -7,7 +7,7 @@ class PagesController extends Zend_Controller_Action
     protected $_em;
     protected $_repo;
 
-    
+
     public function init()
     {
         /* Initialize action controller here */
@@ -21,11 +21,8 @@ class PagesController extends Zend_Controller_Action
         $slug = $request->getParam('slug');
         $type = $request->getParam('type', 'Text page');
         $page = $this->_repo->findOneBySlug($slug);
-        if(!$page) {
+        if (!$page) {
             throw new \Exception('Page not found', 404);
-        }
-        if($page->type != $type) {
-            throw new \Exception('this is wrong page type');
         }
         if (!$page->isActive()) {
             throw new \Exception('this page is not active', 404);

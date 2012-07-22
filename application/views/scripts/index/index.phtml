@@ -1,32 +1,45 @@
 <div class="hero-unit">
-  <h1>Zapraszamy do rejestracji</h1>
-  <p>Zapraszamy placówki do rejestracji już teraz.
-      Dzięki temu, po premierze serwisu uzyskasz atrakcyjne rabaty i aż 3 miesiące
-  abonamentu gratis.</p>
-  <p><a class="btn btn-primary btn-large" href="<?= $this->url(array(
-      'action'      => 'index',
-      'controller'  => 'register',
-      'module'      => 'clinic',
-  ), 'default', true); ?>">Przejdź do rejestracji &raquo;</a>
+    <h1>Zapraszamy do rejestracji</h1>
 
-  <a class="btn btn-primary" href="<?= $this->url(array(
-      'action'      => 'index',
-      'controller'  => 'index',
-      'module'      => 'clinic',
-  ), 'default', true); ?>">Logowanie &raquo;</a></p>
+    <p>Zapraszamy placówki do rejestracji już teraz.
+        Dzięki temu, po premierze serwisu uzyskasz atrakcyjne rabaty i aż 3 miesiące
+        abonamentu gratis.</p>
+
+    <p><a class="btn btn-primary btn-large" href="<?= $this->url(array(
+        'action' => 'index',
+        'controller' => 'register',
+        'module' => 'clinic',
+    ), 'default', true); ?>">Przejdź do rejestracji &raquo;</a>
+
+        <a class="btn btn-primary" href="<?= $this->url(array(
+            'action' => 'index',
+            'controller' => 'index',
+            'module' => 'clinic',
+        ), 'default', true); ?>">Logowanie &raquo;</a></p>
 </div>
 <div class="hero-unit">
-  <h1>Dowiedz się więcej</h1>
-  <p>Więcej na temat tego czym jest <strong>Trendmed</strong> możesz dowiedzieć się z naszej prezentacji. </p>
-  <p><a class="btn btn-primary btn-large" href="http://www.trendmed.eu/prezentacja/trendmed.pdf">Pobierz PDF &raquo;</a></p>
+    <h1>Dowiedz się więcej</h1>
+
+    <p>Więcej na temat tego czym jest <strong>Trendmed</strong> możesz dowiedzieć się z naszej prezentacji. </p>
+
+    <p><a class="btn btn-primary btn-large" href="http://www.trendmed.eu/prezentacja/trendmed.pdf">Pobierz
+        PDF &raquo;</a></p>
 </div>
 <!-- @todo ostylować -->
-<?php if(count($this->articles) > 0): ?>
-    <?php foreach($this->articles as $article): ?>
-        <h2><?= $article->getTitle(); ?></h2>
-        <?php if($article->getLeadPhoto()): ?>
-            <?= $this->ShowPhoto($article->getLeadPhoto(), 'small', 'ArticlePhoto'); ?>
+<?php if (count($this->articles) > 0): ?>
+<?php foreach ($this->articles as $article): ?>
+    <h2><?= $article->getTitle(); ?></h2>
+    <?php if ($article->getLeadPhoto()): ?>
+            <?=
+            $this->ShowPhoto($article->getLeadPhoto(), 'small', 'ArticlePhoto')
+            ; ?>
         <?php endif; ?>
-        <?= $article->content; ?>
+        <?=
+        $this->Truncate($article->content)->toLength(100)
+        ; ?>
+
+    <a href="<?= $this->url(
+        array('slug' => $article->getSlug()), 'page', true
+    ); ?>"><?= $this->translate('Read more'); ?></a>
     <?php endforeach; ?>
 <?php endif; ?>
