@@ -1,0 +1,11 @@
+<?php if (count($this->articles) > 0): ?>
+<?php echo $this->paginationControl($this->zendPaginator, 'Sliding', '_defaultPagination.phtml'); ?>
+<ol>
+    <?php foreach ($this->articles as $article): ?>
+    <li><?= $article->getTitle(); ?></li>
+    <?php endforeach;?>
+</ol>
+<?php else: ?>
+    <?= $this->translate('No articles in the system')
+    ; ?>
+<?php endif; ?>
