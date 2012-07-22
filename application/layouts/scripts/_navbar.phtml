@@ -24,7 +24,15 @@
                 
                 
         <ul class="nav">
+            <li>
+                <a href="<?= $this->url(array(
+                    'action' => 'archive',
+                    'controller' => 'pages',
+                    'module' => 'default'
+                ), 'default', true); ?>"><?= $this->translate('Articles'); ?></a>
+            </li>
 			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">
+
                 <?= $this->translate('For clinics'); ?><b class="caret"></b></a>
 				<ul class="dropdown-menu">
                     <li><a href="<?= $this->url(

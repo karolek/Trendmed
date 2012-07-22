@@ -65,7 +65,13 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
      */
     protected $modified;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $tempEmailAddress;
+
     protected $_welcomeEmailScript = null; //implement in subclass, this is file of view with HTML content of welcome email
+    protected $_moduleName = null; // name of the MCV module used to handle current user entity, used for links in email generation
     /* END PROPERTIES */
     
     /* GETTERS AND SETTERS */
@@ -108,11 +114,11 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
     }
 
     public function getToken() {
-        return $this->token;
+        return (string) $this->token;
     }
 
     public function setToken($token) {
-        $this->token = $token;
+        $this->token = (string) $token;
         return $this;
     }
 
@@ -149,6 +155,7 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
     public function setModified($modified) {
         $this->modified = $modified;
     }
+
 
     
     /* END GETTERS AND SETTERS */
@@ -221,14 +228,20 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
     
     public function generatePasswordRecoveryToken()
     {
-        $string = md5($this->getEmailaddress() . $this->getId() . time());
+        if(!$this->getEmailaddress()) {
+            throw new \Exception('Model should have an e-mail address to generate token');
+        }
+        $string = md5($this->getEmailaddress() . time());
         $token = substr($string, 12);
+        // also, we need ensure that no 0 is in string, this couse some errors with gmail (it cuts them from links)
+        $token = str_replace('0', 'z', $token);
         $this->setToken($token);
         $config = \Zend_Registry::get('config');
         // setting the token valid time, it can be changed in config/application.ini;
-        
+
         $h = $config->usersAccounts->tokenValidTimeInHours;
-        $time = strtotime("+ $h hours");
+        $time = new \DateTime();
+        $time->add(new \DateInterval("PT".$h."H"));
         $this->setTokenValidUntil($time);
         return $this;
     }
@@ -241,9 +254,9 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
      */
     public function sendPasswordRecoveryToken($link)
     {
-        $mail = new Zend_Mail();
-        $config = Zend_Registry::get('config');
-        $log = Zend_Registry::get('log');
+        $mail = new \Zend_Mail('UTF-8');
+        $config = \Zend_Registry::get('config');
+        $log = \Zend_Registry::get('log');
         // we'r setting the password recovery link
         // we should check if the token is valid, if not, we should generate new one
         $token = $this->getToken();
@@ -258,8 +271,9 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
         $mail->setSubject($config->siteEmail->passwordRecoveryEmailSubject);
         $mail->send();
         $log->debug('E-mail send to: ' . $this->getEmailaddress() . ' 
-        from '.$mail->getFrom() . ' subject: ' . $mail->getSubject());    }
-    
+        from '.$mail->getFrom() . ' subject: ' . $mail->getSubject());
+    }
+
     /**
      * Checks if token if given token is valid for this user
      *
@@ -268,12 +282,15 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
      */
     public function tokenIsValid($token)
     {
+        if(empty($token)) {
+            return false;
+        }
         // we first check if given token is the same as one in model
         if($token != $this->getToken()) {
             return false;
         }
         // then we check if it's still valid
-        if($this->getTokenValidUntil() < time()) {
+        if($this->getTokenValidUntil()->getTimestamp() < time()) {
             return false;
         }
         return true;
@@ -341,22 +358,93 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
         return substr(md5(rand(1,999999).time()), 0, 12);   
     }
     
-    protected function getUsername()
+    public function getUsername()
     {
         return $this->getLogin();
     }
     
     public function sendNewPasswordEmail()
     {
-    	$mail = new \Zend_Mail();
-    	$config = \Zend_Registry::get('config');
-    	$log = \Zend_Registry::get('log');
-    	$mail->setBodyText('This is the text of new password notification');
-    	$mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName);
-    	$mail->addTo($this->getEmailaddress(), $this->getUsername());
-    	$mail->setSubject($config->siteEmail->newPasswordSubject);
-    	$mail->send();
-    	$log->debug('E-mail send to: ' . $this->getEmailaddress() . '
-    			from '.$mail->getFrom() . ' subject: ' . $mail->getSubject());
+        $mail = new \Zend_Mail('UTF-8');
+        $config = \Zend_Registry::get('config');
+        $log = \Zend_Registry::get('log');
+
+        // checking if template file is defined
+        if(empty($this->_newPasswordScript)) {
+            throw new \Exception('No content template (_newPasswordScript) defined for class '.__CLASS__);
+        }
+        $view = \Zend_Registry::get('view');
+        $htmlContent = $view->render($this->_newPasswordScript); // rendering a view template for content
+        $mail->setBodyHtml($htmlContent);
+        $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName);
+        $mail->addTo($this->getEmailaddress(), $this->getLogin());
+        $mail->addBcc($config->siteEmail->fromAddress, 'Redaktor Trendmed.eu'); //Adding copy for admin
+        $mail->setSubject($config->siteEmail->newPasswordSubject);
+        $mail->send();
+        $log->debug('E-mail send to: ' . $this->getEmailaddress() . '
+        from '.$mail->getFrom() . ' subject: ' . $mail->getSubject());
+
     }
+
+    public function setTempEmailAddress($tempEmailAddress)
+    {
+        $this->tempEmailAddress = $tempEmailAddress;
+    }
+
+    public function getTempEmailAddress()
+    {
+        return $this->tempEmailAddress;
+    }
+
+    public function activateEmaillAddressFromTemp()
+    {
+        $this->setEmailaddress($this->getTempEmailAddress());
+        $this->setTempEmailAddress(null);
+        return $this;
+    }
+
+    public function sendNewEmailAddressEmail()
+    {
+        $mail = new \Zend_Mail('UTF-8');
+        $config = \Zend_Registry::get('config');
+        $log = \Zend_Registry::get('log');
+
+        // checking if template file is defined
+        if(empty($this->_newEmailScript)) {
+            throw new \Exception('No content template (_newEmailScript) defined for class '.__CLASS__);
+        }
+        // we'r setting the password recovery link
+        // we should check if the token is valid, if not, we should generate new one
+        $view = \Zend_Registry::get('view');
+        $view->link = $this->_getEmailChangeLink();
+        $htmlContent = $view->render($this->_newEmailScript); // rendering a view template for content
+
+        $mail->setBodyHtml($htmlContent);
+
+        $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName);
+        $mail->addTo($this->getTempEmailAddress(), $this->getUsername());
+        $mail->setSubject($config->siteEmail->newEmailAddressSubject);
+        $mail->send();
+        $log->debug('E-mail send to: ' . $this->getEmailaddress() . '
+        from '.$mail->getFrom() . ' subject: ' . $mail->getSubject());
+    }
+
+    protected function _getEmailChangeLink()
+    {
+        if ($this->_moduleName) {
+            $moduleName = $this->_moduleName;
+        } else {
+            $moduleName = get_class($this);
+        }
+        // generating token
+        $token = $this->getToken();
+
+        if(!$this->tokenIsValid($token)) {
+            $token = (string) $this->generatePasswordRecoveryToken()->getToken();
+        }
+
+        return 'http://'. $_SERVER['HTTP_HOST'] . '/'. $moduleName. '/index/new-email-address-from-token/token/' . $token;
+
+    }
+
 }

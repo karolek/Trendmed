@@ -74,7 +74,7 @@ class Patient_ProfileController extends Zend_Controller_Action
                 $patient->setCountry($values['country']);
                 $patient->setPhoneNumber($values['phoneNumber']);
                 $patient->setTitle($values['title']);
-                
+
                 $this->_em->persist($patient);
                 $this->_em->flush();
 
@@ -93,6 +93,66 @@ class Patient_ProfileController extends Zend_Controller_Action
 
     public function changePasswordAction()
     {
+        $form = new Patient_Form_NewPassword();
 
+        // informing the form that this change is done not from token but by logged user
+        $form->setNotFromToken();
+        $user = $this->_helper->LoggedUser();
+        if (!$user) {
+            throw new \Exception('No logged user found, so now edit Details
+               is possible');
+        }
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $post = $request->getPost();
+            // we should authorize the user with an old password
+            //checking password
+            if(!$user->authorize($post['old_password'])) {
+                $form->getElement('old_password')->addError('Password does not match with Your account password');
+            }
+            if ($form->isValid($post)) {
+                $values = $form->getValues();
+                $user->setPassword($values['password']);
+                $user->sendNewPasswordEmail();
+                $this->_em->persist($user);
+                $this->_em->flush();
+                $this->_helper->FlashMessenger(array('success' => 'You have changed Your password'));
+            } else {
+                $form->getElement('old_password')->markAsError();
+                $this->_helper->FlashMessenger(array('warning' => 'Please fix the errors in the form'));
+            }
+        }
+        $this->view->form = $form;
+        $this->view->headTitle('Change my password');
+    }
+
+    public function changeEmailAction()
+    {
+        $form = new Patient_Form_ChangeEmail();
+        $request = $this->getRequest();
+
+        if($request->isPost()) {
+            $post = $request->getPost();
+            $user = $this->_helper->LoggedUser();
+            //checking password
+            if(!$user->authorize($post['password'])) {
+                $form->getElement('password')->addError('Password does not match with Your account password');
+            }
+            if($form->isValid($post)) {
+                $values = $form->getValues();
+                $user->setTempEmailAddress($values['emailaddress']);
+                $user->setToken($user->generatePasswordRecoveryToken()->getToken());
+                $user->sendNewEmailAddressEmail();
+                $this->_em->persist($user);
+                $this->_em->flush();
+                $this->_helper->FlashMessenger(array('success' => 'Please confirm Your new e-mail address'));
+            } else {
+                $form->getElement('password')->markAsError();
+                $this->_helper->FlashMessenger(array('warning' => 'Please fix the errors in the form    '));
+            }
+        }
+        $this->view->headTitle('Change e-mail address');
+        $this->view->form = $form;
     }
 }

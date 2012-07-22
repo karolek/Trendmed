@@ -47,6 +47,7 @@ class PagesController extends Zend_Controller_Action
         $page = $request->getParam('page', 1);
         $order = $request->getParam('order', 'created');
         $direction = $request->getParam('direction', 'DESC');
+        $search = $request->getParam('article_search', null);
 
         // fetching data to paginator
         $qb = $this->_em->createQueryBuilder()
@@ -58,6 +59,13 @@ class PagesController extends Zend_Controller_Action
             ->setMaxResults($config->pagination->pages->archiwum);
 
         $qb->setParameter(1, 1); // only active
+
+        // search for article
+        if($search) {
+            $qb->andWhere('p.title LIKE ?2');
+            $qb->setParameter(2, '%'. $search . '%');
+            $this->view->article_search = $search;
+        }
 
 
         $paginator = new Paginator($qb, $fetchJoin = true);
@@ -76,5 +84,6 @@ class PagesController extends Zend_Controller_Action
         $this->view->addScriptPath(APPLICATION_PATH . '/layouts/scripts/');
 
     }
+
 }
 
