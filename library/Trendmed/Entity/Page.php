@@ -6,11 +6,11 @@ use Gedmo\Translatable\Translatable;
 
 
 /**
-* Description of Page
-* @ORM\Entity(repositoryClass="Trendmed\Repository\PagesRepository")
-* @ORM\Table(name="pages")
-* @ORM\HasLifecycleCallbacks
-* @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
+ * Description of Page
+ * @ORM\Entity(repositoryClass="Trendmed\Repository\PagesRepository")
+ * @ORM\Table(name="pages")
+ * @ORM\HasLifecycleCallbacks
+ * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
 class Page extends \Me\Model\ModelAbstract
 {
@@ -26,9 +26,9 @@ class Page extends \Me\Model\ModelAbstract
     }
 
     public static $pageTypes = array(
-        'textpage'          => 'Podstrona tekstowa',
-        'article_normal'    => 'Artykuł zwyczajny',
-        'aritcle_sponsored' => 'Artykuł sponsorowany'
+        'textpage' => 'Podstrona tekstowa',
+        'article_normal' => 'Artykuł zwyczajny',
+        'article_sponsored' => 'Artykuł sponsorowany'
     );
 
 
@@ -97,6 +97,22 @@ class Page extends \Me\Model\ModelAbstract
      */
     protected $leadPhoto;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Trendmed\Entity\Clinic")
+     * @var one way relationship
+     */
+    protected $sponsoredByClinic;
+
+    public function setSponsoredByClinic(\Trendmed\Entity\Clinic $clinic)
+    {
+        $this->sponsoredByClinic = $clinic;
+    }
+
+    public function getSponsoredByClinic()
+    {
+        return $this->sponsoredByClinic;
+    }
+
 
     public function setContent($content)
     {
@@ -156,8 +172,8 @@ class Page extends \Me\Model\ModelAbstract
 
     public function setType($key)
     {
-        if(!array_key_exists($key, self::$pageTypes)) {
-            throw new \Exception('Page type: "'.$key.'" in not defined in '.__CLASS__);
+        if (!array_key_exists($key, self::$pageTypes)) {
+            throw new \Exception('Page type: "' . $key . '" in not defined in ' . __CLASS__);
         }
         $this->type = $key;
     }
@@ -203,10 +219,10 @@ class Page extends \Me\Model\ModelAbstract
      */
     public function validation()
     {
-        if(!$this->title) {
+        if (!$this->title) {
             throw new \Exception('Page must have a title');
         }
-        if(!$this->type) {
+        if (!$this->type) {
             throw new \Exception('Page must have a type');
         }
     }
@@ -225,7 +241,7 @@ class Page extends \Me\Model\ModelAbstract
      */
     public function onRemove()
     {
-        if($this->isSystemic) throw new \Exception('This page is systemic and cannot be removed');
+        if ($this->isSystemic) throw new \Exception('This page is systemic and cannot be removed');
     }
 
     /**

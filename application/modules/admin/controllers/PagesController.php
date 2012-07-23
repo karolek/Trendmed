@@ -6,19 +6,20 @@ class Admin_PagesController extends \Zend_Controller_Action
 {
     protected $_em; // doctrine entity manager
     protected $_repo; // pages repository
-    
+
     public function init()
     {
         $this->_em = $this->getDoctrineContainer()->getEntityManager();
         $this->_repo = $this->_em->getRepository('\Trendmed\Entity\Page');
     }
-    
+
     /**
      * Retrieve the Doctrine Container.
      *
      * @return Bisna\Application\Container\DoctrineContainer
      */
-    public function getDoctrineContainer() {
+    public function getDoctrineContainer()
+    {
         return $this->getInvokeArg('bootstrap')->getResource('doctrine');
     }
 
@@ -40,7 +41,7 @@ class Admin_PagesController extends \Zend_Controller_Action
         $repository = $this->_em->getRepository('Gedmo\Translatable\Entity\Translation');
         $form = new Admin_Form_Page();
 
-        if($pageId) {
+        if ($pageId) { // means we are in edit mode
             $entity = $this->_repo->find($pageId);
             $translations = $repository->findTranslations($entity);
 
@@ -48,33 +49,35 @@ class Admin_PagesController extends \Zend_Controller_Action
             $form->populate(array(
                 'title' => $entity->getTitle(),
                 'content' => $entity->getContent(),
-                'type'      => $entity->getType(),
+                'type' => $entity->getType(),
 
             ));
 
-            if($entity->getLeadPhoto()) {
+            if ($entity->getLeadPhoto()) {
                 $form->addPhoto($entity->getLeadPhoto(), $this->view->getHelper('ShowPhoto'));
             }
 
-            foreach($translations as $transCode => $trans) {
-                $form->setDefault('title_'.$transCode, $trans['title']);
-                $form->setDefault('content_'.$transCode, $trans['content']);
+            foreach ($translations as $transCode => $trans) {
+                $form->setDefault('title_' . $transCode, $trans['title']);
+                $form->setDefault('content_' . $transCode, $trans['content']);
             }
+            // if page is "sponsored" add sponsored clinic element to form
+            $form->addSponsoredClinicElement($entity);
             $this->view->headTitle('Edit page');
         } else {
             $this->view->headTitle('Add new page');
             $entity = new \Trendmed\Entity\Page;
         }
 
-        if($req->isPost()) {
+        if ($req->isPost()) {
             $post = $req->getPost();
-            if($form->isValid($post)) {
+            if ($form->isValid($post)) {
                 // we need to process the lead photo before $form->getValues as it clears the $_FILES array
-                if($_FILES['leadPhoto']['tmp_name']) {
+                if ($_FILES['leadPhoto']['tmp_name']) {
                     $articlePhoto = new \Trendmed\Entity\ArticlePhoto();
                     $articlePhoto->processUpload();
                     // remove old photo
-                    if($entity->getLeadPhoto()) {
+                    if ($entity->getLeadPhoto()) {
                         $this->_em->remove($entity->getLeadPhoto());
                         $this->_em->flush();
                     }
@@ -85,6 +88,10 @@ class Admin_PagesController extends \Zend_Controller_Action
                 }
                 $values = $form->getValues();
                 unset($values['leadPhoto']);
+                $sponsoredByClinic = $values['sponsoredByClinic'];
+                unset($values['sponsoredByClinic']);
+
+                // @TODO pobrać klinikę po nazwie i dodać do zapisywanego obiektu
                 $entity->setOptions($values);
 
                 foreach ($config->languages as $lang) {
@@ -98,11 +105,11 @@ class Admin_PagesController extends \Zend_Controller_Action
                     }
                     $repository->translate(
                         $entity, 'title', $lang->code,
-                        $values['title_'.$lang->code]
+                        $values['title_' . $lang->code]
                     );
                     $repository->translate(
                         $entity, 'content', $lang->code,
-                        $values['content_'.$lang->code]
+                        $values['content_' . $lang->code]
                     );
                 }
 
@@ -117,6 +124,8 @@ class Admin_PagesController extends \Zend_Controller_Action
 
         $this->view->form = $form;
         $this->_helper->EnableCke($this->view, array('content', 'content_de_de', 'content_en_GB'), 'AdminToolbar');
+        // adding js for sponsored clinic
+        $this->view->headScript()->appendFile('/js/admin/pages.js');
     }
 
     public function deletePageAction()
@@ -124,15 +133,15 @@ class Admin_PagesController extends \Zend_Controller_Action
         $request = $this->getRequest();
 
         $this->view->headTitle('Delete page');
-        if($request->getParam('id')) {
-            $entityId   = $request->getParam('id');
-            $entity     = $this->_repo->find($entityId);
-            if(!$entity) throw new \Exception('No entity found');
+        if ($request->getParam('id')) {
+            $entityId = $request->getParam('id');
+            $entity = $this->_repo->find($entityId);
+            if (!$entity) throw new \Exception('No entity found');
             $this->_em->remove($entity);
             $this->_em->flush();
             $this->_helper->FlashMessenger(array(
                 'warning' => 'Page has been deleted'
-                ));
+            ));
             $this->_helper->Redirector('index', 'pages', 'admin');
         } else {
             throw new \Exception('ID to delete not given');
@@ -144,10 +153,10 @@ class Admin_PagesController extends \Zend_Controller_Action
         $request = $this->getRequest();
 
         $this->view->headTitle('Delete page');
-        if($request->getParam('id')) {
-            $entityId   = $request->getParam('id');
-            $entity     = $this->_repo->find($entityId);
-            if(!$entity) throw new \Exception('No entity found');
+        if ($request->getParam('id')) {
+            $entityId = $request->getParam('id');
+            $entity = $this->_repo->find($entityId);
+            if (!$entity) throw new \Exception('No entity found');
 
             $entity->setActive(!$entity->isActive());
             $this->_em->persist($entity);
