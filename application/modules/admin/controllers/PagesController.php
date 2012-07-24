@@ -62,8 +62,8 @@ class Admin_PagesController extends \Zend_Controller_Action
                 $form->setDefault('content_' . $transCode, $trans['content']);
             }
             // if page is "sponsored" add sponsored clinic element to form
-            $form->addSponsoredClinicElement($entity);
             $this->view->headTitle('Edit page');
+            $form->setDefault('sponsoredByClinic', $entity->getSponsoredByClinic()->id);
         } else {
             $this->view->headTitle('Add new page');
             $entity = new \Trendmed\Entity\Page;
@@ -88,10 +88,15 @@ class Admin_PagesController extends \Zend_Controller_Action
                 }
                 $values = $form->getValues();
                 unset($values['leadPhoto']);
-                $sponsoredByClinic = $values['sponsoredByClinic'];
+                $sponsoredByClinicId = $values['sponsoredByClinic'];
                 unset($values['sponsoredByClinic']);
 
-                // @TODO pobrać klinikę po nazwie i dodać do zapisywanego obiektu
+                if (!empty($sponsoredByClinicId)) {
+                    $sponsoredByClinic = $this->_em->find('\Trendmed\Entity\Clinic', $sponsoredByClinicId);
+                    if (!$sponsoredByClinic) throw new \Exception('Indicated sponsored clinic does not exist');
+                    $entity->setSponsoredByClinic($sponsoredByClinic);
+                }
+
                 $entity->setOptions($values);
 
                 foreach ($config->languages as $lang) {

@@ -1,11 +1,17 @@
 <div id="textPage">
 
-<?= $this->page->content; ?>
-<? if($this->LoggedUser()->role->name == 'admin'): ?>
+    <?= $this->page->content; ?>
+    <? if ($this->LoggedUser()->role->name == 'admin'): ?>
     <a href="<?= $this->url(array('action' => 'save-page', 'controller' => 'pages', 'module' => 'admin', 'id' => $this->page->id), 'default', true); ?>"><?= $this->translate("Edit page"); ?></a>
-<? endif; ?>
-<? if($this->page->type == 'Article' or $this->page->type == 'Camera review'): ?>
-    <?= $this->Like($this->page); ?>
-<? endif; ?>
+    <? endif; ?>
+    <? if ($this->page->type == 'article_sponsored'): ?>
+    <p>
+        <?= $this->ShowClinicLogo($this->page->sponsoredByClinic); ?>
+        Artykuł sponsorwany przez: <a href="<?= $this->url(
+        array('slug' => $this->page->sponsoredByClinic->slug),
+        'clinic', true
+    ); ?>"><?= $this->page->sponsoredByClinic->name; ?></a>.
+    </p>
+    <? endif; ?>
 
 </div>
