@@ -2,49 +2,63 @@
 <?php echo $this->doctype() ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<?php echo $this->jQuery(); ?>
-<?php echo $this->headMeta(); ?>
-<?php echo $this->headLink(); ?>
-<?php echo $this->headStyle(); ?>
-<?php echo $this->headScript(); ?>
-<?php echo $this->headTitle(); ?>
+    <?php echo $this->jQuery(); ?>
+    <?php echo $this->headMeta(); ?>
+    <?php echo $this->headLink(); ?>
+    <?php echo $this->headStyle(); ?>
+    <?php echo $this->headScript(); ?>
+    <?php echo $this->headTitle(); ?>
 </head>
 <body>
-	
-	<?= $this->userMenu(); ?>
-	
-    <div class="shadow"></div>
-        
-	<?= $this->render('_navbar.phtml'); ?>
-	
-	<div class="container">
-	      <div class="row-fluid">
-	        <div id="sidebar" class="span3">
-	          <div class="well sidebar-nav">
-	        	<h3>List of services:</h3>
-	            <ul class="nav nav-list">
+
+<?= $this->userMenu(); ?>
+
+<div class="shadow"></div>
+
+<?= $this->render('_navbar.phtml'); ?>
+
+<div class="container">
+    <div class="row-fluid">
+        <div id="sidebar" class="span3">
+            <div class="well sidebar-nav">
+                <h3><?= $this->translate('List of services'); ?>:</h3>
+                <ul class="nav nav-list">
                     <?= $this->CategoriesTree($this->selectedCategory); ?>
-	            </ul>
-	            <div class="clear"></div>
-	          </div>
-	          <div class="clear"></div>
-	        </div>
-                
-                
-	        <div id="content" class="span9">
-			  <?php echo $this->FlashMessenger(); ?>
-		      <?php echo $this->layout()->content ?>
-	        </div><!--/span-->
-                
-                
-	      </div><!--/row-->
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="well sidebar-nav">
+                <h3><?= $this->translate('Search for clinic'); ?></h3>
 
-	      <hr>
+                <form action="<?= $this->url(array(
+                    'action' => 'search',
+                    'controller' => 'public',
+                    'module' => 'clinic'), 'default', true); ?>" method="GET">
+                    <input type="text" name="search" value="<?= $this->search; ?>">
+                </form>
+            </div>
+            <div class="clear"></div>
 
-	      <footer>
-              <?= $this->render('_footer.phtml'); ?>
-	      </footer>
+        </div>
 
-	    </div><!--/.fluid-container-->
+
+        <div id="content" class="span9">
+            <?php echo $this->FlashMessenger(); ?>
+            <?php echo $this->layout()->content ?>
+        </div>
+        <!--/span-->
+
+
+    </div>
+    <!--/row-->
+
+    <hr>
+
+    <footer>
+        <?= $this->render('_footer.phtml'); ?>
+    </footer>
+
+</div>
+<!--/.fluid-container-->
 </body>
 </html>

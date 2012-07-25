@@ -11,7 +11,7 @@ class Clinic_PublicController extends Zend_Controller_Action
     public function init()
     {
         /* Initialize action controller here */
-        $this->_em =  $this->_helper->getEm();
+        $this->_em = $this->_helper->getEm();
 
     }
 
@@ -21,16 +21,35 @@ class Clinic_PublicController extends Zend_Controller_Action
         $this->_helper->_layout->setLayout('homepage');
 
         $slug = $request->getParam('slug');
-        if(!$slug) {
+        if (!$slug) {
             throw new \Exception('No slug in public profile', 404);
         }
 
         $clinic = $this->_em->getRepository('\Trendmed\Entity\Clinic')
             ->findOneBySlug($slug);
 
-        if(!$clinic) throw new \Exception('No clinic by the slug of '.$slug.' found', 404);
+        if (!$clinic) throw new \Exception('No clinic by the slug of ' . $slug . ' found', 404);
         $this->view->headTitle($clinic->name);
         $this->view->clinic = $clinic;
+    }
+
+    // search for given clinc by it's name or city
+    public function searchAction()
+    {
+        $request = $this->getRequest();
+
+        $search = $request->getParam('search', null);
+
+        if ($search) { // do the search (not the ska :-)
+            $repository = $this->_em->getRepository('\Trendmed\Entity\Clinic');
+            $clinics = $repository->findByNameOrCity($search, $search);
+            $this->view->clinics = $clinics;
+            $this->view->search = $search; // to add to the form
+        }
+
+        $this->view->headTitle($this->view->translate('Search for institution'));
+        $this->_helper->_layout->setLayout('homepage');
+
     }
 
 }

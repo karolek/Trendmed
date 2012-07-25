@@ -1,22 +1,22 @@
 <?php
 /**
- * The idea of this class is to provice simple controller for every 
+ * The idea of this class is to provice simple controller for every
  * registration proccess for every user You would even need.
- * 
+ *
  * You need to suply vaues for two variables $_roleName with will be the name
  * from aclrole (I will register new user with that role) and a $_userMode class
- * name. This object will be saved using the mapper.  
+ * name. This object will be saved using the mapper.
  */
 abstract class Me_User_Controllers_RegisterController extends Zend_Controller_Action
 {
     protected $_userModel; // class name of the user model
     protected $_redirectAfterRegistration = array(
-        'action'        => 'index',
-        'controller'    => 'index',
-        'module'        => 'default',
+        'action' => 'index',
+        'controller' => 'index',
+        'module' => 'default',
     );
     protected $_messageSuccessAfterRegistration = array(
-      'success' => 'You have registered successfully. You can login now.'
+        'success' => 'You have registered successfully. You can login now.'
     );
     protected $_roleModel; // name of the entity with role to attach
 
@@ -25,58 +25,59 @@ abstract class Me_User_Controllers_RegisterController extends Zend_Controller_Ac
         /* Initialize action controller here */
     }
 
-	/**
-	 * This action is resonsible for regestring new user in the system. 
-	 *
+    /**
+     * This action is resonsible for regestring new user in the system.
+     *
      * @throws \Exception when role for this user not present
-	 */
+     */
     public function indexAction()
     {
-        $request 	= $this->getRequest();
-		$form 		= $this->getRegistrationForm();
-        $em         = $this->_helper->getEm();
-                
-        // we initialize model (you should fill _userModel in Your controller)
-		$model = new $this->_userModel;
+        $request = $this->getRequest();
+        $form = $this->getRegistrationForm();
+        $em = $this->_helper->getEm();
 
-		if($request->isPost()) {
-			$post = $request->getPost();
-			if($form->isValid($post)) { // data in the form are valid so we 
+        // we initialize model (you should fill _userModel in Your controller)
+        $model = new $this->_userModel;
+
+        if ($request->isPost()) {
+            $post = $request->getPost();
+            if ($form->isValid($post)) { // data in the form are valid so we
                 // can register new user
                 $values = $form->getValues();
-			    $model->setOptions($values);
+                $model->setOptions($values);
                 // adding role to object
                 $role = $em->getRepository('\Trendmed\Entity\Role')
-                        ->findOneByName($model->getRoleName());
-                if(!$role) throw new \Exception('Given role ('.$model->getRoleName().'
+                    ->findOneByName($model->getRoleName());
+                if (!$role) throw new \Exception('Given role (' . $model->getRoleName() . '
                     not found in DB');
                 $model->setRole($role);
+                $model->beforeRegister();
                 $em->persist($model);
                 $model->sendWelcomeEmail();
-			    
+
                 $em->flush();
-                
+
                 $this->_helper->FlashMessenger($this->_messageSuccessAfterRegistration);
-			    $this->_helper->Redirector(
-                        $this->_redirectAfterRegistration['action'],
-                        $this->_redirectAfterRegistration['controller'],
-                        $this->_redirectAfterRegistration['module']
-                        );
-			} else {
-			    $this->_helper->FlashMessenger(array('error' => 'Please fill out the form correctly'));
-			}
-		}
+                $this->_helper->Redirector(
+                    $this->_redirectAfterRegistration['action'],
+                    $this->_redirectAfterRegistration['controller'],
+                    $this->_redirectAfterRegistration['module']
+                );
+            } else {
+                $this->_helper->FlashMessenger(array('error' => 'Please fill out the form correctly'));
+            }
+        }
         $this->view->headTitle($this->view->translate(
-            "%1\$s registration", $this->view->translate(ucfirst($model->getRoleName())))
+                "%1\$s registration", $this->view->translate(ucfirst($model->getRoleName())))
         );
-		$this->view->form = $form;
+        $this->view->form = $form;
     }
 
     /**
-     * To implement in extending controller. 
+     * To implement in extending controller.
      */
-	public function getRegistrationForm()
-	{
+    public function getRegistrationForm()
+    {
 
-	}
+    }
 }

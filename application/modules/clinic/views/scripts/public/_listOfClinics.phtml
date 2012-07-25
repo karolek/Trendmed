@@ -1,0 +1,7 @@
+<?php foreach ($this->clinics as $clinic): ?>
+    <?=
+    $this->partial('public/_clinicListEntry.phtml', array(
+        'clinic' => $clinic
+    ))
+    ; ?>
+<?php endforeach; ?>

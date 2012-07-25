@@ -1,0 +1,37 @@
+<div id="clinicProfile">
+
+    <div class="row">
+
+        <div class="left">
+            <h1><?= $this->clinic->name; ?></h1>
+            <address>
+                <?= $this->clinic->streetaddress; ?>, <?= $this->clinic->postcode; ?> <?= $this->clinic->city; ?>,
+                <?= $this->clinic->province; ?>
+            </address>
+        </div>
+
+        <div class="right rating">
+            <span class="count">86%</span>
+            <big>Rating</big><br/ >
+            <small>based on YY reviews</small>
+        </div>
+
+        <div class="globalClear"></div>
+
+        <ul class="thumbnails">
+            <li class="thumbnail">
+                <?= $this->ShowClinicLogo($this->clinic, 'small'); ?>
+            </li>
+        </ul>
+
+        <div class="hidden" style="position: absolute;" id="image-holder"></div>
+
+        <a href="<?= $this->url(array(
+            'slug' => $this->clinic->slug,
+        ), 'clinic', true); ?>" class="btn btn-primary"><?= $this->translate('See profile'); ?></a>
+
+        <?= $this->clinic->description; ?>
+
+    </div>
+
+</div>
