@@ -40,23 +40,14 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
             ->from('\Trendmed\Entity\Service', 's')
             ->join('s.clinic', 'c')
             ->orderBy('s.' . $order, $direction)
-            ->where('s.category = ?1')
-            ->setFirstResult(($config->pagination->catalog->clinics * $page) - $config->pagination->catalog->clinics)
-            ->setMaxResults($config->pagination->catalog->clinics);
+            ->where('s.category = ?1');
         $qb->setParameter(1, $category->id);
 
-        $paginator = new Paginator($qb, $fetchJoin = true);
+        $pagination = new \Trendmed\Pagination($qb->getQuery(), $config->pagination->catalog->clinics, $page);
 
-        $c = count($paginator);
-        $i = $config->pagination->catalog->clinics; // items per page
-        $numOfPages = $c / $i;
-        // Making of a Zend_Paginator
-        $zendPaginator = \Zend_Paginator::factory($c);
-        $zendPaginator->setCurrentPageNumber($page);
-        $zendPaginator->setItemCountPerPage($config->pagination->catalog->clinics);
-        $this->view->zendPaginator = $zendPaginator;
-        $this->view->numOfPages = $numOfPages;
-        $this->view->services = $paginator;
+        $this->view->zendPaginator = $pagination->getZendPaginator();
+        $this->view->numOfPages = $pagination->getPagesCount();
+        $this->view->services = $pagination->getItems();
 
     }
 
