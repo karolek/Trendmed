@@ -23,6 +23,8 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
         $this->roleName = 'clinic';
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection;
         $this->favoredByUsers = new \Doctrine\Common\Collections\ArrayCollection;
+        $this->popularity = 0;
+        $this->rating = 0;
 
         return parent::__construct();
     }
@@ -30,7 +32,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
     public static $TYPES = array(
         'clinic' => array('name' => 'Klinika', 'category' => 'big'),
         'hospital' => array('name' => 'Szpital', 'category' => 'big'),
-        'gabinet' => array('name' => 'Gabinet', 'category' => 'small'),
+        'salon' => array('name' => 'Gabinet', 'category' => 'small'),
         'salon' => array('name' => 'Salon', 'category' => 'small'),
         'sanatorium' => array('name' => 'Sanatorium', 'category' => 'big'),
         'spa' => array('name' => 'Spa-wellness', 'category' => 'small')
@@ -184,6 +186,18 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
      * @ORM\ManyToMany(targetEntity="\Trendmed\Entity\Patient", mappedBy="favoriteClinics")
      */
     protected $favoredByUsers;
+
+    /**
+     * @var int from 1 to 100 determines avg rating from users
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    protected $rating;
+
+    /**
+     * @var int from 1 to n determines popularity amount based on resevations made divide by time (e.g. month)
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    protected $popularity;
 
     protected $_welcomeEmailScript = 'register/_welcomeEmail.phtml';
     protected $_newPasswordScript = 'register/_newPassword.phtml';
@@ -615,4 +629,40 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
     {
         $this->setLogin($this->getRepEmail());
     }
+
+    /**
+     * @param int $popularity
+     */
+    public function setPopularity($popularity)
+    {
+        $this->popularity = (int)$popularity;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPopularity()
+    {
+        return $this->popularity;
+    }
+
+    /**
+     * @param int $rating
+     */
+    public function setRating($rating)
+    {
+        if ($rating > 100 or $rating < 0) {
+            throw new \Exception('Rating can\'t be higher than 100 or lower than 0');
+        }
+        $this->rating = (int)$rating;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
 }

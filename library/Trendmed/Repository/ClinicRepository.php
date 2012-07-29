@@ -33,4 +33,14 @@ class ClinicRepository extends \Doctrine\ORM\EntityRepository
         $query = $qb->getQuery();
         return $query->getResult();
     }
+
+    /**
+     * Fetches all distinct city names from all active clinics
+     */
+    public function findDistinctClinicCitiesAsArray()
+    {
+        $dql = 'SELECT DISTINCT c.city FROM \Trendmed\Entity\Clinic c';
+        $query = $this->_em->createQuery($dql);
+        return $query->getArrayResult();
+    }
 }

@@ -34,13 +34,19 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
         $order = $request->getParam('order', 'created');
         $type = $request->getParam('type', null);
         $direction = $request->getParam('direction', 'DESC');
+        $this->view->city = $city = $request->getQuery('city', null);
+        // for view we want the oposite direction for sorting links
+        if ($direction == 'DESC') {
+            $this->view->direction = 'ASC';
+        } else {
+            $this->view->direction = 'DESC';
+        }
 
         // fetching data to paginator
         $qb = $this->_em->createQueryBuilder()
             ->select('s')
             ->from('\Trendmed\Entity\Service', 's')
             ->join('s.clinic', 'c')
-            ->orderBy('s.' . $order, $direction)
             ->where('s.category = ?1');
         $qb->setParameter(1, $category->id);
 
@@ -48,11 +54,37 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
         if ($type) {
             // fetching types of clinics for category selected by user
             $ors = array();
-            //TODO jak przekazać do warunku orx wszystkie typu z arraya
             foreach (\Trendmed\Entity\Clinic::getTypesForCategoryAsArray($type) as $key => $prop) {
                 $ors[] = $qb->expr()->orx('c.type = ' . $qb->expr()->literal($prop['name']));
             }
             $qb->andWhere(join(' OR ', $ors));
+        }
+
+        // filtering by city
+        if ($city) {
+            $qb->andWhere($qb->expr()->eq('c.city', $qb->expr()->literal($city)));
+        }
+
+        // adding order by
+        switch ($order) {
+            case 'created':
+                $qb->orderBy('s.created', $direction);
+                break;
+            case 'rating':
+                $qb->orderBy('c.rating', $direction);
+                break;
+            case 'price':
+                $qb->orderBy('s.pricemin', $direction);
+                break;
+            case 'popularity':
+                $qb->orderBy('c.popularity', $direction);
+                break;
+            case 'name':
+                $qb->orderBy('c.name', $direction);
+                break;
+            default:
+                throw new \Exception('Undefined order given for sroting (' . $order . ')');
+                break;
         }
 
         $pagination = new \Trendmed\Pagination($qb->getQuery(), $config->pagination->catalog->clinics, $page);
@@ -60,6 +92,8 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
         $this->view->zendPaginator = $pagination->getZendPaginator();
         $this->view->numOfPages = $pagination->getPagesCount();
         $this->view->services = $pagination->getItems();
+        $this->view->cities = $this->_em->getRepository('\Trendmed\Entity\Clinic')->findDistinctClinicCitiesAsArray();
+        $this->view->headScript()->appendFile('/js/Catalog/view.js');
 
     }
 
