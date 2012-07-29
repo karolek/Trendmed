@@ -1,7 +1,13 @@
 <ul class="nav nav-tabs" id="myTab">
-    <li class="active"><a href="#home"><?= $this->translate('Wszystkie placówki'); ?></a></li>
-    <li><a href="#profile"><?= $this->translate('Tylko szpitale, kliniki i sanatoria'); ?></a></li>
-    <li><a href="#messages"><?= $this->translate('Tylko gabinety, salony i spa'); ?></a></li>
+    <li class="active"><a
+        href="<?= $this->url(array('type' => ''), 'category', false); ?>#home"><?= $this->translate('Wszystkie placówki'); ?></a>
+    </li>
+    <li><a
+        href="<?= $this->url(array('type' => 'big'), 'category', false); ?>#profile"><?= $this->translate('Tylko szpitale, kliniki i sanatoria'); ?></a>
+    </li>
+    <li><a
+        href="<?= $this->url(array('type' => 'small'), 'category', false); ?>#messages"><?= $this->translate('Tylko gabinety, salony i spa'); ?></a>
+    </li>
 </ul>
 <div>
     <?= $this->translate('Sort by'); ?>:
@@ -13,48 +19,53 @@
     <?= $this->translate('choose city'); ?>:
     <?= $this->cityForm; ?>
 </div>
-<? foreach($this->services as $service): ?>
-l    <h3><a href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>"><?= $service->clinic->name; ?></a></h3>
-    <address><?= $service->clinic->city; ?> <?= $this->ShowOnMap($service->clinic); ?></address>
-    <?= $this->AddToFavorite($service->clinic); ?>
-    <ul class="thumbnails">
-        <li class="thumbnail">
-            <?= $this->ShowClinicLogo($service->clinic); ?>
-        </li>
-        <? foreach($service->photos as $photo): ?>
-            <?= $this->ShowPhoto($photo, 'small', 'services'); ?>
-        <? endforeach; ?>
-    </ul>
-    <h4>Service description</h4>
-    <p>
-        <?= $service->description; ?>
-    </p>
-    <!-- choosen service photos -->
-    <? foreach($service->photos as $photo): ?>
-        <?= $this->ShowPhoto($photo); ?>
+<? foreach ($this->services as $service): ?>
+l    <h3><a
+    href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>"><?= $service->clinic->name; ?></a>
+</h3>
+<address><?= $service->clinic->city; ?> <?= $this->ShowOnMap($service->clinic); ?></address>
+    <?= $this->AddToFavorite($service->clinic)
+    ; ?>
+<ul class="thumbnails">
+    <li class="thumbnail">
+        <?= $this->ShowClinicLogo($service->clinic); ?>
+    </li>
+    <? foreach ($service->photos as $photo): ?>
+    <?= $this->ShowPhoto($photo, 'small', 'services')
+    ; ?>
     <? endforeach; ?>
-    <!-- other clinic services -->
-    <? if (count($service->clinic->services) > 0): ?>
+</ul>
+<h4>Service description</h4>
+<p>
+    <?= $service->description; ?>
+</p>
+<!-- choosen service photos -->
+<? foreach ($service->photos as $photo): ?>
+        <?= $this->ShowPhoto($photo)
+        ; ?>
+    <? endforeach; ?>
+<!-- other clinic services -->
+<? if (count($service->clinic->services) > 0): ?>
     <h4><?= vsprintf($this->translate("Other services in %s"), array($service->clinic->name)); ?></h4>
-        <table class="table">
-            <thead>
-            <tr>
-                <th><?= $this->translate('Service name'); ?>:</th>
-                <th><?= $this->translate('Price range'); ?>:</th>
-                <th><?= $this->translate('Description'); ?>:</th>
-                <th><?= $this->translate('Book'); ?>:</th>
-            </tr>
-            </thead>
-            <tbody>
-            <? foreach($service->clinic->services as $service): ?>
-            <tr>
-                <td><?= $service->category->name; ?></td>
-                <td><?= $service->priceMin; ?> - <?= $service->priceMin; ?> Euro</td>
-                <td><?= $service->description; ?></td>
-                <td><input type="checkbox" name="book[]" value="<?=$service->id; ?>"></td>
-            </tr>
+    <table class="table">
+        <thead>
+        <tr>
+            <th><?= $this->translate('Service name'); ?>:</th>
+            <th><?= $this->translate('Price range'); ?>:</th>
+            <th><?= $this->translate('Description'); ?>:</th>
+            <th><?= $this->translate('Book'); ?>:</th>
+        </tr>
+        </thead>
+        <tbody>
+            <? foreach ($service->clinic->services as $service): ?>
+        <tr>
+            <td><?= $service->category->name; ?></td>
+            <td><?= $service->priceMin; ?> - <?= $service->priceMin; ?> Euro</td>
+            <td><?= $service->description; ?></td>
+            <td><input type="checkbox" name="book[]" value="<?=$service->id; ?>"></td>
+        </tr>
             <? endforeach; ?>
-            </tbody>
-        </table>
+        </tbody>
+    </table>
     <? endif; ?>
 <? endforeach; ?>

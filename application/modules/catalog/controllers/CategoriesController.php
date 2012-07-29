@@ -32,6 +32,7 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
         $request = $this->getRequest();
         $page = $request->getParam('page', 1);
         $order = $request->getParam('order', 'created');
+        $type = $request->getParam('type', null);
         $direction = $request->getParam('direction', 'DESC');
 
         // fetching data to paginator
@@ -42,6 +43,17 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
             ->orderBy('s.' . $order, $direction)
             ->where('s.category = ?1');
         $qb->setParameter(1, $category->id);
+
+        // adding filter type (just clinics / hospitals or small types or both)
+        if ($type) {
+            // fetching types of clinics for category selected by user
+            $ors = array();
+            //TODO jak przekazać do warunku orx wszystkie typu z arraya
+            foreach (\Trendmed\Entity\Clinic::getTypesForCategoryAsArray($type) as $key => $prop) {
+                $ors[] = $qb->expr()->orx('c.type = ' . $qb->expr()->literal($prop['name']));
+            }
+            $qb->andWhere(join(' OR ', $ors));
+        }
 
         $pagination = new \Trendmed\Pagination($qb->getQuery(), $config->pagination->catalog->clinics, $page);
 

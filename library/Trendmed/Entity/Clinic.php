@@ -27,6 +27,15 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
         return parent::__construct();
     }
 
+    public static $TYPES = array(
+        'clinic' => array('name' => 'Klinika', 'category' => 'big'),
+        'hospital' => array('name' => 'Szpital', 'category' => 'big'),
+        'gabinet' => array('name' => 'Gabinet', 'category' => 'small'),
+        'salon' => array('name' => 'Salon', 'category' => 'small'),
+        'sanatorium' => array('name' => 'Sanatorium', 'category' => 'big'),
+        'spa' => array('name' => 'Spa-wellness', 'category' => 'small')
+    );
+
     /* PROPERTIES */
 
     /**
@@ -274,8 +283,32 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
         return $this->type;
     }
 
+    public function getTypeName()
+    {
+        return self::$TYPES[$this->type]['name'];
+    }
+
+    public function getTypeCategory()
+    {
+        return self::$TYPES[$this->type]['caegory'];
+    }
+
+    public static function getTypesForCategoryAsArray($category)
+    {
+        $return = array();
+        foreach (self::$TYPES as $type) {
+            if ($type['category'] == $category) {
+                $return[] = $type;
+            }
+        }
+        return $return;
+    }
+
     public function setType($type)
     {
+        if (!self::$TYPES[$type]) {
+            throw new \Exception('Undefined clinic type: ' . $type);
+        }
         $this->type = $type;
     }
 
