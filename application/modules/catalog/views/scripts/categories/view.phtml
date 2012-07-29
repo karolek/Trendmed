@@ -1,12 +1,12 @@
 <ul class="nav nav-tabs" id="myTab">
     <li class="active"><a
-        href="<?= $this->url(array('type' => ''), 'category', false); ?>#home"><?= $this->translate('Wszystkie placówki'); ?></a>
+        href="<?= $this->url(array('type' => '', 'page' => 1), 'category', false); ?>#home"><?= $this->translate('Wszystkie placówki'); ?></a>
     </li>
     <li><a
-        href="<?= $this->url(array('type' => 'big'), 'category', false); ?>#profile"><?= $this->translate('Tylko szpitale, kliniki i sanatoria'); ?></a>
+        href="<?= $this->url(array('type' => 'big', 'page' => 1), 'category', false); ?>#profile"><?= $this->translate('Tylko szpitale, kliniki i sanatoria'); ?></a>
     </li>
     <li><a
-        href="<?= $this->url(array('type' => 'small'), 'category', false); ?>#messages"><?= $this->translate('Tylko gabinety, salony i spa'); ?></a>
+        href="<?= $this->url(array('type' => 'small', 'page' => 1), 'category', false); ?>#messages"><?= $this->translate('Tylko gabinety, salony i spa'); ?></a>
     </li>
 </ul>
 <div>
@@ -24,14 +24,16 @@ l    <h3><a
     href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>"><?= $service->clinic->name; ?></a>
 </h3>
 <address><?= $service->clinic->city; ?> <?= $this->ShowOnMap($service->clinic); ?></address>
-    <?= $this->AddToFavorite($service->clinic)
+    <?=
+    $this->AddToFavorite($service->clinic)
     ; ?>
 <ul class="thumbnails">
     <li class="thumbnail">
         <?= $this->ShowClinicLogo($service->clinic); ?>
     </li>
     <? foreach ($service->photos as $photo): ?>
-    <?= $this->ShowPhoto($photo, 'small', 'services')
+    <?=
+    $this->ShowPhoto($photo, 'small', 'services')
     ; ?>
     <? endforeach; ?>
 </ul>
@@ -41,7 +43,8 @@ l    <h3><a
 </p>
 <!-- choosen service photos -->
 <? foreach ($service->photos as $photo): ?>
-        <?= $this->ShowPhoto($photo)
+        <?=
+        $this->ShowPhoto($photo)
         ; ?>
     <? endforeach; ?>
 <!-- other clinic services -->
