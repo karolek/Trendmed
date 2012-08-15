@@ -63,9 +63,10 @@
 </div>
 
 
-<? if (count($this->clinic->services) >0 ) : ?>
+<? if (count($this->clinic->services) > 0 ): ?>
 <div class="row">
-    
+        <form method="post" action="<?= $this->url(array(
+        ), 'newReservation', true); ?>">
     	<h2>Services of <?= $this->clinic->name; ?></h2>
     	
         <table class="table">
@@ -83,11 +84,13 @@
                         <td><?= $service->category->name; ?></td>
                         <td><?= $service->priceMin; ?> - <?= $service->priceMin; ?> Euro</td>
                         <td><?= $service->description; ?></td>
-                        <td><input type="checkbox" name="book[]" value="<?=$service->id; ?>"></td>
+                        <td><input type="checkbox" name="services[]" value="<?=$service->id; ?>"></td>
                     </tr>
                 <? endforeach; ?>
             </tbody>
         </table>
+            <input type="submit" value="Book now">
+        </form>
 </div>
 <? endif; ?>
 
