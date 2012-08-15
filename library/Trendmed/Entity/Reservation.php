@@ -105,4 +105,194 @@ class Reservation extends  \Me\Model\ModelAbstract {
             throw new \Exception('Reservation has to get a clinic object');
         }
     }
+
+    /** GETTERS AND SETTERS **/
+    /**
+     * @param string $answer
+     */
+    public function setAnswer($answer)
+    {
+        $this->answer = $answer;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAnswer()
+    {
+        return $this->answer;
+    }
+
+    /**
+     * @param \DateTime $created
+     */
+    public function setCreated(\DateTime $created)
+    {
+        $this->created = $created;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param \DateTime $dateFrom
+     */
+    public function setDateFrom(\DateTime $dateFrom)
+    {
+        $this->dateFrom = $dateFrom;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateFrom()
+    {
+        return $this->dateFrom;
+    }
+
+    /**
+     * @param \DateTime $dateTo
+     */
+    public function setDateTo(\DateTime $dateTo)
+    {
+        $this->dateTo = $dateTo;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateTo()
+    {
+        return $this->dateTo;
+    }
+
+    /**
+     * @param \Trendmed\Entity\Patient $patient
+     */
+    public function setPatient(\Trendmed\Entity\Patient $patient)
+    {
+        $this->patient = $patient;
+    }
+
+    /**
+     * @return \Trendmed\Entity\Patient
+     */
+    public function getPatient()
+    {
+        return $this->patient;
+    }
+
+    /**
+     * @param \Trendmed\Entity\Payment $payment
+     */
+    public function setPayment(\Trendmed\Entity\Payment $payment)
+    {
+        $this->payment = $payment;
+    }
+
+    /**
+     * @return \Trendmed\Entity\Payment
+     */
+    public function getPayment()
+    {
+        return $this->payment;
+    }
+
+    /**
+     * @param string $question
+     */
+    public function setQuestion($question)
+    {
+        $this->question = $question;
+    }
+
+    /**
+     * @return string
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
+
+    /**
+     * @param \Trendmed\Entity\Rating $rating
+     */
+    public function setRating(\Trendmed\Entity\Rating $rating)
+    {
+        $this->rating = $rating;
+    }
+
+    /**
+     * @return \Trendmed\Entity\Rating
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $services
+     */
+    public function setServices($services)
+    {
+        $this->services[] = $services;
+    }
+
+    public function addService(\Trendmed\Entity\Service $service)
+    {
+        $this->services->add($service);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getServices()
+    {
+        return $this->services;
+    }
+
+    /**
+     * Controls logic of status changes of a reservation.
+     * Based on new status things can happen to object.
+     * @param string $status
+     * @throws \Exception
+     */
+    public function setStatus($status)
+    {
+        if (!self::$_statuses[$status]) {
+            throw new \Exception(
+                'Given status (' . $status . ') does is not defined in '. __CLASS__
+            );
+        }
+        # put Your logic here
+        switch($status) {
+            default:
+                break;
+        }
+        $this->status = $status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /** END GETTERS AND SETTERS **/
+
 }
