@@ -1,5 +1,9 @@
 <p>
     <?= $this->translate('Wstaw tutaj text wstępny do skłądania rezerwacji'); ?>
 </p>
+
 <?= $this->partial('_clinicListEntry.phtml', array('clinic' => $this->clinic)); ?>
+<?php if ($this->clinic->wantBill == true): ?>
+    <?= $this->translate('Ta klinika chce kaucje, tutaj wstaw text na ten temat'); ?>
+<?php endif; ?>
 <?= $this->form; ?>

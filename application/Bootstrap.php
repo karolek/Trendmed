@@ -60,6 +60,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->addHelperPath(APPLICATION_PATH . '/../library/Me/User/View/helpers',
                 'Me_User_View_Helpers_');
 
+        # adding scripts path to layouts and paritals dir
+        $view->addScriptPath(APPLICATION_PATH . '/layouts/scripts');
+
 	}
 	
 	public function _initLogger()

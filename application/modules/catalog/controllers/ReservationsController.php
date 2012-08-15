@@ -35,7 +35,7 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
         $clinic = $this->_em->getRepository('\Trendmed\Entity\Clinic')
             ->findOneBySlug($slug);
 
-        if (!$clinic) {
+        if (!$clinic->id) {
             throw new \Exception(
                 'No clinic by slug: '.$slug.' found in the system'
             );
@@ -48,8 +48,11 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
 
         }
         #passing form to view
-        $this->clinic = $clinic;
+        $this->view->clinic = $clinic;
         $this->view->form = $form;
+
+        #Seetting up a view title
+        $this->view->headTitle($this->view->translate('New reservation'));
     }
 
 }
