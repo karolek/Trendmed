@@ -18,7 +18,8 @@ class Admin extends \Trendmed\Entity\User {
      */
     protected $id;
     
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 }

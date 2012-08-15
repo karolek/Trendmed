@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
-class Rateing extends  \Me\Model\ModelAbstract {
+class Rating extends  \Me\Model\ModelAbstract {
     /* PROPERTIES */
     /**
      * @ORM\Column(name="id", type="integer", nullable=false)
