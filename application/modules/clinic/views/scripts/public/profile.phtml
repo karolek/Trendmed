@@ -66,6 +66,7 @@
 <? if (count($this->clinic->services) > 0 ): ?>
 <div class="row">
         <form method="post" action="<?= $this->url(array(
+            'slug' => $this->clinic->slug,
         ), 'newReservation', true); ?>">
     	<h2>Services of <?= $this->clinic->name; ?></h2>
     	

@@ -26,13 +26,29 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
     {
         $request    = $this->getRequest();
         $form       = new \Catalog_Form_Reservation();
+        $slug       = $request->getParam('slug');
+        if (!$slug) {
+            throw new \Exception('No clinic slug param given');
+        }
 
-        if ($request->isPost()) { #new reservation POST request
+        # searching for clinic
+        $clinic = $this->_em->getRepository('\Trendmed\Entity\Clinic')
+            ->findOneBySlug($slug);
+
+        if (!$clinic) {
+            throw new \Exception(
+                'No clinic by slug: '.$slug.' found in the system'
+            );
+        }
+
+        if ($request->isPost()) {
+            #new reservation POST request
             $post = $request->getPost();
         } else {
 
         }
-
+        #passing form to view
+        $this->clinic = $clinic;
         $this->view->form = $form;
     }
 

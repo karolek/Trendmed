@@ -31,6 +31,7 @@
         ), 'clinic', true); ?>" class="btn btn-primary"><?= $this->translate('See profile'); ?></a>
 
         <?= $this->clinic->description; ?>
+        <a href="<?= $this->url(array('slug' => $this->clinic->slug)); ?>"><?= $this->translate('book visist'); ?></a>
 
     </div>
 
