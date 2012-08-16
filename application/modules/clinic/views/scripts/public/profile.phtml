@@ -44,16 +44,11 @@
 	    });
 	</script>
     
-    <a id="buttonBook" href="#" class="btn btn-primary"><?= $this->translate('Book now'); ?></a>
-    
+    <a id="buttonBook" href="<?= $this->url(array('slug' => $this->clinic->slug), 'newReservation', true);?>" class="btn btn-primary"><?= $this->translate('Book now'); ?></a>
+
     <?= $this->clinic->description; ?>
     
 </div>
-
-
-
-
-
 <div class="row">
     <h2><?= $this->translate('Promotions'); ?></h2>
     <?= $this->clinic->customPromos; ?>

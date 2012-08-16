@@ -153,11 +153,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             /** Creating resources */
             require_once 'Zend/Acl/Resource.php';
             $myAcl->addResource(new Zend_Acl_Resource('mvc:admin'))
-            ->addResource(new Zend_Acl_Resource('mvc:admin.index', 'mvc:admin'));
+            ->addResource(new Zend_Acl_Resource('mvc:admin.index', 'mvc:admin'))
+            ->addResource(new Zend_Acl_Resource('mvc:catalog'))
+            ->addResource(new Zend_Acl_Resource('mvc:catalog.reservations'));
 
             /** Creating permissions */
             $myAcl->deny('guest', 'mvc:admin')
                 ->allow('admin', 'mvc:admin')
+                ->deny('guest', 'mvc:catalog.reservations', array('new'))
+                ->allow('patient', 'mvc:catalog.reservations', array('new'))
                 ->allow('guest', 'mvc:admin.index', 'index');
 
             /** Getting the user role */

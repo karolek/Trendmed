@@ -35,9 +35,13 @@ class Trendmed_Acl extends Zend_Acl
         $this->addResource(new Zend_Acl_Resource('mvc:admin:login'), 'mvc:admin');
         $this->addResource(new Zend_Acl_Resource('mvc:clinic'));
         $this->addResource(new Zend_Acl_Resource('mvc:patient'));
+        $this->addResource(new Zend_Acl_Resource('mvc:catalog'));
+        $this->addResource(new Zend_Acl_Resource('mvc:catalog.reservations', 'mvc:catalog'));
 
         $this->deny('guest', 'mvc:admin')
             ->deny('guest', 'mvc:clinic')
+            ->deny('guest', 'mvc:catalog')
+            ->deny('guest', 'mvc:catalog.reservations', array('new'))
             ->allow('guest', 'mvc:clinic.index', 'index')
             ->allow('guest', 'mvc:admin:login');
 

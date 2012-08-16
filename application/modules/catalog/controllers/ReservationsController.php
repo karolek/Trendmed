@@ -26,6 +26,11 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
     {
         $request    = $this->getRequest();
         $form       = new \Catalog_Form_Reservation();
+        # setting up a view script helper on this form
+        $form->setDecorators(array(array('ViewScript' ,array(
+            'viewScript' => 'reservations/_reservationForm.phtml'
+        ))));
+
         $slug       = $request->getParam('slug');
         if (!$slug) {
             throw new \Exception('No clinic slug param given');
@@ -41,12 +46,41 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
             );
         }
 
+        # populating the form with services of a given clinic
+
         if ($request->isPost()) {
             #new reservation POST request
             $post = $request->getPost();
-        } else {
+            # validating if atleast one service is selected
+            if(count($post['services']) < 1) {
+                $form->getElement('services')->addError('Atlas one service must be select');
+            }
 
+            if ($form->isValid($post)) {
+                $reservation = new \Trendmed\Entity\Reservation();
+                $values = $form->getValues();
+                #mapping of a post array to new reservation, this is so lame, should auto somehow
+                $reservation->question  = $values['question'];
+                $reservation->patient   = $this->_helper->LoggedUser();
+                $reservation->dateFrom  = new \DateTime($values['dateFrom']);
+                $reservation->dateTo    = new \DateTime($values['dateTo']);
+                foreach($values['services'] as $serviceId) {
+                    $reservation->addService($this->_em->find('\Trendmed\Entity\Service', $serviceId));
+                }
+                var_dump($reservation);
+                exit();
+                $this->_helper->FlashMessenger(array(
+                    'success' => 'Reservation booked'
+                ));
+            } else {
+                $this->_helper->FlashMessenger(array(
+                    'warning' => 'Please fix the errors in form'
+                ));
+            }
         }
+
+        $form->populateServicesFromClinic($clinic);
+
         #passing form to view
         $this->view->clinic = $clinic;
         $this->view->form = $form;
