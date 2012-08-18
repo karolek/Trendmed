@@ -19,3 +19,4 @@ data/reports/*
 .zfproject.xml
 
 nbproject
+composer.phar
