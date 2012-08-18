@@ -160,6 +160,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             /** Creating permissions */
             $myAcl->deny('guest', 'mvc:admin')
                 ->allow('admin', 'mvc:admin')
+                ->allow('guest', 'mvc:catalog')
                 ->deny('guest', 'mvc:catalog.reservations', array('new'))
                 ->allow('patient', 'mvc:catalog.reservations', array('new'))
                 ->allow('guest', 'mvc:admin.index', 'index');

@@ -1,5 +1,5 @@
 {
-    "hash": "28542229e2ff5b56f64e4da374a6cf2d",
+    "hash": "93461f9462bca8c653206a3d17584977",
     "packages": [
         {
             "package": "doctrine/common",
@@ -30,7 +30,7 @@
     "aliases": [
 
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": [
 
     ]
