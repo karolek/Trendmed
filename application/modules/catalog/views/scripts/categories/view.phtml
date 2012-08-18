@@ -82,6 +82,7 @@ l    <h3><a
     <? endforeach; ?>
 <!-- other clinic services -->
 <? if (count($service->clinic->services) > 0): ?>
+    <form action="<?= $this->url(array('slug' => $service->clinic->slug), 'newReservation'); ?>" method="post">
     <h4><?= vsprintf($this->translate("Other services in %s"), array($service->clinic->name)); ?></h4>
     <table class="table">
         <thead>
@@ -98,10 +99,12 @@ l    <h3><a
             <td><?= $service->category->name; ?></td>
             <td><?= $service->priceMin; ?> - <?= $service->priceMin; ?> Euro</td>
             <td><?= $service->description; ?></td>
-            <td><input type="checkbox" name="book[]" value="<?=$service->id; ?>"></td>
+            <td><input type="checkbox" name="pre_services[]" value="<?=$service->id; ?>"></td>
         </tr>
             <? endforeach; ?>
         </tbody>
     </table>
+        <input type="submit" value="Book now">
+    </form>
     <? endif; ?>
 <? endforeach; ?>

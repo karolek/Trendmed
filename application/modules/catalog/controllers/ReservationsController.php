@@ -57,6 +57,10 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
             }
 
             if ($form->isValid($post)) {
+                # double checking if user is logged, but should be controller by ACL
+                if (!$this->_helper->LoggedUser()) {
+                    throw new Exception('Only logged patients can make reservations');
+                }
                 $reservation = new \Trendmed\Entity\Reservation();
                 $values = $form->getValues();
                 #mapping of a post array to new reservation, this is so lame, should auto somehow
@@ -67,11 +71,12 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
                 foreach($values['services'] as $serviceId) {
                     $reservation->addService($this->_em->find('\Trendmed\Entity\Service', $serviceId));
                 }
-                var_dump($reservation);
-                exit();
+                $this->_em->persist($reservation);
+                $this->_em->flush();
                 $this->_helper->FlashMessenger(array(
                     'success' => 'Reservation booked'
                 ));
+                $this->_helper->Redirector('index', 'profile', 'patient');
             } else {
                 $this->_helper->FlashMessenger(array(
                     'warning' => 'Please fix the errors in form'

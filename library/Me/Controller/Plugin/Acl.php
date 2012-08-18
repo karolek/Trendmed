@@ -137,13 +137,13 @@ class Me_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         } else {
             $resource = $moduleLevel;
         }
-        /** Check if the controller/action can be accessed by the current user */
 
+        /** Check if the controller/action can be accessed by the current user */
         if ($acl->has($resource)) {
-          if (!$this->getAcl()->isAllowed($role, $resource, $action)) {
-              /** Redirect to access denied page */
-              $this->denyAccess();
-          }
+            if (!$this->getAcl()->isAllowed($role, $resource, $action)) {
+                /** Redirect to access denied page */
+                $this->denyAccess();
+            }
         }
     }
 
