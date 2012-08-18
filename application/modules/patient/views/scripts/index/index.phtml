@@ -1,1 +1,6 @@
-<?php echo $this->form->setAction($this->url()); ?>
+<?php if ($this->reservations->count() > 0): ?>
+<table class="table">
+    <?php foreach ($this->reservations as $reservation): ?>
+    <?php endforeach; ?>
+</table>
+<?php endif;?>

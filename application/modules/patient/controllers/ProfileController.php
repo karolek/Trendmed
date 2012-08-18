@@ -16,7 +16,12 @@ class Patient_ProfileController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        
+        # fetching patient reservations
+        $repo = $this->_em->getRepository('\Trendmed\Entity\Reservation');
+        $reservations = $repo->fetchAllPatientReservations($this->_helper->LoggedUser());
+
+        $this->view->reservations = $reservations;
+        $this->view->headTitle('My reservations');
     }
 
     /**

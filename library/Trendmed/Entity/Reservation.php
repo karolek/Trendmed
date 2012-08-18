@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Description of User
  *
  * @ORM\Table(name="reservations")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Trendmed\Repository\ReservationsRepository")
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
 class Reservation extends  \Me\Model\ModelAbstract {
@@ -291,6 +291,14 @@ class Reservation extends  \Me\Model\ModelAbstract {
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Shortcut method for fetching reservation clinic from services
+     */
+    public function getClinic()
+    {
+        return $this->services[0]->clinic;
     }
 
     /** END GETTERS AND SETTERS **/
