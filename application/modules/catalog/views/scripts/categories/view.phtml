@@ -1,3 +1,5 @@
+<div id="catalog">
+
 <ul class="nav nav-tabs" id="myTab">
     <li class="active"><a
         href="<?= $this->url(array('type' => '', 'page' => 1), 'category', false); ?>#home"><?= $this->translate('Wszystkie placówki'); ?></a>
@@ -9,8 +11,8 @@
         href="<?= $this->url(array('type' => 'small', 'page' => 1), 'category', false); ?>#messages"><?= $this->translate('Tylko gabinety, salony i spa'); ?></a>
     </li>
 </ul>
-<div>
-    <?= $this->translate('Sort by'); ?>:
+<div id="filters">
+    <label><?= $this->translate('Sort by'); ?>:</label>
     <ul>
         <li>
             <a class="<?=$this->direction; ?>"
@@ -51,16 +53,13 @@
             <?php endforeach; ?>
         </select>
     </form>
+    <div class="clear"></div>
 </div>
 <? foreach ($this->services as $service): ?>
-l    <h3><a
-    href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>"><?= $service->clinic->name; ?></a>
-</h3>
-<address><?= $service->clinic->city; ?> <?= $this->ShowOnMap($service->clinic); ?></address>
-    <?=
-    $this->AddToFavorite($service->clinic)
-    ; ?>
-<ul class="thumbnails">
+
+<div class="entry">
+	
+	<ul class="thumbnails">
     <li class="thumbnail">
         <?= $this->ShowClinicLogo($service->clinic); ?>
     </li>
@@ -70,6 +69,18 @@ l    <h3><a
     ; ?>
     <? endforeach; ?>
 </ul>
+
+<div class="right">
+	
+	
+<h3>
+	<a href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>"><?= $service->clinic->name; ?></a>
+</h3>
+<address><?= $service->clinic->city; ?> <?= $this->ShowOnMap($service->clinic); ?></address>
+    <?=
+    $this->AddToFavorite($service->clinic)
+    ; ?>
+
 <h4>Service description</h4>
 <p>
     <?= $service->description; ?>
@@ -104,7 +115,18 @@ l    <h3><a
             <? endforeach; ?>
         </tbody>
     </table>
-        <input type="submit" value="Book now">
+        <input class="btn-primary" type="submit" value="Book now">
     </form>
     <? endif; ?>
+    
+    <div class="clear"></div>
+
+</div>
+    
 <? endforeach; ?>
+
+
+
+</div>
+
+</div>

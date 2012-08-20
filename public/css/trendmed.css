@@ -90,6 +90,35 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #menuFloat .dropdown {float:left; margin:0 10px 0 0;} 
 
 
+/* CATALOG */
+
+#catalog {}
+
+#catalog #myTab {margin:0; font-size:16px; color:#292828; text-decoration:none; font-family: 'TeXGyreHerosRegular'; border:none;}
+#catalog #myTab li {margin:0;}
+#catalog #myTab li a {text-decoration:none; padding: 14px 12px;}
+#catalog #myTab li.active a {background:#f1f1f1; border:none;}
+
+#catalog #filters {background:#f1f1f1; padding:16px 13px 15px; margin:-2px 0 25px;}
+#catalog #filters label {font-size:14px; color:#292828; font-family: 'TeXGyreHerosCnBold'; margin:5px 9px 0 0;}
+#catalog #filters * {float:left; clear:none;}
+#catalog #filters .clear {width:400px; height:1px; clear:both; float:none;}
+#catalog #filters select {width:180px; float:right; margin:0; cursor:pointer;}
+#catalog #filters form {float:right; margin:0;}
+#catalog #filters ul {margin:6px 0 0; padding:0; list-style:none inside;}
+#catalog #filters ul li {margin: 0 0 0 7px;}
+
+#catalog .entry {clear:both;}
+#catalog .entry h3 a {font-size:24px; color:#292828;}
+#catalog .entry .thumbnails {margin:0; float:left; padding:0; clear:none;}
+#catalog .entry .thumbnails li {margin:0;}
+#catalog .entry .thumbnails li img {}
+#catalog .entry .right {width:512px; float:right;}
+#catalog .entry .btn-primary {float:right;}
+#catalog .entry .clear {width:500px; clear:both; height:20px;}
+
+
+
 /* CONTAINER */
 
 .container, 
@@ -104,6 +133,7 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #sidebar {float:left; width:276px; padding:0; margin:0;}
 #sidebar h3 {font-size:20px; font-family: 'TeXGyreHerosRegular'; font-weight:normal; color:#ffffff; letter-spacing:-1px; text-shadow:0px 1px #023f58; border-bottom:1px solid #21596f; margin: 0 15px 20px; padding: 0 0 14px;}
 #sidebar .sidebar-nav {box-shadow:none; border:none; background: #024764; color:#ffffff; padding: 20px 11px 19px 9px;}
+#sidebar .sidebar-nav input {margin: 0 0 0 15px; width: 216px;}
 #sidebar .sidebar-nav .nav-header {font-size:18px; color:#ffffff; height:23px; font-family: 'TeXGyreHerosBold'; text-transform: none; text-shadow:none; font-weight: normal; clear:both; background:#115470; margin:1px 0 0; border-radius:2px; -moz-border-radius:2px; -webkit-border-radius:2px;}
 #sidebar .sidebar-nav .nav-header a {font-size:14px; color:#ffffff; font-family: 'TeXGyreHerosBold'; text-shadow:none; text-decoration: none; float:left; display:block;}
 #sidebar .sidebar-nav .nav-header a:hover {background:none;}
