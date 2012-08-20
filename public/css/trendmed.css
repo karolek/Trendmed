@@ -99,7 +99,7 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #catalog #myTab li a {text-decoration:none; padding: 14px 12px;}
 #catalog #myTab li.active a {background:#f1f1f1; border:none;}
 
-#catalog #filters {background:#f1f1f1; padding:16px 13px 15px; margin:-2px 0 25px;}
+#catalog #filters {background:#f1f1f1; padding:16px 13px 15px; margin:-2px 0 0;}
 #catalog #filters label {font-size:14px; color:#292828; font-family: 'TeXGyreHerosCnBold'; margin:5px 9px 0 0;}
 #catalog #filters * {float:left; clear:none;}
 #catalog #filters .clear {width:400px; height:1px; clear:both; float:none;}
@@ -108,14 +108,24 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #catalog #filters ul {margin:6px 0 0; padding:0; list-style:none inside;}
 #catalog #filters ul li {margin: 0 0 0 7px;}
 
-#catalog .entry {clear:both;}
+#catalog .entry {clear:both; border-left:1px solid #f0f0f0; border-right:1px solid #f0f0f0; padding:25px 25px 17px;}
+#catalog .entry:nth-child(even) {background:#f0f0f0;}
 #catalog .entry h3 a {font-size:24px; color:#292828;}
 #catalog .entry .thumbnails {margin:0; float:left; padding:0; clear:none;}
 #catalog .entry .thumbnails li {margin:0;}
 #catalog .entry .thumbnails li img {}
-#catalog .entry .right {width:512px; float:right;}
+#catalog .entry .right {width:457px; float:right;}
+#catalog .entry address {margin:0 0 9px;}
+#catalog .entry .location {display:inline-block; margin:3px 0 0; font-size:16px; font-weight:normal; color:#292828; font-family: 'TeXGyreHerosCnBold';}
+#catalog .entry .map {margin: 0 0 0 9px; position: relative; top: -2px;}
+#catalog .entry .map a {background:url(../img/zoom_izon.png) no-repeat; cursor:pointer; position:relative; display:inline-block; font-size:11px; line-height: 15px; padding: 0 0 3px 21px;}
+#catalog .entry .fav {display:block; float:right;}
+#catalog .entry .fav a {text-indent:-9999px; width:22px; height:16px; display:block; background:url(../img/icon_fav.png);}
+#catalog .entry .fav a:hover {background:url(../img/icon_fav_hover.png);}
 #catalog .entry .btn-primary {float:right;}
-#catalog .entry .clear {width:500px; clear:both; height:20px;}
+#catalog .entry .clear {width:500px; clear:both; height:1px;}
+#catalog .entry thead {display:none;}
+#catalog .entry td {border:none; padding:4px 0 0;}
 
 
 
