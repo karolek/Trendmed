@@ -27,8 +27,12 @@
                 </ul>
                 <div class="clear"></div>
             </div>
-            <div class="well sidebar-nav">
-                <h3><?= $this->translate('Search for clinic'); ?></h3>
+            <div class="well sidebar-nav searchBoxIndex">
+            	
+            	<div class="loopa"></div>
+            	
+                <h3 class="search"><?= $this->translate('Search for clinic'); ?></h3>
+                <h4>Type clinic name or polish city:</h4>
 
                 <form action="<?= $this->url(array(
                     'action' => 'search',
@@ -36,6 +40,11 @@
                     'module' => 'clinic'), 'default', true); ?>" method="GET">
                     <input type="text" name="search" value="<?= $this->search; ?>">
                 </form>
+                
+                <a class="advanced" href="#">Advanced search</a>
+                
+                
+                
             </div>
             <div class="clear"></div>
 
