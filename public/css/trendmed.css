@@ -123,10 +123,13 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #catalog .entry .fav {display:block; float:right;}
 #catalog .entry .fav a {text-indent:-9999px; width:22px; height:16px; display:block; background:url(../img/icon_fav.png);}
 #catalog .entry .fav a:hover {background:url(../img/icon_fav_hover.png);}
-#catalog .entry .btn-primary {float:right;}
+#catalog .entry .btn-primary {float:right; width:130px; height:37px; background:url(../img/button_book.png) top left no-repeat; padding: 8px 12px 6px; text-align: right;}
+#catalog .entry .btn-primary:hover {background:url(../img/button_book_hover.png) top left no-repeat; text-indent:-9999xp;}
 #catalog .entry .clear {width:500px; clear:both; height:1px;}
 #catalog .entry thead {display:none;}
 #catalog .entry td {border:none; padding:4px 0 0;}
+#catalog .entry td strong {color:#107ba8;}
+#catalog .entry td span {color:#949595;}
 
 
 

@@ -113,7 +113,7 @@
         <tbody>
             <? foreach ($service->clinic->services as $service): ?>
         <tr>
-            <td><?= $service->category->name; ?></td>
+            <td><span>&bull;</span> &nbsp; <strong><?= $service->category->name; ?></strong></td>
             <td><?= $service->priceMin; ?> - <?= $service->priceMin; ?> Euro</td>
             <td><?= $service->description; ?></td>
             <td><input type="checkbox" name="pre_services[]" value="<?=$service->id; ?>"></td>
