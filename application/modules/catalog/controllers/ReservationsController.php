@@ -53,7 +53,7 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
             $post = $request->getPost();
             # validating if atleast one service is selected
             if(count($post['services']) < 1) {
-                $form->getElement('services')->addError('Atlas one service must be select');
+                $form->getElement('services')->addError('At least one service must be select');
             }
 
             if ($form->isValid($post)) {
