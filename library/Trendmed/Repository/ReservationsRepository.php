@@ -19,4 +19,17 @@ class ReservationsRepository extends \Doctrine\ORM\EntityRepository
         $reservations = $query->getResult();
         return $reservations;
     }
+
+    /**
+     * @param \Trendmed\Entity\Clinic    $patient
+     * @return mixed
+     */
+    public function fetchAllClinicReservations(\Trendmed\Entity\Clinic $clinic)
+    {
+        $dql = "SELECT r FROM \Trendmed\Entity\Reservation r WHERE r.clinic = :clinic_id";
+        $query = $this->_em->createQuery($dql);
+        $query->setParameter('clinic_id', $clinic->id);
+        $reservations = $query->getResult();
+        return $reservations;
+    }
 }

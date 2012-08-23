@@ -37,7 +37,9 @@ class Reservation extends  \Me\Model\ModelAbstract {
      * @var array List of allowed statuses for reservation
      */
     protected static $_statuses = array(
-        'new'       => array('name' => 'New'),
+        'new'       => array('name' => 'New', 'actions' => array(
+            'clinic' => array('confirm', 'decline')
+        )), #when reservations waits for clinic approval
         'closed'    => array('name' => 'Closed'),
     );
 
@@ -94,6 +96,12 @@ class Reservation extends  \Me\Model\ModelAbstract {
      * @ORM\OneToOne(targetEntity="\Trendmed\Entity\Payment")
      */
     protected $payment;
+
+    /**
+     * @var \Trendmed\Entity\Clinic
+     * @ORM\ManyToOne(targetEntity="\Trendmed\Entity\Clinic")
+     */
+    protected $clinic;
 
     protected function validate()
     {
@@ -278,6 +286,14 @@ class Reservation extends  \Me\Model\ModelAbstract {
     }
 
     /**
+     * @return Array
+     */
+    public function getStatusAsArray()
+    {
+        return self::$_statuses[$this->status];
+    }
+
+    /**
      * @return string
      */
     public function getStatus()
@@ -293,12 +309,14 @@ class Reservation extends  \Me\Model\ModelAbstract {
         return $this->id;
     }
 
-    /**
-     * Shortcut method for fetching reservation clinic from services
-     */
     public function getClinic()
     {
-        return $this->services[0]->clinic;
+        return $this->clinic;
+    }
+
+    public function setClinic(\Trendmed\Entity\Clinic $clinic)
+    {
+        $this->clinic = $clinic;
     }
 
     /** END GETTERS AND SETTERS **/

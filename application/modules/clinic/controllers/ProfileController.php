@@ -22,8 +22,14 @@ class Clinic_ProfileController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $this->view->headTitle('Jak zacząć');
+        $this->view->headTitle('Clinic dashboard');
         $this->view->clinic = $this->_helper->LoggedUser();
+
+        # fetching clinics reservations
+        $repo = $this->_em->getRepository('\Trendmed\Entity\Reservation');
+        $reservations = $repo->fetchAllClinicReservations($this->_helper->LoggedUser());
+
+        $this->view->reservations = $reservations;
     }
 
     /**
