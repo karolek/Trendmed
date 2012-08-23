@@ -112,6 +112,10 @@ class Reservation extends  \Me\Model\ModelAbstract {
         if (!$this->clinic) {
             throw new \Exception('Reservation has to get a clinic object');
         }
+
+        if($this->patient->isProfileFilled() < 1) {
+            throw new \Exception('Patient who is reserving a visit must have filled his profile to full');
+        }
     }
 
     /** GETTERS AND SETTERS **/

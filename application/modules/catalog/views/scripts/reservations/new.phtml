@@ -1,3 +1,13 @@
+<?php if($this->LoggedUser()->isProfileFilled() < 1): ?>
+    <div class="alert alert-block alert-danger">
+        <?= $this->translate('Before making reservation please fill your profile with personal data.'); ?>
+        <a href="<?= $this->url(array(
+            'action'        => 'edit-details',
+            'controller'    => 'profile',
+            'module'        => 'patient'
+        )); ?>"><?= $this->translate('Go to my profile edit'); ?></a>
+    </div>
+<?php endif; ?>
 <p>
     <?= $this->translate('Wstaw tutaj text wstępny do skłądania rezerwacji'); ?>
 </p>

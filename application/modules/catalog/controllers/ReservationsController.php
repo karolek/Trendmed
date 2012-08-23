@@ -52,6 +52,9 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
             #new reservation POST request
             $post = $request->getPost();
             # validating if atleast one service is selected
+            if($this->_helper->LoggedUser()->isProfileFilled() <1 ) {
+                $form->addError('You have to fill Your profile with Your personal data before making a reservation.');
+            }
             if(count($post['services']) < 1) {
                 $form->getElement('services')->addError('At least one service must be select');
             } else {
