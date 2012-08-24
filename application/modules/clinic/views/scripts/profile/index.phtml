@@ -70,10 +70,12 @@
             </ul>
         </td>
         <td>
-            <?php $status =  $reservation->getStatusAsArray(); echo $this->translate($status['name']); ?>
+            <?php $status = $reservation->getStatusAsArray(); echo $this->translate($status['name']); ?>
         </td>
         <td>
-            put actions over here
+            <?php foreach($status['actions']['clinic'] as $action): ?>
+                <?= $action; ?>
+            <?php endforeach; ?>
         </td>
     </tr>
         <?php endforeach; ?>

@@ -113,7 +113,9 @@
         <tbody>
             <? foreach ($service->clinic->services as $service): ?>
         <tr>
-            <td><span>&bull;</span> &nbsp; <strong><?= $service->category->name; ?></strong></td>
+            <td><span>&bull;</span> &nbsp; <strong><a href="<?= $this->url(array(
+                'id' => $service->id
+            ), 'service', true); ?>"><?= $service->category->name; ?></a></strong></td>
             <td><?= $service->priceMin; ?> - <?= $service->priceMin; ?> Euro</td>
             <td><?= $service->description; ?></td>
             <td><input type="checkbox" name="pre_services[]" value="<?=$service->id; ?>"></td>
