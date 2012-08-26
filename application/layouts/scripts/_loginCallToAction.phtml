@@ -1,0 +1,31 @@
+<? if(!$this->LoggedUser()): ?>
+<div id="fb-root" appid="<?= $this->appId; ?>"></div>
+
+<div class="modal hide fade" id="loginCallToAction">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Login or create account</h3>
+  </div>
+  <div class="modal-body">
+    <? $form = new Patient_Form_Login();
+       $form->setAction($this->url(array(
+           'action' => 'index',
+           'controller' => 'index',
+           'module' => 'patient',
+       ), 'default', true));
+       echo $form;
+      ?>
+
+  </div>
+  <div class="modal-footer">
+    <a href="<?= $this->url(
+        array(
+            'action' => 'index',
+            'controller' => 'register',
+            'module' => 'patient'
+        ), 'default', true
+    ); ?>" class="btn btn-primary"><?= $this->translate('Create free account');?></a>
+  </div>
+
+</div>
+<? endif; ?>

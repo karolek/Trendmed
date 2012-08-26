@@ -1,3 +1,4 @@
-<h1>Error</h1>
-<h2>Access denied</h2>
-<p>You are trying to access an area which you have not allowed.</p>
+<p>
+    <?= $this->translate('You have to be logged in to perform that action'); ?><br>
+    <a href=""><?= $this->translate('Login'); ?></a>  <?= $this->translate('or'); ?> <a href=""><?= $this->translate('register'); ?></a>
+</p>

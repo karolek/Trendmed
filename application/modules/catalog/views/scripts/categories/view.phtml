@@ -122,13 +122,16 @@
                             <? endforeach; ?>
                         </tbody>
                     </table>
-                    <input class="btn-primary" type="submit" value="Book now">
+                    <?php if($this->LoggedUser()->roleName == 'patient'): ?>
+                        <input class="btn-primary" type="submit" value="Book now">
+                    <?php else: ?>
+                        <?= $this->LoggedLink("Book now", array('class' => 'btn-primary')); ?>
+                    <?php endif; ?>
                 </form>
                 <? endif; ?>
 
             </div>
                 <div class="clear"></div>
-
             </div>
         <? endforeach; ?>
     <?php else: ?>

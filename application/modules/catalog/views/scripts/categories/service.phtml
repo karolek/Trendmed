@@ -1,1 +1,4 @@
 Service <?= $this->service->category->name; ?>
+<?php foreach ($this->service->photo as $photo): ?>
+    <?= $this->ShowPhoto($photo, 'small', 'services'); ?>
+<?php endforeach; ?>
