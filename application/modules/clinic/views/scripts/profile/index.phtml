@@ -74,7 +74,9 @@
         </td>
         <td>
             <?php foreach($status['actions']['clinic'] as $action): ?>
-                <?= $action; ?>
+                <a href="<?= $this->url(array('id' => $reservation->id),
+                    $this->config->reservation->action->clinic->$action->routeName); ?>">
+                    <?= $this->config->reservation->action->clinic->$action->name; ?></a>
             <?php endforeach; ?>
         </td>
     </tr>

@@ -28,6 +28,8 @@ class Clinic_ProfileController extends Zend_Controller_Action
         # fetching clinics reservations
         $repo = $this->_em->getRepository('\Trendmed\Entity\Reservation');
         $reservations = $repo->fetchAllClinicReservations($this->_helper->LoggedUser());
+        #config needed for reservation status change actions
+        $this->view->config = \Zend_Registry::get('config');
 
         $this->view->reservations = $reservations;
     }

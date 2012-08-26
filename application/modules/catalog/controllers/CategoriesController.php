@@ -118,6 +118,7 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
             throw new \Exception('No service with ID '.$id.' found');
         }
         $this->view->service = $service;
+        $this->view->headTitle($this->view->translate('Service') .' '.$service->category->name);
     }
 
 }

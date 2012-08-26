@@ -39,7 +39,8 @@ class Reservation extends  \Me\Model\ModelAbstract {
      */
     protected static $_statuses = array(
         'new'       => array('name' => 'New', 'actions' => array( #what actions can be done now by who
-            'clinic' => array('confirm', 'decline', 'newDate')
+            'clinic' => array('confirm', 'decline', 'newDate'),
+            'patient' => array()
         )), #when reservations waits for clinic approval
         'closed'    => array('name' => 'Closed'),
         'confirmed' => array('name' => 'Confirmed', 'actions'),

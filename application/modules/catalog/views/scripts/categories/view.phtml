@@ -69,9 +69,9 @@
                 <li class="thumbnail">
                     <?= $this->ShowClinicLogo($service->clinic); ?>
                 </li>
-                <? foreach ($service->photos as $photo): ?>
+                <? foreach ($service->clinic->photos as $photo): ?>
                 <?=
-                $this->ShowPhoto($photo, 'small', 'services')
+                $this->ShowPhoto($photo, 'small', 'clinics')
                 ; ?>
                 <? endforeach; ?>
             </ul>
@@ -94,7 +94,7 @@
             </p>
             <!-- choosen service photos -->
             <? foreach ($service->photos as $photo): ?>
-                    <?= $this->ShowPhoto($photo) ; ?>
+                    <?= $this->ShowPhoto($photo, 'small', 'services') ; ?>
                 <? endforeach; ?>
             <!-- other clinic services -->
             <? if (count($service->clinic->services) > 0): ?>
