@@ -1,144 +1,139 @@
 <div id="catalog">
 
-<ul class="nav nav-tabs" id="myTab">
-    <li class="active"><a
-        href="<?= $this->url(array('type' => '', 'page' => 1), 'category', false); ?>#home"><?= $this->translate('Wszystkie placówki'); ?></a>
-    </li>
-    <li><a
-        href="<?= $this->url(array('type' => 'big', 'page' => 1), 'category', false); ?>#profile"><?= $this->translate('Tylko szpitale, kliniki i sanatoria'); ?></a>
-    </li>
-    <li><a
-        href="<?= $this->url(array('type' => 'small', 'page' => 1), 'category', false); ?>#messages"><?= $this->translate('Tylko gabinety, salony i spa'); ?></a>
-    </li>
-</ul>
-
-
-<div id="filters">
-    <label><?= $this->translate('Sort by'); ?>:</label>
-    <ul>
-        <li>
-            <a class="<?=$this->direction; ?>"
-               href="<?= $this->url(array('order' => 'rating', 'page' => 1, 'direction' => $this->direction)); ?>">
-                <?= $this->translate('Patient rating'); ?>
-            </a>
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="active"><a
+            href="<?= $this->url(array('type' => '', 'page' => 1), 'category', false); ?>#home"><?= $this->translate('Wszystkie placówki'); ?></a>
         </li>
-        <li>
-            <a class="<?=$this->direction; ?>"
-               href="<?= $this->url(array('order' => 'popularity', 'page' => 1, 'direction' => $this->direction)); ?>">
-                <?= $this->translate('Popularity'); ?>
-            </a>
+        <li><a
+            href="<?= $this->url(array('type' => 'big', 'page' => 1), 'category', false); ?>#profile"><?= $this->translate('Tylko szpitale, kliniki i sanatoria'); ?></a>
         </li>
-        <li>
-            <a class="<?=$this->direction; ?>"
-               href="<?= $this->url(array('order' => 'price', 'page' => 1, 'direction' => $this->direction)); ?>">
-                <?= $this->translate('Price'); ?>
-            </a>
-        </li>
-        <li>
-            <a class="<?=$this->direction; ?>"
-               href="<?= $this->url(array('order' => 'created', 'page' => 1, 'direction' => $this->direction)); ?>">
-                <?= $this->translate('Added date'); ?>
-            </a>
-        </li>
-        <li>
-            <a class="<?=$this->direction; ?>"
-               href="<?= $this->url(array('order' => 'name', 'page' => 1, 'direction' => $this->direction)); ?>">
-                <?= $this->translate('Clinic name'); ?>
-            </a>
+        <li><a
+            href="<?= $this->url(array('type' => 'small', 'page' => 1), 'category', false); ?>#messages"><?= $this->translate('Tylko gabinety, salony i spa'); ?></a>
         </li>
     </ul>
-    <form method="get" action="<?= $this->url(array(), 'category', false); ?>">
-        <select name="city" id="cityFilter">
-            <option value="">-- <?= $this->translate('filter by city'); ?> --</option>
-            <?php foreach ($this->cities as $city): ?>
-            <option <?php if ($this->city == $city['city']): ?>selected="selected" <?php endif; ?>value="<?= $city['city']; ?>"><?= $city['city']; ?></option>
-            <?php endforeach; ?>
-        </select>
-    </form>
-    <div class="clear"></div>
-</div>
 
 
-
-<? foreach ($this->services as $service): ?>
-
-<div class="entry">
-	
-	<ul class="thumbnails">
-    <li class="thumbnail">
-        <?= $this->ShowClinicLogo($service->clinic); ?>
-    </li>
-    <? foreach ($service->photos as $photo): ?>
-    <?=
-    $this->ShowPhoto($photo, 'small', 'services')
-    ; ?>
-    <? endforeach; ?>
-</ul>
-
-<div class="right">
-	
-	<span class="fav"><?=
-    $this->AddToFavorite($service->clinic)
-    ; ?></span>
-	
-<h3>
-	<a href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>"><?= $service->clinic->name; ?></a>
-</h3>
-<address><strong class="location"><?= $service->clinic->city; ?></strong> <span class="map"><?= $this->ShowOnMap($service->clinic); ?></span></address>
-    
-
-<h4>Service description</h4>
-<p>
-    <?= $service->description; ?>
-</p>
-<!-- choosen service photos -->
-<? foreach ($service->photos as $photo): ?>
-        <?=
-        $this->ShowPhoto($photo)
-        ; ?>
-    <? endforeach; ?>
-<!-- other clinic services -->
-<? if (count($service->clinic->services) > 0): ?>
-    <form action="<?= $this->url(array('slug' => $service->clinic->slug), 'newReservation'); ?>" method="post">
-    <h4><?= vsprintf($this->translate("Other services in %s"), array($service->clinic->name)); ?></h4>
-    <table class="table">
-        <thead>
-        <tr>
-            <th><?= $this->translate('Service name'); ?>:</th>
-            <th><?= $this->translate('Price range'); ?>:</th>
-            <th><?= $this->translate('Description'); ?>:</th>
-            <th><?= $this->translate('Book'); ?>:</th>
-        </tr>
-        </thead>
-        <tbody>
-            <? foreach ($service->clinic->services as $service): ?>
-        <tr>
-            <td><span>&bull;</span> &nbsp; <strong><a href="<?= $this->url(array(
-                'id' => $service->id
-            ), 'service', true); ?>"><?= $service->category->name; ?></a></strong></td>
-            <td><?= $service->priceMin; ?> - <?= $service->priceMin; ?> Euro</td>
-            <td><?= $service->description; ?></td>
-            <td><input type="checkbox" name="pre_services[]" value="<?=$service->id; ?>"></td>
-        </tr>
-            <? endforeach; ?>
-        </tbody>
-    </table>
-        <input class="btn-primary" type="submit" value="Book now">
-    </form>
-    <? endif; ?>
-
-</div>
+    <div id="filters">
+        <label><?= $this->translate('Sort by'); ?>:</label>
+        <ul>
+            <li>
+                <a class="<?=$this->direction; ?>"
+                   href="<?= $this->url(array('order' => 'rating', 'page' => 1, 'direction' => $this->direction)); ?>">
+                    <?= $this->translate('Patient rating'); ?>
+                </a>
+            </li>
+            <li>
+                <a class="<?=$this->direction; ?>"
+                   href="<?= $this->url(array('order' => 'popularity', 'page' => 1, 'direction' => $this->direction)); ?>">
+                    <?= $this->translate('Popularity'); ?>
+                </a>
+            </li>
+            <li>
+                <a class="<?=$this->direction; ?>"
+                   href="<?= $this->url(array('order' => 'price', 'page' => 1, 'direction' => $this->direction)); ?>">
+                    <?= $this->translate('Price'); ?>
+                </a>
+            </li>
+            <li>
+                <a class="<?=$this->direction; ?>"
+                   href="<?= $this->url(array('order' => 'created', 'page' => 1, 'direction' => $this->direction)); ?>">
+                    <?= $this->translate('Added date'); ?>
+                </a>
+            </li>
+            <li>
+                <a class="<?=$this->direction; ?>"
+                   href="<?= $this->url(array('order' => 'name', 'page' => 1, 'direction' => $this->direction)); ?>">
+                    <?= $this->translate('Clinic name'); ?>
+                </a>
+            </li>
+        </ul>
+        <form method="get" action="<?= $this->url(array(), 'category', false); ?>">
+            <select name="city" id="cityFilter">
+                <option value="">-- <?= $this->translate('filter by city'); ?> --</option>
+                <?php foreach ($this->cities as $city): ?>
+                <option <?php if ($this->city == $city['city']): ?>selected="selected" <?php endif; ?>value="<?= $city['city']; ?>"><?= $city['city']; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </form>
+        <div class="clear"></div>
+    </div>
 
 
-    
-    <div class="clear"></div>
+    <!-- iterating though services -->
+    <?php if(count($this->services) > 0): ?>
+        <? foreach ($this->services as $service): ?>
 
-</div>
-    
-<? endforeach; ?>
+            <div class="entry">
+
+                <ul class="thumbnails">
+                <li class="thumbnail">
+                    <?= $this->ShowClinicLogo($service->clinic); ?>
+                </li>
+                <? foreach ($service->photos as $photo): ?>
+                <?=
+                $this->ShowPhoto($photo, 'small', 'services')
+                ; ?>
+                <? endforeach; ?>
+            </ul>
+
+            <div class="right">
+
+                <span class="fav"><?=
+                $this->AddToFavorite($service->clinic)
+                ; ?></span>
+
+            <h3>
+                <a href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>"><?= $service->clinic->name; ?></a>
+            </h3>
+            <address><strong class="location"><?= $service->clinic->city; ?></strong> <span class="map"><?= $this->ShowOnMap($service->clinic); ?></span></address>
 
 
+            <h4>Service description</h4>
+            <p>
+                <?= $service->description; ?>
+            </p>
+            <!-- choosen service photos -->
+            <? foreach ($service->photos as $photo): ?>
+                    <?= $this->ShowPhoto($photo) ; ?>
+                <? endforeach; ?>
+            <!-- other clinic services -->
+            <? if (count($service->clinic->services) > 0): ?>
+                <form action="<?= $this->url(array('slug' => $service->clinic->slug), 'newReservation'); ?>" method="post">
+                    <h4><?= vsprintf($this->translate("Other services in %s"), array($service->clinic->name)); ?></h4>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th><?= $this->translate('Service name'); ?>:</th>
+                            <th><?= $this->translate('Price range'); ?>:</th>
+                            <th><?= $this->translate('Description'); ?>:</th>
+                            <th><?= $this->translate('Book'); ?>:</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <? foreach ($service->clinic->services as $service): ?>
+                        <tr>
+                            <td><span>&bull;</span> &nbsp; <strong><a href="<?= $this->url(array(
+                                'id' => $service->id
+                            ), 'service', true); ?>"><?= $service->category->name; ?></a></strong></td>
+                            <td><?= $service->priceMin; ?> - <?= $service->priceMin; ?> Euro</td>
+                            <td><?= $service->description; ?></td>
+                            <td><input type="checkbox" name="pre_services[]" value="<?=$service->id; ?>"></td>
+                        </tr>
+                            <? endforeach; ?>
+                        </tbody>
+                    </table>
+                    <input class="btn-primary" type="submit" value="Book now">
+                </form>
+                <? endif; ?>
 
+            </div>
+                <div class="clear"></div>
 
-
+            </div>
+        <? endforeach; ?>
+    <?php else: ?>
+        <div class="alert alert-block">
+            <?= $this->translate('Sorry, no services in this category found. Please try another category.'); ?>
+        </div>
+    <?php endif; ?>
 </div>
