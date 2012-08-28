@@ -126,6 +126,7 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #catalog .entry .fav a {text-indent:-9999px; width:22px; height:16px; display:block; background:url(../img/icon_fav.png);}
 #catalog .entry .fav a:hover {background:url(../img/icon_fav_hover.png);}
 #catalog .entry .btn-primary {float:right; width:130px; height:26px; background:url(../img/button_book.png) top left no-repeat; padding:10px 13px 27px 45px; text-align: right; text-decoration:none;}
+#catalog .entry a.btn-primary {padding: 11px 13px 9px 43px; width: 75px;}
 #catalog .entry .btn-primary:hover {background:url(../img/button_book_hover.png) top left no-repeat; text-indent:-9999xp;}
 #catalog .entry .clear {width:500px; clear:both; height:1px;}
 #catalog .entry thead {display:none;}
