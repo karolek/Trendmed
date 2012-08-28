@@ -11,6 +11,7 @@
             href="<?= $this->url(array('type' => 'small', 'page' => 1), 'category', false); ?>#messages"><?= $this->translate('Tylko gabinety, salony i spa'); ?></a>
         </li>
     </ul>
+    <div id="filters">
     <form method="get" action="<?= $this->url(array(), 'category', false); ?>">
         <select name="city" id="cityFilter">
             <option value="">-- <?= $this->translate('filter by city'); ?> --</option>
@@ -20,7 +21,8 @@
         </select>
     </form>
     <div class="clear"></div>
-</div>
+    </div>
+
 
 
 <!-- iterating though services -->
@@ -103,3 +105,4 @@
     <?= $this->translate('Sorry, no services in this category found. Please try another category.'); ?>
 </div>
 <?php endif; ?>
+</div>
