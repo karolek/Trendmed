@@ -20,19 +20,24 @@
 
         <ul class="thumbnails">
             <li class="thumbnail">
-                <?= $this->ShowClinicLogo($this->clinic, 'small'); ?>
+                <?= $this->ShowClinicLogo($this->clinic, 'medium'); ?>
             </li>
         </ul>
 
         <div class="hidden" style="position: absolute;" id="image-holder"></div>
 
-        <a href="<?= $this->url(array(
+        
+
+		<div class="globalClear"></div>
+
+        <a class="btn btn-primary" id="buttonBook" href="<?= $this->url(array('slug' => $this->clinic->slug)); ?>"><?= $this->translate('book visit'); ?></a>
+        
+        <?= $this->clinic->description; ?>
+        
+        <a id="seeProfile" href="<?= $this->url(array(
             'slug' => $this->clinic->slug,
         ), 'clinic', true); ?>" class="btn btn-primary"><?= $this->translate('See profile'); ?></a>
-
-        <?= $this->clinic->description; ?>
-        <a href="<?= $this->url(array('slug' => $this->clinic->slug)); ?>"><?= $this->translate('book visit'); ?></a>
-
+        
     </div>
 
 </div>

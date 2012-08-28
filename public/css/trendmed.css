@@ -189,6 +189,7 @@ section {padding:24px;}
 #clinicProfile address {color:#292828; font-size:16px; width:410px;}
 /*#clinicProfile #buttonBook {position:absolute; margin: -55px 0 0 527px;}*/
 #clinicProfile #buttonBook {margin: -22px 0 0 530px; position: absolute;}
+#clinicProfile #seeProfile {float: right; margin: 15px -3px 0 0;}
 
 #clinicProfile .rating {text-align:right; color:#292828;font-family: 'TeXGyreHerosBold'; padding: 21px 0 0;}
 #clinicProfile .rating .add-to-fav {background: url("../img/icon_fav.png") repeat scroll 0 0 transparent; display: block; height: 16px; text-indent: -9999px; text-align:left; float:left; margin:0 0 0 46px; width: 22px;}
