@@ -258,6 +258,10 @@ section {padding:24px;}
 #reservation1 .form-horizontal {border-radius:0 0 6px 6px; border-top:none; padding: 25px 25px 55px;}
 #reservation1 .form-horizontal .btn-primary {float:right; margin: 0 -6px 0 0;}
 
+table.reservationList {}
+table.reservationList td {vertical-align: middle;}
+table.reservationList .new td {background: none repeat scroll 0 0 #F5F5F5; color: #434343; font-weight: bold;}
+table.reservationList .new td a.btn {font-weight:normal;}
 
 /* FORMS */
 
