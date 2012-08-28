@@ -1,10 +1,23 @@
-<h2><?= $this->service->category->name; ?></h2>
-    <?=
-    $this->partial('public/_clinicListEntry.phtml', array(
-        'clinic' => $this->service->clinic
-    ))
-    ; ?>
-<?php foreach ($this->service->photos as $photo): ?>
-    <?= $this->ShowPhoto($photo, 'small', 'services'); ?>
-<?php endforeach; ?>
-<?= $this->service->description; ?>
+<div id="serviceDetails">
+
+	<?=
+	$this->partial('public/_clinicListEntry.phtml', array(
+	    'clinic' => $this->service->clinic
+	))
+	; ?>
+	    
+	<div class="service">
+		
+		<h2><?= $this->service->category->name; ?></h2>
+		
+		<div class="photos">
+		<?php foreach ($this->service->photos as $photo): ?>
+		    <?= $this->ShowPhoto($photo, 'small', 'services'); ?>
+		<?php endforeach; ?>
+		</div>
+		
+		<?= $this->service->description; ?>
+	
+	</div>
+
+</div>

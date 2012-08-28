@@ -210,6 +210,13 @@ section {padding:24px;}
 #clinicProfile .table th {color:#292828;}
 #clinicProfile .table td {border-top:1px dotted #DDDDDD;}
 
+#serviceDetails {}
+#serviceDetails #clinicProfile .row {border-radius:6px 6px 0 0; border-bottom:none; width:629px;}
+#serviceDetails .service {padding:25px; border-radius:0 0 6px 6px; border:1px solid #EEEEEE;}
+#serviceDetails .service h2 {color:#107ba8; font-size:22px; padding:0 0 5px;}
+#serviceDetails .service p {margin:10px 0 0;}
+#serviceDetails .service .photos img {height: 70px; margin: 2px 5px 0 0; width: 80px; border-radius:5px;}
+
 
 
 /* EDIT CLINIC */
