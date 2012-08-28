@@ -56,22 +56,21 @@
 
             <h4>Service description</h4>
             <p>
-                <?= $service->description; ?>
+                <?= $this->truncate($service->description)->toLength(250); ?>
             </p>
             <!-- choosen service photos -->
             <? foreach ($service->photos as $photo): ?>
-            <?= $this->ShowPhoto($photo, 'small', 'services') ; ?>
+                <?= $this->ShowPhoto($photo, 'small', 'services') ; ?>
             <? endforeach; ?>
             <!-- other clinic services -->
             <? if (count($service->clinic->services) > 0): ?>
             <form action="<?= $this->url(array('slug' => $service->clinic->slug), 'newReservation'); ?>" method="post">
-                <h4><?= vsprintf($this->translate("Other services in %s"), array($service->clinic->name)); ?></h4>
+                <h4><?= vsprintf($this->translate("All services in %s"), array($service->clinic->name)); ?></h4>
                 <table class="table">
                     <thead>
                     <tr>
                         <th><?= $this->translate('Service name'); ?>:</th>
                         <th><?= $this->translate('Price range'); ?>:</th>
-                        <th><?= $this->translate('Description'); ?>:</th>
                         <th><?= $this->translate('Book'); ?>:</th>
                     </tr>
                     </thead>
@@ -81,8 +80,7 @@
                         <td><span>&bull;</span> &nbsp; <strong><a href="<?= $this->url(array(
                             'id' => $service->id
                         ), 'service', true); ?>"><?= $service->category->name; ?></a></strong></td>
-                        <td><?= $service->priceMin; ?> - <?= $service->priceMin; ?> Euro</td>
-                        <td><?= $service->description; ?></td>
+                        <td><?= $this->translate('from'); ?> <?= $service->priceMin; ?> <?= $this->translate('to'); ?> <?= $service->priceMin; ?> Euro</td>
                         <td><input type="checkbox" name="pre_services[]" value="<?=$service->id; ?>"></td>
                     </tr>
                         <? endforeach; ?>

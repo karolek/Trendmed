@@ -107,6 +107,9 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
 
         #Seetting up a view title
         $this->view->headTitle($this->view->translate('New reservation'));
+
+        $this->_helper->_layout->setLayout('homepage');
+
     }
 
 }
