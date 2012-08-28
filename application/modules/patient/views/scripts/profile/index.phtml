@@ -35,7 +35,13 @@
                     <?php $status =  $reservation->getStatusAsArray(); echo $this->translate($status['name']); ?>
                 </td>
                 <td>
-                    put actions over here
+                    <?php foreach($status['actions']['patient'] as $action): ?>
+                    <a href="<?= $this->url(array('id' => $reservation->id),
+                        $this->config->reservations->patient->$action->routeName); ?>">
+                        <?= $this->config->reservations->patient->$action->name; ?>
+                    </a>
+                    <?= $action; ?>
+                    <?php endforeach; ?>
                 </td>
             </tr>
         <?php endforeach; ?>

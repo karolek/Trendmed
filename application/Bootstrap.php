@@ -162,6 +162,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 ->allow('admin', 'mvc:admin')
                 ->allow('guest', 'mvc:catalog')
                 ->deny('guest', 'mvc:catalog.reservations', array('new'))
+                ->allow('guest', 'mvc:catalog.reservations')
                 ->allow('patient', 'mvc:catalog.reservations', array('new'))
                 ->allow('guest', 'mvc:admin.index', 'index');
 

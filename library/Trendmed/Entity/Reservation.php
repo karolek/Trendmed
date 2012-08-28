@@ -34,13 +34,22 @@ class Reservation extends  \Me\Model\ModelAbstract {
     protected $status;
 
     /**
-     * @var array List of allowed statuses for reservation
+     * @var array List of allowed statuses for reservation.
+     * Defined actions
      */
     protected static $_statuses = array(
-        'new'       => array('name' => 'New', 'actions' => array(
-            'clinic' => array('confirm', 'decline')
+        'new'       => array('name' => 'New', 'actions' => array( #what actions can be done now by who
+            'clinic' => array('confirm', 'decline', 'newDate'),
+            'patient' => array()
         )), #when reservations waits for clinic approval
         'closed'    => array('name' => 'Closed'),
+        'confirmed' => array('name' => 'Confirmed', 'actions' => array(
+            'clinic'    => array(),
+            'patient'   => array('cancel')
+        )),
+        'new_date'  => array('name' => 'New date proposed', 'actions' => array(
+            'patient' => array('confirmNewDate', 'discardNewDate')
+        ))
     );
 
     /**
@@ -113,7 +122,7 @@ class Reservation extends  \Me\Model\ModelAbstract {
             throw new \Exception('Reservation has to get a clinic object');
         }
 
-        if($this->patient->isProfileFilled() < 1) {
+        if ($this->patient->isProfileFilled() < 1) {
             throw new \Exception('Patient who is reserving a visit must have filled his profile to full');
         }
     }

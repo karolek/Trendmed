@@ -51,42 +51,52 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
         if ($request->isPost()) {
             #new reservation POST request
             $post = $request->getPost();
-            # validating if atleast one service is selected
-            if($this->_helper->LoggedUser()->isProfileFilled() <1 ) {
-                $form->addError('You have to fill Your profile with Your personal data before making a reservation.');
-            }
-            if(count($post['services']) < 1) {
-                $form->getElement('services')->addError('At least one service must be select');
+            # checking if this a pre request from other page like clinic page with pre selected services
+            # or user acctualy want to make a reservation
+            if($post['pre_services']) {
+                # user just pre selects services
+                $form->populate(array(
+                    'services' => $post['pre_services']
+                ));
             } else {
-                if ($form->isValid($post)) {
-                    # double checking if user is logged, but should be controller by ACL
-                    if (!$this->_helper->LoggedUser()) {
-                        throw new Exception('Only logged patients can make reservations');
-                    }
-                    $reservation = new \Trendmed\Entity\Reservation();
-                    $values = $form->getValues();
-                    #mapping of a post array to new reservation, this is so lame, should auto somehow
-                    $reservation->question  = $values['question'];
-                    $reservation->patient   = $this->_helper->LoggedUser();
-                    $reservation->dateFrom  = new \DateTime($values['dateFrom']);
-                    $reservation->dateTo    = new \DateTime($values['dateTo']);
-                    foreach($values['services'] as $serviceId) {
-                        $reservation->addService($this->_em->find('\Trendmed\Entity\Service', $serviceId));
-                    }
-                    $clinic = $reservation->services[0]->clinic;
-                    $reservation->clinic = $clinic;
-                    $this->_em->persist($reservation);
-                    $this->_em->flush();
-                    $this->_helper->FlashMessenger(array(
-                        'success' => 'Reservation booked'
-                    ));
-                    $this->_helper->Redirector('index', 'profile', 'patient');
+                # validating if atleast one service is selected
+                if($this->_helper->LoggedUser()->isProfileFilled() <1 ) {
+                    $form->addError('You have to fill Your profile with Your personal data before making a reservation.');
+                }
+                if(count($post['services']) < 1) {
+                    $form->getElement('services')->addError('At least one service must be select');
                 } else {
-                    $this->_helper->FlashMessenger(array(
-                        'warning' => 'Please fix the errors in form'
-                    ));
+                    if ($form->isValid($post)) {
+                        # double checking if user is logged, but should be controller by ACL
+                        if (!$this->_helper->LoggedUser()) {
+                            throw new Exception('Only logged patients can make reservations');
+                        }
+                        $reservation = new \Trendmed\Entity\Reservation();
+                        $values = $form->getValues();
+                        #mapping of a post array to new reservation, this is so lame, should auto somehow
+                        $reservation->question  = $values['question'];
+                        $reservation->patient   = $this->_helper->LoggedUser();
+                        $reservation->dateFrom  = new \DateTime($values['dateFrom']);
+                        $reservation->dateTo    = new \DateTime($values['dateTo']);
+                        foreach($values['services'] as $serviceId) {
+                            $reservation->addService($this->_em->find('\Trendmed\Entity\Service', $serviceId));
+                        }
+                        $clinic = $reservation->services[0]->clinic;
+                        $reservation->clinic = $clinic;
+                        $this->_em->persist($reservation);
+                        $this->_em->flush();
+                        $this->_helper->FlashMessenger(array(
+                            'success' => 'Reservation booked'
+                        ));
+                        $this->_helper->Redirector('index', 'profile', 'patient');
+                    } else {
+                        $this->_helper->FlashMessenger(array(
+                            'warning' => 'Please fix the errors in form'
+                        ));
+                    }
                 }
             }
+
         }
 
         $form->populateServicesFromClinic($clinic);

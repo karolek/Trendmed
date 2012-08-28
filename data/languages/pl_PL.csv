@@ -107,3 +107,13 @@ Service main category;Główna kategoria usługi
 Service sub-category;Podkategoria usługi
 '%value%' is not greater than '%min%';Wybór jest wymagany
 Correct the errors in the form;Popraw błędy w formularzu
+Date;Data
+Patient;Pacjent
+Services;Usługi
+Actions;Akcje
+Confirm;Potwierdź
+Decline;Odrzuć
+Another date;Zaproponuj inną datę
+Reservation date;Data rezerwacjię
+New;Nowa
+Confirmed;Potwierdzona

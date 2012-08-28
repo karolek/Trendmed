@@ -49,6 +49,12 @@
     
     <a id="buttonBook" href="<?= $this->url(array('slug' => $this->clinic->slug), 'newReservation', true);?>" class="btn btn-primary"><?= $this->translate('Book now'); ?></a>
 
+    <?php if($this->LoggedUser()->roleName == 'patient'): ?>
+        <a id="buttonBook" href="<?= $this->url(array('slug' => $this->clinic->slug), 'newReservation', true);?>" class="btn btn-primary"><?= $this->translate('Book now'); ?></a>
+    <?php else: ?>
+        <?= $this->LoggedLink("Book now", array('class' => 'btn-primary')); ?>
+    <?php endif; ?>
+
     <?= $this->clinic->description; ?>
     
 </div>
@@ -66,29 +72,35 @@
         <form method="post" action="<?= $this->url(array(
             'slug' => $this->clinic->slug,
         ), 'newReservation', true); ?>">
-    	<h2>Services of <?= $this->clinic->name; ?></h2>
-    	
-        <table class="table">
-            <thead>
-                <tr>
-                    <th><?= $this->translate('Service name'); ?>:</th>
-                    <th><?= $this->translate('Price range'); ?>:</th>
-                    <th><?= $this->translate('Description'); ?>:</th>
-                    <th><?= $this->translate('Book'); ?>:</th>
-                </tr>
-            </thead>
-            <tbody>
-                <? foreach ($this->clinic->services as $service): ?>
+            <h2>Services of <?= $this->clinic->name; ?></h2>
+
+            <table class="table">
+                <thead>
                     <tr>
-                        <td><?= $service->category->name; ?></td>
-                        <td><?= $service->priceMin; ?> - <?= $service->priceMin; ?> Euro</td>
-                        <td><?= $service->description; ?></td>
-                        <td><input type="checkbox" name="services[]" value="<?=$service->id; ?>"></td>
+                        <th><?= $this->translate('Service name'); ?>:</th>
+                        <th><?= $this->translate('Price range'); ?>:</th>
+                        <th><?= $this->translate('Description'); ?>:</th>
+                        <th><?= $this->translate('Book'); ?>:</th>
                     </tr>
-                <? endforeach; ?>
-            </tbody>
-        </table>
-            <input type="submit" value="Book now">
+                </thead>
+                <tbody>
+                    <? foreach ($this->clinic->services as $service): ?>
+                        <tr>
+                            <td><span>&bull;</span> &nbsp; <strong><a href="<?= $this->url(array(
+                                'id' => $service->id
+                            ), 'service', true); ?>"><?= $service->category->name; ?></a></strong></td>
+                            <td><?= $service->priceMin; ?> - <?= $service->priceMin; ?> Euro</td>
+                            <td><?= $service->description; ?></td>
+                            <td><input type="checkbox" name="pre_services[]" value="<?=$service->id; ?>"></td>
+                        </tr>
+                    <? endforeach; ?>
+                </tbody>
+            </table>
+        <?php if($this->LoggedUser()->roleName == 'patient'): ?>
+            <input class="btn-primary" type="submit" value="Book now">
+        <?php else: ?>
+            <?= $this->LoggedLink("Book now", array('class' => 'btn-primary')); ?>
+        <?php endif; ?>
         </form>
 </div>
 <? endif; ?>

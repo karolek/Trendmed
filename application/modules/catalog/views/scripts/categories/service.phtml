@@ -1,0 +1,5 @@
+<?php foreach ($this->service->photos as $photo): ?>
+    <?= $this->ShowPhoto($photo, 'small', 'services'); ?>
+<?php endforeach; ?>
+<h2>Description</h2>
+<?= $this->service->description; ?>

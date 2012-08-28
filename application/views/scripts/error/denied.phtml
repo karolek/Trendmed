@@ -1,5 +1,4 @@
-<h3><?= $this->translate('Access denied'); ?></h3>
-    <p>
-<?= $this->translate("You don't have access to this part of web service. If You feel You should, than please login into
-right account."); ?>
-    </p>
+<p>
+    <?= $this->translate('You have to be logged in to perform that action'); ?>.<br>
+    <a href="<?= $this->url(array('action' => 'index', 'controller' => 'index', 'module' => 'patient'), 'default', true); ?>"><?= $this->translate('Login'); ?></a>  <?= $this->translate('or'); ?> <a href="<?= $this->url(array('action' => 'index', 'controller' => 'register', 'module' => 'patient'), 'default', true); ?>"><?= $this->translate('register'); ?></a>
+</p>

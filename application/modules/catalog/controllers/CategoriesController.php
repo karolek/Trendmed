@@ -108,5 +108,18 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
         return $category;
     }
 
+    public function serviceAction()
+    {
+        $request = $this->getRequest();
+        $id = $request->getParam('id');
+
+        $service = $this->_em->find('Trendmed\Entity\Service', $id);
+        if(!$service) {
+            throw new \Exception('No service with ID '.$id.' found');
+        }
+        $this->view->service = $service;
+        $this->view->headTitle($this->view->translate('Service') .' '.$service->category->name);
+    }
+
 }
 
