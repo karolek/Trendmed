@@ -84,6 +84,7 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #menuFloat {width:969px; padding: 8px 15px; background:#ffffff; margin:0 auto; height:18px; position:relative; z-index:3; box-shadow:0 2px 6px -6px #000000; -webkit-box-shadow:0 2px 6px -6px #000000; -moz-box-shadow:0 2px 6px -6px #000000; border-radius:0 0 5px 5px; -moz-border-radius:0 0 5px 5px; -webkit-border-radius:0 0 5px 5px;}
 #menuFloat a {cursor:pointer;}
 #menuFloat ul {margin:0; list-style:inside none; float:left;}
+#menuFloat ul li {float:left;}
 #menuFloat .pull-right {border-right: 1px solid #EEEEEE; float: left; margin: 0 15px 0 0; padding: 0 15px 0 0;}
 #menuFloat .dropdown.open {float:left; position: relative;}
 #menuFloat .dropdown.open .dropdown-toggle {background:none;}
@@ -112,7 +113,8 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #catalog .entry {clear:both; border-left:1px solid #f0f0f0; border-right:1px solid #f0f0f0; padding:25px 25px 17px;}
 #catalog .entry:nth-child(even) {background:#f0f0f0;}
 #catalog .entry h3 a {font-size:24px; color:#292828;}
-#catalog .entry .thumbnails {margin:0; float:left; padding:0; clear:none;}
+#catalog .entry .thumbnails {margin:0; float:left; padding:0; clear:none; width:110px;}
+#catalog .entry .thumbnails img.photo-small {width:43px; height:43px; border:1px solid #eae9e9; float:left; margin: 10px 10px 0 0; border-radius: 4px 4px 4px 4px;}
 #catalog .entry .thumbnails li {margin:0; padding:0; box-shadow:none; border:1px solid #eae9e9;}
 #catalog .entry .thumbnails li img {width:98px;}
 #catalog .entry .right {width:505px; float:right;}
@@ -174,30 +176,34 @@ section {padding:24px;}
 
 /* CLINIC PUBLIC PROFILE */
 
-#clinicProfile p {margin:0; font-size:12px; text-align:justify;}
+#clinicProfile p {margin:0; font-size:12px; text-align:justify; padding:20px 0 0;  clear:both; display:block;}
 #clinicProfile h2 {font-family: 'TeXGyreHerosBold'; font-size:26px; color:#292828;}
 #clinicProfile .row {padding:25px; margin:0; width:630px; border-bottom:none;}
 #clinicProfile .row:first-child {border-radius:6px 6px 0 0; -webkit-border-radius:6px 6px 0 0; -moz-border-radius:6px 6px 0 0;}
 #clinicProfile .row:last-child {border-bottom:1px solid #EEEEEE; border-radius:0 0 6px 6px; -webkit-border-radius:0 0 6px 6px; -moz-border-radius:0 0 6px 6px;}
-#clinicProfile #image-holder {margin:-25px 0 0 -25px; padding:25px; background:#ffffff; text-align:center; width: 629px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);}
+#clinicProfile #image-holder {margin:114px 0 0 -25px; padding:25px; z-index:4; background:#ffffff; text-align:center; width: 629px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);}
 
 #clinicProfile .left {width:410px; float:left;}
 #clinicProfile .right {width:210px; float:right;}
 #clinicProfile h1 {font-size:32px; color:#292828; font-family: 'TeXGyreHerosBold'; width:410px;}
 #clinicProfile address {color:#292828; font-size:16px; width:410px;}
-#clinicProfile #buttonBook {position:absolute; margin: -55px 0 0 527px;}
+/*#clinicProfile #buttonBook {position:absolute; margin: -55px 0 0 527px;}*/
+#clinicProfile #buttonBook {margin: -22px 0 0 530px; position: absolute;}
 
 #clinicProfile .rating {text-align:right; color:#292828;font-family: 'TeXGyreHerosBold'; padding: 21px 0 0;}
+#clinicProfile .rating .add-to-fav {background: url("../img/icon_fav.png") repeat scroll 0 0 transparent; display: block; height: 16px; text-indent: -9999px; text-align:left; float:left; margin:0 0 0 46px; width: 22px;}
+/*#clinicProfile .rating .add-to-fav:hover {background:url(../img/button_book_hover.png) top left no-repeat;}*/
 #clinicProfile .rating a {width:16px; height:16px; display:inline-block; background:url(../img/fav.png) top left no-repeat; text-indent:9999px; position:relative; top:-2px; margin:0 2px 0 0;}
 #clinicProfile .rating big {font-size:18px;}
 #clinicProfile .rating small {font-size:13px; position: relative; top: -4px;}
 #clinicProfile .rating .count {font-size: 26px; margin:0 0 0 11px; padding: 7px; float:right; display:block; font-family: 'TeXGyreHerosRegular'; background:#e7e6e6; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
 
-#clinicProfile .thumbnail {}
-#clinicProfile .photo-small {margin:0 0 12px 12px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
+#clinicProfile .thumbnails {/*width:100px;*/ float:left; margin:0; padding:0;}
+#clinicProfile .thumbnail {width:98px; height:98px; margin:0; padding:0;}
+#clinicProfile .photo-small {margin:0 0 12px 12px; width:67px; height:67px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
 
 #clinicProfile #clinic-grouppromotion {height: 184px;}
-#clinicProfile #clinic-grouppromotion img {position: absolute; margin: -40px 0 0 -24px;}
+#clinicProfile #clinic-grouppromotion img {position: absolute; margin: -40px 0 0 -24px; z-index: 1;}
 
 #clinicProfile .table {margin:10px 0 0;}
 #clinicProfile .table th {color:#292828;}
@@ -228,6 +234,20 @@ section {padding:24px;}
 
 #clinicServicesTable {margin: 0 24px; width: 932px;}
 #addNewService {position:absolute; margin: -60px 0 0 802px;}
+
+
+/* RESERVATION */
+
+#reservation1 {}
+#reservation1 #clinicProfile .row {border-radius:6px 6px 0 0;}
+#reservation1 #clinicProfile .thumbnail .photo-small {margin:0; width:98px; height:98px;}
+#reservation1 #clinicProfile .thumbnails {width:630px; clear:both;}
+#reservation1 #clinicProfile .btn-primary {display: block; margin: 73px 0 0 515px; position: absolute;}
+#reservation1 #clinicProfile .row a:last-child {background: url("../img/button_book.png") no-repeat scroll left top transparent; margin:10px 0 0; float: right; height: 24px; padding: 10px 12px 6px; text-align: right; width: 107px; border: medium none; box-shadow: none; text-decoration:none; color: #FFFFFF; font-family: 'TeXGyreHerosCnBold'; font-size: 16px; text-shadow: 1px 1px #47B8D4; text-transform: uppercase;}
+#reservation1 #clinicProfile .row a:last-child:hover {background:url(../img/button_book_hover.png) top left no-repeat;}
+#reservation1 .form-horizontal {border-radius:0 0 6px 6px; border-top:none; padding: 25px 25px 55px;}
+#reservation1 .form-horizontal .btn-primary {float:right; margin: 0 -6px 0 0;}
+
 
 /* FORMS */
 
