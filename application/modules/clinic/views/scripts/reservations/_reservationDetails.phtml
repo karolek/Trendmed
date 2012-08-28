@@ -1,0 +1,36 @@
+<h2>Rezerwacja numer #<?= $this->reservation->id; ?></h2>
+<dl>
+    <dt>Złożona przez</dt>
+    <dd><?= $this->reservation->patient->name;?></dd>
+
+    <dt>Data złożenia rezerwacji</dt>
+    <dd><?= $this->reservation->created->format("d-m-Y h:i:s");?></dd>
+
+    <dt>Kontakt do pacjenta</dt>
+    <dd>Telefon: <?= $this->reservation->patient->phoneNumber; ?><br>
+        E-mail: <a href="mailto:<?= $this->reservation->patient->getEmailaddress(); ?>">
+            <?= $this->reservation->patient->getEmailaddress(); ?></a></dd>
+
+    <dt>Zamówione usługi</dt>
+    <dd>
+        <ul>
+            <?php foreach($this->reservation->services as $service): ?>
+            <li><?= $service->category->name;?></li>
+            <?php endforeach; ?>
+        </ul>
+    </dd>
+
+    <dt>Data proponowana przez pacjenta na wizytę</dt>
+    <dd>
+        Od <?= $this->reservation->dateFrom->format("d-m-Y"); ?> do <?= $this->reservation->dateTo->format("d-m-Y"); ?>
+    </dd>
+
+    <dt>Dodatkowy komentarz i pytania od pacjenta</dt>
+    <dd>
+        <?php if(!empty($this->reservation->question)): ?>
+        <?= $this->reservation->question; ?>
+        <?php else :?>
+        Pacjent nie zawarł żadnych dodatkowych uwag ani pytań.
+        <?php endif; ?>
+    </dd>
+</dl>

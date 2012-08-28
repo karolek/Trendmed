@@ -31,6 +31,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
         #config needed for reservation status change actions
         $this->view->config = \Zend_Registry::get('config');
 
+
         $this->view->reservations = $reservations;
     }
 

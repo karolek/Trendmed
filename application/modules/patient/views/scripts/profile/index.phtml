@@ -35,13 +35,24 @@
                     <?php $status =  $reservation->getStatusAsArray(); echo $this->translate($status['name']); ?>
                 </td>
                 <td>
-                    <?php foreach($status['actions']['patient'] as $action): ?>
-                    <a href="<?= $this->url(array('id' => $reservation->id),
-                        $this->config->reservations->patient->$action->routeName); ?>">
-                        <?= $this->config->reservations->patient->$action->name; ?>
-                    </a>
-                    <?= $action; ?>
-                    <?php endforeach; ?>
+
+                    <div class="btn-group">
+                        <a class="btn" href="#myModal" data-toggle="modal"><?= $this->translate('See details'); ?></a>
+                        <button class="btn dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <!-- dropdown menu links -->
+                            <?php foreach($status['actions']['patient'] as $action): ?>
+                            <li>
+                                <a href="<?= $this->url(array('id' => $reservation->id),
+                                    $this->config->reservation->action->patient->$action->routeName); ?>">
+                                    <?= $this->translate($this->config->reservation->action->patient->$action->name); ?>
+                                </a>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
                 </td>
             </tr>
         <?php endforeach; ?>

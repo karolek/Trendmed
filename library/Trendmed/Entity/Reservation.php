@@ -42,7 +42,10 @@ class Reservation extends  \Me\Model\ModelAbstract {
             'clinic' => array('confirm', 'decline', 'newDate'),
             'patient' => array()
         )), #when reservations waits for clinic approval
-        'closed'    => array('name' => 'Closed'),
+        'closed'    => array('name' => 'Closed', 'actions' => array(
+            'clinic' => array(),
+            'patient' => array(),
+        )),
         'confirmed' => array('name' => 'Confirmed', 'actions' => array(
             'clinic'    => array(),
             'patient'   => array('cancel')

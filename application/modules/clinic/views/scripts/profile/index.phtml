@@ -62,49 +62,56 @@
     </thead>
     <tbody>
         <?php foreach ($this->reservations as $reservation): ?>
-    <tr<?php if($reservation->getStatus() == 'new'):?> class="new"<?php endif;?>>
-        <td><?= $reservation->created->format("d-m-Y"); ?></td>
-        <td><?= $reservation->patient->name; ?></td>
-        <td>
-            <ul>
-                <?php foreach($reservation->services as $service): ?>
-                <li><?= $service->category->name; ?></li>
-                <?php endforeach; ?>
-            </ul>
-        </td>
-        <td>
-            Od <?= $reservation->dateFrom->format("d-m-Y"); ?> do <?= $reservation->dateTo->format("d-m-Y"); ?>
-        </td>
-        <td>
-            <?php $status = $reservation->getStatusAsArray(); echo $this->translate($status['name']); ?>
-        </td>
-        <td>
-            <div class="btn-group">
-                <a href=""></a>
-                <a class="btn" href="<?= $this->url(
-                    array(
-                        'action' => 'view',
-                        'controller' => 'reservations',
-                        'module' => 'clinic',
-                        'id' => $reservation->getId()
-                    ), 'default', true); ?>"><?= $this->translate('Zobacz szczegóły'); ?></a>
-                <button class="btn dropdown-toggle" data-toggle="dropdown">
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <!-- dropdown menu links -->
-                    <?php foreach($status['actions']['clinic'] as $action): ?>
-                    <li>
-                        <a href="<?= $this->url(array('id' => $reservation->id),
-                        $this->config->reservation->action->clinic->$action->routeName); ?>">
-                            <?= $this->translate($this->config->reservation->action->clinic->$action->name); ?>
-                        </a>
-                    </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        </td>
-    </tr>
+            <tr<?php if($reservation->getStatus() == 'new'):?> class="new"<?php endif;?>>
+                <td><?= $reservation->created->format("d-m-Y"); ?></td>
+                <td><?= $reservation->patient->name; ?></td>
+                <td>
+                    <ul>
+                        <?php foreach($reservation->services as $service): ?>
+                        <li><?= $service->category->name; ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </td>
+                <td>
+                    Od <?= $reservation->dateFrom->format("d-m-Y"); ?> do <?= $reservation->dateTo->format("d-m-Y"); ?>
+                </td>
+                <td>
+                    <?php $status = $reservation->getStatusAsArray(); echo $this->translate($status['name']); ?>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn" href="#myModal" data-toggle="modal"><?= $this->translate('Zobacz szczegóły'); ?></a>
+                        <button class="btn dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <!-- dropdown menu links -->
+                            <?php foreach($status['actions']['clinic'] as $action): ?>
+                            <li>
+                                <a href="<?= $this->url(array('id' => $reservation->id),
+                                $this->config->reservation->action->clinic->$action->routeName); ?>">
+                                    <?= $this->translate($this->config->reservation->action->clinic->$action->name); ?>
+                                </a>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </td>
+                <!-- Modal -->
+                <div class="modal hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 id="myModalLabel">Modal header</h3>
+                    </div>
+                    <div class="modal-body">
+                        <?= $this->partial('reservations/_reservationDetails.phtml', array('reservation' => $reservation)); ?>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                        <button class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </tr>
         <?php endforeach; ?>
     </tbody>
 </table>

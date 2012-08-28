@@ -7,7 +7,7 @@
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  *
  */
-class Clinic_ReservationsController extends Me_User_Controllers_LoginController
+class Patient_ReservationsController extends Me_User_Controllers_LoginController
 {
 
     protected $_em; // entity manager od doctrine
@@ -18,36 +18,41 @@ class Clinic_ReservationsController extends Me_User_Controllers_LoginController
         $this->_em =  $this->_helper->getEm();
     }
 
-    public function confirmAction()
+    public function cancelAction()
     {
         $reservation = $this->_getReservationFromParams();
         $request = $this->getRequest();
 
         # reservation anwser form
-        $form = new \Clinic_Form_ReservationAnwser();
+        $form = new \Patient_Form_ReservationAnwser();
+        $form->getElement('question')->setDescription('You can type in any additional comment to clinic, like reason for
+         cancellation');
 
         # setting up a label for submit button
-        $form->getElement('submit')->setLabel('Potwierdź');
+        $form->getElement('submit')->setLabel('Cancel reservation');
 
-        $form->setAction();
 
         if ($request->isPost()) {
             # clinic want to confirm this reservation
             if ($form->isValid($request->getPost())) {
                 $values = $form->getValues();
-                $reservation->setStatus('confirmed');
-                $reservation->setAnswer($values['anwser']);
+                $reservation->setStatus('closed');
+                if ($values['question']) {
+                    $question = $reservation->getQuestion();
+                    # append any new text if any to question field
+                    $reservation->setQuestion($values['question']. "\n\n" . $question);
+                }
 
                 $this->_em->persist($reservation);
                 $this->_em->flush();
-                $this->_helper->FlashMessenger(array('success' => 'Rezerwacja potwierdzona'));
+                $this->_helper->FlashMessenger(array('success' => 'Reservation canceled'));
                 # forward to reservations list
-                $this->_helper->Redirector('index', 'profile', 'clinic');
+                $this->_helper->Redirector('index', 'profile', 'patient');
             }
         }
         $this->view->form = $form;
         $this->view->reservation = $reservation;
-        $this->view->headTitle('Potwierdzenie rezerwacji');
+        $this->view->headTitle('Reservation cancellation');
     }
 
     /**
@@ -65,7 +70,7 @@ class Clinic_ReservationsController extends Me_User_Controllers_LoginController
         # no reservation found by this id
         if (!$reservation) throw new \Exception('No reservation with id ' . $reservationId .' found');
         # checking if current logged clinic is the owner of this reservation
-        if ($this->_helper->LoggedUser()->id != $reservation->clinic->id) {
+        if ($this->_helper->LoggedUser()->id != $reservation->patient->id) {
             throw new \Exception('The reservation You are trying to view is not yours');
         }
         # ok, everything is fine, if you need more validation of reservation add it here
