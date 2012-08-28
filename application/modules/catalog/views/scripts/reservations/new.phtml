@@ -16,14 +16,18 @@
 <?php endif; ?>
 
 
-<p>
-    <?= $this->translate('Wstaw tutaj text wstępny do skłądania rezerwacji'); ?>
-</p>
+<div class="well">
+    <?= $this->translate('The process of reserving a visit is very simple. Just choose date You would like to come to clinic and services You are interested in. We will inform clinic about Your request. Clinic will reply and we will inform You about the status of the visit.'); ?>
+</div>
+
+<?php if ($this->clinic->wantBill == true): ?>
+	<div class="well">
+    <?= $this->translate('This clinic will require You to pay a bill in amount of 100 euro upon reservation confirm. You will be able to pay after the clinic confirms the reservation via our Pay Pal system from Your account.'); ?>
+    </div>
+<?php endif; ?>
 
 <?= $this->partial('public/_clinicListEntry.phtml', 'clinic', array('clinic' => $this->clinic)); ?>
-<?php if ($this->clinic->wantBill == true): ?>
-    <?= $this->translate('Ta klinika chce kaucje, tutaj wstaw text na ten temat'); ?>
-<?php endif; ?>
+
 <?= $this->form; ?>
 
 </div>

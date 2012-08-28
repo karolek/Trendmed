@@ -125,7 +125,7 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #catalog .entry .fav {display:block; float:right;}
 #catalog .entry .fav a {text-indent:-9999px; width:22px; height:16px; display:block; background:url(../img/icon_fav.png);}
 #catalog .entry .fav a:hover {background:url(../img/icon_fav_hover.png);}
-#catalog .entry .btn-primary {float:right; width:106px; height:26px; background:url(../img/button_book.png) top left no-repeat; padding:11px 12px 0; text-align: right; text-decoration:none;}
+#catalog .entry .btn-primary {float:right; width:130px; height:26px; background:url(../img/button_book.png) top left no-repeat; padding:10px 13px 27px 45px; text-align: right; text-decoration:none;}
 #catalog .entry .btn-primary:hover {background:url(../img/button_book_hover.png) top left no-repeat; text-indent:-9999xp;}
 #catalog .entry .clear {width:500px; clear:both; height:1px;}
 #catalog .entry thead {display:none;}
@@ -189,6 +189,7 @@ section {padding:24px;}
 #clinicProfile address {color:#292828; font-size:16px; width:410px;}
 /*#clinicProfile #buttonBook {position:absolute; margin: -55px 0 0 527px;}*/
 #clinicProfile #buttonBook {margin: -22px 0 0 530px; position: absolute;}
+#clinicProfile #seeProfile {float: right; margin: 15px -3px 0 0;}
 
 #clinicProfile .rating {text-align:right; color:#292828;font-family: 'TeXGyreHerosBold'; padding: 21px 0 0;}
 #clinicProfile .rating .add-to-fav {background: url("../img/icon_fav.png") repeat scroll 0 0 transparent; display: block; height: 16px; text-indent: -9999px; text-align:left; float:left; margin:0 0 0 46px; width: 22px;}
@@ -208,6 +209,13 @@ section {padding:24px;}
 #clinicProfile .table {margin:10px 0 0;}
 #clinicProfile .table th {color:#292828;}
 #clinicProfile .table td {border-top:1px dotted #DDDDDD;}
+
+#serviceDetails {}
+#serviceDetails #clinicProfile .row {border-radius:6px 6px 0 0; border-bottom:none; width:629px;}
+#serviceDetails .service {padding:25px; border-radius:0 0 6px 6px; border:1px solid #EEEEEE;}
+#serviceDetails .service h2 {color:#107ba8; font-size:22px; padding:0 0 5px;}
+#serviceDetails .service p {margin:10px 0 0;}
+#serviceDetails .service .photos img {height: 70px; margin: 2px 5px 0 0; width: 80px; border-radius:5px;}
 
 
 
@@ -239,7 +247,9 @@ section {padding:24px;}
 /* RESERVATION */
 
 #reservation1 {}
-#reservation1 #clinicProfile .row {border-radius:6px 6px 0 0;}
+#reservation1 .well {border-radius:6px 6px 0 0; margin:0;}
+#reservation1 .well:nth-child(even) {border-radius:0;}
+#reservation1 #clinicProfile .row {border-radius:0; width: 629px;}
 #reservation1 #clinicProfile .thumbnail .photo-small {margin:0; width:98px; height:98px;}
 #reservation1 #clinicProfile .thumbnails {width:630px; clear:both;}
 #reservation1 #clinicProfile .btn-primary {display: block; margin: 73px 0 0 515px; position: absolute;}
@@ -248,6 +258,10 @@ section {padding:24px;}
 #reservation1 .form-horizontal {border-radius:0 0 6px 6px; border-top:none; padding: 25px 25px 55px;}
 #reservation1 .form-horizontal .btn-primary {float:right; margin: 0 -6px 0 0;}
 
+table.reservationList {}
+table.reservationList td {vertical-align: middle;}
+table.reservationList .new td {background: none repeat scroll 0 0 #F5F5F5; color: #434343; font-weight: bold;}
+table.reservationList .new td a.btn {font-weight:normal;}
 
 /* FORMS */
 
