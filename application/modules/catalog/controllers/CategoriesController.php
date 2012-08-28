@@ -110,6 +110,8 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
 
     public function serviceAction()
     {
+        $this->_helper->_layout->setLayout('homepage');
+
         $request = $this->getRequest();
         $id = $request->getParam('id');
 
@@ -117,6 +119,8 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
         if(!$service) {
             throw new \Exception('No service with ID '.$id.' found');
         }
+
+        $this->view->addScriptPath(APPLICATION_PATH . '/modules/clinic/views/scripts');
         $this->view->service = $service;
         $this->view->headTitle($this->view->translate('Service') .' '.$service->category->name);
     }
