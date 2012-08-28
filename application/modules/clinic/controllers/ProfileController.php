@@ -22,7 +22,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $this->view->headTitle('Clinic dashboard');
+        $this->view->headTitle('Twoja lista rezerwacji');
         $this->view->clinic = $this->_helper->LoggedUser();
 
         # fetching clinics reservations

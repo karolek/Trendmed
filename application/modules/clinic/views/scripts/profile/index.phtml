@@ -41,13 +41,16 @@
     <thead>
     <tr>
         <th>
-            <?= $this->translate('Date'); ?>
+            <?= $this->translate('Creation date'); ?>
         </th>
         <th>
             <?= $this->translate('Patient'); ?>
         </th>
         <th>
             <?= $this->translate('Services'); ?>
+        </th>
+        <th>
+            <?= $this->translate('Reservation date'); ?>
         </th>
         <th>
             <?= $this->translate('Status'); ?>
@@ -59,7 +62,7 @@
     </thead>
     <tbody>
         <?php foreach ($this->reservations as $reservation): ?>
-    <tr>
+    <tr<?php if($reservation->getStatus() == 'new'):?> class="new"<?php endif;?>>
         <td><?= $reservation->created->format("d-m-Y"); ?></td>
         <td><?= $reservation->patient->name; ?></td>
         <td>
@@ -70,14 +73,36 @@
             </ul>
         </td>
         <td>
+            Od <?= $reservation->dateFrom->format("d-m-Y"); ?> do <?= $reservation->dateTo->format("d-m-Y"); ?>
+        </td>
+        <td>
             <?php $status = $reservation->getStatusAsArray(); echo $this->translate($status['name']); ?>
         </td>
         <td>
-            <?php foreach($status['actions']['clinic'] as $action): ?>
-                <a href="<?= $this->url(array('id' => $reservation->id),
-                    $this->config->reservation->action->clinic->$action->routeName); ?>">
-                    <?= $this->config->reservation->action->clinic->$action->name; ?></a>
-            <?php endforeach; ?>
+            <div class="btn-group">
+                <a href=""></a>
+                <a class="btn" href="<?= $this->url(
+                    array(
+                        'action' => 'view',
+                        'controller' => 'reservations',
+                        'module' => 'clinic',
+                        'id' => $reservation->getId()
+                    ), 'default', true); ?>"><?= $this->translate('Zobacz szczegóły'); ?></a>
+                <button class="btn dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <!-- dropdown menu links -->
+                    <?php foreach($status['actions']['clinic'] as $action): ?>
+                    <li>
+                        <a href="<?= $this->url(array('id' => $reservation->id),
+                        $this->config->reservation->action->clinic->$action->routeName); ?>">
+                            <?= $this->translate($this->config->reservation->action->clinic->$action->name); ?>
+                        </a>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
         </td>
     </tr>
         <?php endforeach; ?>
