@@ -1,1 +1,46 @@
+<?php if (count($this->reservations) >0 ): ?>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            <?= $this->translate('Date'); ?>
+        </th>
+        <th>
+            <?= $this->translate('Clinic'); ?>
+        </th>
+        <th>
+            <?= $this->translate('Services'); ?>
+        </th>
+        <th>
+            <?= $this->translate('Status'); ?>
+        </th>
+        <th>
+            <?= $this->translate('Actions'); ?>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->reservations as $reservation): ?>
+            <tr>
+                <td><?= $reservation->created->format("d-m-Y"); ?></td>
+                <td><?= $reservation->clinic->name; ?></td>
+                <td>
+                    <ul>
+                    <?php foreach($reservation->services as $service): ?>
+                        <li><?= $service->category->name; ?></li>
+                    <?php endforeach; ?>
+                    </ul>
+                </td>
+                <td>
+                    <?php $status =  $reservation->getStatusAsArray(); echo $this->translate($status['name']); ?>
+                </td>
+                <td>
+                    put actions over here
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<?php endif;?>
+
 <?= $this->ShowFavClinics($this->LoggedUser()); ?>

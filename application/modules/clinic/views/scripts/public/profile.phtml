@@ -12,10 +12,11 @@
         
     <div class="right rating">
         <span class="count">86%</span>
+        <?= $this->AddToFavorite($this->clinic); ?>
         <big>Rating</big><br/ >
 		<small>based on YY reviews</small>
     </div>
-    <?= $this->AddToFavorite($this->clinic); ?>
+    
 
     <div class="globalClear"></div>
     
@@ -43,6 +44,8 @@
 	       })
 	    });
 	</script>
+	
+	<div class="globalClear"></div>
     
     <a id="buttonBook" href="<?= $this->url(array('slug' => $this->clinic->slug), 'newReservation', true);?>" class="btn btn-primary"><?= $this->translate('Book now'); ?></a>
 

@@ -220,4 +220,34 @@ class Patient extends \Trendmed\Entity\User
         $this->setLogin($email);
     }
 
+    /**
+     * Returns -1 when profile is even touched, 0 if profile somewhat edited and 1 if profile is completed
+     */
+    public function isProfileFilled()
+    {
+        $result = -1; #not filled at all
+        $amountFilled = 0;
+        if (!empty($this->name)) {
+            $amountFilled++;
+        }
+
+        if (!empty($this->country)) {
+            $amountFilled++;
+        }
+
+        if (!empty($this->title)) {
+            $amountFilled++;
+        }
+
+        if (!empty($this->phoneNumber)) {
+            $amountFilled++;
+        }
+
+        if($amountFilled >= 4) {
+            $result = 1;
+        } elseif($amountFilled > 0) {
+            $result = 0;
+        }
+        return $result;
+    }
 }

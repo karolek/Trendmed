@@ -1,12 +1,26 @@
+
 <div id="content">
 	<div id="reservation1">
+
+
+
+<?php if($this->LoggedUser()->isProfileFilled() < 1): ?>
+    <div class="alert alert-block alert-danger">
+        <?= $this->translate('Before making reservation please fill your profile with personal data.'); ?>
+        <a href="<?= $this->url(array(
+            'action'        => 'edit-details',
+            'controller'    => 'profile',
+            'module'        => 'patient'
+        )); ?>"><?= $this->translate('Go to my profile edit'); ?></a>
+    </div>
+<?php endif; ?>
 
 
 <p>
     <?= $this->translate('Wstaw tutaj text wstępny do skłądania rezerwacji'); ?>
 </p>
 
-<?= $this->partial('_clinicListEntry.phtml', array('clinic' => $this->clinic)); ?>
+<?= $this->partial('public/_clinicListEntry.phtml', 'clinic', array('clinic' => $this->clinic)); ?>
 <?php if ($this->clinic->wantBill == true): ?>
     <?= $this->translate('Ta klinika chce kaucje, tutaj wstaw text na ten temat'); ?>
 <?php endif; ?>

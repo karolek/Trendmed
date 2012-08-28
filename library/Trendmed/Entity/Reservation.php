@@ -37,7 +37,9 @@ class Reservation extends  \Me\Model\ModelAbstract {
      * @var array List of allowed statuses for reservation
      */
     protected static $_statuses = array(
-        'new'       => array('name' => 'New'),
+        'new'       => array('name' => 'New', 'actions' => array(
+            'clinic' => array('confirm', 'decline')
+        )), #when reservations waits for clinic approval
         'closed'    => array('name' => 'Closed'),
     );
 
@@ -95,6 +97,12 @@ class Reservation extends  \Me\Model\ModelAbstract {
      */
     protected $payment;
 
+    /**
+     * @var \Trendmed\Entity\Clinic
+     * @ORM\ManyToOne(targetEntity="\Trendmed\Entity\Clinic")
+     */
+    protected $clinic;
+
     protected function validate()
     {
         if (!$this->patient) {
@@ -103,6 +111,10 @@ class Reservation extends  \Me\Model\ModelAbstract {
 
         if (!$this->clinic) {
             throw new \Exception('Reservation has to get a clinic object');
+        }
+
+        if($this->patient->isProfileFilled() < 1) {
+            throw new \Exception('Patient who is reserving a visit must have filled his profile to full');
         }
     }
 
@@ -278,6 +290,14 @@ class Reservation extends  \Me\Model\ModelAbstract {
     }
 
     /**
+     * @return Array
+     */
+    public function getStatusAsArray()
+    {
+        return self::$_statuses[$this->status];
+    }
+
+    /**
      * @return string
      */
     public function getStatus()
@@ -293,12 +313,14 @@ class Reservation extends  \Me\Model\ModelAbstract {
         return $this->id;
     }
 
-    /**
-     * Shortcut method for fetching reservation clinic from services
-     */
     public function getClinic()
     {
-        return $this->services[0]->clinic;
+        return $this->clinic;
+    }
+
+    public function setClinic(\Trendmed\Entity\Clinic $clinic)
+    {
+        $this->clinic = $clinic;
     }
 
     /** END GETTERS AND SETTERS **/

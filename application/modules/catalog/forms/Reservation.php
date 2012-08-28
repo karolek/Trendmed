@@ -34,7 +34,7 @@ class Catalog_Form_Reservation extends \Twitter_Form
         $this->addElement($to);
 
         $question = new \Zend_Form_Element_Textarea('question');
-        $question->setLabel('Additional questions or requirments to clinic');
+        $question->setLabel('Additional questions or requirements to clinic');
         $this->addElement($question);
 
         $submit      = new Zend_Form_Element_Submit('submit');

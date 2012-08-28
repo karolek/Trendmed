@@ -73,6 +73,11 @@
     $this->ShowPhoto($photo, 'small', 'services')
     ; ?>
     <? endforeach; ?>
+    
+    <? foreach($service->clinic->photos as $photo): ?>
+        <?= $this->ShowPhoto($photo, 'small'); ?>
+        <? endforeach; ?>
+    
 </ul>
 
 <div class="right">
