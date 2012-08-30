@@ -38,7 +38,7 @@ class Catalog_Form_Reservation extends \Twitter_Form
         $this->addElement($question);
 
         $submit      = new Zend_Form_Element_Submit('submit');
-        $submit->setLabel('Upload');
+        $submit->setLabel('BOOK');
 
         $this->addElement($submit);
     }

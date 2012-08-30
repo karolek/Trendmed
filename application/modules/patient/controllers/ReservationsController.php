@@ -18,6 +18,42 @@ class Patient_ReservationsController extends Me_User_Controllers_LoginController
         $this->_em =  $this->_helper->getEm();
     }
 
+    public function confirmNewDateAction()
+    {
+        $reservation = $this->_getReservationFromParams();
+        $request = $this->getRequest();
+
+        # reservation anwser form
+        $form = new \Patient_Form_ReservationAnwser();
+        $form->getElement('question')->setDescription('You can type in any additional comment to clinic');
+
+        # setting up a label for submit button
+        $form->getElement('submit')->setLabel('Confirm reservation with new date');
+
+
+        if ($request->isPost()) {
+            # clinic want to confirm this reservation
+            if ($form->isValid($request->getPost())) {
+                $values = $form->getValues();
+                $reservation->setStatus('confirmed');
+                if ($values['question']) {
+                    $question = $reservation->getQuestion();
+                    # append any new text if any to question field
+                    $reservation->setQuestion($values['question']. "\n\n" . $question);
+                }
+
+                $this->_em->persist($reservation);
+                $this->_em->flush();
+                $this->_helper->FlashMessenger(array('success' => 'Reservation confirmed'));
+                # forward to reservations list
+                $this->_helper->Redirector('index', 'profile', 'patient');
+            }
+        }
+        $this->view->form = $form;
+        $this->view->reservation = $reservation;
+        $this->view->headTitle('New date of reservation confirmation');
+    }
+
     public function cancelAction()
     {
         $reservation = $this->_getReservationFromParams();

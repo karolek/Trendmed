@@ -1,17 +1,15 @@
-<h2>Rezerwacja numer #<?= $this->reservation->id; ?></h2>
+<h2><?= $this->translate('Reservation');?> #<?= $this->reservation->id; ?></h2>
 <dl>
-    <dt>Złożona przez</dt>
-    <dd><?= $this->reservation->patient->name;?></dd>
 
-    <dt>Data złożenia rezerwacji</dt>
+    <dt><?= $this->translate('Reservation booked on'); ?></dt>
     <dd><?= $this->reservation->created->format("d-m-Y h:i:s");?></dd>
 
-    <dt>Kontakt do pacjenta</dt>
+    <dt><?= $this->translate('Contact to clinic'); ?></dt>
     <dd>Telefon: <?= $this->reservation->patient->phoneNumber; ?><br>
         E-mail: <a href="mailto:<?= $this->reservation->patient->getEmailaddress(); ?>">
             <?= $this->reservation->patient->getEmailaddress(); ?></a></dd>
 
-    <dt>Zamówione usługi</dt>
+    <dt><?= $this->translate('Services booked'); ?></dt>
     <dd>
         <ul>
             <?php foreach($this->reservation->services as $service): ?>
@@ -20,17 +18,25 @@
         </ul>
     </dd>
 
-    <dt>Data proponowana przez pacjenta na wizytę</dt>
+    <dt><?= $this->translate('Your proposed date of visit'); ?>:</dt>
     <dd>
-        Od <?= $this->reservation->dateFrom->format("d-m-Y"); ?> do <?= $this->reservation->dateTo->format("d-m-Y"); ?>
+        <?= $this->translate('from');?> <?= $this->reservation->dateFrom->format("d-m-Y"); ?> <?= $this->translate('to');?> <?= $this->reservation->dateTo->format("d-m-Y"); ?>
     </dd>
 
-    <dt>Dodatkowy komentarz i pytania od pacjenta</dt>
+    <dt><?= $this->translate('Comments from clinic to you'); ?></dt>
     <dd>
-        <?php if(!empty($this->reservation->question)): ?>
-        <?= $this->reservation->question; ?>
+        <?php if(!empty($this->reservation->anwser)): ?>
+            <strong><?= $this->reservation->anwser; ?></strong>
         <?php else :?>
-        Pacjent nie zawarł żadnych dodatkowych uwag ani pytań.
+            <em><?= $this->translate('No comments from clinic yo you'); ?></em>
         <?php endif; ?>
     </dd>
+
+    <?php if($this->reservation->newDateWasProposed()): ?>
+        <dt><?= $this->translate('Clinic proposed another date of visist'); ?></dt>
+        <dd>
+            <?= $this->translate('from');?> <?= $this->reservation->alternativeDateFrom->format("d-m-Y"); ?>
+            <?= $this->translate('to');?> <?= $this->reservation->alternativeDateTo->format("d-m-Y"); ?>
+        </dd>
+    <?php endif; ?>
 </dl>

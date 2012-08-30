@@ -310,6 +310,14 @@ class Reservation extends  \Me\Model\ModelAbstract {
         }
         # put Your logic here
         switch($status) {
+            case 'confirmed':
+                # if there was any alternative date and this reservation is confirmed than alternative date becomses
+                # primary date
+                $this->setDateFrom($this->getAlternativeDateFrom());
+                $this->setDateTo($this->getAlternativeDateTo());
+                $this->setAlternativeDateFrom(null);
+                $this->setAlternativeDateTo(null);
+                break;
             default:
                 break;
         }
@@ -353,7 +361,7 @@ class Reservation extends  \Me\Model\ModelAbstract {
     /**
      * @param \DateTime $alternativeDateFrom
      */
-    public function setAlternativeDateFrom (\DateTime $alternativeDateFrom)
+    public function setAlternativeDateFrom ($alternativeDateFrom)
     {
         $this->alternativeDateFrom = $alternativeDateFrom;
     }
@@ -369,7 +377,7 @@ class Reservation extends  \Me\Model\ModelAbstract {
     /**
      * @param \DateTime $alternativeDateTo
      */
-    public function setAlternativeDateTo (\DateTime $alternativeDateTo)
+    public function setAlternativeDateTo ($alternativeDateTo)
     {
         $this->alternativeDateTo = $alternativeDateTo;
     }
