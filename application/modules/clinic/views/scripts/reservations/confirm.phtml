@@ -1,5 +1,8 @@
 <a class="btn" href="<?= $this->url(array('action' => 'index', 'controller' => 'profile', 'module' => 'clinic'), 'default', true); ?>">&laquo; lista rezerwacji</a>
 
 <?= $this->partial('reservations/_reservationDetails.phtml', array('reservation' => $this->reservation)); ?>
-Potwierdzając rezerwacje zgadzasz się na przyjęcie pacjenta.
+    <p>
+        Potwierdzając rezerwacje zgadzasz się na przyjęcie pacjenta do kliniki na wyznaczone zabiegi oraz w wyznaczonym przez
+        pacjenta okresie czasu. Dokładne daty prosimy ustalić z pacjentem telefonicznie lub mailowo.
+    </p>
 <?= $this->form; ?>

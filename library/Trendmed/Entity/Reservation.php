@@ -63,9 +63,24 @@ class Reservation extends  \Me\Model\ModelAbstract {
 
     /**
      * @var \DateTime From where the reservation can start
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $alternativeDateFrom;
+
+
+    /**
+     * @var \DateTime From where the reservation can start
      * @ORM\Column(type="datetime")
      */
     protected $dateTo;
+
+
+    /**
+     * @var \DateTime From where the reservation can start
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $alternativeDateTo;
+
 
     /**
      * @var string question the patient has to clinic making the new reservation
@@ -334,6 +349,48 @@ class Reservation extends  \Me\Model\ModelAbstract {
     {
         $this->clinic = $clinic;
     }
+
+    /**
+     * @param \DateTime $alternativeDateFrom
+     */
+    public function setAlternativeDateFrom (\DateTime $alternativeDateFrom)
+    {
+        $this->alternativeDateFrom = $alternativeDateFrom;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getAlternativeDateFrom ()
+    {
+        return $this->alternativeDateFrom;
+    }
+
+    /**
+     * @param \DateTime $alternativeDateTo
+     */
+    public function setAlternativeDateTo (\DateTime $alternativeDateTo)
+    {
+        $this->alternativeDateTo = $alternativeDateTo;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getAlternativeDateTo()
+    {
+        return $this->alternativeDateTo;
+    }
+
+    public function newDateWasProposed()
+    {
+        if ($this->getAlternativeDateFrom() != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     /** END GETTERS AND SETTERS **/
 

@@ -24,6 +24,12 @@
     <dd>
         Od <?= $this->reservation->dateFrom->format("d-m-Y"); ?> do <?= $this->reservation->dateTo->format("d-m-Y"); ?>
     </dd>
+    <?php if($this->reservation->newDateWasProposed() == true): ?>
+        <dt>Alternatywna data proponowana przez klinikę na wizytę</dt>
+        <dd>
+            Od <?= $this->reservation->alternativeDateFrom->format("d-m-Y"); ?> do <?= $this->reservation->alternativeDateTo->format("d-m-Y"); ?>
+        </dd>
+    <?php endif; ?>
 
     <dt>Dodatkowy komentarz i pytania od pacjenta</dt>
     <dd>

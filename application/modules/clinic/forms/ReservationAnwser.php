@@ -21,11 +21,15 @@ class Clinic_Form_ReservationAnwser extends Twitter_Form
         $anwser->addFilter('StripTags');
         $this->addElement($anwser);
 
+    }
+
+    public function addSubmitWithLabel($label)
+    {
         #submit button
         $submit = new \Zend_Form_Element_Submit('submit');
-        $submit->setLabel('Zapisz');
+        $submit->setLabel($label);
         $submit->setAttrib('class', 'confirm');
+        $submit->setOrder(999);
         $this->addElement($submit);
-
     }
 }

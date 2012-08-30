@@ -79,7 +79,6 @@
                     <tr>
                         <th><?= $this->translate('Service name'); ?>:</th>
                         <th><?= $this->translate('Price range'); ?>:</th>
-                        <th><?= $this->translate('Description'); ?>:</th>
                         <th><?= $this->translate('Book'); ?>:</th>
                     </tr>
                 </thead>
@@ -90,7 +89,6 @@
                                 'id' => $service->id
                             ), 'service', true); ?>"><?= $service->category->name; ?></a></strong></td>
                             <td><?= $service->priceMin; ?> - <?= $service->priceMin; ?> Euro</td>
-                            <td><?= $service->description; ?></td>
                             <td><input type="checkbox" name="pre_services[]" value="<?=$service->id; ?>"></td>
                         </tr>
                     <? endforeach; ?>

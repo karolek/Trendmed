@@ -62,7 +62,8 @@
     </thead>
     <tbody>
         <?php foreach ($this->reservations as $reservation): ?>
-            <tr<?php if($reservation->getStatus() == 'new'):?> class="new"<?php endif;?>>
+
+        <tr<?php if($reservation->getStatus() == 'new'):?> class="new"<?php endif;?>>
                 <td><?= $reservation->created->format("d-m-Y"); ?></td>
                 <td><?= $reservation->patient->name; ?></td>
                 <td>
@@ -80,7 +81,7 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        <a class="btn" href="#myModal" data-toggle="modal"><?= $this->translate('Zobacz szczegóły'); ?></a>
+                        <a class="btn" href="#reservation-details-<?= $reservation->id;?>" data-toggle="modal"><?= $this->translate('Zobacz szczegóły'); ?></a>
                         <button class="btn dropdown-toggle" data-toggle="dropdown">
                             <span class="caret"></span>
                         </button>
@@ -98,7 +99,7 @@
                     </div>
                 </td>
                 <!-- Modal -->
-                <div class="modal hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal hide fade" id="reservation-details-<?= $reservation->id;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         <h3 id="myModalLabel">Modal header</h3>

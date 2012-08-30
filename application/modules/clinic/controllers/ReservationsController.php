@@ -29,8 +29,6 @@ class Clinic_ReservationsController extends Me_User_Controllers_LoginController
         # setting up a label for submit button
         $form->getElement('submit')->setLabel('Potwierdź');
 
-        $form->setAction();
-
         if ($request->isPost()) {
             # clinic want to confirm this reservation
             if ($form->isValid($request->getPost())) {
@@ -48,6 +46,38 @@ class Clinic_ReservationsController extends Me_User_Controllers_LoginController
         $this->view->form = $form;
         $this->view->reservation = $reservation;
         $this->view->headTitle('Potwierdzenie rezerwacji');
+    }
+
+    public function newDateAction()
+    {
+        $reservation = $this->_getReservationFromParams();
+        $request = $this->getRequest();
+
+        # reservation anwser form
+        $form = new \Clinic_Form_ReservationNewDate();
+
+        # setting up a label for submit button
+        $form->addSubmitWithLabel('Zaproponuj nową date');
+
+        if ($request->isPost()) {
+            # clinic want to confirm this reservation
+            if ($form->isValid($request->getPost())) {
+                $values = $form->getValues();
+                $reservation->setStatus('new_date');
+                $reservation->setAnswer($values['anwser']);
+                $reservation->setAlternativeDateFrom(new \DateTime($values['alternativeDateFrom']));
+                $reservation->setAlternativeDateTo(new \DateTime($values['alternativeDateTo']));
+
+                $this->_em->persist($reservation);
+                $this->_em->flush();
+                $this->_helper->FlashMessenger(array('success' => 'Rezerwacja potwierdzona'));
+                # forward to reservations list
+                $this->_helper->Redirector('index', 'profile', 'clinic');
+            }
+        }
+        $this->view->form = $form;
+        $this->view->reservation = $reservation;
+        $this->view->headTitle('Propozycja nowej daty rezerwacji');
     }
 
     /**
