@@ -33,7 +33,7 @@
 
     <dt>Dodatkowy komentarz i pytania od pacjenta</dt>
     <dd>
-        <?php if(!empty($this->reservation->question)): ?>
+        <?php if(null !== $this->reservation->question): ?>
         <?= $this->reservation->question; ?>
         <?php else :?>
         Pacjent nie zawarł żadnych dodatkowych uwag ani pytań.

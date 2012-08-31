@@ -16,6 +16,8 @@ class Patient_ReservationsController extends Me_User_Controllers_LoginController
     {
         /* Initialize action controller here */
         $this->_em =  $this->_helper->getEm();
+        $this->view->config = \Zend_Registry::get('config');
+
     }
 
     public function confirmNewDateAction()
@@ -89,6 +91,14 @@ class Patient_ReservationsController extends Me_User_Controllers_LoginController
         $this->view->form = $form;
         $this->view->reservation = $reservation;
         $this->view->headTitle('Reservation cancellation');
+    }
+
+    public function viewAction()
+    {
+        $reservation = $this->_getReservationFromParams();
+        $this->view->reservation = $reservation;
+
+        $this->view->headTitle('Details of reservation #'.$reservation->id);
     }
 
     /**

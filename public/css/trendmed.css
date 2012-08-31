@@ -264,6 +264,9 @@ table.reservationList td {vertical-align: middle;}
 table.reservationList .new td {background: none repeat scroll 0 0 #F5F5F5; color: #434343; font-weight: bold;}
 table.reservationList .new td a.btn {font-weight:normal;}
 
+table.reservationList tr.confirmed td { color: green;}
+table.reservationList tr.closed td { color: #d3d3d3;}
+
 /* FORMS */
 
 .form-horizontal {border:1px solid #EEEEEE; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;}

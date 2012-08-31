@@ -1,11 +1,12 @@
-<h2><?= $this->translate('Reservation');?> #<?= $this->reservation->id; ?></h2>
 <dl>
 
     <dt><?= $this->translate('Reservation booked on'); ?></dt>
     <dd><?= $this->reservation->created->format("d-m-Y h:i:s");?></dd>
 
     <dt><?= $this->translate('Contact to clinic'); ?></dt>
-    <dd>Telefon: <?= $this->reservation->patient->phoneNumber; ?><br>
+    <dd>
+        <?= $this->translate('Clinic name'); ?>: <?= $this->reservation->clinic->name; ?> (<a href="<?= $this->url(array('slug' => $this->reservation->clinic->slug), 'clinic');?>">see full profile</a>)<br>
+        <?= $this->translate('Phone'); ?>: <?= $this->reservation->patient->phoneNumber; ?><br>
         E-mail: <a href="mailto:<?= $this->reservation->patient->getEmailaddress(); ?>">
             <?= $this->reservation->patient->getEmailaddress(); ?></a></dd>
 
@@ -13,12 +14,14 @@
     <dd>
         <ul>
             <?php foreach($this->reservation->services as $service): ?>
-            <li><?= $service->category->name;?></li>
+            <li><a href="<?= $this->url(array(
+                'id' => $service->id,
+            ), 'service'); ?>"><?= $service->category->name;?></a></li>
             <?php endforeach; ?>
         </ul>
     </dd>
 
-    <dt><?= $this->translate('Your proposed date of visit'); ?>:</dt>
+    <dt><?= $this->translate('Your proposed date of visit'); ?></dt>
     <dd>
         <?= $this->translate('from');?> <?= $this->reservation->dateFrom->format("d-m-Y"); ?> <?= $this->translate('to');?> <?= $this->reservation->dateTo->format("d-m-Y"); ?>
     </dd>
@@ -39,4 +42,9 @@
             <?= $this->translate('to');?> <?= $this->reservation->alternativeDateTo->format("d-m-Y"); ?>
         </dd>
     <?php endif; ?>
+
+    <dd>
+        <dt><?= $this->translate('Current reservation status'); ?></dt>
+        <dd><?php $status = $this->reservation->getStatusAsArray(); echo $this->translate($status['name']); ?></dd>
+    </dd>
 </dl>

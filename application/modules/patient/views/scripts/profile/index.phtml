@@ -1,9 +1,12 @@
 <?php if (count($this->reservations) >0 ): ?>
-<table class="table">
+<table class="table reservationList">
     <thead>
     <tr>
         <th>
-            <?= $this->translate('Date'); ?>
+            <?= $this->translate('Date added'); ?>
+        </th>
+        <th>
+            <?= $this->translate('Date of reservation'); ?>
         </th>
         <th>
             <?= $this->translate('Clinic'); ?>
@@ -21,8 +24,10 @@
     </thead>
     <tbody>
         <?php foreach ($this->reservations as $reservation): ?>
-            <tr>
+            <tr class="<?= $reservation->getStatus(); ?>">
                 <td><?= $reservation->created->format("d-m-Y"); ?></td>
+                <td><?= $this->translate('From'); ?> <?= $reservation->dateFrom->format("d-m-Y"); ?>
+                    <?= $this->translate('to'); ?> <?= $reservation->dateTo->format("d-m-Y"); ?> </td>
                 <td><?= $reservation->clinic->name; ?></td>
                 <td>
                     <ul>
@@ -37,7 +42,14 @@
                 <td>
 
                     <div class="btn-group">
-                        <a class="btn" href="#myModal" data-toggle="modal"><?= $this->translate('See details'); ?></a>
+                        <a class="btn" href="<?= $this->url(
+                            array(
+                                'action' => 'view',
+                                'controller' =>
+                                'reservations',
+                                'module' => 'patient',
+                                'id' => $reservation->id), 'default', true); ?>"><?= $this->translate('See details'); ?></a>
+                        <?php if(count($status['actions']['patient']) >0 ): ?>
                         <button class="btn dropdown-toggle" data-toggle="dropdown">
                             <span class="caret"></span>
                         </button>
@@ -52,6 +64,7 @@
                             </li>
                             <?php endforeach; ?>
                         </ul>
+                        <?php endif;?>
                     </div>
                 </td>
             </tr>
