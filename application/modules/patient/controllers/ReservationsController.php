@@ -122,5 +122,18 @@ class Patient_ReservationsController extends Me_User_Controllers_LoginController
         # ok, everything is fine, if you need more validation of reservation add it here
         return $reservation;
     }
+
+    public function getPdfAction()
+    {
+        $this->_helper->layout()->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        $reservation = $this->_getReservationFromParams();
+        # needed for translate inside reservation object
+        $reservation->setView($this->view);
+
+        $fpdf = $reservation->getPDF();
+        $fpdf->Output("trendmed_reservation.pdf", "D");
+    }
+
 }
 

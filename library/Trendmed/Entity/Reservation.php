@@ -48,7 +48,7 @@ class Reservation extends  \Me\Model\ModelAbstract {
         )),
         'confirmed' => array('name' => 'Confirmed', 'actions' => array(
             'clinic'    => array(),
-            'patient'   => array('cancel')
+            'patient'   => array('cancel', 'getPdf')
         )),
         'new_date'  => array('name' => 'New date proposed', 'actions' => array(
             'patient' => array('confirmNewDate', 'discardNewDate')
@@ -144,6 +144,8 @@ class Reservation extends  \Me\Model\ModelAbstract {
             throw new \Exception('Patient who is reserving a visit must have filled his profile to full');
         }
     }
+
+    protected $view;
 
     /** GETTERS AND SETTERS **/
     /**
@@ -315,8 +317,8 @@ class Reservation extends  \Me\Model\ModelAbstract {
                 # primary date
                 $this->setDateFrom($this->getAlternativeDateFrom());
                 $this->setDateTo($this->getAlternativeDateTo());
-                $this->setAlternativeDateFrom(null);
-                $this->setAlternativeDateTo(null);
+                $this->setAlternativeDateFrom(NULL);
+                $this->setAlternativeDateTo(NULL);
                 break;
             default:
                 break;
@@ -392,11 +394,30 @@ class Reservation extends  \Me\Model\ModelAbstract {
 
     public function newDateWasProposed()
     {
-        if ($this->getAlternativeDateFrom() != null) {
-            return true;
+        if ($this->getAlternativeDateFrom() != NULL) {
+            return TRUE;
         } else {
-            return false;
+            return FALSE;
         }
+    }
+
+    public function getPDF()
+    {
+        $fpdf = new \fpdf\FPDF('P', 'mm', 'A4');
+        $fpdf->AddPage();
+        $fpdf->SetFont('Courier', '', 13);
+        $fpdf->Cell(40, 20, $this->view->translate('Reservation') . ' #' . $this->id, 0, 1);
+        return $fpdf;
+    }
+
+    public function setView (\Zend_View_Interface $view)
+    {
+        $this->view = $view;
+    }
+
+    public function getView ()
+    {
+        return $this->view;
     }
 
 

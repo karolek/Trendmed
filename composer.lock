@@ -1,9 +1,9 @@
 {
-    "hash": "93461f9462bca8c653206a3d17584977",
+    "hash": "d91007ede8ab9ed1c9f31fc54b9aa1fb",
     "packages": [
         {
             "package": "doctrine/common",
-            "version": "2.2.2"
+            "version": "2.2.3"
         },
         {
             "package": "doctrine/data-fixtures",
@@ -16,6 +16,12 @@
         {
             "package": "doctrine/orm",
             "version": "2.2.0"
+        },
+        {
+            "package": "itbz/fpdf",
+            "version": "dev-master",
+            "source-reference": "1.7.1",
+            "commit-date": "1337299611"
         },
         {
             "package": "symfony/console",
@@ -31,7 +37,7 @@
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ]
+    "stability-flags": {
+        "itbz/fpdf": 20
+    }
 }

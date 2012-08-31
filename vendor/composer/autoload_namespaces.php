@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'fpdf' => $vendorDir . '/itbz/fpdf/src/',
     'Symfony\\Component\\Yaml' => $vendorDir . '/symfony/yaml/',
     'Symfony\\Component\\Console' => $vendorDir . '/symfony/console/',
     'Doctrine\\ORM' => $vendorDir . '/doctrine/orm/lib/',
