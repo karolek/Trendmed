@@ -12,15 +12,48 @@
         </li>
     </ul>
     <div id="filters">
-    <form method="get" action="<?= $this->url(array(), 'category', false); ?>">
-        <select name="city" id="cityFilter">
-            <option value="">-- <?= $this->translate('filter by city'); ?> --</option>
-            <?php foreach ($this->cities as $city): ?>
-            <option <?php if ($this->city == $city['city']): ?>selected="selected" <?php endif; ?>value="<?= $city['city']; ?>"><?= $city['city']; ?></option>
-            <?php endforeach; ?>
-        </select>
-    </form>
-    <div class="clear"></div>
+		<label><?= $this->translate('Sort by'); ?>:</label>
+	    <ul>
+	        <li>
+	            <a class="<?=$this->direction; ?>"
+	               href="<?= $this->url(array('order' => 'rating', 'page' => 1, 'direction' => $this->direction)); ?>">
+	                <?= $this->translate('Patient rating'); ?>
+	            </a>
+	        </li>
+	        <li>
+	            <a class="<?=$this->direction; ?>"
+	               href="<?= $this->url(array('order' => 'popularity', 'page' => 1, 'direction' => $this->direction)); ?>">
+	                <?= $this->translate('Popularity'); ?>
+	            </a>
+	        </li>
+	        <li>
+	            <a class="<?=$this->direction; ?>"
+	               href="<?= $this->url(array('order' => 'price', 'page' => 1, 'direction' => $this->direction)); ?>">
+	                <?= $this->translate('Price'); ?>
+	            </a>
+	        </li>
+	        <li>
+	            <a class="<?=$this->direction; ?>"
+	               href="<?= $this->url(array('order' => 'created', 'page' => 1, 'direction' => $this->direction)); ?>">
+	                <?= $this->translate('Added date'); ?>
+	            </a>
+	        </li>
+	        <li>
+	            <a class="<?=$this->direction; ?>"
+	               href="<?= $this->url(array('order' => 'name', 'page' => 1, 'direction' => $this->direction)); ?>">
+	                <?= $this->translate('Clinic name'); ?>
+	            </a>
+	        </li>
+	    </ul>
+	    <form method="get" action="<?= $this->url(array(), 'category', false); ?>">
+	        <select name="city" id="cityFilter">
+	            <option value="">-- <?= $this->translate('filter by city'); ?> --</option>
+	            <?php foreach ($this->cities as $city): ?>
+	            <option <?php if ($this->city == $city['city']): ?>selected="selected" <?php endif; ?>value="<?= $city['city']; ?>"><?= $city['city']; ?></option>
+	            <?php endforeach; ?>
+	        </select>
+	    </form>
+	    <div class="clear"></div>
     </div>
 
 
