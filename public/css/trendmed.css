@@ -251,9 +251,12 @@ section {padding:24px;}
 #reservation1 .well {border-radius:6px 6px 0 0; margin:0;}
 #reservation1 .well:nth-child(even) {border-radius:0;}
 #reservation1 #clinicProfile .row {border-radius:0; width: 629px;}
-#reservation1 #clinicProfile .thumbnail .photo-small {margin:0; width:98px; height:98px;}
-#reservation1 #clinicProfile .thumbnails {width:630px; clear:both;}
-#reservation1 #clinicProfile .btn-primary {display: block; margin: 73px 0 0 515px; position: absolute;}
+#reservation1 #clinicProfile ul.thumbnails {width:52px; float:left; clear:left;}
+#reservation1 #clinicProfile ul.thumbnails:after {clear:none;}
+#reservation1 #clinicProfile .photo-medium {margin:0; width:50px; height:50px;}
+#reservation1 #clinicProfile p {display:block; float:right; width:560px; padding:1px 0 0;}
+#reservation1 #clinicProfile .btn-primary {display: block;}
+#reservation1 #clinicProfile #buttonBook {position:relative; margin:0; display:inline-block; float:left; margin:15px 0 0;}
 #reservation1 #clinicProfile .row a:last-child {background: url("../img/button_book.png") no-repeat scroll left top transparent; margin:10px 0 0; float: right; height: 24px; padding: 10px 12px 6px; text-align: right; width: 107px; border: medium none; box-shadow: none; text-decoration:none; color: #FFFFFF; font-family: 'TeXGyreHerosCnBold'; font-size: 16px; text-shadow: 1px 1px #47B8D4; text-transform: uppercase;}
 #reservation1 #clinicProfile .row a:last-child:hover {background:url(../img/button_book_hover.png) top left no-repeat;}
 #reservation1 .form-horizontal {border-radius:0 0 6px 6px; border-top:none; padding: 25px 25px 55px;}
