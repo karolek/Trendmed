@@ -71,6 +71,10 @@
         <?php endforeach; ?>
     </tbody>
 </table>
+<?php else: ?>
+    <div class="alert alert-block">
+        <?= $this->translate('You do not have any reservations yet.'); ?>
+    </div>
 <?php endif;?>
 
 <?= $this->ShowFavClinics($this->LoggedUser()); ?>

@@ -116,4 +116,8 @@
         <?php endforeach; ?>
     </tbody>
 </table>
+<?php else: ?>
+    <div class="alert alert-box">
+        <?= $this->translate('You do not have any reservations yet.'); ?>
+    </div>
 <?php endif;?>
