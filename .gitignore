@@ -13,7 +13,8 @@ data/reports/*
 /tests/_data/*
 /public/clinicLogos/*
 .idea
-
+vendor/*
+/vendor
 .zfproject.xml
 
 .zfproject.xml

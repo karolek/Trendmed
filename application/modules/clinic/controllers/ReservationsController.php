@@ -27,7 +27,7 @@ class Clinic_ReservationsController extends Me_User_Controllers_LoginController
         $form = new \Clinic_Form_ReservationAnwser();
 
         # setting up a label for submit button
-        $form->getElement('submit')->setLabel('Potwierdź');
+        $form->addSubmitWithLabel('Potwierdź');
 
         if ($request->isPost()) {
             # clinic want to confirm this reservation

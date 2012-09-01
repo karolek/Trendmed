@@ -135,5 +135,11 @@ class Patient_ReservationsController extends Me_User_Controllers_LoginController
         $fpdf->Output("trendmed_reservation.pdf", "D");
     }
 
+    public function payBillAction()
+    {
+        $reservation = $this->_getReservationFromParams();
+
+    }
+
 }
 

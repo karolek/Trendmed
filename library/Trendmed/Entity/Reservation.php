@@ -315,10 +315,12 @@ class Reservation extends  \Me\Model\ModelAbstract {
             case 'confirmed':
                 # if there was any alternative date and this reservation is confirmed than alternative date becomses
                 # primary date
-                $this->setDateFrom($this->getAlternativeDateFrom());
-                $this->setDateTo($this->getAlternativeDateTo());
-                $this->setAlternativeDateFrom(NULL);
-                $this->setAlternativeDateTo(NULL);
+                if($this->newDateWasProposed()) {
+                    $this->setDateFrom($this->getAlternativeDateFrom());
+                    $this->setDateTo($this->getAlternativeDateTo());
+                    $this->setAlternativeDateFrom(NULL);
+                    $this->setAlternativeDateTo(NULL);
+                }
                 break;
             default:
                 break;
@@ -405,8 +407,10 @@ class Reservation extends  \Me\Model\ModelAbstract {
     {
         $fpdf = new \fpdf\FPDF('P', 'mm', 'A4');
         $fpdf->AddPage();
-        $fpdf->SetFont('Courier', '', 13);
+        $fpdf->SetFont('Arial', '', 13);
         $fpdf->Cell(40, 20, $this->view->translate('Reservation') . ' #' . $this->id, 0, 1);
+        $fpdf->Cell(80, 10, $this->view->translate('Clinic name').': '.$this->clinic->name.$fpdf->ln());
+        $fpdf->Cell(80, 10, $this->view->translate('Clinic address').': '.$this->clinic->streetaddress.' '.$fpdf->clinic->city.$fpdf->ln());
         return $fpdf;
     }
 
