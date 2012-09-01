@@ -15,6 +15,7 @@ class Reservation extends  \Me\Model\ModelAbstract {
         $this->status   = 'new';
         $this->created  = new \DateTime();
         $this->services = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->billStatus = self::BILL_STATUS_NOT_PAID;
         return parent::__construct();
     }
 
@@ -54,6 +55,10 @@ class Reservation extends  \Me\Model\ModelAbstract {
             'patient' => array('confirmNewDate', 'discardNewDate')
         ))
     );
+
+    const BILL_STATUS_PAID = 1;
+    const BILL_STATUS_NOT_PAID = 0;
+
 
     /**
      * @var \DateTime From where the reservation can start
@@ -123,6 +128,12 @@ class Reservation extends  \Me\Model\ModelAbstract {
      * @ORM\OneToOne(targetEntity="\Trendmed\Entity\Payment")
      */
     protected $payment;
+
+    /**
+     * @var integer
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    protected $billStatus;
 
     /**
      * @var \Trendmed\Entity\Clinic
@@ -422,6 +433,22 @@ class Reservation extends  \Me\Model\ModelAbstract {
     public function getView ()
     {
         return $this->view;
+    }
+
+    /**
+     * @param int $billStatus
+     */
+    public function setBillStatus($billStatus)
+    {
+        $this->billStatus = $billStatus;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBillStatus()
+    {
+        return $this->billStatus;
     }
 
 

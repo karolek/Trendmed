@@ -135,9 +135,18 @@ class Patient_ReservationsController extends Me_User_Controllers_LoginController
         $fpdf->Output("trendmed_reservation.pdf", "D");
     }
 
+    /**
+     * This is for paying the bill if clinic want's it
+     * Using paypal
+     */
     public function payBillAction()
     {
         $reservation = $this->_getReservationFromParams();
+
+        # checking if clinic want's the bill
+        if (!$reservation->clinic->wantsBill()) {
+            throw new \Exception($reservation->clinic->name.' clinic does not require a bill for reservation');
+        }
 
     }
 
