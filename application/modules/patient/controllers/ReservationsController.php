@@ -144,9 +144,44 @@ class Patient_ReservationsController extends Me_User_Controllers_LoginController
         $reservation = $this->_getReservationFromParams();
 
         # checking if clinic want's the bill
-        if (!$reservation->clinic->wantsBill()) {
-            throw new \Exception($reservation->clinic->name.' clinic does not require a bill for reservation');
+        if ($reservation->billStatus == $reservation::BILL_STATUS_PAID) {
+            throw new \Exception('Reservation paid or clinic does not require payment');
         }
+
+        if ($reservation->getStatus() != 'confirmed') {
+            throw new \Exception('Only confirmed reservation needs payment');
+        }
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            # user want to make payment
+            # would be good to make na Payment object with information about paymets: date, amount, who do it, status etc
+        }
+        $this->view->headTitle('Payment for service reservation');
+
+    }
+
+    /**
+     * verifies that payment has been done and setups reservation as paid
+     */
+    public function billPaidAction()
+    {
+        $reservation = $this->_getReservationFromParams();
+
+        # checking if clinic want's the bill
+        if ($reservation->billStatus == $reservation::BILL_STATUS_PAID) {
+            throw new \Exception('Reservation paid or clinic does not require payment');
+        }
+
+        $request = $this->getRequest();
+        ## TODO: some verification would be nice of incominng payment
+        $reservation->setBillStatus($reservation::BILL_STATUS_PAID);
+        $this->_em->persist($reservation);
+        $this->_em->flush();
+
+        $this->view->headTitle('Payment confirmation');
+        $this->view->reservation = $reservation;
+
 
     }
 

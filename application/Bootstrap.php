@@ -181,4 +181,5 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             $fc->registerPlugin(new \Me_Controller_Plugin_Acl($myAcl, $role));
         }
     }
+
 }

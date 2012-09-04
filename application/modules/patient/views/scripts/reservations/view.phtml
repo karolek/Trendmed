@@ -14,4 +14,15 @@
         </a> - <?= $this->translate($this->config->reservation->action->patient->$action->description); ?>
     </li>
     <?php endforeach; ?>
+    <!-- payment option -->
+    <?php if ($this->reservation->getBillStatus() == \Trendmed\Entity\Reservation::BILL_STATUS_NOT_PAID AND $this->reservation->getStatus() == 'confirmed'): ?>
+    <li>
+        <a href="<?= $this->url(
+            array(
+                'id' => $this->reservation->id
+            ), 'makePayment'); ?>">
+            <?= $this->translate('Pay bill'); ?></a> -
+        <?= $this->translate('This clinic requires that pay a bill in amount of 50 euro for reservation'); ?>
+    </li>
+    <?php endif; ?>
 </ul>

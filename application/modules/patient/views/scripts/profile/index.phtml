@@ -38,6 +38,10 @@
                 </td>
                 <td>
                     <?php $status =  $reservation->getStatusAsArray(); echo $this->translate($status['name']); ?>
+                    <!-- payment option -->
+                    <?php if ($reservation->getBillStatus() == $reservation::BILL_STATUS_NOT_PAID): ?>
+                        <br><strong><?= $this->translate('Bill not paid yet'); ?></strong>
+                    <?php endif; ?>
                 </td>
                 <td>
 
@@ -63,6 +67,17 @@
                                 </a>
                             </li>
                             <?php endforeach; ?>
+                            <!-- payment option -->
+                            <?php if ($reservation->getBillStatus() == $reservation::BILL_STATUS_NOT_PAID and $reservation->getStatus() == 'confirmed'): ?>
+                                <li>
+                                    <a href="<?= $this->url(
+                                        array(
+                                            'id' => $reservation->id
+                                        ), 'makePayment'); ?>">
+                                        <?= $this->translate('Pay bill'); ?>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
                         </ul>
                         <?php endif;?>
                     </div>

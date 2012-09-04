@@ -25,6 +25,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
         $this->favoredByUsers = new \Doctrine\Common\Collections\ArrayCollection;
         $this->popularity = 0;
         $this->rating = 0;
+        $this->viewCount = 0;
 
         return parent::__construct();
     }
@@ -199,6 +200,14 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
      */
     protected $popularity;
 
+    /**
+     * @var int amount of unique views on profile page
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    protected $viewCount;
+
+
+
     protected $_welcomeEmailScript = 'register/_welcomeEmail.phtml';
     protected $_newPasswordScript = 'register/_newPassword.phtml';
     protected $_newEmailScript = 'profile/_newEmail.phtml';
@@ -220,6 +229,16 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    public function addView()
+    {
+        $this->viewCount++;
+    }
+
+    public function substractView()
+    {
+        $this->viewCount--;
     }
 
     public function getStreetaddress()
@@ -663,6 +682,11 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
     public function getRating()
     {
         return $this->rating;
+    }
+
+    public function getViewCount()
+    {
+        return $this->viewCount;
     }
 
 }

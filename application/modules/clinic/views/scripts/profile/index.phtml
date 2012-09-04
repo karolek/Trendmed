@@ -121,3 +121,7 @@
         <?= $this->translate('You do not have any reservations yet.'); ?>
     </div>
 <?php endif;?>
+<p>
+    Liczba odwiedziń Twojego profilu:
+    <big><?= $this->LoggedUser()->viewCount; ?></big>
+</p>
