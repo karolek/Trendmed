@@ -120,6 +120,14 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
             throw new \Exception('No service with ID '.$id.' found');
         }
 
+        # adding new visist to clinic
+        if (!$_COOKIE['visit_'.$service->clinic->id]) {
+            setcookie('visit_'.$service->clinic->id, true, time() + 24*3600, '/');
+            $service->clinic->addView();
+            $this->_em->persist($service->clinic);
+            $this->_em->flush();
+        }
+
         $this->view->addScriptPath(APPLICATION_PATH . '/modules/clinic/views/scripts');
         $this->view->service = $service;
         $this->view->headTitle($this->view->translate('Service') .' '.$service->category->name);

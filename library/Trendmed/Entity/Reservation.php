@@ -52,6 +52,7 @@ class Reservation extends  \Me\Model\ModelAbstract {
             'patient'   => array('cancel', 'getPdf')
         )),
         'new_date'  => array('name' => 'New date proposed', 'actions' => array(
+            'clinic'    => array(),
             'patient' => array('confirmNewDate', 'discardNewDate')
         ))
     );
@@ -336,6 +337,10 @@ class Reservation extends  \Me\Model\ModelAbstract {
             default:
                 break;
         }
+
+        # notification will be send only if proper template files exists in (APP/layouts/scripts
+        $this->sendStatusNotification($status);
+
         $this->status = $status;
     }
 
@@ -440,6 +445,9 @@ class Reservation extends  \Me\Model\ModelAbstract {
      */
     public function setBillStatus($billStatus)
     {
+        if($billStatus == self::BILL_STATUS_PAID) {
+            $this->sendStatusNotification('paid');
+        }
         $this->billStatus = $billStatus;
     }
 
@@ -451,7 +459,52 @@ class Reservation extends  \Me\Model\ModelAbstract {
         return $this->billStatus;
     }
 
+    public function sendStatusNotification($status)
+    {
+        $config = \Zend_Registry::get('config');
+        $log = \Zend_Registry::get('log');
 
+
+        $view = \Zend_Registry::get('view');
+        $templatePath = APPLICATION_PATH . '/layouts/scripts/reservationNotifications';
+        $view->addScriptPath($templatePath);
+        $view->reservation = $this;
+
+        $clinicTemplate = $templatePath.'/clinic/'.$status.'.phtml';
+        $patientTemplate = $templatePath.'/patient/'.$status.'.phtml';
+
+        if(file_exists($clinicTemplate)) {
+            # sending notification to clinic
+            $mail = new \Zend_Mail('UTF-8');
+            $htmlContent = $view->render('clinic/' . $status.'.phtml'); // rendering a view template for content
+            $mail->setBodyHtml($htmlContent);
+            $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName); // setting FROM values from config
+            $mail->addTo($this->clinic->getEmailaddress(), $this->clinic->getLogin());
+            $mail->addBcc($config->siteEmail->fromAddress, 'Redaktor Trendmed.eu'); //Adding copy for admin
+            $subject = $config->siteEmail->clinic->{$status.'Notification'}->subject;
+            $mail->setSubject($subject);
+            $mail->send();
+            $log->debug('E-mail send to: ' . $this->clinic->getEmailaddress() . '
+            from ' . $mail->getFrom() . ' subject: ' . $mail->getSubject());
+        }
+
+        if(file_exists($patientTemplate)) {
+            # sending notification to patient
+            $mail = new \Zend_Mail('UTF-8');
+            $htmlContent = $view->render('patient/' . $status.'.phtml'); // rendering a view template for content
+            $mail->setBodyHtml($htmlContent);
+            $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName);
+            $mail->addTo($this->patient->getEmailaddress(), $this->patient->getLogin());
+            $mail->addBcc($config->siteEmail->fromAddress, 'Redaktor Trendmed.eu'); //Adding copy for admin
+            $subject = $config->siteEmail->patient->{$status.'Notification'}->subject;
+
+            $mail->setSubject($view->translate($subject));
+            $mail->send();
+            $log->debug('E-mail send to: ' . $this->patient->getEmailaddress() . '
+            from ' . $mail->getFrom() . ' subject: ' . $mail->getSubject());
+        }
+
+    }
     /** END GETTERS AND SETTERS **/
 
 }

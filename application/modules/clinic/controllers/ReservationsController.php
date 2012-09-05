@@ -33,9 +33,9 @@ class Clinic_ReservationsController extends Me_User_Controllers_LoginController
             # clinic want to confirm this reservation
             if ($form->isValid($request->getPost())) {
                 $values = $form->getValues();
-                $reservation->setStatus('confirmed');
                 $reservation->setAnswer($values['anwser']);
-
+                # set status should be just before persist
+                $reservation->setStatus('confirmed');
                 $this->_em->persist($reservation);
                 $this->_em->flush();
                 $this->_helper->FlashMessenger(array('success' => 'Rezerwacja potwierdzona'));
@@ -63,11 +63,11 @@ class Clinic_ReservationsController extends Me_User_Controllers_LoginController
             # clinic want to confirm this reservation
             if ($form->isValid($request->getPost())) {
                 $values = $form->getValues();
-                $reservation->setStatus('new_date');
                 $reservation->setAnswer($values['anwser']);
                 $reservation->setAlternativeDateFrom(new \DateTime($values['alternativeDateFrom']));
                 $reservation->setAlternativeDateTo(new \DateTime($values['alternativeDateTo']));
 
+                $reservation->setStatus('new_date');
                 $this->_em->persist($reservation);
                 $this->_em->flush();
                 $this->_helper->FlashMessenger(array('success' => 'Rezerwacja potwierdzona'));

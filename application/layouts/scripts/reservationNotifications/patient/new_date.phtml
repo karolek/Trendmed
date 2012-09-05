@@ -1,0 +1,12 @@
+<dt><?= $this->translate('Clinic proposed another date of visist'); ?></dt>
+<dd>
+    <?= $this->translate('from');?> <?= $this->reservation->alternativeDateFrom->format("d-m-Y"); ?>
+    <?= $this->translate('to');?> <?= $this->reservation->alternativeDateTo->format("d-m-Y"); ?>
+</dd>
+
+<p>
+    Additional comments from the clinic to you:
+    <br>
+    <?= $this->reservation->answer; ?>
+</p>
+

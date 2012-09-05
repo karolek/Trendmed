@@ -82,20 +82,25 @@
                 <td>
                     <div class="btn-group">
                         <a class="btn" href="#reservation-details-<?= $reservation->id;?>" data-toggle="modal"><?= $this->translate('Zobacz szczegóły'); ?></a>
-                        <button class="btn dropdown-toggle" data-toggle="dropdown">
+                        <?php if(count($status['actions']['clinic']) >0 ): ?>
+
+                            <button class="btn dropdown-toggle" data-toggle="dropdown">
                             <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <!-- dropdown menu links -->
-                            <?php foreach($status['actions']['clinic'] as $action): ?>
-                            <li>
-                                <a href="<?= $this->url(array('id' => $reservation->id),
-                                $this->config->reservation->action->clinic->$action->routeName); ?>">
-                                    <?= $this->translate($this->config->reservation->action->clinic->$action->name); ?>
-                                </a>
-                            </li>
-                            <?php endforeach; ?>
-                        </ul>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <!-- dropdown menu links -->
+                                <?php foreach($status['actions']['clinic'] as $action): ?>
+                                <li>
+                                    <a href="<?= $this->url(array('id' => $reservation->id),
+                                    $this->config->reservation->action->clinic->$action->routeName); ?>">
+                                        <?= $this->translate($this->config->reservation->action->clinic->$action->name); ?>
+                                    </a>
+                                </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <? elseif($reservation->status != 'closed'): ?>
+                            <em>Czeka na reakcje pacjenta</em>
+                        <?php endif; ?>
                     </div>
                 </td>
                 <!-- Modal -->

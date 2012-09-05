@@ -54,31 +54,33 @@
                                 'module' => 'patient',
                                 'id' => $reservation->id), 'default', true); ?>"><?= $this->translate('See details'); ?></a>
                         <?php if(count($status['actions']['patient']) >0 ): ?>
-                        <button class="btn dropdown-toggle" data-toggle="dropdown">
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <!-- dropdown menu links -->
-                            <?php foreach($status['actions']['patient'] as $action): ?>
-                            <li>
-                                <a href="<?= $this->url(array('id' => $reservation->id),
-                                    $this->config->reservation->action->patient->$action->routeName); ?>">
-                                    <?= $this->translate($this->config->reservation->action->patient->$action->name); ?>
-                                </a>
-                            </li>
-                            <?php endforeach; ?>
-                            <!-- payment option -->
-                            <?php if ($reservation->getBillStatus() == $reservation::BILL_STATUS_NOT_PAID and $reservation->getStatus() == 'confirmed'): ?>
+                            <button class="btn dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <!-- dropdown menu links -->
+                                <?php foreach($status['actions']['patient'] as $action): ?>
                                 <li>
-                                    <a href="<?= $this->url(
-                                        array(
-                                            'id' => $reservation->id
-                                        ), 'makePayment'); ?>">
-                                        <?= $this->translate('Pay bill'); ?>
+                                    <a href="<?= $this->url(array('id' => $reservation->id),
+                                        $this->config->reservation->action->patient->$action->routeName); ?>">
+                                        <?= $this->translate($this->config->reservation->action->patient->$action->name); ?>
                                     </a>
                                 </li>
-                            <?php endif; ?>
-                        </ul>
+                                <?php endforeach; ?>
+                                <!-- payment option -->
+                                <?php if ($reservation->getBillStatus() == $reservation::BILL_STATUS_NOT_PAID and $reservation->getStatus() == 'confirmed'): ?>
+                                    <li>
+                                        <a href="<?= $this->url(
+                                            array(
+                                                'id' => $reservation->id
+                                            ), 'makePayment'); ?>">
+                                            <?= $this->translate('Pay bill'); ?>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                            </ul>
+                        <? elseif($reservation->status != 'closed'): ?>
+                            <br><em><?= $this->translate('Waiting for clinic response'); ?></em>
                         <?php endif;?>
                     </div>
                 </td>

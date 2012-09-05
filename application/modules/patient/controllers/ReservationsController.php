@@ -37,13 +37,13 @@ class Patient_ReservationsController extends Me_User_Controllers_LoginController
             # clinic want to confirm this reservation
             if ($form->isValid($request->getPost())) {
                 $values = $form->getValues();
-                $reservation->setStatus('confirmed');
                 if ($values['question']) {
                     $question = $reservation->getQuestion();
                     # append any new text if any to question field
                     $reservation->setQuestion($values['question']. "\n\n" . $question);
                 }
 
+                $reservation->setStatus('confirmed');
                 $this->_em->persist($reservation);
                 $this->_em->flush();
                 $this->_helper->FlashMessenger(array('success' => 'Reservation confirmed'));
@@ -74,13 +74,13 @@ class Patient_ReservationsController extends Me_User_Controllers_LoginController
             # clinic want to confirm this reservation
             if ($form->isValid($request->getPost())) {
                 $values = $form->getValues();
-                $reservation->setStatus('closed');
                 if ($values['question']) {
                     $question = $reservation->getQuestion();
                     # append any new text if any to question field
                     $reservation->setQuestion($values['question']. "\n\n" . $question);
                 }
 
+                $reservation->setStatus('closed');
                 $this->_em->persist($reservation);
                 $this->_em->flush();
                 $this->_helper->FlashMessenger(array('success' => 'Reservation canceled'));

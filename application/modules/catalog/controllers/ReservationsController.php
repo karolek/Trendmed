@@ -83,8 +83,14 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
                         }
                         $clinic = $reservation->services[0]->clinic;
                         $reservation->clinic = $clinic;
+
+
                         $this->_em->persist($reservation);
                         $this->_em->flush();
+
+                        # sending confirmation about new reservation to clinic and patient
+                        $reservation->sendStatusNotification('new');
+
                         $this->_helper->FlashMessenger(array(
                             'success' => 'Reservation booked'
                         ));

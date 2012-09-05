@@ -1,0 +1,19 @@
+This is confirmation of your reservation in clinic.
+<dl>
+
+    <dt>Reservation number</dt>
+    <dd><?= $this->reservation->id; ?></dd>
+
+    <dt>Clinic name</dt>
+    <dd><?= $this->reservation->clinic->name; ?></dd>
+
+    <dt>Clinic address</dt>
+    <dd><?= $this->reservation->clinic->streetaddress; ?></dd>
+
+    <dt>Clinic city</dt>
+    <dd><?= $this->reservation->clinic->postcode; ?> <?= $this->reservation->clinic->city; ?></dd>
+
+    <dt>E-mail and phone</dt>
+    <dd><?= $this->reservation->clinic->repEmail; ?> <?= $this->reservation->clinic->repPhone; ?> </dd>
+
+</dl>
