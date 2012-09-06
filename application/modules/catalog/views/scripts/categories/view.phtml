@@ -92,9 +92,11 @@
                 <?= $this->truncate($service->description)->toLength(250); ?>
             </p>
             <!-- choosen service photos -->
-            <? foreach ($service->photos as $photo): ?>
-                <?= $this->ShowPhoto($photo, 'small', 'services') ; ?>
-            <? endforeach; ?>
+            <div class="photos">
+                <? foreach ($service->photos as $photo): ?>
+                    <?= $this->ShowPhoto($photo, 'small', 'services') ; ?>
+                <? endforeach; ?>
+            </div>
             <!-- other clinic services -->
             <? if (count($service->clinic->services) > 0): ?>
             <form action="<?= $this->url(array('slug' => $service->clinic->slug), 'newReservation'); ?>" method="post">

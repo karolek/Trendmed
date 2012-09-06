@@ -38,12 +38,13 @@ class Trendmed_View_Helper_ShowPhoto extends Zend_View_Helper_Abstract
         if($photo instanceof \Trendmed\Interfaces\Photo) { // if photo object is given
             $filePath = $config->$type->photo->uploadDir . $photo->getFilename() . '/' . $size . '.jpg';
             $fileUrl = $config->$type->photo->publicDir . $photo->getFilename() . '/' . $size . '.jpg';
+            $bigFileUrl = $config->$type->photo->publicDir . $photo->getFilename() . '/big.jpg';
             if (file_exists($filePath)) {
                 $src = $fileUrl;
                 $alt = $photo->getDescription();
             }
         }
-        $output = '<img src="' . $src . '" alt="Photo: ' . $alt . '" class="photo-' . $size . '" />';
+        $output = '<a href="' . $bigFileUrl . '" rel="lightbox"><img src="' . $src . '" alt="Photo: ' . $alt . '" class="photo-' . $size . '" /></a>';
         return $output;
     }
 }
