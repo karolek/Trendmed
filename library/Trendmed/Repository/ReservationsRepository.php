@@ -13,7 +13,7 @@ class ReservationsRepository extends \Doctrine\ORM\EntityRepository
      */
     public function fetchAllPatientReservations(\Trendmed\Entity\Patient $patient)
     {
-        $dql = "SELECT r FROM \Trendmed\Entity\Reservation r WHERE r.patient = :patient_id";
+        $dql = "SELECT r FROM \Trendmed\Entity\Reservation r WHERE r.patient = :patient_id ORDER BY r.created DESC";
         $query = $this->_em->createQuery($dql);
         $query->setParameter('patient_id', $patient->id);
         $reservations = $query->getResult();
@@ -26,7 +26,7 @@ class ReservationsRepository extends \Doctrine\ORM\EntityRepository
      */
     public function fetchAllClinicReservations(\Trendmed\Entity\Clinic $clinic)
     {
-        $dql = "SELECT r FROM \Trendmed\Entity\Reservation r WHERE r.clinic = :clinic_id";
+        $dql = "SELECT r FROM \Trendmed\Entity\Reservation r WHERE r.clinic = :clinic_id ORDER BY r.created DESC";
         $query = $this->_em->createQuery($dql);
         $query->setParameter('clinic_id', $clinic->id);
         $reservations = $query->getResult();
