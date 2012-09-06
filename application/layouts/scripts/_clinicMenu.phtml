@@ -21,7 +21,7 @@
     <li>
         <a href="<?= $this->url(
         array('module' => 'clinic', 'action' => 'index', 'controller' => 'profile'), 'default', true
-    ); ?>"><?= $this->translate('Rezerwacje pacjentów'); ?></a>
+    ); ?>"><?= $this->translate('Rezerwacje pacjentów'); ?> (<?= $this->LoggedUser()->getNewReservationsCount(); ?>)</a>
     </li>
     <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown">

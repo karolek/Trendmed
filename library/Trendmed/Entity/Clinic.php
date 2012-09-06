@@ -206,7 +206,11 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
      */
     protected $viewCount;
 
-
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\Reservation", mappedBy="clinic",cascade={"persist"})
+     */
+    protected $reservations;
 
     protected $_welcomeEmailScript = 'register/_welcomeEmail.phtml';
     protected $_newPasswordScript = 'register/_newPassword.phtml';
@@ -687,6 +691,25 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
     public function getViewCount()
     {
         return $this->viewCount;
+    }
+
+    public function addReservation(\Trendmed\Entity\Reservation $reservation)
+    {
+        $this->reservations->add($reservation);
+    }
+
+    public function getNewReservationsCount()
+    {
+        #filtering through reservations and finding only those with 'new' status
+        return count($this->reservations->filter(
+            function($reservation) {
+
+                if($reservation->status == 'new') {
+                    return $reservation;
+                }
+            }
+        ));
+
     }
 
 }

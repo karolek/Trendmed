@@ -138,7 +138,7 @@ class Reservation extends  \Me\Model\ModelAbstract {
 
     /**
      * @var \Trendmed\Entity\Clinic
-     * @ORM\ManyToOne(targetEntity="\Trendmed\Entity\Clinic")
+     * @ORM\ManyToOne(targetEntity="\Trendmed\Entity\Clinic", cascade={"persist"})
      */
     protected $clinic;
 
@@ -375,6 +375,7 @@ class Reservation extends  \Me\Model\ModelAbstract {
 
     public function setClinic(\Trendmed\Entity\Clinic $clinic)
     {
+        $clinic->addReservation($this);
         $this->clinic = $clinic;
     }
 

@@ -84,7 +84,7 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
                         $clinic = $reservation->services[0]->clinic;
                         $reservation->clinic = $clinic;
 
-
+                        $this->_em->persist($clinic);
                         $this->_em->persist($reservation);
                         $this->_em->flush();
 
