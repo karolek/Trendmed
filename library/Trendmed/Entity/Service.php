@@ -275,7 +275,7 @@ class Service extends \Me\Model\ModelAbstract {
         return $this->photos;
     }
 
-    public function addPhoto($photo)
+    public function addPhoto(\Trendmed\Entity\ServicePhoto $photo)
     {
         $this->photos[] = $photo;
         $photo->setService($this);

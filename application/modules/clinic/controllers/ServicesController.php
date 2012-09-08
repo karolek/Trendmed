@@ -40,7 +40,6 @@ class Clinic_ServicesController extends Zend_Controller_Action
         $this->view->headScript()->appendFile('/js/servicesSelect.js');
         $this->view->headScript()->appendFile('/js/jquery.html5uploader.min.js');
 
-
         if ($id) { //edit
             $service = $this->_em->find('\Trendmed\Entity\Service', $id);
             if (!$service) throw new \Exception('Bad parameters');
@@ -58,8 +57,7 @@ class Clinic_ServicesController extends Zend_Controller_Action
                 $form->setDefault('description_'.$transCode, $trans['description']);
             }
             $this->view->headTitle('Edycja usługi');
-            // fetching photos
-            $this->view->photos = $service->getPhotos();
+
         } else { // new
             $service = new \Trendmed\Entity\Service();
             $this->view->headTitle('Dodawanie usługi');
@@ -71,6 +69,16 @@ class Clinic_ServicesController extends Zend_Controller_Action
             $form->addCategoriesToSelect('subCategory', $post['mainCategory'], $post['subCategory']);
 
             if ($form->isValid($post)) {
+                # there is a problem when service is not saved then sortable on service photo will not work
+                # this will couse strange problem, so either first save service or remove sortable from service photos
+                if($_FILES['photo']) {
+                    $photo = new \Trendmed\Entity\ServicePhoto();
+                    $photo->processUpload();
+                    $service->addPhoto($photo);
+                    $this->_em->persist($photo);
+                }
+
+
                 $values = $form->getValues();
                 $service->setOptions($values);
 
@@ -85,20 +93,6 @@ class Clinic_ServicesController extends Zend_Controller_Action
                 }
                 $service->setClinic($this->_helper->LoggedUser());
                 $service->setCategory($this->_em->find('\Trendmed\Entity\Category', $values['subCategory']));
-
-                $session = new \Zend_Session_Namespace('service_photos_'.$this->_helper->LoggedUser()->getId());
-                $log = \Zend_Registry::get('log');
-                if(is_array($session->photos)) {
-                    $log->debug('sa zdjecia w sesji');
-                    foreach ($session->photos as $photo) {
-                        $photo->setService($service);
-                        $service->addPhoto($photo);
-                        $this->_em->persist($photo);
-                    }
-                    unset($session->photos);
-                } else {
-                    $log->debug('nie ma zdjec w sesji');
-                }
 
                 $this->_em->persist($service);
                 $this->_em->flush();
@@ -118,6 +112,15 @@ class Clinic_ServicesController extends Zend_Controller_Action
             }
         }
 
+        # adding form for new photos
+        $photoForm = new Clinic_Form_ServicePhoto();
+        # it will point to manageServicePhotosAction
+        $photoForm->setAction($this->view->url(array(
+            'action' => 'manage-service-photos'
+        )));
+        # adding id of service to form
+        $photoForm->addElement('hidden', 'id', array('value' => $service->id));
+        $this->view->photoForm = $photoForm;
 
         // TODO: we must remove from the categories of service, allready added categories
         $this->view->service = $service;
@@ -180,6 +183,8 @@ class Clinic_ServicesController extends Zend_Controller_Action
         $this->view->service = $service;
         $this->view->headTitle('Zdjęcia usługi');
         $this->view->form = $form;
+        # after this is done redirect to service editing action
+        # $this->_helper->Redirector('edit-services', 'services', 'clinic', array('id' => $service->id));
     }
 
     public function deleteServicePhotoAction()

@@ -84,7 +84,20 @@ class Clinic_Form_Service extends Twitter_Form
         $priceMax->addValidator(new Me_Validate_ServicePrice());
         $this->addElement($priceMax);
 
-        $submit = new \Zend_Form_Element_Submit('Save');
+        # photo objects
+        # for($i = 1; $i <= $config->services->photo->limit; $i++ ) {
+            $file = new Zend_Form_Element_File('photo');
+            $file->setLabel('Photo file (jpg, png, gif)');
+            // limit to 100K
+            $file->addValidator('Size', false, 102400 * 10);
+            // only JPEG, PNG, and GIFs
+            $file->addValidator('Extension', false, 'jpg,png,gif');
+
+            $this->addElement($file);
+        #}
+
+
+        $submit = new \Zend_Form_Element_Submit('Zapisz');
         $this->addElement($submit);
     }
 

@@ -314,6 +314,16 @@ abstract class AbstractPhoto extends \Me\Model\ModelAbstract
             if(!$dir = $this->getFilename()) {
                 $dir = $this->_generateDirectoryForPhoto();
             }
+        } elseif($file['tmp_name']) { #$file is _FILE element
+            $handle = new \upload($file);
+            // setting object original width and height
+            $this->setOriginalHeight($handle->image_src_y);
+            $this->setOriginalWidth($handle->image_src_x);
+            $log->debug('if _FILE element');
+            // we need to preserve somewhere an original photo
+            $this->_preserveOriginalFile($file);
+            // we want to generate a new dir
+            $dir = $this->_generateDirectoryForPhoto();
         } elseif($_FILES[$index]) { //this is a new photo
             $handle = new \upload($_FILES[$index]);
             // setting object original width and height
@@ -490,7 +500,8 @@ abstract class AbstractPhoto extends \Me\Model\ModelAbstract
             throw new \Exception('Directory for original '.$uploadsDirectory.' does not exist');
         }
         if(false === copy($filesArray['tmp_name'], $uploadsDirectory . '/' .$filesArray['name'])) {
-            throw new \Exception('cannot preserve original file');
+            throw new \Exception('cannot preserve (copy) original file from '.$filesArray['tmp_name'].' to '.
+                $uploadsDirectory . '/' .$filesArray['name']);
         }
         $this->setOriginalFileName($uploadsDirectory.'/'.$filesArray['name']);
     }

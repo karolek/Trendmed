@@ -17,11 +17,10 @@ implements \Trendmed\Interfaces\Photo
 
     /**
      * @ORM\ManyToOne(targetEntity="Trendmed\Entity\Service", inversedBy="photos")
-     * @Gedmo\SortableGroup
      */
     protected $service;
 
-    public function setService($service)
+    public function setService(\Trendmed\Entity\Service $service)
     {
         $this->service = $service;
     }

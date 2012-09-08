@@ -146,6 +146,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
 
     /**
      * @ORM\OneToMany(targetEntity="\Trendmed\Entity\Service", mappedBy="clinic")
+     * @ORM\OrderBy({"created" = "DESC"})
      */
     protected $services;
 
