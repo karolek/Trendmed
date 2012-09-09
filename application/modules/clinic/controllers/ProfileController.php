@@ -74,6 +74,8 @@ class Clinic_ProfileController extends Zend_Controller_Action
                 'action' => 'add-photo'
             )
         ));
+        # setting how photos does clinic allready used
+        $photoForm->setPhotosUsed($user->getPhotos()->count());
         $this->view->photoForm = $photoForm;
 
         if ($request->isPost()) { // saveing form with description
@@ -110,6 +112,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
             }
         }
         $this->view->form = $form;
+        $this->view->config = $config;
     }
 
     /**
@@ -120,14 +123,18 @@ class Clinic_ProfileController extends Zend_Controller_Action
     {
         $request = $this->getRequest();
         $clinic = $this->_helper->LoggedUser();
+        $config = \Zend_Registry::get('config');
         if($request->isPost()) {
-            $photo = new \Trendmed\Entity\ClinicPhoto();
-            $clinic->addPhoto($photo);
+            for($i = 1; $i <= $config->clinics->photo->limit; $i++ ) {
+                if(!empty($_FILES['photo'.$i]['tmp_name'])) {
+                    $photo = new \Trendmed\Entity\ClinicPhoto();
 
-            // doing all the upload magic
-            $photo->processUpload();
+                    $photo->processUpload($_FILES['photo'.$i]);
+                    $clinic->addPhoto($photo);
+                    $this->_em->persist($photo);
+                }
+            }
 
-            $this->_em->persist($photo);
             $this->_em->persist($clinic);
             $this->_em->flush();
 

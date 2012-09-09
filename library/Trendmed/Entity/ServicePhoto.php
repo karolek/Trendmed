@@ -17,6 +17,7 @@ implements \Trendmed\Interfaces\Photo
 
     /**
      * @ORM\ManyToOne(targetEntity="Trendmed\Entity\Service", inversedBy="photos")
+     * @Gedmo\SortableGroup
      */
     protected $service;
 

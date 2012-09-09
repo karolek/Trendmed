@@ -10,6 +10,10 @@
 
 <? if(count($this->service->photos) > 0): ?>
     <h3>Zdjęcia usługi</h3>
+        <p>
+            Możesz wgrać maksymalnie <?= $this->config->services->photo->limit; ?> zdjęć do każdej usługi. Zostało Ci
+            <?= $this->form->getPhotosLeft(); ?>. Możesz usunąć zdjęcia aby zrobić miejsce na nowe.
+        </p>
     <ul class="thumbnails">
     <? foreach($this->service->photos as $photo): ?>
     <li class="thumbnail">

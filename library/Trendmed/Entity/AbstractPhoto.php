@@ -288,7 +288,7 @@ abstract class AbstractPhoto extends \Me\Model\ModelAbstract
      * It takes tmp file uploaded by user in FILES array or already existing file
      * It makes thumbs based on application.ini configuration, it can also make cropped images
      *
-     * @param $file string Path to a file (from temp or from existing source)
+     * @param $file either $_FILES array or path to file
      * @cropOptions array
      *      @param int $left x1 position
      *      @param int $top  y1 position
@@ -296,46 +296,29 @@ abstract class AbstractPhoto extends \Me\Model\ModelAbstract
      *      @param int $bottom y2 position
      *      @param string $takenFromSize from what size of image the parameters are taken from
      */
-    public function processUpload($file = null, $cropOptions = array())
+    public function processUpload($file, $cropOptions = array())
     {
         require_once('class.upload.php');
         $log = \Zend_Registry::get('log');
 
-        // setting up a index of $_FILES from config or default
-        if(!$index = $this->getPhotoConfig()->filesIndex) {
-            $index = 'photo'; //default value
-        }
-        if($file !== null) {
+        $handle = new \upload($file);
+
+        if (!is_array($file)) {
             // probably You want to reprocess allready proccess file
             // to regenerate thumbnails
-            $handle = new \upload($file);
-            $localFile = true; // marker
             // we want to use the same dir, to overwrite current files
             if(!$dir = $this->getFilename()) {
                 $dir = $this->_generateDirectoryForPhoto();
             }
-        } elseif($file['tmp_name']) { #$file is _FILE element
-            $handle = new \upload($file);
-            // setting object original width and height
-            $this->setOriginalHeight($handle->image_src_y);
-            $this->setOriginalWidth($handle->image_src_x);
-            $log->debug('if _FILE element');
-            // we need to preserve somewhere an original photo
-            $this->_preserveOriginalFile($file);
-            // we want to generate a new dir
-            $dir = $this->_generateDirectoryForPhoto();
-        } elseif($_FILES[$index]) { //this is a new photo
-            $handle = new \upload($_FILES[$index]);
+        } else { //this is a new photo and it's $_FILES array
             // setting object original width and height
             $this->setOriginalHeight($handle->image_src_y);
             $this->setOriginalWidth($handle->image_src_x);
             $log->debug('_preserveOriginalFile');
             // we need to preserve somewhere an original photo
-            $this->_preserveOriginalFile($_FILES[$index]);
+            $this->_preserveOriginalFile($file);
             // we want to generate a new dir
             $dir = $this->_generateDirectoryForPhoto();
-        } else {
-            throw new \Exception('Neither $_FILES array is present or $file argument');
         }
 
         if ($handle->uploaded) {

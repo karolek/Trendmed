@@ -12,6 +12,9 @@ class Clinic_Form_Service extends Twitter_Form
      */
     protected $_translatedCategoryArrayTree = null;
 
+    protected $_photosUsed = 0;
+    protected $_photosLeft = 0;
+
     public function init()
     {
         $config = Zend_Registry::get('config');
@@ -83,10 +86,9 @@ class Clinic_Form_Service extends Twitter_Form
         $priceMax->addValidator($floatValidator);
         $priceMax->addValidator(new Me_Validate_ServicePrice());
         $this->addElement($priceMax);
-
         # photo objects
-        # for($i = 1; $i <= $config->services->photo->limit; $i++ ) {
-            $file = new Zend_Form_Element_File('photo');
+        for($i = 0; $i < $config->services->photo->limit; $i++ ) {
+            $file = new Zend_Form_Element_File('photo'.$i);
             $file->setLabel('Photo file (jpg, png, gif)');
             // limit to 100K
             $file->addValidator('Size', false, 102400 * 10);
@@ -94,7 +96,7 @@ class Clinic_Form_Service extends Twitter_Form
             $file->addValidator('Extension', false, 'jpg,png,gif');
 
             $this->addElement($file);
-        #}
+        }
 
 
         $submit = new \Zend_Form_Element_Submit('Zapisz');
@@ -125,6 +127,30 @@ class Clinic_Form_Service extends Twitter_Form
         if($selected) {
             $select->setValue($selected);
         }
+    }
+
+    public function setPhotosUsed($photosUsed)
+    {
+        # removing the file element
+        $config = Zend_Registry::get('config');
+
+        for ($i = 0; $i < $photosUsed; $i++) {
+            if($this->getElement('photo'.$i)) {
+                $this->removeElement('photo'.$i);
+            }
+        }
+        $this->_photosLeft = $config->services->photo->limit - $photosUsed;
+        $this->_photosUsed = $photosUsed;
+    }
+
+    public function getPhotosUsed()
+    {
+        return $this->_photosUsed;
+    }
+
+    public function getPhotosLeft()
+    {
+        return $this->_photosLeft;
     }
 
 }

@@ -53,6 +53,9 @@ class Clinic_ServicesController extends Zend_Controller_Action
             $form->addCategoriesToSelect('subCategory', $service->getCategory()->parent->id, $service->getCategory()->getId());
             $translations = $repository->findTranslations($service);
 
+            # informing form how many photos do clinic used allready
+            $form->setPhotosUsed($service->getPhotos()->count());
+
             foreach($translations as $transCode => $trans) {
                 $form->setDefault('description_'.$transCode, $trans['description']);
             }
@@ -71,13 +74,14 @@ class Clinic_ServicesController extends Zend_Controller_Action
             if ($form->isValid($post)) {
                 # there is a problem when service is not saved then sortable on service photo will not work
                 # this will couse strange problem, so either first save service or remove sortable from service photos
-                if($_FILES['photo']) {
-                    $photo = new \Trendmed\Entity\ServicePhoto();
-                    $photo->processUpload();
-                    $service->addPhoto($photo);
-                    $this->_em->persist($photo);
+                $photos = array();
+                for($i = 1; $i <= $config->services->photo->limit; $i++ ) {
+                    if(!empty($_FILES['photo'.$i]['tmp_name'])) {
+                        $photo = new \Trendmed\Entity\ServicePhoto();
+                        $photo->processUpload($_FILES['photo'.$i]);
+                        $photos[] = $photo;
+                    }
                 }
-
 
                 $values = $form->getValues();
                 $service->setOptions($values);
@@ -96,6 +100,16 @@ class Clinic_ServicesController extends Zend_Controller_Action
 
                 $this->_em->persist($service);
                 $this->_em->flush();
+
+                # now, after the servce is saved we can add photos,
+                # we need it bo be saved in order to use SortableBehaviour
+                if (count($photo) > 0) {
+                    foreach ($photos as $photo) {
+                        $service->addPhoto($photo);
+                        $this->_em->persist($photo);
+                    }
+                    $this->_em->flush();
+                }
 
                 $this->_helper->FlashMessenger(array('success' => 'Changes saved'));
                 $this->_helper->Redirector('index');
@@ -127,6 +141,8 @@ class Clinic_ServicesController extends Zend_Controller_Action
 
         $this->view->form = $form;
         $this->_helper->EnableCke($this->view, array());
+        $this->view->config = $config;
+
     }
     
     public function deleteServiceAction()
@@ -152,41 +168,6 @@ class Clinic_ServicesController extends Zend_Controller_Action
         $this->_helper->Redirector('index');
     }
 
-    public function manageServicePhotosAction()
-    {
-        $request    = $this->getRequest();
-        $serviceId  = $request->getParam('id', null);
-        $this->view->headScript()->appendFile('/js/servicesSelect.js');
-
-        // fetching the service
-        $repo = $this->_em->getRepository('\Trendmed\Entity\Service');
-        $service = $repo->find($serviceId);
-        if(!$service) throw new \Exception('no service found with id: '.$serviceId);
-
-        // checking owner
-        if($service->clinic->id != $this->_helper->LoggedUser()->id) {
-            throw new \Exception('security breach, attempt to delete clinic by no owner');
-        }
-
-        $form = new Clinic_Form_ServicePhoto();
-
-        if($request->isPost()) {
-            $photo = new \Trendmed\Entity\ServicePhoto();
-
-            // doing all the upload magic
-            $photo->processUpload();
-            $service->addPhoto($photo);
-            $this->_em->persist($photo);
-            $this->_em->flush();
-            $this->_helper->FlashMessenger(array('success' => 'Dodano nowe zdjęcie do usługi'));
-        }
-        $this->view->service = $service;
-        $this->view->headTitle('Zdjęcia usługi');
-        $this->view->form = $form;
-        # after this is done redirect to service editing action
-        # $this->_helper->Redirector('edit-services', 'services', 'clinic', array('id' => $service->id));
-    }
-
     public function deleteServicePhotoAction()
     {
         $request = $this->getRequest();
@@ -201,22 +182,6 @@ class Clinic_ServicesController extends Zend_Controller_Action
         $this->_em->flush();
 
         $this->_helper->FlashMessenger(array('success' => 'Zdjęcie zostało usunięte'));
-        $this->_helper->Redirector('manage-service-photos', 'services', 'clinic', array('id' => $serviceId));
-    }
-
-    /**
-     * For AJAX Request
-     */
-    public function addPhotoToServiceAction()
-    {
-        $request = $this->getRequest();
-        $entryPhoto = new \Trendmed\Entity\ServicePhoto();
-        $filename = $entryPhoto->processUpload();
-        $session = new \Zend_Session_Namespace('service_photos_'.$this->_helper->LoggedUser()->getId());
-        $session->photos[] = $entryPhoto;
-
-        echo $filename;
-        $this->_helper->layout()->disableLayout();
-        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->Redirector('edit-service', 'services', 'clinic', array('id' => $serviceId));
     }
 }

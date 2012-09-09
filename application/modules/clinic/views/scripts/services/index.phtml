@@ -39,10 +39,6 @@
                     <ul class="dropdown-menu">
                         <!-- dropdown menu links -->
                         <li>
-                            <a href="<?= $this->url(array('action' => 'manage-service-photos', 'controller' => 'services',
-                                'id' => $service->getId())); ?>"><?= $this->translate('Manage photos'); ?></a>
-                        </li>
-                        <li>
                             <a class="confirm" href="<?= $this->url(array('action' => 'delete-service',
                                 'id' => $service->getId())); ?>"><?= $this->translate('Delete'); ?></a>
                         </li>
