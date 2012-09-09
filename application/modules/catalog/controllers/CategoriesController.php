@@ -32,7 +32,7 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
         $request = $this->getRequest();
         $page = $request->getParam('page', 1);
         $order = $request->getParam('order', 'created');
-        $type = $request->getParam('type', null);
+        $this->view->type = $type = $request->getParam('type', null);
         $direction = $request->getParam('direction', 'DESC');
         $this->view->city = $city = $request->getQuery('city', null);
         // for view we want the oposite direction for sorting links
