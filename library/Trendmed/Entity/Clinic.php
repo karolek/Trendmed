@@ -26,6 +26,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
         $this->popularity = 0;
         $this->rating = 0;
         $this->viewCount = 0;
+        $this->isActive = true; # at start, all clinics are active
 
         return parent::__construct();
     }

@@ -50,8 +50,18 @@ class ClinicRepository extends \Doctrine\ORM\EntityRepository
      */
     public function findForNewsletter()
     {
-        $dql = 'SELECT c.name, c.repEmail FROM \Trendmed\Entity\Clinic c ORDER BY c.name';
+        $dql = 'SELECT c.name, c.repEmail FROM \Trendmed\Entity\Clinic c WHERE c.isActive = true ORDER BY c.name';
         $query = $this->_em->createQuery($dql);
         return $query->getArrayResult();
+    }
+
+    public function fetchLatestClinics($amount = 5)
+    {
+        $dql = 'SELECT c FROM \Trendmed\Entity\Clinic c WHERE c.isActive = ?1 ORDER BY c.created DESC';
+        $query = $this->_em->createQuery($dql);
+        $query->setParameter(1, true);
+        $query->setMaxResults($amount);
+
+        return $query->getResult();
     }
 }

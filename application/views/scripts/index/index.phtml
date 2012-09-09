@@ -25,6 +25,18 @@
     <p><a class="btn btn-primary btn-large" href="http://www.trendmed.eu/prezentacja/trendmed.pdf">Pobierz
         PDF &raquo;</a></p>
 </div>
+<!-- NAJWNOSZE KLINIKI @todo ostylować -->
+<?php if (count($this->newClinics) > 0): ?>
+    <h1><?= $this->translate('Last added clinics'); ?></h1>
+<?php foreach ($this->newClinics as $clinic): ?>
+    <h2><?= $clinic->name; ?></h2>
+    <?= $this->ShowClinicLogo($clinic, 'small'); ?>
+
+    <a href="<?= $this->url(
+        array('slug' => $clinic->getSlug()), 'clinic', true
+    ); ?>"><?= $this->translate('See profile'); ?></a>
+    <?php endforeach; ?>
+<?php endif; ?>
 <!-- @todo ostylować -->
 <?php if (count($this->articles) > 0): ?>
 <?php foreach ($this->articles as $article): ?>

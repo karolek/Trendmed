@@ -7,7 +7,9 @@
             <th>Adres</th>
             <th>Reprezentant</th>
             <th>Dodano</th>
+            <th>Stan</th>
             <th>Ostatnio zalogowny</th>
+            <th>Opcje</th>
         </tr>
     </thead>
 <?php foreach ($this->paginator as $item): ?>
@@ -21,12 +23,25 @@
         <?= $item->repPhone; ?><br />
         <?= $item->repEmail; ?></td>
         <td><?= $item->created->format('d/m/Y'); ?></td>
+        <td><?= $item->isActive() ? 'aktywna' : 'nie aktywna'; ?></td>
         <td>
         <? if($item->lastLoginTime): ?>
         <?= $item->lastLoginTime->format('d/m/Y'); ?>
         <? else: ?>
             Placówka się nie logowała.
         <? endif; ?>
+        </td>
+        <td>
+            <a href="<?= $this->url(array(
+                'action' => 'change-active-state',
+                'controller' => 'clinics',
+                'module' => 'admin',
+                'slug'  => $item->slug,
+                'new-state' => $item->isActive() ? '0' : '1'
+            ), 'default'); ?>">
+                <?php echo $item->isActive() ? 'deaktywuj' : 'aktywuj'; ?>
+
+            </a>
         </td>
     </tr>
 <?php endforeach; ?>

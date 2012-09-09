@@ -72,6 +72,12 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
      */
     protected $tempEmailAddress;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     * @var bool
+     */
+    protected $isActive;
+
     protected $_welcomeEmailScript = null; //implement in subclass, this is file of view with HTML content of welcome email
     protected $_moduleName = null; // name of the MCV module used to handle current user entity, used for links in email generation
     /* END PROPERTIES */
@@ -474,6 +480,43 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
     public function beforeRegister()
     {
 
+    }
+
+    /**
+     * @param boolean $isActive
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * Alias method for getIsActive()
+     * @return bool
+     */
+    public function isActive()
+    {
+        return $this->getIsActive();
+    }
+
+    public function activate()
+    {
+        $this->setIsActive(true);
+        return $this;
+    }
+
+    public function deactivate()
+    {
+        $this->setIsActive(false);
+        return $this;
     }
 
 }

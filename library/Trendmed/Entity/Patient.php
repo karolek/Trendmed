@@ -14,6 +14,7 @@ class Patient extends \Trendmed\Entity\User
         $this->roleName = 'patient';
         $this->favoriteClinics = new \Doctrine\Common\Collections\ArrayCollection;
         $this->isNewsletterActive = false;
+        $this->isActive = false;
 
         parent::__construct();
     }
