@@ -164,4 +164,26 @@ class Patient_ProfileController extends Zend_Controller_Action
         $this->view->headTitle('Change e-mail address');
         $this->view->form = $form;
     }
+
+    /**
+     * Manages user newsletter status
+     */
+    public function newsletterSignupAction()
+    {
+        $request = $this->getRequest();
+        if($request->isPost()) {
+            $post = $request->getPost();
+            $user = $this->_helper->LoggedUser();
+            if($post['sign_up'] == 1) {
+                $user->setIsNewsletterActive(true);
+                $this->_helper->FlashMessenger(array('success' => 'You have been signed up for the newsletter'));
+            } else {
+                $user->setIsNewsletterActive(false);
+                $this->_helper->FlashMessenger(array('success' => 'You have been signed out from out newsletter system'));
+            }
+            $this->_em->persist($user);
+            $this->_em->flush();
+        }
+        $this->view->headTitle($this->view->translate('Newsletter sign up/sign out'));
+    }
 }

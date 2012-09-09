@@ -1,0 +1,24 @@
+<p>
+	    <?= $this->translate('You can sign up or sign out from our newsletter using this form anytime.');?><br>
+	    <strong>
+            <?php
+            switch($this->LoggedUser()->isNewsletterActive()) {
+                case true:
+                    $status = $this->translate('signed');
+                    break;
+                case false:
+                    $status = $this->translate('not signed');
+                    break;
+            }
+            ?>
+            <?php printf($this->translate("You are currently %1\$s to our newsletter."), $status); ?>
+        </strong>
+	    <form method="post" action="">
+	        <label><input type="radio" name="sign_up" value="1" <?php if(!$this->LoggedUser()->isNewsletterActive()): ?>
+                          checked="checked"<?php endif; ?>><span><?= $this->translate('Sign me up!'); ?></span></label>
+	        <label><input type="radio" name="sign_up" value="0" <?php if($this->LoggedUser()->isNewsletterActive()): ?>
+	                        checked="checked"<?php endif; ?>><span><?= $this->translate('Sign me out!'); ?></span></label>
+        	<div class="globalClear"></div>
+	        <input class="btn" type="submit" value="<?= $this->translate('Save'); ?>">
+	    </form>
+	</p>

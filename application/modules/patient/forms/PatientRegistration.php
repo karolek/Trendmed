@@ -37,7 +37,11 @@ class Patient_Form_PatientRegistration extends Twitter_Form
 	        'label'      => 'Repeat password',
 	        'validators' => array($passwordValidator, array('identical', false, array('token' => 'password'))),
 	    ));
-	    
+
+
+        $newsletter = new Zend_Form_Element_Checkbox('isNewsletterActive');
+        $newsletter->setLabel('Please include me in Trendmed.eu updates (optional)');
+        $this->addElement($newsletter);
 		$submit      = new Zend_Form_Element_Submit('register');
         
         $submit->setLabel('Register for free!');
