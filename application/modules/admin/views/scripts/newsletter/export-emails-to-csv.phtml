@@ -1,0 +1,11 @@
+<p>
+    Wyeksportowany plik można zaimportować w systemie <a href="http://www.freshmail.pl" target="_blank">freshmail.pl</a>.
+</p>
+
+<form method="post" action="<?= $this->url(array(
+
+)); ?>">
+    <label>Wyeksportuj adresy klinik <input type="radio" name="type" value="clinics"></label>
+    <label>Wyeksportuj adresy pacjentów <input type="radio" name="type" value="patients"></label>
+    <input type="submit" value="Zapisz CSV">
+</form>

@@ -43,4 +43,15 @@ class ClinicRepository extends \Doctrine\ORM\EntityRepository
         $query = $this->_em->createQuery($dql);
         return $query->getArrayResult();
     }
+
+    /**
+     * Filter and fetches data to use in CSV for import in newsletter
+     * @return array
+     */
+    public function findForNewsletter()
+    {
+        $dql = 'SELECT c.name, c.repEmail FROM \Trendmed\Entity\Clinic c ORDER BY c.name';
+        $query = $this->_em->createQuery($dql);
+        return $query->getArrayResult();
+    }
 }

@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Description of User
  *
  * @ORM\Table(name="patients")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Trendmed\Repository\PatientRepository")
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
 class Patient extends \Trendmed\Entity\User
@@ -13,6 +13,7 @@ class Patient extends \Trendmed\Entity\User
     public function __construct() {
         $this->roleName = 'patient';
         $this->favoriteClinics = new \Doctrine\Common\Collections\ArrayCollection;
+        $this->isNewsletterActive = false;
 
         parent::__construct();
     }
@@ -68,6 +69,12 @@ class Patient extends \Trendmed\Entity\User
      * @var string $phoneNumber User real phone number
      */
     protected $phoneNumber;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     * @var type
+     */
+    protected $isNewsletterActive;
 
     /* GETTERS AND SETTERS */
     public function getId() {
@@ -218,6 +225,14 @@ class Patient extends \Trendmed\Entity\User
     public function setEmailAddress($email)
     {
         $this->setLogin($email);
+    }
+
+    public function isNewsletterActive() {
+        return $this->isNewsletterActive;
+    }
+
+    public function setIsNewsletterActive($isNewsletterActive) {
+        $this->isNewsletterActive = $isNewsletterActive;
     }
 
     /**

@@ -69,6 +69,6 @@ class Admin_IndexController extends Me_User_Controllers_LoginController
         $this->_helper->layout()->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
     }
-   
+
 }
 
