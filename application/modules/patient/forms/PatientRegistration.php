@@ -39,6 +39,16 @@ class Patient_Form_PatientRegistration extends Twitter_Form
 	    ));
 
 
+        $terms = new Zend_Form_Element_Checkbox('terms');
+
+        $terms->setLabel('I agree to accept the site <a href="/page/terms-and-conditions" target="_blank">Rules and Terms & Conditions</a>');
+        $terms->setRequired(true);
+        $checkboxValidator = new Zend_Validate_InArray(array(1));
+        $checkboxValidator->setMessage('Agreement is required', Zend_Validate_InArray::NOT_IN_ARRAY);
+        $terms->addValidator($checkboxValidator); //  litle trick to get the validation
+        $this->addElement($terms);
+
+
         $newsletter = new Zend_Form_Element_Checkbox('isNewsletterActive');
         $newsletter->setLabel('Please include me in Trendmed.eu updates (optional)');
         $this->addElement($newsletter);
