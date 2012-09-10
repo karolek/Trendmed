@@ -23,7 +23,11 @@ class IndexController extends \Zend_Controller_Action
 
         # fetching latest clinics for home page
         $this->view->newClinics = $this->_em->getRepository('\Trendmed\Entity\Clinic')
-            ->fetchLatestClinics(5);
+            ->fetchLatestClinics(3);
+
+        # fetching popular services for home page
+        $this->view->newServices = $this->_em->getRepository('\Trendmed\Entity\Service')
+            ->fetchLatestServices(3);
     }
 
     /**

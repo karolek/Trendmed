@@ -37,6 +37,19 @@
     ); ?>"><?= $this->translate('See profile'); ?></a>
     <?php endforeach; ?>
 <?php endif; ?>
+<!-- @todo ostylować usługi -->
+<?php if (count($this->newServices) > 0): ?>
+<h1><?= $this->translate('Last added services'); ?></h1>
+<?php foreach ($this->newServices as $service): ?>
+    <h2><?= $service->category->name; ?></h2>
+        <?= $this->ShowPhoto($service->photos[0], 'small'); ?>
+
+    <a href="<?= $this->url(
+        array('id' => $service->id), 'service', true
+    ); ?>"><?= $this->translate('more'); ?></a>
+    <?php endforeach; ?>
+<?php endif; ?>
+
 <!-- @todo ostylować -->
 <?php if (count($this->articles) > 0): ?>
 <?php foreach ($this->articles as $article): ?>

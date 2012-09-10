@@ -7,7 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Description of User
  *
  * @ORM\Table(name="services")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="\Trendmed\Repository\ServicesRepository")
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
 class Service extends \Me\Model\ModelAbstract {
