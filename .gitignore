@@ -16,6 +16,8 @@ data/reports/*
 vendor/*
 /vendor
 .zfproject.xml
+/library/Zend
+/library/ZendX
 
 .zfproject.xml
 
