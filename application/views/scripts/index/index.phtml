@@ -54,9 +54,7 @@
 	<div class="row-fluid grid-list">
 		<?php foreach ($this->newServices as $service): ?>
 		<div class="span4 grid-list-item">
-			<a href="<?= $this->url(
-    		    array('id' => $service->id), 'service', true
-    		); ?>"><?= $this->ShowPhoto($service->photos[0], 'small'); ?></a>
+			<?= $this->ShowPhoto($service->photos[0], 'small', 'services'); ?>
     		
     		<div class="grid-desc">
 	   			<a href="<?= $this->url(
