@@ -145,7 +145,21 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #content {width:681px; float:right; margin:0;}
 #content .hero-unit {padding:24px; background:#ffffff; border:1px solid #eeeeee;}
 #content .hero-unit p {font-size:12px; line-height: 17px; padding:13px 0 0; margin:0;}
-#content .hero-unit h1 {font-size:32px; font-family: 'TeXGyreHerosBold'; color:#292828;}
+#content .hero-unit h1 {font-size:24px; font-family: 'TeXGyreHerosBold'; color:#292828;}
+
+#content .grid-list { margin-top: 13px; }
+#content .grid-list .grid-list-item { display: table; position: relative; height: 60px; overflow: hidden; }
+#content .grid-list img { border: 1px solid #ccc; width: 60px; height: 60px; float: left; margin-right: 10px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; d}
+#content .grid-list .grid-desc {  display: table-cell; vertical-align: middle; }
+#content .grid-list h2 { font-size: 14px; color: #107BA8; line-height: 20px; float: left; width: 100%; }
+#content .grid-list .city { background: url(../img/city-icon.png) no-repeat;  }	
+#content .grid-list .price { background: url(../img/price-icon.png) no-repeat; }
+#content .grid-list p { padding-top: 0px; padding-left: 20px; line-height: 18px; display: inline-block; }
+#content .grid-list span { color: #000; }
+
+#content .articles h1 { text-decoration: underline; }
+#content .articles h2 { font-size: 15px; }
+
 
 #sidebar {float:left; width:276px; padding:0; margin:0;}
 #sidebar h3 {font-size:26px; font-family: 'TeXGyreHerosBold'; font-weight:normal; color:#ffffff; letter-spacing:-1px; text-shadow:0px 1px #023f58; border-bottom:1px solid #21596f; margin: 0 15px 20px; padding: 0 0 14px;}
@@ -297,7 +311,7 @@ select {width:340px;}
 
 .btn {background: #dedbdb; text-decoration:none; padding: 9px 14px 7px; font-size:14px; font-family: 'TeXGyreHerosCnBold'; text-transform: uppercase; border:none; box-shadow: none; color:#5a5a5a; margin:0 8px 0 0;}
 .btn:hover {background:#b8b6b6;}
-.btn-primary {background:#53d7f8; color:#ffffff; padding: 8px 14px 6px; font-size:16px; font-family: 'TeXGyreHerosCnBold'; text-transform: uppercase; border:none; text-shadow:1px 1px #47b8d4; box-shadow: none;}
+.btn-primary {background:#53d7f8; color:#ffffff; padding: 8px 14px 6px; font-family: 'TeXGyreHerosCnBold'; text-transform: uppercase; border:none; text-shadow:1px 1px #47b8d4; box-shadow: none;}
 .btn-primary:hover {background: #065475;}
 .btn-group {min-width:107px;}
 .btn-group .btn a {color: #5A5A5A; text-decoration:none;}

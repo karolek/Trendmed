@@ -25,46 +25,72 @@
     <p><a class="btn btn-primary btn-large" href="http://www.trendmed.eu/prezentacja/trendmed.pdf">Pobierz
         PDF &raquo;</a></p>
 </div>
-<!-- NAJWNOSZE KLINIKI @todo ostylować -->
-<?php if (count($this->newClinics) > 0): ?>
-    <h1><?= $this->translate('Last added clinics'); ?></h1>
-<?php foreach ($this->newClinics as $clinic): ?>
-    <h2><?= $clinic->name; ?></h2>
-    <?= $this->ShowClinicLogo($clinic, 'small'); ?>
-
-    <a href="<?= $this->url(
-        array('slug' => $clinic->getSlug()), 'clinic', true
-    ); ?>"><?= $this->translate('See profile'); ?></a>
-    <?php endforeach; ?>
-<?php endif; ?>
-<!-- @todo ostylować usługi -->
-<?php if (count($this->newServices) > 0): ?>
-<h1><?= $this->translate('Last added services'); ?></h1>
-<?php foreach ($this->newServices as $service): ?>
-    <h2><?= $service->category->name; ?></h2>
-        <?= $this->ShowPhoto($service->photos[0], 'small'); ?>
-
-    <a href="<?= $this->url(
-        array('id' => $service->id), 'service', true
-    ); ?>"><?= $this->translate('more'); ?></a>
-    <?php endforeach; ?>
-<?php endif; ?>
 
 <!-- @todo ostylować -->
 <?php if (count($this->articles) > 0): ?>
-<?php foreach ($this->articles as $article): ?>
-    <h2><?= $article->getTitle(); ?></h2>
-    <?php if ($article->getLeadPhoto()): ?>
-            <?=
-            $this->ShowPhoto($article->getLeadPhoto(), 'small', 'ArticlePhoto')
-            ; ?>
-        <?php endif; ?>
-        <?=
-        $this->Truncate($article->content)->toLength(100)
-        ; ?>
+<div class="hero-unit articles">
+	<h1 class="pull-left"><?= $this->translate('Latest articles:'); ?></h1>
+	<a class="btn btn-primary btn-large pull-right" href="#"><?= $this->translate('Show all articles'); ?></a>
+	<div class="clearfix"></div>
+	<?php foreach ($this->articles as $article): ?>
+    	<h2><?= $article->getTitle(); ?></h2>
+	    <?php if ($article->getLeadPhoto()): ?>
+	            <?= $this->ShowPhoto($article->getLeadPhoto(), 'small', 'ArticlePhoto'); ?>
+	        <?php endif; ?>
+	        <?= $this->Truncate($article->content)->toLength(100); ?>
 
-    <a href="<?= $this->url(
-        array('slug' => $article->getSlug()), 'page', true
-    ); ?>"><?= $this->translate('Read more'); ?></a>
+	    <a href="<?= $this->url(
+	        array('slug' => $article->getSlug()), 'page', true
+	    ); ?>"><?= $this->translate('Read more'); ?></a>
     <?php endforeach; ?>
+</div>
+<?php endif; ?>
+
+
+<!-- @todo ostylować usługi -->
+<?php if (count($this->newServices) > 0): ?>
+<div class="hero-unit">
+	<h1><?= $this->translate('Last added services'); ?></h1>
+	<div class="row-fluid grid-list">
+		<?php foreach ($this->newServices as $service): ?>
+		<div class="span4 grid-list-item">
+			<a href="<?= $this->url(
+    		    array('id' => $service->id), 'service', true
+    		); ?>"><?= $this->ShowPhoto($service->photos[0], 'small'); ?></a>
+    		
+    		<div class="grid-desc">
+	   			<a href="<?= $this->url(
+	    		    array('id' => $service->id), 'service', true
+	    		); ?>"><h2><?= $service->category->name; ?></h2></a>
+				<p class="price"><?= $this->translate('From'); ?> <span><?= $service->pricemin; ?></span> euro</p>
+			</div>
+    		
+    		
+		</div>
+    	<?php endforeach; ?>
+	</div>
+</div>
+<?php endif; ?>
+
+<!-- NAJWNOSZE KLINIKI @todo ostylować -->
+<?php if (count($this->newClinics) > 0): ?>
+<div class="hero-unit">
+	<h1><?= $this->translate('Last added clinics'); ?></h1>
+	<div class="row-fluid grid-list">
+		<?php foreach ($this->newClinics as $clinic): ?>
+		<div class="span4 grid-list-item">
+    		<a href="<?= $this->url(
+			    array('slug' => $clinic->getSlug()), 'clinic', true
+			); ?>">
+    		<?= $this->ShowClinicLogo($clinic, 'small'); ?></a>
+			<div class="grid-desc">
+				<a href="<?= $this->url(
+				    array('slug' => $clinic->getSlug()), 'clinic', true
+				); ?>"><h2><?= $clinic->name; ?></h2></a>
+				<p class="city"><span><?= $clinic->city; ?></span></p>
+			</div>
+		</div>
+    	<?php endforeach; ?>
+	</div>
+</div>
 <?php endif; ?>
