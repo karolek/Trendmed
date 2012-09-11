@@ -75,13 +75,14 @@ class Clinic_ServicesController extends Zend_Controller_Action
                 # there is a problem when service is not saved then sortable on service photo will not work
                 # this will couse strange problem, so either first save service or remove sortable from service photos
                 $photos = array();
-                for($i = 1; $i <= $config->services->photo->limit; $i++ ) {
+                for($i = 0; $i <= $config->services->photo->limit; $i++ ) {
                     if(!empty($_FILES['photo'.$i]['tmp_name'])) {
                         $photo = new \Trendmed\Entity\ServicePhoto();
                         $photo->processUpload($_FILES['photo'.$i]);
                         $photos[] = $photo;
                     }
                 }
+
 
                 $values = $form->getValues();
                 $service->setOptions($values);
