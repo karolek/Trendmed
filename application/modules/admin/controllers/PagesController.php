@@ -75,7 +75,7 @@ class Admin_PagesController extends \Zend_Controller_Action
                 // we need to process the lead photo before $form->getValues as it clears the $_FILES array
                 if ($_FILES['leadPhoto']['tmp_name']) {
                     $articlePhoto = new \Trendmed\Entity\ArticlePhoto();
-                    $articlePhoto->processUpload();
+                    $articlePhoto->processUpload($_FILES['leadPhoto']);
                     // remove old photo
                     if ($entity->getLeadPhoto()) {
                         $this->_em->remove($entity->getLeadPhoto());

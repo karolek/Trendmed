@@ -7,7 +7,7 @@
         <li <?php if ($this->type == 'big'): ?>class="active"<?php endif; ?>><a
             href="<?= $this->url(array('type' => 'big', 'page' => 1), 'category', false); ?>#profile"><?= $this->translate('Tylko szpitale, kliniki i sanatoria'); ?></a>
         </li>
-        <li <?php if ($this->type == 'small' or $this->type == ""): ?>class="active"<?php endif; ?>><a
+        <li <?php if ($this->type == 'small'): ?>class="active"<?php endif; ?>><a
             href="<?= $this->url(array('type' => 'small', 'page' => 1), 'category', false); ?>#messages"><?= $this->translate('Tylko gabinety, salony i spa'); ?></a>
         </li>
     </ul>
