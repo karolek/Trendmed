@@ -3,7 +3,7 @@
 	<?php if($this->LoggedUser()):?>
             <span class="userPanel">
 		<?= $this->translate('Logged in as');?> <a class="link" href="<?= $this->url(array(
-            'module'        => 'patient', 
+            'module'        => 'clinic',
             'controller'    => 'profile', 
             'action'        => 'index'), 'default', true);?>">
         <?= $this->LoggedUser('username'); ?></a>. 
