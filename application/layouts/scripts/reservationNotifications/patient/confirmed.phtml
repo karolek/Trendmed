@@ -1,10 +1,5 @@
 <p>
-    Your reservation has been confirmed by <?= $this->reservation->clinic->name; ?> clinic.
+    Witamy,<br>
+    dotyczy rezerwacji nr: <?= $this->reservation->id; ?><br>
+    Rezerwacja jest potwierdzona, do zobaczenia. Pozdrawiamy
 </p>
-
-<p>
-    Additional comments from the clinic to you:
-    <br>
-    <?= $this->reservation->answer; ?>
-</p>
-
