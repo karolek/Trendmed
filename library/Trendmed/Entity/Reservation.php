@@ -49,7 +49,7 @@ class Reservation extends  \Me\Model\ModelAbstract {
         )),
         'confirmed' => array('name' => 'Confirmed', 'actions' => array(
             'clinic'    => array(),
-            'patient'   => array('cancel', 'getPdf')
+            'patient'   => array('cancel', 'rate', 'getPdf')
         )),
         'new_date'  => array('name' => 'New date proposed', 'actions' => array(
             'clinic'    => array(),
@@ -277,6 +277,8 @@ class Reservation extends  \Me\Model\ModelAbstract {
      */
     public function setRating(\Trendmed\Entity\Rating $rating)
     {
+        $rating->setReservation($this);
+        $this->clinic->recountRating();
         $this->rating = $rating;
     }
 

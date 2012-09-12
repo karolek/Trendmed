@@ -69,9 +69,7 @@
                 <?= $this->ShowClinicLogo($service->clinic); ?>
             </li>
             <? foreach ($service->clinic->photos as $photo): ?>
-            <?=
-            $this->ShowPhoto($photo, 'small', 'clinics')
-            ; ?>
+            <?= $this->ShowPhoto($photo, 'small', 'clinics'); ?>
             <? endforeach; ?>
         </ul>
 

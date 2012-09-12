@@ -17,6 +17,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
 
     public function __construct()
     {
+        parent::__construct();
         $this->services = new \Doctrine\Common\Collections\ArrayCollection;
         $this->wantBill = false;
         $this->country = 'Poland';
@@ -28,7 +29,6 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
         $this->viewCount = 0;
         $this->isActive = true; # at start, all clinics are active
 
-        return parent::__construct();
     }
 
     public static $TYPES = array(
@@ -687,7 +687,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
      */
     public function getRating()
     {
-        return $this->rating;
+        return $this->rating * 10;
     }
 
     public function getViewCount()
@@ -712,6 +712,33 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
             }
         ));
 
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function recountRating()
+    {
+        $avg = array();
+        foreach($this->getReviews() as $rating) {
+            $avg[] = $rating->getAvgRate();
+        }
+        if(count($avg) > 0) {
+            $this->rating = array_sum($avg) / count($avg);
+        } else {
+            $this->rating = 0;
+        }
+    }
+
+    public function getReviews()
+    {
+        $collection = new \Doctrine\Common\Collections\ArrayCollection();
+        foreach ($this->reservations as $reservation) {
+            if($reservation->getRating()) {
+                $collection->add($reservation->getRating());
+            }
+        }
+        return $collection;
     }
 
 }
