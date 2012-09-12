@@ -19,7 +19,7 @@ class Admin_Form_Page extends Twitter_Form
         // limit to 100K
         $file->addValidator('Size', false, 102400 * 10);
         // only JPEG, PNG, and GIFs
-        $file->addValidator('Extension', false, 'jpg,png,gif');
+        $file->addValidator('Extension', false, 'jpg,png,gif,jpeg');
         $this->addElement($file);
 
         // adding page types

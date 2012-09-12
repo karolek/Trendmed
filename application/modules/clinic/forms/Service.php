@@ -93,7 +93,7 @@ class Clinic_Form_Service extends Twitter_Form
             // limit to 100K
             $file->addValidator('Size', false, 102400 * 10);
             // only JPEG, PNG, and GIFs
-            $file->addValidator('Extension', false, 'jpg,png,gif');
+            $file->addValidator('Extension', false, 'jpeg,jpg,png,gif');
 
             $this->addElement($file);
         }
