@@ -30,7 +30,11 @@
 <?php if (count($this->articles) > 0): ?>
 <div class="hero-unit articles">
 	<h1 class="pull-left"><?= $this->translate('Latest articles'); ?>:</h1>
-	<a class="btn btn-primary btn-large pull-right" href="#"><?= $this->translate('Show all articles'); ?></a>
+	<a class="btn btn-primary btn-large pull-right" href="<?= $this->url(array(
+        'action' => 'archive',
+        'controller' => 'pages',
+        'module' => 'default'
+    ), 'default', true); ?>"><?= $this->translate('Show all articles'); ?></a>
 	<div class="clearfix"></div>
 
 		<div class="row-fluid">
@@ -66,6 +70,7 @@
 						    ); ?>" class="read-more"><?= $this->translate('Read more'); ?></a>
 						</div>
 					</div>
+					<div class="clear"></div>
 					<div class="row-fluid">
 						<div class="span4">
 					 		<?php if ($this->articles[2]->getLeadPhoto()): ?>
