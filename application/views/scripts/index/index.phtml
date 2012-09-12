@@ -50,11 +50,13 @@
 <!-- @todo ostylować usługi -->
 <?php if (count($this->newServices) > 0): ?>
 <div class="hero-unit">
-	<h1><?= $this->translate('Last added services'); ?></h1>
+	<h1><?= $this->translate('Last added services'); ?>:</h1>
 	<div class="row-fluid grid-list">
 		<?php foreach ($this->newServices as $service): ?>
 		<div class="span4 grid-list-item">
-			<?= $this->ShowPhoto($service->photos[0], 'small', 'services'); ?>
+			<a href="<?= $this->url(
+    		    array('id' => $service->id), 'service', true
+    		); ?>"><div class="crop"><?= $this->ShowPhoto($service->photos[0], 'small', 'services'); ?></div></a>
     		
     		<div class="grid-desc">
 	   			<a href="<?= $this->url(
@@ -62,7 +64,6 @@
 	    		); ?>"><h2><?= $service->category->name; ?></h2></a>
 				<p class="price"><?= $this->translate('From'); ?> <span><?= $service->pricemin; ?></span> euro</p>
 			</div>
-    		
     		
 		</div>
     	<?php endforeach; ?>
@@ -73,7 +74,7 @@
 <!-- NAJWNOSZE KLINIKI @todo ostylować -->
 <?php if (count($this->newClinics) > 0): ?>
 <div class="hero-unit">
-	<h1><?= $this->translate('Last added clinics'); ?></h1>
+	<h1><?= $this->translate('Last added clinics'); ?>:</h1>
 	<div class="row-fluid grid-list">
 		<?php foreach ($this->newClinics as $clinic): ?>
 		<div class="span4 grid-list-item">

@@ -143,22 +143,21 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 .container {min-height:465px;}
 
 #content {width:681px; float:right; margin:0;}
-#content .hero-unit {padding:24px; background:#ffffff; border:1px solid #eeeeee;}
+#content .hero-unit {padding:24px; background:#ffffff; border:1px solid #eeeeee; margin: 0; -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; border-bottom-width: 0; }
+#content .hero-unit:first-child { -webkit-border-radius: 5px 5px 0 0; -moz-border-radius: 5px 5px 0 0; border-radius: 5px 5px 0 0; }
+#content .hero-unit:last-child { -webkit-border-radius: 0 0 5px 5px; -moz-border-radius: 0 0 5px 5px; border-radius: 0 0 5px 5px; border-bottom-width: 1px; }
 #content .hero-unit p {font-size:12px; line-height: 17px; padding:13px 0 0; margin:0;}
 #content .hero-unit h1 {font-size:24px; font-family: 'TeXGyreHerosBold'; color:#292828;}
 
 #content .grid-list { margin-top: 13px; }
 #content .grid-list .grid-list-item { display: table; position: relative; height: 60px; overflow: hidden; }
-#content .grid-list img { border: 1px solid #ccc; width: 60px; height: 60px; float: left; margin-right: 10px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; d}
 #content .grid-list .grid-desc {  display: table-cell; vertical-align: middle; }
 #content .grid-list h2 { font-size: 14px; color: #107BA8; line-height: 20px; float: left; width: 100%; }
-#content .grid-list .city { background: url(../img/city-icon.png) no-repeat;  }	
+#content .grid-list .city { background: url(../img/city-icon.png) no-repeat; }	
 #content .grid-list .price { background: url(../img/price-icon.png) no-repeat; }
 #content .grid-list p { padding-top: 0px; padding-left: 20px; line-height: 18px; display: inline-block; }
 #content .grid-list span { color: #000; }
-
-#content .articles h1 { text-decoration: underline; }
-#content .articles h2 { font-size: 15px; }
+#content .grid-list img { height: 60px; border: 1px solid #ddd; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; margin-right: 10px; }
 
 
 #sidebar {float:left; width:276px; padding:0; margin:0;}
