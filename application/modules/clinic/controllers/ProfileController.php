@@ -16,6 +16,34 @@ class Clinic_ProfileController extends Zend_Controller_Action
 
     }
 
+    /**
+     * Settings for group promotion.
+     */
+    public function editGroupPromotionsAction()
+    {
+        $request = $this->getRequest();
+        $clinic = $this->_helper->LoggedUser();
+        if ($request->isPost()) {
+            $post = $request->getPost();
+            if ($post['active'] == '1') {
+                $clinic->setGroupPromoEnabled(true);
+                $this->_helper->FlashMessenger(
+                    array('success' => 'Włączono udział w promocjach grupowych')
+                );
+            } else {
+                $clinic->setGroupPromoEnabled(false);
+                $this->_helper->FlashMessenger(
+                    array('success' => 'Wyłączono udział w promocjach grupowych')
+                );
+            }
+
+            $this->_em->persist($clinic);
+            $this->_em->flush();
+        }
+        $this->view->headTitle('Zarządzanie grupowymi promocjami placówki');
+
+    }
+
     /** 
      * Dashboard for logged clinic. Shows latest reservations and infos.
      * Also, shows info about completition of adding information to profile

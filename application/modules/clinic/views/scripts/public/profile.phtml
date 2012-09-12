@@ -28,23 +28,7 @@
         <?= $this->ShowPhoto($photo, 'small'); ?>
         <? endforeach; ?>
     </ul>
-    
-    <div class="hidden" style="position: absolute;" id="image-holder"> </div>
-    
-    <script>
-	    $(document).ready(function() {
-	       $(".photo-small").mouseover(function() {
-	            var src = $(this).attr("src");
-	            var src =src.replace("small", "medium");
-	
-	            $("#image-holder").removeClass('hidden').html('<img src=' + src + '>');
-	       });
-	       $(".photo-small").mouseout(function() {
-	           $("#image-holder").addClass('hidden');
-	       })
-	    });
-	</script>
-	
+
 	<div class="globalClear"></div>
     
     <a id="buttonBook" href="<?= $this->url(array('slug' => $this->clinic->slug), 'newReservation', true);?>" class="btn btn-primary"><?= $this->translate('Book now'); ?></a>
@@ -62,9 +46,11 @@
     <h2><?= $this->translate('Promotions'); ?></h2>
     <?= $this->clinic->customPromos; ?>
 </div>
+<?php if ($this->clinic->isGroupPromoEnabled()): ?>
 <div class="row" id="clinic-grouppromotion">
     <img src="/img/group_promotion.png" />
 </div>
+<?php endif; ?>
 
 
 <? if (count($this->clinic->services) > 0 ): ?>

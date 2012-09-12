@@ -3,7 +3,7 @@
 	<?php if($this->LoggedUser()):?>
             <span class="userPanel">
 		<?= $this->translate('Logged in as');?> <a class="link" href="<?= $this->url(array(
-            'module'        => 'patient', 
+            'module'        => 'clinic',
             'controller'    => 'profile', 
             'action'        => 'index'), 'default', true);?>">
         <?= $this->LoggedUser('username'); ?></a>. 
@@ -28,11 +28,14 @@
         <?= $this->translate('Zarządzanie placówką'); ?><b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li><a href="<?= $this->url(
-                array('module' => 'clinic', 'action' => 'edit-description', 'controller' => 'profile'), 'default', true
-            ); ?>"><?= $this->translate('Edytuj opis placówki'); ?></a></li>
-            <li><a href="<?= $this->url(
                 array('module' => 'clinic', 'action' => 'index', 'controller' => 'services'), 'default', true
             ); ?>"><?= $this->translate('Edytuj usługi placówki'); ?></a></li>
+            <li><a href="<?= $this->url(
+                array('module' => 'clinic', 'action' => 'edit-group-promotions', 'controller' => 'profile'), 'default', true
+            ); ?>"><?= $this->translate('Zarządzaj promocją grupową'); ?></a></li>
+            <li><a href="<?= $this->url(
+                array('module' => 'clinic', 'action' => 'edit-description', 'controller' => 'profile'), 'default', true
+            ); ?>"><?= $this->translate('Edytuj opis placówki'); ?></a></li>
             <li><a href="<?= $this->url(
                 array('module' => 'clinic', 'action' => 'edit-address', 'controller' => 'profile'), 'default', true
             ); ?>"><?= $this->translate('Edytuj dane adresowe'); ?></a></li>

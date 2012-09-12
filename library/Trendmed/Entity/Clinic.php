@@ -28,6 +28,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
         $this->rating = 0;
         $this->viewCount = 0;
         $this->isActive = true; # at start, all clinics are active
+        $this->groupPromoEnabled = false;
 
     }
 
@@ -214,6 +215,12 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
      */
     protected $reservations;
 
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    protected $groupPromoEnabled;
+
     protected $_welcomeEmailScript = 'register/_welcomeEmail.phtml';
     protected $_newPasswordScript = 'register/_newPassword.phtml';
     protected $_newEmailScript = 'profile/_newEmail.phtml';
@@ -221,6 +228,17 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
 
     /* END PROPERTIES */
     /*  GETTERS AND SETTERS */
+
+    public function isGroupPromoEnabled()
+    {
+        return TRUE === $this->groupPromoEnabled;
+    }
+
+    public function setGroupPromoEnabled($state)
+    {
+        $this->groupPromoEnabled = $state;
+    }
+
     public function getId()
     {
         return $this->id;
