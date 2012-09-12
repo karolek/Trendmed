@@ -160,7 +160,7 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #content .grid-list img { height: 60px; border: 1px solid #ddd; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; margin-right: 10px; }
 
 
-a.DESC, a.ASC { display: inline-block; padding-right: 15px; }
+a.DESC, a.ASC { display: inline-block; padding-right: 15px; margin-right: 7px; }
 a.DESC { background: url(../img/arrow-down.png) no-repeat right center; }
 a.ASC { background: url(../img/arrow-up.png) no-repeat right center; }
 
