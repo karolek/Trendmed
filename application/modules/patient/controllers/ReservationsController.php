@@ -97,7 +97,6 @@ class Patient_ReservationsController extends Me_User_Controllers_LoginController
     {
         $reservation = $this->_getReservationFromParams();
         $this->view->reservation = $reservation;
-
         $this->view->headTitle('Details of reservation #'.$reservation->id);
     }
 
@@ -181,8 +180,58 @@ class Patient_ReservationsController extends Me_User_Controllers_LoginController
 
         $this->view->headTitle('Payment confirmation');
         $this->view->reservation = $reservation;
+    }
 
+    public function rateReservationAction()
+    {
+        $reservation = $this->_getReservationFromParams();
+        $request     = $this->getRequest();
 
+        # checking if reservation has got a rateing allready
+        if ($reservation->rating) {
+            $this->_helper->FlashMessenger(array('warning' => 'This reservation was already rated by you.'));
+            $this->_helper->Redirector('index', 'profile');
+        }
+
+        # checking if reservation was in past
+        if ($reservation->getDateTo() > new \DateTime()) {
+            $this->_helper->FlashMessenger(array('warning' => 'Date range of this reservation must past, before the
+                reservation can be rated.'));
+            $this->_helper->Redirector('index', 'profile');
+        }
+
+        # survey form
+        $form = new \Patient_Form_ReservationSurvey();
+
+        # adding reservation
+        if ($request->isPost()) {
+
+            $post = $request->getPost();
+            if ($form->isValid($post)) {
+                $values = $form->getValues();
+                $rating = new \Trendmed\Entity\Rating();
+                $rating->setPriceRate($values['priceRate']);
+                $rating->setServiceRate($values['serviceRate']);
+                $rating->setStuffRate($values['stuffRate']);
+                $rating->setComment($values['comment']);
+                $reservation->setRating($rating);
+                $this->_em->persist($rating);
+                $this->_em->persist($reservation);
+                # recount clinic rating and persist it
+                $reservation->clinic->recountRating();
+                $this->_em->persist($reservation->clinic);
+                $this->_em->flush();
+                $this->_helper->FlashMessenger(array(
+                    'success' => 'Reservation has been rated. Thank you for your opinion.'
+                ));
+                $this->_helper->Redirector('index', 'profile');
+
+            }
+        }
+
+        $this->view->headTitle($this->view->translate('Reservation survey'));
+        $this->view->reservation = $reservation;
+        $this->view->form = $form;
     }
 
 }

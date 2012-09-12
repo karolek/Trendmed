@@ -11,9 +11,9 @@
         </div>
 
         <div class="right rating">
-            <span class="count">86%</span>
+            <span class="count"><?= $this->clinic->rating; ?>%</span>
             <big>Rating</big><br/ >
-            <small>based on YY reviews</small>
+            <small>based on <?= $this->clinic->getReviews()->count(); ?> reviews</small>
         </div>
 
         <div class="globalClear"></div>

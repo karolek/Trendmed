@@ -51,4 +51,18 @@
         <?php endif; ?>
     </dd>
 
+    <?php if($this->reservation->rating): ?>
+        <dt>
+            Ocena wizyty przez pacjenta
+        </dt>
+        <dd>
+            <ul>
+                <li>Ocena ceny usługi: <?= $this->reservation->rating->priceRate; ?></li>
+                <li>Ocena wykonania usługi: <?= $this->reservation->rating->serviceRate; ?></li>
+                <li>Ocena obsługi: <?= $this->reservation->rating->stuffRate; ?></li>
+            </ul>
+            Dodatkowy komentarz: <?= $this->reservation->rating->comment ?: 'brak komentarza'; ?>
+        </dd>
+    <?php endif; ?>
+
 </dl>

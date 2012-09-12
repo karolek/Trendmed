@@ -31,7 +31,7 @@ class Service extends \Me\Model\ModelAbstract {
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Trendmed\Entity\ServicePhoto", mappedBy="service", cascade="delete")
+     * @ORM\OneToMany(targetEntity="Trendmed\Entity\ServicePhoto", mappedBy="service", cascade={"all"})
      *
      */
     protected $photos;

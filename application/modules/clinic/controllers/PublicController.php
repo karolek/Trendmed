@@ -30,9 +30,9 @@ class Clinic_PublicController extends Zend_Controller_Action
 
         if (!$clinic) throw new \Exception('No clinic by the slug of ' . $slug . ' found', 404);
 
-        # adding new visist to clinic
+        # adding new visit to clinic
         if (!$_COOKIE['visit_'.$clinic->id]) {
-           setcookie('visit_'.$clinic->id, true, time() + 24*3600, '/');
+            setcookie('visit_'.$clinic->id, true, time() + 24*3600, '/');
             $clinic->addView();
             $this->_em->persist($clinic);
             $this->_em->flush();
