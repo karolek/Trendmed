@@ -1,4 +1,3 @@
-
 <div id="content">
 	<div id="reservation1">
 
@@ -17,12 +16,17 @@
 
 
 <div class="well">
-    <?= $this->translate('The process of reserving a visit is very simple. Just choose date You would like to come to clinic and services You are interested in. We will inform clinic about Your request. Clinic will reply and we will inform You about the status of the visit.'); ?>
+    <?= $this->translate('The process of reserving a visit is very simple.
+    Just choose date You would like to come to clinic and services You are interested in.
+    We will inform clinic about Your request.
+    Clinic will reply and we will inform You about the status of the visit.'); ?>
 </div>
 
 <?php if ($this->clinic->wantBill == true): ?>
 	<div class="well">
-    <?= $this->translate('This clinic will require You to pay a bill in amount of 100 euro upon reservation confirm. You will be able to pay after the clinic confirms the reservation via our Pay Pal system from Your account.'); ?>
+    <?= $this->translate('This clinic will require You to pay a bill in amount of 100 euro upon
+    reservation confirm. You will be able to pay after the clinic confirms the reservation via our Pay Pal
+    system from Your account.'); ?>
     </div>
 <?php endif; ?>
 

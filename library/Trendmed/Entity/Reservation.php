@@ -16,6 +16,7 @@ class Reservation extends  \Me\Model\ModelAbstract {
         $this->created  = new \DateTime();
         $this->services = new \Doctrine\Common\Collections\ArrayCollection();
         $this->billStatus = self::BILL_STATUS_NOT_PAID;
+        $this->paymentHash = substr(md5(time).rand(1,99999), 2, 10);
         return parent::__construct();
     }
 
@@ -141,6 +142,12 @@ class Reservation extends  \Me\Model\ModelAbstract {
      * @ORM\ManyToOne(targetEntity="\Trendmed\Entity\Clinic", cascade={"persist"})
      */
     protected $clinic;
+
+    /**
+     * @var string  Used to double check payments request, could be seperate entity in future
+     * @ORM\Column(type="string", nullable=false)
+     */
+    protected $paymentHash;
 
     protected function validate()
     {
@@ -508,6 +515,16 @@ class Reservation extends  \Me\Model\ModelAbstract {
         }
 
     }
+
+    /**
+     * @return string
+     */
+    public function getPaymentHash()
+    {
+        return $this->paymentHash;
+    }
+
+
     /** END GETTERS AND SETTERS **/
 
 }
