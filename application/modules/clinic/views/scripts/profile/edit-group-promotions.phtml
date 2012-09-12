@@ -1,0 +1,4 @@
+<form method="post">
+    <label>Bierz udział w promocjach grupowych Trendmed <input name="active" type="checkbox" value="1" <?php if ($this->LoggedUser()->isGroupPromoEnabled()): ?>checked="checked"<?php endif; ?>></label>
+    <input type="submit" value="Zapisz">
+</form>
