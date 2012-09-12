@@ -160,6 +160,11 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #content .grid-list img { height: 60px; border: 1px solid #ddd; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; margin-right: 10px; }
 
 
+a.DESC, a.ASC { display: inline-block; padding-right: 15px; }
+a.DESC { background: url(../img/arrow-down.png) no-repeat right center; }
+a.ASC { background: url(../img/arrow-up.png) no-repeat right center; }
+
+
 #sidebar {float:left; width:276px; padding:0; margin:0;}
 #sidebar h3 {font-size:26px; font-family: 'TeXGyreHerosBold'; font-weight:normal; color:#ffffff; letter-spacing:-1px; text-shadow:0px 1px #023f58; border-bottom:1px solid #21596f; margin: 0 15px 20px; padding: 0 0 14px;}
 #sidebar h3.search {border:none; padding:2px 0 0 15px; margin:0;}
