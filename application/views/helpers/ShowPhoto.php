@@ -22,9 +22,10 @@ class Trendmed_View_Helper_ShowPhoto extends Zend_View_Helper_Abstract
 
     /**
      * Checks what kind of user is logged and returns user menu for it role
+     * @param $relGroup will be added in rel attribute to group photos like so rel="lightbox[roadtrip]"
      *
      */
-    public function ShowPhoto($photo, $size = "small", $type = 'clinics')
+    public function ShowPhoto($photo, $size = "small", $type = 'clinics', $relGroup = false)
     {
         $config = Zend_Registry::get('config');
         // set up default image and alt
@@ -44,7 +45,10 @@ class Trendmed_View_Helper_ShowPhoto extends Zend_View_Helper_Abstract
                 $alt = $photo->getDescription();
             }
         }
-        $output = '<a href="' . $bigFileUrl . '" rel="lightbox"><img src="' . $src . '" alt="Photo: ' . $alt . '" class="photo-' . $size . '" /></a>';
+
+        $relGroup ? $rel = "lightbox[$relGroup]" : $rel = 'lightbox';
+
+        $output = '<a href="' . $bigFileUrl . '" rel="'.$rel.'"><img src="' . $src . '" alt="Photo: ' . $alt . '" class="photo-' . $size . '" /></a>';
         return $output;
     }
 }

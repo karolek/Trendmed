@@ -273,7 +273,9 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
 
     public function getProvince()
     {
-        return $this->province;
+        $data = simplexml_load_file(APPLICATION_PATH . '/../data/regions.xml');
+        $node = $data->xpath('//region[@id='.$this->province.']');
+        return (string)$node[0];
     }
 
     public function setProvince($province)
