@@ -47,4 +47,14 @@
         <dt><?= $this->translate('Current reservation status'); ?></dt>
         <dd><?php $status = $this->reservation->getStatusAsArray(); echo $this->translate($status['name']); ?></dd>
     </dd>
+    <?php if ($this->reservation->getBillStatus() == \Trendmed\Entity\Reservation::BILL_STATUS_NOT_PAID): ?>
+        <strong><?= $this->translate('Bill for this reservation is not paid yet. Please pay the bill to make
+        reservation valid'); ?></strong><br>
+        <a href="<?= $this->url(
+            array(
+                'id' => $this->reservation->id
+            ), 'makePayment'); ?>">
+            <?= $this->translate('Pay bill'); ?>
+        </a>
+    <?php endif; ?>
 </dl>

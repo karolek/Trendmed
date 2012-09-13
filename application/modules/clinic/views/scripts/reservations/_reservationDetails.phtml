@@ -47,7 +47,7 @@
         <?php if ($this->reservation->getBillStatus() == \Trendmed\Entity\Reservation::BILL_STATUS_NOT_PAID): ?>
             <strong><?= $this->translate('Bill not paid yet'); ?></strong>
         <?php else: ?>
-            <?= $this->translate('Bill paid '); ?>
+            Kaucja wpłacona lub nie wymagana przy tej rezerwacji.
         <?php endif; ?>
     </dd>
 
