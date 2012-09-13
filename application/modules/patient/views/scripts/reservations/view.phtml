@@ -22,7 +22,7 @@
                 'id' => $this->reservation->id
             ), 'makePayment'); ?>">
             <?= $this->translate('Pay bill'); ?></a> -
-        <?= $this->translate('This clinic requires that pay a bill in amount of 50 euro for reservation'); ?>
+        <?php printf($this->translate('This clinic requires that pay a bill in amount of %1\$s euro for reservation'), $this->config->clinics->settings->billSize ); ?>
     </li>
     <?php endif; ?>
 </ul>
