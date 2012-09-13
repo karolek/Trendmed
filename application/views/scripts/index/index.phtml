@@ -29,20 +29,66 @@
 <!-- @todo ostylować -->
 <?php if (count($this->articles) > 0): ?>
 <div class="hero-unit articles">
-	<h1 class="pull-left"><?= $this->translate('Latest articles:'); ?></h1>
-	<a class="btn btn-primary btn-large pull-right" href="#"><?= $this->translate('Show all articles'); ?></a>
+	<h1 class="pull-left"><?= $this->translate('Latest articles'); ?>:</h1>
+	<a class="btn btn-primary btn-large pull-right" href="<?= $this->url(array(
+        'action' => 'archive',
+        'controller' => 'pages',
+        'module' => 'default'
+    ), 'default', true); ?>"><?= $this->translate('Show all articles'); ?></a>
 	<div class="clearfix"></div>
-	<?php foreach ($this->articles as $article): ?>
-    	<h2><?= $article->getTitle(); ?></h2>
-	    <?php if ($article->getLeadPhoto()): ?>
-	            <?= $this->ShowPhoto($article->getLeadPhoto(), 'small', 'ArticlePhoto'); ?>
-	        <?php endif; ?>
-	        <?= $this->Truncate($article->content)->toLength(100); ?>
 
-	    <a href="<?= $this->url(
-	        array('slug' => $article->getSlug()), 'page', true
-	    ); ?>"><?= $this->translate('Read more'); ?></a>
-    <?php endforeach; ?>
+		<div class="row-fluid">
+			<div class="span6">
+				<div class="lead-article">
+					<?php if ($this->articles[0]->getLeadPhoto()): ?>
+						<?= $this->ShowPhoto($this->articles[0]->getLeadPhoto(), 'big', 'ArticlePhoto'); ?>
+					<?php endif; ?>
+					<div class="lead-article-content">
+						<div class="lead-article-content-inner">
+							<a href="<?= $this->url(
+							   	array('slug' => $this->articles[0]->getSlug()), 'page', true
+							    ); ?>"><h2><?= $this->articles[0]->getTitle(); ?></h2>
+							<?= $this->articles[0]->content; ?></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="span6">
+				<div class="other-articles">
+					<div class="row-fluid">
+						<div class="span4">
+							 <?php if ($this->articles[1]->getLeadPhoto()): ?>
+							 	<?= $this->ShowPhoto($this->articles[1]->getLeadPhoto(), 'medium', 'ArticlePhoto'); ?>
+							 <?php endif; ?>
+						</div>
+						<div class="span8">
+							 <a href="<?= $this->url(
+						        array('slug' => $this->articles[1]->getSlug()), 'page', true
+						    ); ?>"><h2><?= $this->articles[1]->getTitle(); ?></h2></a>
+							 <a href="<?= $this->url(
+						        array('slug' => $this->articles[1]->getSlug()), 'page', true
+						    ); ?>" class="read-more"><?= $this->translate('Read more'); ?></a>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div class="row-fluid">
+						<div class="span4">
+					 		<?php if ($this->articles[2]->getLeadPhoto()): ?>
+							 	<?= $this->ShowPhoto($this->articles[2]->getLeadPhoto(), 'medium', 'ArticlePhoto'); ?>
+							 <?php endif; ?>
+						</div>
+						<div class="span8">
+							 <a href="<?= $this->url(
+					    	    array('slug' => $this->articles[2]->getSlug()), 'page', true
+					    	); ?>"><h2><?= $this->articles[2]->getTitle(); ?></h2></a>
+							 <a href="<?= $this->url(
+					    	    array('slug' => $this->articles[2]->getSlug()), 'page', true
+					    	); ?>" class="read-more"><?= $this->translate('Read more'); ?></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 </div>
 <?php endif; ?>
 
