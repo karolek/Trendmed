@@ -7,6 +7,7 @@
 	    <address>
 	        <?= $this->clinic->streetaddress; ?>, <?= $this->clinic->postcode; ?> <?= $this->clinic->city; ?>,
 	        <?= $this->clinic->province; ?>
+			<span class="map"><?= $this->ShowOnMap($this->clinic); ?></span>
 	    </address>
     </div>
         
@@ -20,25 +21,32 @@
 
     <div class="globalClear"></div>
     
-    <ul class="thumbnails">
-        <li class="thumbnail">
-            <?= $this->ShowClinicLogo($this->clinic); ?>
-        </li>
-        <? foreach($this->clinic->photos as $photo): ?>
-        <?= $this->ShowPhoto($photo, 'small'); ?>
-        <? endforeach; ?>
-    </ul>
+    <div class="row-fluid">
+        <div class="span3 clinicLogo">
+			<?= $this->ShowClinicLogo($this->clinic); ?>
+		</div>
+        <div class="span9">
+			<div class="row-fluid">
+				<div class="span12">
+					<? foreach($this->clinic->photos as $photo): ?>
+			        <?= $this->ShowPhoto($photo, 'small'); ?>
+			        <? endforeach; ?>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span12">
+					<?php if($this->LoggedUser()->roleName == 'patient'): ?>
+					    <a id="buttonBook" href="<?= $this->url(array('slug' => $this->clinic->slug), 'newReservation', true);?>" class="btn-primary buttonBook"><?= $this->translate('Book now'); ?></a>
+					<?php else: ?>
+					    <?= $this->LoggedLink("Book now", array('class' => 'btn-primary buttonBook')); ?>
+					<?php endif; ?>	
+				</div>
+			</div>
+		</div>
+    </div>
 
 	<div class="globalClear"></div>
-    
-    <a id="buttonBook" href="<?= $this->url(array('slug' => $this->clinic->slug), 'newReservation', true);?>" class="btn btn-primary"><?= $this->translate('Book now'); ?></a>
-
-    <?php if($this->LoggedUser()->roleName == 'patient'): ?>
-        <a id="buttonBook" href="<?= $this->url(array('slug' => $this->clinic->slug), 'newReservation', true);?>" class="btn btn-primary"><?= $this->translate('Book now'); ?></a>
-    <?php else: ?>
-        <?= $this->LoggedLink("Book now", array('class' => 'btn-primary')); ?>
-    <?php endif; ?>
-
+	
     <?= $this->clinic->description; ?>
     
 </div>
@@ -74,16 +82,16 @@
                             <td><span>&bull;</span> &nbsp; <strong><a href="<?= $this->url(array(
                                 'id' => $service->id
                             ), 'service', true); ?>"><?= $service->category->name; ?></a></strong></td>
-                            <td><?= $service->priceMin; ?> - <?= $service->priceMin; ?> Euro</td>
+                            <td class="price"><span><?= $service->priceMin; ?></span> - <span><?= $service->priceMin; ?></span> Euro</td>
                             <td><input type="checkbox" name="pre_services[]" value="<?=$service->id; ?>"></td>
                         </tr>
                     <? endforeach; ?>
                 </tbody>
             </table>
         <?php if($this->LoggedUser()->roleName == 'patient'): ?>
-            <input class="btn-primary" type="submit" value="Book now">
+            <input class="buttonBook btn-primary" type="submit" value="Book now">
         <?php else: ?>
-            <?= $this->LoggedLink("Book now", array('class' => 'btn-primary')); ?>
+            <?= $this->LoggedLink("Book now", array('class' => 'buttonBook btn-primary')); ?>
         <?php endif; ?>
         </form>
 </div>

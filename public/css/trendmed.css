@@ -114,17 +114,19 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #catalog .entry:nth-child(even) {background:#f0f0f0;}
 #catalog .entry h3 a {font-size:24px; color:#292828;}
 #catalog .entry .thumbnails {margin:0; float:left; padding:0; clear:none; width:110px;}
-#catalog .entry .thumbnails img.photo-small {width:43px; height:43px; border:1px solid #eae9e9; float:left; margin: 10px 10px 0 0; border-radius: 4px 4px 4px 4px;}
+#catalog .entry .thumbnails img.photo-small {width:47px; height:47px; float:left; margin: 9px 13px 13px 0; border-color: #ddd; border-width: 1px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; }
+#catalog .entry .thumbnails a:nth-child(odd) img { margin-right: 0; }
+
 #catalog .entry .thumbnails li {margin:0; padding:0; box-shadow:none; border:1px solid #eae9e9;}
-#catalog .entry .thumbnails li img {width:98px;}
+#catalog .entry .thumbnails li img { border-color: #ddd; border-width: 1px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; }
 #catalog .entry .right {width:505px; float:right;}
 #catalog .entry address {margin:0 0 9px;}
 #catalog .entry .location {display:inline-block; margin:3px 0 0; font-size:16px; font-weight:normal; color:#292828; font-family: 'TeXGyreHerosCnBold';}
-#catalog .entry .map {margin: 0 0 0 9px; position: relative; top: -2px;}
-#catalog .entry .map a {background:url(../img/zoom_izon.png) no-repeat; cursor:pointer; position:relative; display:inline-block; font-size:11px; line-height: 15px; padding: 0 0 3px 21px;}
-#catalog .entry .fav {display:block; float:right;}
-#catalog .entry .fav a {text-indent:-9999px; width:22px; height:16px; display:block; background:url(../img/icon_fav.png);}
-#catalog .entry .fav a:hover {background:url(../img/icon_fav_hover.png);}
+.map {margin: 0 0 0 9px; position: relative; top: -2px;}
+.map a {background:url(../img/zoom_izon.png) no-repeat; cursor:pointer; position:relative; display:inline-block; font-size:11px; line-height: 15px; padding: 0 0 3px 21px;}
+.fav {display:block; float:right;}
+.fav a {text-indent:-9999px; width:22px; height:16px; display:block; background:url(../img/icon_fav.png);}
+.fav a:hover {background:url(../img/icon_fav_hover.png);}
 #catalog .entry .btn-primary {float:right; width:130px; height:26px; background:url(../img/button_book.png) top left no-repeat; padding:10px 13px 27px 45px; text-align: right; text-decoration:none;}
 #catalog .entry a.btn-primary {padding: 11px 13px 9px 43px; width: 75px;}
 #catalog .entry .btn-primary:hover {background:url(../img/button_book_hover.png) top left no-repeat; text-indent:-9999xp;}
@@ -134,7 +136,7 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #catalog .entry td strong {color:#107ba8;}
 #catalog .entry td span {color:#949595;}
 
-
+.allServices { font-size: 11px; }
 
 /* CONTAINER */
 
@@ -220,41 +222,43 @@ section {padding:24px;}
 #clinicProfile #image-holder {margin:114px 0 0 -25px; padding:25px; z-index:4; background:#ffffff; text-align:center; width: 629px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);}
 
 #clinicProfile .left {width:410px; float:left;}
-#clinicProfile .right {width:210px; float:right;}
+.rating big { margin-left: 5px; }
+.rating a { text-decoration: none; }
 #clinicProfile h1 {font-size:32px; color:#292828; font-family: 'TeXGyreHerosBold'; width:410px;}
 #clinicProfile address {color:#292828; font-size:16px; width:410px;}
 /*#clinicProfile #buttonBook {position:absolute; margin: -55px 0 0 527px;}*/
 #clinicProfile #buttonBook {margin: -22px 0 0 530px; position: absolute;}
 #clinicProfile #seeProfile {float: right; margin: 15px -3px 0 0;}
 
-#clinicProfile .rating {text-align:right; color:#292828;font-family: 'TeXGyreHerosBold'; padding: 21px 0 0;}
-#clinicProfile .rating .add-to-fav {background: url("../img/icon_fav.png") repeat scroll 0 0 transparent; display: block; height: 16px; text-indent: -9999px; text-align:left; float:left; margin:0 0 0 46px; width: 22px;}
-/*#clinicProfile .rating .add-to-fav:hover {background:url(../img/button_book_hover.png) top left no-repeat;}*/
-#clinicProfile .rating a {width:16px; height:16px; display:inline-block; background:url(../img/fav.png) top left no-repeat; text-indent:9999px; position:relative; top:-2px; margin:0 2px 0 0;}
-#clinicProfile .rating big {font-size:18px;}
-#clinicProfile .rating small {font-size:13px; position: relative; top: -4px;}
-#clinicProfile .rating .count {font-size: 26px; margin:0 0 0 11px; padding: 7px; float:right; display:block; font-family: 'TeXGyreHerosRegular'; background:#e7e6e6; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
+.rating {text-align:right; color:#292828;font-family: 'TeXGyreHerosBold'; padding: 21px 0 0;}
+.rating .add-to-fav {background: url("../img/icon_fav.png") repeat scroll 0 0 transparent; display: block; height: 16px; text-indent: -9999px; text-align:left; float:left; margin:0 0 0 46px; width: 22px;}
+.rating a {width:16px; height:16px; display:inline-block; background:url(../img/fav.png) top left no-repeat; text-indent:9999px; position:relative; top:-2px; margin:0 2px 0 0;}
+.rating big {font-size:18px;}
+.rating small {font-size:13px; position: relative; top: -4px;}
+.rating .count {font-size: 26px; margin:0 0 0 11px; padding: 7px; float:right; display:block; font-family: 'TeXGyreHerosRegular'; background:#e7e6e6; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
 
 #clinicProfile .thumbnails {/*width:100px;*/ float:left; margin:0; padding:0;}
 #clinicProfile .thumbnail {width:98px; height:98px; margin:0; padding:0;}
-#clinicProfile .photo-small {margin:0 0 12px 12px; width:67px; height:67px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
-
+#clinicProfile .photo-small {margin-right: 18.5px; margin-bottom: 18px; height: 60px; width: 60px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;border-color: #ddd; border-width: 1px;}
+#clinicProfile .span9 a:last-child img{ margin-right: 0px; }
+.clinicLogo img { border-color: #ddd; border-width: 1px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;  }
+#clinicProfile .buttonBook { margin-top: 20px; }
 #clinicProfile #clinic-grouppromotion {height: 184px;}
 #clinicProfile #clinic-grouppromotion img {position: absolute; margin: -40px 0 0 -24px; z-index: 1;}
-
 #clinicProfile .table {margin:10px 0 0;}
 #clinicProfile .table th {color:#292828;}
 #clinicProfile .table td {border-top:1px dotted #DDDDDD;}
+.price span { font-weight: bold; color: #000; }
+#clinicProfile a { text-decoration: none; }
+#content .buttonBook { float:right; padding: 11px 13px 9px 43px; width: 75px; height:26px; background:url(../img/button_book.png) top left no-repeat; text-align: right; text-decoration:none; font-size: 14px; }
+#content .buttonBook:hover { background:url(../img/button_book_hover.png) top left no-repeat; text-indent:-9999px;}
 
 #serviceDetails {}
 #serviceDetails #clinicProfile .row {border-radius:6px 6px 0 0; border-bottom:none; width:629px;}
 #serviceDetails .service {padding:25px; border-radius:0 0 6px 6px; border:1px solid #EEEEEE;}
 #serviceDetails .service h2 {color:#107ba8; font-size:22px; padding:0 0 5px;}
-#serviceDetails .service p {margin:10px 0 0;}
-#serviceDetails .service .photos img {height: 70px; margin: 2px 5px 0 0; width: 80px; border-radius:5px;}
-
-
-
+#serviceDetails .service .photos img { margin-right: 18.5px; margin-bottom: 18px; height: 60px; width: 60px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;border-color: #ddd; border-width: 1px; }
+#serviceDetails #clinicProfile p { padding-top: 0; }
 /* EDIT CLINIC */
 
 #photoUpload {width:700px; height:55px;}

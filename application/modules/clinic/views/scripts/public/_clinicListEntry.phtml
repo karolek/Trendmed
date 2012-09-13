@@ -1,37 +1,52 @@
 <div id="clinicProfile">
 
-    <div class="row">
-
-        <div class="left">
-            <h1><?= $this->clinic->name; ?></h1>
-            <address>
-                <?= $this->clinic->streetaddress; ?>, <?= $this->clinic->postcode; ?> <?= $this->clinic->city; ?>,
-                <?= $this->clinic->province; ?>
-            </address>
-        </div>
-
-        <div class="right rating">
-            <span class="count"><?= $this->clinic->rating; ?>%</span>
-            <big>Rating</big><br/ >
-            <small>based on <?= $this->clinic->getReviews()->count(); ?> reviews</small>
-        </div>
-
-        <div class="globalClear"></div>
-
-        <?= $this->ShowClinicLogo($this->clinic, 'small'); ?>
+<div class="row">
+	
+	<div class="left">
+		<h1><?= $this->clinic->name; ?></h1>
+	    <address>
+	        <?= $this->clinic->streetaddress; ?>, <?= $this->clinic->postcode; ?> <?= $this->clinic->city; ?>,
+	        <?= $this->clinic->province; ?>
+			<span class="map"><?= $this->ShowOnMap($this->clinic); ?></span>
+	    </address>
+    </div>
         
-        <?= $this->clinic->description; ?>
-		
-		<div class="globalClear"></div>
-		
-        <a class="btn btn-primary" id="buttonBook" href="<?= $this->url(array('slug' => $this->clinic->slug), 'newReservation'); ?>"><?= $this->translate('book visit'); ?></a>
-        
-        <a id="seeProfile" href="<?= $this->url(array(
-            'slug' => $this->clinic->slug,
-        ), 'clinic', true); ?>" class="btn btn-primary"><?= $this->translate('See profile'); ?></a>
-		
-		<div class="globalClear"></div>
-        
+    <div class="right rating">
+        <span class="count"><?= $this->clinic->rating; ?>%</span>
+        <?= $this->AddToFavorite($this->clinic); ?>
+        <big>Rating</big><br/ >
+		<small>based on <?= $this->clinic->reviews->count(); ?> reviews</small>
+    </div>
+    
+
+    <div class="globalClear"></div>
+    
+    <div class="row-fluid">
+        <div class="span3 clinicLogo">
+			<?= $this->ShowClinicLogo($this->clinic); ?>
+		</div>
+        <div class="span9">
+			<div class="row-fluid">
+				<div class="span12">
+					<? foreach($this->clinic->photos as $photo): ?>
+			        <?= $this->ShowPhoto($photo, 'small'); ?>
+			        <? endforeach; ?>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span12">
+					<?php if($this->LoggedUser()->roleName == 'patient'): ?>
+					    <a id="buttonBook" href="<?= $this->url(array('slug' => $this->clinic->slug), 'newReservation', true);?>" class="btn-primary buttonBook"><?= $this->translate('Book now'); ?></a>
+					<?php else: ?>
+					    <?= $this->LoggedLink("Book now", array('class' => 'btn-primary buttonBook')); ?>
+					<?php endif; ?>	
+				</div>
+			</div>
+		</div>
     </div>
 
+	<div class="globalClear"></div>
+	
+    <?= $this->clinic->description; ?>
+    
 </div>

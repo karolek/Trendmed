@@ -10,13 +10,20 @@
 		
 		<h2><?= $this->service->category->name; ?></h2>
 		
-		<div class="photos">
-		<?php foreach ($this->service->photos as $photo): ?>
-		    <?= $this->ShowPhoto($photo, 'small', 'services'); ?>
-		<?php endforeach; ?>
+		<div class="row-fluid">
+			<div class="span4">
+				<?php foreach ($this->service->photos as $photo): ?>
+				    <?= $this->ShowPhoto($photo, 'small', 'services'); ?>
+				<?php endforeach; ?>
+			</div>
+			<div class="span8">
+				<?= $this->service->description; ?>
+			</div>
 		</div>
 		
-		<?= $this->service->description; ?>
+		
+		
+		
 	
 	</div>
 
