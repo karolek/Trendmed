@@ -41,7 +41,7 @@
 			<div class="span6">
 				<div class="lead-article">
 					<?php if ($this->articles[0]->getLeadPhoto()): ?>
-						<?= $this->ShowPhoto($this->articles[0]->getLeadPhoto(), 'big', 'ArticlePhoto'); ?>
+						<?= $this->ShowPhoto($this->articles[0]->getLeadPhoto(), 'medium', 'ArticlePhoto'); ?>
 					<?php endif; ?>
 					<div class="lead-article-content">
 						<div class="lead-article-content-inner">
@@ -59,7 +59,7 @@
                     <div class="row-fluid">
 						<div class="span4">
 							 <?php if ($this->articles[1]->getLeadPhoto()): ?>
-							 	<?= $this->ShowPhoto($this->articles[1]->getLeadPhoto(), 'medium', 'ArticlePhoto'); ?>
+							 	<?= $this->ShowPhoto($this->articles[1]->getLeadPhoto(), 'small', 'ArticlePhoto'); ?>
 							 <?php endif; ?>
 						</div>
 						<div class="span8">
@@ -78,7 +78,7 @@
                     <div class="row-fluid">
 						<div class="span4">
 					 		<?php if ($this->articles[2]->getLeadPhoto()): ?>
-							 	<?= $this->ShowPhoto($this->articles[2]->getLeadPhoto(), 'medium', 'ArticlePhoto'); ?>
+							 	<?= $this->ShowPhoto($this->articles[2]->getLeadPhoto(), 'small', 'ArticlePhoto'); ?>
 							 <?php endif; ?>
 						</div>
 						<div class="span8">
