@@ -310,6 +310,7 @@ abstract class AbstractPhoto extends \Me\Model\ModelAbstract
             if(!$dir = $this->getFilename()) {
                 $dir = $this->_generateDirectoryForPhoto();
             }
+            $localFile = true;
         } else { //this is a new photo and it's $_FILES array
             // setting object original width and height
             $this->setOriginalHeight($handle->image_src_y);
@@ -341,32 +342,20 @@ abstract class AbstractPhoto extends \Me\Model\ModelAbstract
                 $log->debug('Procesowanie rozmiaru: '.$key);
                 $handle->file_new_name_body = $key;
 
-                // checking if we should crop the image
-                if($value->crop == true AND !empty($cropOptions)) {
+                // checking if we should crop or just resizethe image
+                if($value->crop == true) { # crop
                     $log->debug('cropowanie... '.$key);
-                    $calculations = $this->_calculateCrop(
-                        $cropOptions['left'],
-                        $cropOptions['top'],
-                        $cropOptions['right'],
-                        $cropOptions['bottom'],
-                        $cropOptions['takenFromSize']
-                    );
-                    $handle->image_precrop = array(
-                        $calculations['topPercent'] .'%',
-                        $calculations['rightPercent'].'%',
-                        $calculations['bottomPercent'].'%',
-                        $calculations['leftPercent'].'%'
-                    );
-                } else {
+                    $handle->image_resize       = true;
+                    $handle->image_ratio_crop   = true;
+                    $handle->image_x            = $value->width;
+                    $handle->image_y            = $value->height;
+                } else { # resize
                     $log->debug('nie bedzie cropowanie dla '.$key);
-                }
-                // checking if config has width value defined
-                if($value->width > 0) {
                     $handle->image_resize       = true;
                     $handle->image_x            = $value->width;
                     $handle->image_ratio_y      = true;
-                    $log->debug('skalowanie do szerokosci '.$value->width);
                 }
+
                 $handle->jpeg_quality       = $this->_processFileCompression; // you can overwrite it in You subclass
                 $handle->file_new_name_ext  = 'jpg';
                 $handle->image_convert      = 'jpg';
@@ -382,6 +371,7 @@ abstract class AbstractPhoto extends \Me\Model\ModelAbstract
                 }
             }
             if(!$localFile) {
+                $log->debug('clean ');
                 $handle->clean(); // delete temp if it's temp file
             }
             $filename = $dir;

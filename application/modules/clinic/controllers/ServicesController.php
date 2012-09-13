@@ -183,6 +183,6 @@ class Clinic_ServicesController extends Zend_Controller_Action
         $this->_em->flush();
 
         $this->_helper->FlashMessenger(array('success' => 'Zdjęcie zostało usunięte'));
-        $this->_helper->Redirector('edit-service', 'services', 'clinic', array('id' => $serviceId));
+        $this->_helper->Redirector('edit-services', 'services', 'clinic', array('id' => $serviceId));
     }
 }
