@@ -19,31 +19,31 @@
 		<div class="span7">
 	    	<ul>
 	    	    <li>
-	    	        <a class="<?=$this->direction; ?>"
+	    	        <a<?php if($this->order == 'rating'): ?> class="<?=$this->direction; ?>"<?php endif; ?>
 	    	           href="<?= $this->url(array('order' => 'rating', 'page' => 1, 'direction' => $this->direction)); ?>">
 	    	            <?= $this->translate('Patient rating'); ?>
 	    	        </a>
 	    	    </li>
 	    	    <li>
-	    	        <a class="<?=$this->direction; ?>"
+	    	        <a<?php if($this->order == 'popularity'): ?> class="<?=$this->direction; ?>"<?php endif; ?>
 	    	           href="<?= $this->url(array('order' => 'popularity', 'page' => 1, 'direction' => $this->direction)); ?>">
 	    	            <?= $this->translate('Popularity'); ?>
 	    	        </a>
 	    	    </li>
 	    	    <li>
-	    	        <a class="<?=$this->direction; ?>"
+	    	        <a<?php if($this->order == 'price'): ?> class="<?=$this->direction; ?>"<?php endif; ?>
 	    	           href="<?= $this->url(array('order' => 'price', 'page' => 1, 'direction' => $this->direction)); ?>">
 	    	            <?= $this->translate('Price'); ?>
 	    	        </a>
 	    	    </li>
 	    	    <li>
-	    	        <a class="<?=$this->direction; ?>"
+	    	        <a<?php if($this->order == 'created'): ?> class="<?=$this->direction; ?>"<?php endif; ?>
 	    	           href="<?= $this->url(array('order' => 'created', 'page' => 1, 'direction' => $this->direction)); ?>">
 	    	            <?= $this->translate('Added date'); ?>
 	    	        </a>
 	    	    </li>
 	    	    <li>
-	    	        <a class="<?=$this->direction; ?>"
+	    	        <a <?php if($this->order == 'name'): ?> class="<?=$this->direction; ?>"<?php endif; ?>
 	    	           href="<?= $this->url(array('order' => 'name', 'page' => 1, 'direction' => $this->direction)); ?>">
 	    	            <?= $this->translate('Clinic name'); ?>
 	    	        </a>
