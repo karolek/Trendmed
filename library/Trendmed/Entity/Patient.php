@@ -27,13 +27,7 @@ class Patient extends \Trendmed\Entity\User
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
-    // TODO: Move to parent class
-    /**
-     * @ORM\Column(type="string")
-     * @var type 
-     */
-    protected $roleName;
+
 
     /**
      * @ORM\ManyToMany(targetEntity="Trendmed\Entity\Clinic", inversedBy="favoredByUsers")
@@ -80,14 +74,6 @@ class Patient extends \Trendmed\Entity\User
     /* GETTERS AND SETTERS */
     public function getId() {
         return $this->id;
-    }
-
-    public function getRoleName() {
-        return $this->roleName;
-    }
-
-    public function setRoleName($roleName) {
-        $this->roleName = $roleName;
     }
 
     protected $_welcomeEmailScript  = 'register/_welcomeEmail.phtml';

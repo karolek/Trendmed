@@ -79,6 +79,20 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
      */
     protected $isActive;
 
+    /**
+     * @ORM\Column(type="string")
+     * @var string please setup in extending class, used for internal helper only
+     */
+    protected $roleName;
+
+    /**
+     * @return \Trendmed\Entity\type
+     */
+    public function getRoleName()
+    {
+        return $this->roleName;
+    }
+
     protected $_welcomeEmailScript = null; //implement in subclass, this is file of view with HTML content of welcome email
     protected $_moduleName = null; // name of the MCV module used to handle current user entity, used for links in email generation
     /* END PROPERTIES */

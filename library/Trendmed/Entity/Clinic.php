@@ -152,11 +152,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
      */
     protected $services;
 
-    /**
-     * @ORM\Column(type="string")
-     * @var type
-     */
-    protected $roleName; // only use as a internal helper
+
 
     /**
      * @Gedmo\Slug(fields={"name", "city"})
@@ -417,16 +413,6 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
     public function setServices($services)
     {
         $this->services = $services;
-    }
-
-    public function getRoleName()
-    {
-        return $this->roleName;
-    }
-
-    public function setRoleName($roleName)
-    {
-        $this->roleName = $roleName;
     }
 
     public function setCustomPromos($customPromos)
