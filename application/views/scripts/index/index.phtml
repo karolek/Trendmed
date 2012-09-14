@@ -144,3 +144,26 @@
 	</div>
 </div>
 <?php endif; ?>
+
+<!-- NAJWNOSZE KLINIKI @todo ostylować -->
+<?php if (count($this->popularClinics) > 0): ?>
+<div class="hero-unit">
+    <h1><?= $this->translate('Popularne kliniki'); ?>:</h1>
+    <div class="row-fluid grid-list">
+        <?php foreach ($this->newClinics as $clinic): ?>
+        <div class="span4 grid-list-item">
+            <a href="<?= $this->url(
+                array('slug' => $clinic->getSlug()), 'clinic', true
+            ); ?>">
+                <?= $this->ShowClinicLogo($clinic, 'small'); ?></a>
+            <div class="grid-desc">
+                <a href="<?= $this->url(
+                    array('slug' => $clinic->getSlug()), 'clinic', true
+                ); ?>"><h2><?= $clinic->name; ?></h2></a>
+                <p class="city"><span><?= $clinic->city; ?></span></p>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+<?php endif; ?>
