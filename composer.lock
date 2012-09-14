@@ -38,6 +38,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "doctrine/data-fixtures": 15,
         "itbz/fpdf": 20
     }
 }
