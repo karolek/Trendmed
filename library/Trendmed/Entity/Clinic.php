@@ -734,14 +734,25 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
         } else {
             $this->rating = 0;
         }
+
+        # popularity is based on (rating + visists + reservations) / days registered in the system
+        # lets count how many days clinic is in system
+        $now = new \DateTime();
+        $daysInSystem = $this->created->diff(new \DateTime('now'))->format("a"); # a = total amount of days
+        if ($daysInSystem < 1) {
+            $daysInSystem = 1;
+        }
+        $this->popularity = ($this->rating + $this->viewCount + $this->reservations->count()) / $daysInSystem;
     }
 
     public function getReviews()
     {
         $collection = new \Doctrine\Common\Collections\ArrayCollection();
-        foreach ($this->reservations as $reservation) {
-            if($reservation->getRating()) {
-                $collection->add($reservation->getRating());
+        if (count($this->reservations)) {
+            foreach ($this->reservations as $reservation) {
+                if($reservation->getRating()) {
+                    $collection->add($reservation->getRating());
+                }
             }
         }
         return $collection;

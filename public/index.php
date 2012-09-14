@@ -13,10 +13,9 @@ set_include_path(implode(PATH_SEPARATOR, array(
     get_include_path(),
 )));
 
-/** Zend_Application */
-require_once 'Zend/Application.php';
-require_once 'Zend/Registry.php';
-require_once 'Zend/Config/Ini.php';
+## Autoloader from Composer ##
+require_once __DIR__.'/../vendor/autoload.php';
+
 /** Merging configs to use in application Bootstrap */
 $appConfig = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini',
     APPLICATION_ENV, TRUE);

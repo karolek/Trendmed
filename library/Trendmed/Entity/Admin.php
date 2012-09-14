@@ -22,4 +22,10 @@ class Admin extends \Trendmed\Entity\User {
     {
         return $this->id;
     }
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->roleName = 'admin';
+    }
 }

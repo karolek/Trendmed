@@ -34,6 +34,15 @@ class ClinicRepository extends \Doctrine\ORM\EntityRepository
         return $query->getResult();
     }
 
+    public function findMostPopular($limit = 3)
+    {
+        $dql = "SELECT c FROM \Trendmed\Entity\Clinic c WHERE c.isActive = ?1 ORDER BY c.popularity, c.viewCount, c.rating DESC";
+        $query = $this->_em->createQuery($dql);
+        $query->setParameter(1, true);
+        $query->setMaxResults($limit);
+        return $query->getResult();
+    }
+
     /**
      * Fetches all distinct city names from all active clinics
      */

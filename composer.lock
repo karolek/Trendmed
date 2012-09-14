@@ -1,5 +1,5 @@
 {
-    "hash": "d91007ede8ab9ed1c9f31fc54b9aa1fb",
+    "hash": "4595d481c081ca1b4fc451586cc70582",
     "packages": [
         {
             "package": "doctrine/common",
@@ -7,7 +7,9 @@
         },
         {
             "package": "doctrine/data-fixtures",
-            "version": "v1.0.0-ALPHA2"
+            "version": "dev-master",
+            "source-reference": "379a5f19e23849cf082613e2e91ed02bd2ee4fb1",
+            "commit-date": "1347551292"
         },
         {
             "package": "doctrine/dbal",
@@ -30,6 +32,17 @@
         {
             "package": "symfony/yaml",
             "version": "v2.0.14"
+        },
+        {
+            "package": "zendframework/zendframework1",
+            "version": "dev-trunk",
+            "alias-pretty-version": "1.12.x-dev",
+            "alias-version": "1.12.9999999.9999999-dev"
+        },
+        {
+            "package": "zendframework/zendframework1",
+            "version": "dev-trunk",
+            "source-reference": "/trunk/@25043"
         }
     ],
     "packages-dev": null,
@@ -38,7 +51,8 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "doctrine/data-fixtures": 15,
-        "itbz/fpdf": 20
+        "doctrine/data-fixtures": 20,
+        "itbz/fpdf": 20,
+        "zendframework/zendframework1": 20
     }
 }
