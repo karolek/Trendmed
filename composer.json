@@ -1,9 +1,10 @@
 {
     "require": {
         "doctrine/orm": "2.2.0",
-        "doctrine/data-fixtures": "1.0.0-ALPHA2",
+        "doctrine/data-fixtures": "dev-master",
         "symfony/console": "2.0.14",
         "symfony/yaml": "2.0.14",
-        "itbz/fpdf": "dev-master"
+        "itbz/fpdf": "dev-master",
+        "zendframework/zendframework1": "dev-master"
     }
 }

@@ -739,9 +739,11 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
     public function getReviews()
     {
         $collection = new \Doctrine\Common\Collections\ArrayCollection();
-        foreach ($this->reservations as $reservation) {
-            if($reservation->getRating()) {
-                $collection->add($reservation->getRating());
+        if (count($this->reservations)) {
+            foreach ($this->reservations as $reservation) {
+                if($reservation->getRating()) {
+                    $collection->add($reservation->getRating());
+                }
             }
         }
         return $collection;

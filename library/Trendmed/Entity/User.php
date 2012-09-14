@@ -256,6 +256,24 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
             throw new \Exception('No content template (_welcomeEmailScript) defined for class ' . __CLASS__);
         }
         $view = \Zend_Registry::get('view');
+
+        // we'r setting the activation link
+        // we should check if the token is valid, if not, we should generate new one
+        $token = $this->getToken();
+        if(false === $this->tokenIsValid($token)) {
+            $token = $this->generatePasswordRecoveryToken()->getToken();
+        }
+        if (empty($token)) {
+            throw new \Exception('No token for activation link');
+        }
+        # this will be only for patients
+        $link = 'http://'. $_SERVER['HTTP_HOST'] . '/patient/index/activate-user/token/' . $token;
+        $view->link = $link;
+
+        # adding user to view
+
+        $view->user = $this;
+
         $htmlContent = $view->render($this->_welcomeEmailScript); // rendering a view template for content
         $mail->setBodyHtml($htmlContent);
         $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName);
