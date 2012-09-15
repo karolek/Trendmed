@@ -310,6 +310,12 @@ table.reservationList .new td a.btn {font-weight:normal;}
 table.reservationList tr.confirmed td { color: green;}
 table.reservationList tr.closed td { color: #d3d3d3;}
 
+.pay-bill .hero-unit { background: #fff; border:1px solid #eee; text-align: justify; }
+.pay-bill .hero-unit .clinic-notice p { margin-top: 20px; font-size: 14px; }
+.pay-bill .paypal { margin-top: 40px; }
+.pay-bill .paypal #paypal-submit { display: block; margin: 0 auto; }
+
+
 /* FORMS */
 
 .form-horizontal {border:1px solid #EEEEEE; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;}
