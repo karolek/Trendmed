@@ -3,11 +3,8 @@
 <p class="navbar-text pull-right">
 	<?php if($this->LoggedUser()):?>
             <span class="userPanel">
-		<?= $this->translate('Logged in as');?> <a class="link" href="<?= $this->url(array(
-            'module'        => 'patient', 
-            'controller'    => 'profile', 
-            'action'        => 'index'), 'default', true);?>">
-        <?= $this->LoggedUser('username'); ?></a>. 
+		<?= $this->translate('Logged in as');?>
+        <?= $this->LoggedUser('username'); ?>
         <a class="link" href="<?= $this->url(array(
             'action'        => 'logout', 
             'controller'    => 'index', 

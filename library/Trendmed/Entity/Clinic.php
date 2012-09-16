@@ -147,7 +147,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
     protected $customPromos;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\Service", mappedBy="clinic")
+     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\Service", mappedBy="clinic", cascade={"all"})
      * @ORM\OrderBy({"created" = "DESC"})
      */
     protected $services;
@@ -173,7 +173,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
     protected $logoDir;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\ClinicPhoto", mappedBy="clinic")
+     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\ClinicPhoto", mappedBy="clinic", cascade={"all"})
      */
     protected $photos;
 
@@ -207,7 +207,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
-     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\Reservation", mappedBy="clinic",cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\Reservation", mappedBy="clinic", cascade={"all"})
      */
     protected $reservations;
 
@@ -306,6 +306,22 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
     public function getRepPhone()
     {
         return $this->repPhone;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $reservations
+     */
+    public function setReservations($reservations)
+    {
+        $this->reservations = $reservations;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getReservations()
+    {
+        return $this->reservations;
     }
 
     public function setRepPhone($repPhone)
@@ -742,7 +758,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
         if ($daysInSystem < 1) {
             $daysInSystem = 1;
         }
-        $this->popularity = ($this->rating + $this->viewCount + $this->reservations->count()) / $daysInSystem;
+        $this->popularity = ($this->rating + $this->viewCount + count($this->reservations)) / $daysInSystem;
     }
 
     public function getReviews()

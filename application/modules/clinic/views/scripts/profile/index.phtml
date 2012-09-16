@@ -130,3 +130,11 @@
     Liczba odwiedziń Twojego profilu:
     <big><?= $this->LoggedUser()->viewCount; ?></big>
 </p>
+<p>
+    Całkowita liczba Twoich rezerwacji:
+    <big><?= count($this->LoggedUser()->reservations); ?></big>
+</p>
+<p>
+    Twój ranking według pacjentów:
+    <big><?= count($this->LoggedUser()->rating); ?>%</big>
+</p>

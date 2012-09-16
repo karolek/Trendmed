@@ -9,6 +9,7 @@
             <th>Dodano</th>
             <th>Stan</th>
             <th>Ostatnio zalogowny</th>
+            <th>Odwiedzono/Rezerwacji/Ocena</th>
             <th>Opcje</th>
         </tr>
     </thead>
@@ -32,16 +33,39 @@
         <? endif; ?>
         </td>
         <td>
-            <a href="<?= $this->url(array(
-                'action' => 'change-active-state',
-                'controller' => 'clinics',
-                'module' => 'admin',
-                'slug'  => $item->slug,
-                'new-state' => $item->isActive() ? '0' : '1'
-            ), 'default'); ?>">
-                <?php echo $item->isActive() ? 'deaktywuj' : 'aktywuj'; ?>
+            <?= $item->viewCount;?>/<?= $item->reservations->count(); ?>/<?= $item->rateing; ?>
+        </td>
+        <td>
+            <div class="btn-group">
+                <a class="btn" href="#"><?= $this->translate('Opcje'); ?></a>
+                <button class="btn dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <!-- dropdown menu links -->
+                    <li>
+                        <a href="<?= $this->url(array(
+                            'action' => 'change-active-state',
+                            'controller' => 'clinics',
+                            'module' => 'admin',
+                            'slug'  => $item->slug,
+                            'new-state' => $item->isActive() ? '0' : '1'
+                        ), 'default'); ?>">
+                            <?php echo $item->isActive() ? 'Deaktywuj' : 'Aktywuj'; ?>
 
-            </a>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= $this->url(array(
+                            'action'        => 'delete-clinic',
+                            'controller'    => 'clinics',
+                            'module'        => 'admin',
+                            'id'            => $item->id,
+                        ), 'default'); ?>">Usuń konto</a>
+                    </li>
+                </ul>
+            </div>
+
         </td>
     </tr>
 <?php endforeach; ?>

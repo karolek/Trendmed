@@ -20,7 +20,6 @@ class Admin_ClinicsController extends Zend_Controller_Action {
     {
         /* Initialize action controller here */
         $this->_em =  $this->_helper->getEm();
-        $this->view->headTitle('Zarządzanie newsletterem');
     }
 
     /**
@@ -76,6 +75,37 @@ class Admin_ClinicsController extends Zend_Controller_Action {
         $this->_em->flush();
 
         $this->_helper->Redirector('index');
+    }
+
+    public function deleteClinicAction()
+    {
+        $request = $this->getRequest();
+
+        $this->view->HeadTitle('Usuwanie placówki z portalu');
+
+        $repo = $this->_em->getRepository('\Trendmed\Entity\Clinic');
+
+        if($request->getParam('id')) {
+            $userId    = $request->getParam('id');
+            $user      = $this->_em->find('\Trendmed\Entity\Clinic', $userId);
+            if(!$user) throw new \Exception('No user found');
+            $form       = new Admin_Form_DeletePatient();
+
+            if($request->isPost()) {
+                $this->_em->remove($user);
+                $this->_em->flush();
+
+                $this->_helper->FlashMessenger(array(
+                    'warning' => $user->getLogin(). ' został usunięty'
+                ));
+                $this->_helper->Redirector('index');
+            }
+            $this->view->user = $user;
+            $this->view->form = $form;
+
+        } else {
+            throw new \Exception('ID of patient to delete not given');
+        }
     }
 }
 ?>
