@@ -33,7 +33,7 @@
         <? endif; ?>
         </td>
         <td>
-            <?= $item->viewCount;?>/<?= $item->reservations->count(); ?>/<?= $item->rateing; ?>
+            <?= $item->viewCount;?>/<?= $item->reservations->count(); ?>/<?= $item->rating; ?>
         </td>
         <td>
             <div class="btn-group">
@@ -48,7 +48,7 @@
                             'action' => 'change-active-state',
                             'controller' => 'clinics',
                             'module' => 'admin',
-                            'slug'  => $item->slug,
+                            'id'  => $item->id,
                             'new-state' => $item->isActive() ? '0' : '1'
                         ), 'default'); ?>">
                             <?php echo $item->isActive() ? 'Deaktywuj' : 'Aktywuj'; ?>

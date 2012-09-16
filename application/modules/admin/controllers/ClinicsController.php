@@ -45,12 +45,9 @@ class Admin_ClinicsController extends Zend_Controller_Action {
     public function changeActiveStateAction()
     {
         $request = $this->getRequest();
-        $slug = $request->getParam('slug');
         $newState = $request->getParam('new-state');
 
-        $clinic = $this->_em->getRepository('\Trendmed\Entity\Clinic')
-            ->findOneBySlug($slug);
-        if (!$clinic) throw new \Exception('No clinic by slug '.$slug.' found');
+        $clinic = $this->_fetchClinicFromParams();
 
         switch($newState) {
             case 1:
@@ -83,29 +80,43 @@ class Admin_ClinicsController extends Zend_Controller_Action {
 
         $this->view->HeadTitle('Usuwanie placówki z portalu');
 
+        $clinic = $this->_fetchClinicFromParams();
+
+        $form       = new Admin_Form_DeletePatient();
+
+        if($request->isPost()) {
+            $this->_em->remove($clinic);
+            $this->_em->flush();
+
+            $this->_helper->FlashMessenger(array(
+                'warning' => 'Placówka o loginie: '. $clinic->getLogin(). ' została usunięta'
+            ));
+            $this->_helper->Redirector('index');
+        }
+        $this->view->user = $clinic;
+        $this->view->form = $form;
+
+
+    }
+
+    public function regeneratePasswordForClinic()
+    {
+
+    }
+
+    protected function _fetchClinicFromParams()
+    {
+        $request = $this->getRequest();
         $repo = $this->_em->getRepository('\Trendmed\Entity\Clinic');
 
         if($request->getParam('id')) {
             $userId    = $request->getParam('id');
             $user      = $this->_em->find('\Trendmed\Entity\Clinic', $userId);
-            if(!$user) throw new \Exception('No user found');
-            $form       = new Admin_Form_DeletePatient();
-
-            if($request->isPost()) {
-                $this->_em->remove($user);
-                $this->_em->flush();
-
-                $this->_helper->FlashMessenger(array(
-                    'warning' => $user->getLogin(). ' został usunięty'
-                ));
-                $this->_helper->Redirector('index');
-            }
-            $this->view->user = $user;
-            $this->view->form = $form;
-
+            if(!$user) throw new \Exception('No clinic found');
         } else {
-            throw new \Exception('ID of patient to delete not given');
+            throw new \Exception('bad parameters given in '.__FUNCTION__);
         }
+        return $user;
     }
 }
 ?>
