@@ -99,11 +99,36 @@ class Admin_ClinicsController extends Zend_Controller_Action {
 
     }
 
-    public function regeneratePasswordForClinic()
+    /**
+     * This function will generate random password for clinic and send it to them.
+     */
+    public function regeneratePasswordForClinicAction()
     {
+        $clinic = $this->_fetchClinicFromParams();
+        $request = $this->getRequest();
+
+        # geenrate and set up a new password
+        $password = $clinic->generateRandomPassword();
+
+        # we must pass the plain password, in object it is allready hased.
+        $clinic->sendNewPasswordSetNotification($password);
+        $this->_em->persist($clinic);
+        $this->_em->flush();
+        # message and redirect
+        $this->_helper->FlashMessenger(array(
+            'info' => 'Nowe hasło dla kliniki '.$clinic->getName().' zostało wygenerowane
+                i wysłane do e-mail reprezentanta'
+        ));
+        $this->_helper->Redirector('index');
 
     }
 
+    /**
+     * Fetches clinic by id param in get and returns it.
+     *
+     * @return \Trendmed\Entity\Clinic
+     * @throws Exception
+     */
     protected function _fetchClinicFromParams()
     {
         $request = $this->getRequest();

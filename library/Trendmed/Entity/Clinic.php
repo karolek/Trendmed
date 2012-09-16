@@ -774,4 +774,32 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
         return $collection;
     }
 
+    public function sendNewPasswordSetNotification($password)
+    {
+
+        $config = \Zend_Registry::get('config');
+        $view = \Zend_Registry::get('view');
+        $log = \Zend_Registry::get('log');
+        $templatePath = APPLICATION_PATH . '/layouts/scripts/reservationNotifications';
+        $view->addScriptPath($templatePath);
+
+        # sending notification to clinic
+        $mail = new \Zend_Mail('UTF-8');
+
+        # passing password to view
+        $view->password = $password;
+
+        # setting up a mail object with content and config
+        $htmlContent = $view->render('clinic/newPasswordSet.phtml'); // rendering a view template for content
+        $mail->setBodyHtml($htmlContent);
+        $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName); // setting FROM values from config
+        $mail->addTo($this->getEmailaddress(), $this->getLogin());
+        $mail->addBcc($config->siteEmail->fromAddress, 'Redaktor Trendmed.eu'); //Adding copy for admin
+        $subject = $config->siteEmail->clinic->newPasswordSet->subject;
+        $mail->setSubject($subject);
+        $mail->send();
+        $log->debug('E-mail send to: ' . $this->getEmailaddress() . '
+        from ' . $mail->getFrom() . ' subject: ' . $mail->getSubject());
+    }
+
 }

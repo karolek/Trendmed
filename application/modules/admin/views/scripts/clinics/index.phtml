@@ -63,6 +63,14 @@
                             'id'            => $item->id,
                         ), 'default'); ?>">Usuń konto</a>
                     </li>
+                    <li>
+                        <a class="confirm" confirm-message="Ta akcja spowoduje wygenerowanie losowego hasła dla placówki i wysłanie go na e-mail reprezentanta. Jesteś pewien?" href="<?= $this->url(array(
+                            'action'        => 'regenerate-password-for-clinic',
+                            'controller'    => 'clinics',
+                            'module'        => 'admin',
+                            'id'            => $item->id,
+                        ), 'default'); ?>">Wygerneruj nowe hasło</a>
+                    </li>
                 </ul>
             </div>
 
