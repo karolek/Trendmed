@@ -1,11 +1,12 @@
-<a class="btn" href="<?= $this->url(array('action' => 'index', 'controller' => 'profile', 'module' => 'patient'), 'default', true); ?>">&laquo; lista rezerwacji</a>
-<div class="alert alert-block alert-info">
-    <div class="alert alert-block alert-info">
-        <?= $this->translate($this->config->reservation->action->patient->cancel->description); ?>
-    </div>
+<div class="view-reservation">
+	<div class="hero-unit">
+		
+		<a class="btn" href="<?= $this->url(array('action' => 'index', 'controller' => 'profile', 'module' => 'patient'), 'default', true); ?>">&laquo; lista rezerwacji</a>
+		
+		<div class="alert alert-info">
+		        <?= $this->translate($this->config->reservation->action->patient->cancel->description); ?>
+		</div>
+		<?= $this->partial('reservations/_reservationDetails.phtml', array('reservation' => $this->reservation)); ?>
+		<?= $this->form; ?>
+	</div>
 </div>
-<?= $this->partial('reservations/_reservationDetails.phtml', array('reservation' => $this->reservation)); ?>
-    <p>
-
-    </p>
-<?= $this->form; ?>

@@ -315,6 +315,15 @@ table.reservationList tr.closed td { color: #d3d3d3;}
 .pay-bill .paypal { margin-top: 40px; }
 .pay-bill .paypal #paypal-submit { display: block; margin: 0 auto; }
 
+.view-reservation { margin-top: 20px; 	}
+.view-reservation .hero-unit { background: #fff; border:1px solid #eee; text-align: justify; }
+.view-reservation dt { font-size: 18px; margin: 10px 0;}
+.view-reservation dd { margin-bottom: 20px; }
+.view-reservation .form-actions { padding: 0; background: transparent; }
+textarea#question { width: 100%; }
+
+.status-Confirmed { color: green; background: url(../img/success.png) left center no-repeat; padding-left: 25px; }
+.status-Canceled { color: red; background: url(../img/error.png) left center no-repeat; padding-left: 25px; }
 
 /* FORMS */
 
