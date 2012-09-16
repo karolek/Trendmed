@@ -552,4 +552,22 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
         return $this;
     }
 
+    /**
+     * Generates a random password and set up as a new password for user.
+     *
+     * @return string $password Plain, generated password for later use
+     */
+    public function generateRandomPassword($length = 8)
+    {
+        $chars = "234567890abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $i = 0;
+        $password = "";
+        while ($i <= $length) {
+            $password .= $chars{mt_rand(0,strlen($chars))};
+            $i++;
+        }
+        $this->setPassword($password);
+        return $password;
+    }
+
 }

@@ -2,8 +2,12 @@
  * General JS functions
  */
 $(document).ready(function(){
-    $(".confirm").click(function(){
-       return confirm('Jesteś pewny?');
+    $(".confirm").click(function() {
+        if ($(this).attr('confirm-message') != undefined) {
+            return confirm($(this).attr('confirm-message'));
+        } else {
+            return confirm('Jesteś pewny?');
+        }
     });
 })
 /**

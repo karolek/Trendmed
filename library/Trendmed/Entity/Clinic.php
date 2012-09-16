@@ -147,7 +147,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
     protected $customPromos;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\Service", mappedBy="clinic")
+     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\Service", mappedBy="clinic", cascade={"all"})
      * @ORM\OrderBy({"created" = "DESC"})
      */
     protected $services;
@@ -173,7 +173,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
     protected $logoDir;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\ClinicPhoto", mappedBy="clinic")
+     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\ClinicPhoto", mappedBy="clinic", cascade={"all"})
      */
     protected $photos;
 
@@ -207,7 +207,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
-     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\Reservation", mappedBy="clinic",cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\Reservation", mappedBy="clinic", cascade={"all"})
      */
     protected $reservations;
 
@@ -306,6 +306,22 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
     public function getRepPhone()
     {
         return $this->repPhone;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $reservations
+     */
+    public function setReservations($reservations)
+    {
+        $this->reservations = $reservations;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getReservations()
+    {
+        return $this->reservations;
     }
 
     public function setRepPhone($repPhone)
@@ -742,7 +758,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
         if ($daysInSystem < 1) {
             $daysInSystem = 1;
         }
-        $this->popularity = ($this->rating + $this->viewCount + $this->reservations->count()) / $daysInSystem;
+        $this->popularity = ($this->rating + $this->viewCount + count($this->reservations)) / $daysInSystem;
     }
 
     public function getReviews()
@@ -756,6 +772,34 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
             }
         }
         return $collection;
+    }
+
+    public function sendNewPasswordSetNotification($password)
+    {
+
+        $config = \Zend_Registry::get('config');
+        $view = \Zend_Registry::get('view');
+        $log = \Zend_Registry::get('log');
+        $templatePath = APPLICATION_PATH . '/layouts/scripts/reservationNotifications';
+        $view->addScriptPath($templatePath);
+
+        # sending notification to clinic
+        $mail = new \Zend_Mail('UTF-8');
+
+        # passing password to view
+        $view->password = $password;
+
+        # setting up a mail object with content and config
+        $htmlContent = $view->render('clinic/newPasswordSet.phtml'); // rendering a view template for content
+        $mail->setBodyHtml($htmlContent);
+        $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName); // setting FROM values from config
+        $mail->addTo($this->getEmailaddress(), $this->getLogin());
+        $mail->addBcc($config->siteEmail->fromAddress, 'Redaktor Trendmed.eu'); //Adding copy for admin
+        $subject = $config->siteEmail->clinic->newPasswordSet->subject;
+        $mail->setSubject($subject);
+        $mail->send();
+        $log->debug('E-mail send to: ' . $this->getEmailaddress() . '
+        from ' . $mail->getFrom() . ' subject: ' . $mail->getSubject());
     }
 
 }
