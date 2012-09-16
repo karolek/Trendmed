@@ -103,14 +103,14 @@ class Clinic_Form_Service extends Twitter_Form
         $this->addElement($submit);
     }
 
-    private function _getCategories($parentId = 0)
+    private function _getCategories($parentId = 0, $excludeCategories = null)
     {
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
         $repo = $em->getRepository('Trendmed\Entity\Category');
         if ($parentId < 1) {
             $tree = $repo->findAllMainCategoriesAsArray();
         } else {
-            $tree = $repo->findForParentAsArray($parentId);
+            $tree = $repo->findForParentAsArray($parentId, $excludeCategories);
         }
         // parse the result for
         $map = array();
@@ -120,15 +120,38 @@ class Clinic_Form_Service extends Twitter_Form
         return $map;
     }
 
-    public function addCategoriesToSelect($elementName, $parentId, $selected = null)
+    /**
+     * @param \Zend_Form_Element_Select $element Where to add options
+     * @param $parentId ID in tree of parent node to fetch all categories from that parent
+     * @param sting $selected currently selected option from given $elementName
+     * @param \Doctrine\Common\Util\ArrayCollection $excludeCategories
+     */
+    public function addCategoriesToSelect(\Zend_Form_Element_Select $element,
+                                          $parentId,
+                                          \Trendmed\Entity\Category $selected = null,
+                                          Doctrine\Common\Collections\Collection $excludeCategories = null)
     {
-        $select = $this->getElement($elementName);
-        $select->addMultiOptions($this->_getCategories($parentId));
+        # excludeCategories is the collection of services to remove from select,
+        # we need to remove from that selection a currently edited category
+        if($selected AND $excludeCategories AND $parentId > 0 ) {
+            # we want to preserve selected category, even if in list of $excludeCategories
+            $excludeCategories->removeElement($selected);
+        }
+
+        $element->addMultiOptions($this->_getCategories($parentId, $excludeCategories));
+
+        # selecting selected value
         if($selected) {
-            $select->setValue($selected);
+            $element->setValue($selected->getId());
         }
     }
 
+    ## METHODS FOR SERVICE PHOTOS ##
+
+    /**
+     * Set's how many photos clinic uploaded for this service
+     * @param $photosUsed integer
+     */
     public function setPhotosUsed($photosUsed)
     {
         # removing the file element
@@ -143,11 +166,17 @@ class Clinic_Form_Service extends Twitter_Form
         $this->_photosUsed = $photosUsed;
     }
 
+    /**
+     * @return int
+     */
     public function getPhotosUsed()
     {
         return $this->_photosUsed;
     }
 
+    /**
+     * @return int returns how many photos user can still add
+     */
     public function getPhotosLeft()
     {
         return $this->_photosLeft;

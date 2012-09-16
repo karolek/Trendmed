@@ -802,4 +802,39 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
         from ' . $mail->getFrom() . ' subject: ' . $mail->getSubject());
     }
 
+    /**
+     * Checks if clinic allready used given $category by adding a service to it
+     *
+     * @param Category $category
+     * @return bool
+     */
+    public function hasServiceInCategory(\Trendmed\Entity\Category $category)
+    {
+        if ($this->services) {
+            foreach($this->services as $service) {
+                if($service->category->id == $category->id) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Return collection of already used categories
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function usedCategories()
+    {
+        $categories = new \Doctrine\Common\Collections\ArrayCollection();
+        if (count($this->services) > 0) {
+            foreach ($this->services as $service) {
+                $categories->add($service->category);
+            }
+        }
+
+        return $categories;
+    }
+
 }

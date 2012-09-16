@@ -53,6 +53,26 @@ class IndexController extends \Zend_Controller_Action
         }
     }
 
+    /**
+     * Used by AJAX request to fetch sub categories for add new service.
+     * Subcategories will be filtered by categories allready used by clinic
+     */
+    public function getSubcategoriesForClinicAction()
+    {
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $this->_helper->layout()->disableLayout();
+            $this->_helper->viewRenderer->setNoRender(true);
+            $parentId = $request->getParam('parentId');
+            $repo = $this->_em->getRepository('\Trendmed\Entity\Category');
+            $subcategories = $repo->findForParentAsArray($parentId, $this->_helper->LoggedUser()->usedCategories());
+            $json = \Zend_Json::encode($subcategories);
+            echo $json;
+        } else {
+            throw new \Exception('Invalid request type in '.__FUNCTION__);
+        }
+    }
+
 
 }
 

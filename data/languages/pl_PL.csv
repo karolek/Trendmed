@@ -151,3 +151,4 @@ Clinic name;Nazwa kliniki
 All services in %s;Wszystkie usługi w %s
 Last added clinics;Ostatnio dodane kliniki
 Last added services;Ostatnio dodane usługi
+Price max must be greater that price min;Cena maksymalna musi być większa od ceny minimalnej

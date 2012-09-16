@@ -50,21 +50,29 @@ class CategoryRepository extends \Gedmo\Tree\Entity\Repository\NestedTreeReposit
     /**
      * This method fetches categories for one given parent. Used for example in select where You want
      * to fetch only categories for given main category and not the whole tree.
+     * You can exclude some categories from result by passing a collection of services (used if you want to get
+     * categories not used by clinic yet)
      *
      * @param int $parentId
      * @return array flat array of elements for a given parrent
      */
-    public function findForParentAsArray($parentId = 1)
+    public function findForParentAsArray($parentId = 1, \Doctrine\Common\Collections\Collection $excludeCategories = null)
     {
-        $query = $this->_em
+        $qb = $this->_em
             ->createQueryBuilder()
             ->select('node')
             ->from('Trendmed\Entity\Category', 'node')
             ->orderBy('node.name, node.lft', 'ASC')
-            ->where('node.parent = ?1')
-            //->andWhere('node.lvl = 1')
-            ->getQuery();
-
+            ->where('node.parent = ?1');
+        if (count($excludeCategories) > 0) {
+            $ids = array();
+            foreach($excludeCategories as $category) {
+                $ids[] = $category->id;
+            }
+            $qb->andWhere($qb->expr()->notIn('node.id', join(',', $ids)));
+        }
+        $query = $qb->getQuery();
+        #echo $query->getDQL(); exit();
         $query->setParameter(1, $parentId);
         //$options = array('decorate' => true);
         $tree = $query->getArrayResult();
