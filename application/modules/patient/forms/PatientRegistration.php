@@ -17,7 +17,7 @@ class Patient_Form_PatientRegistration extends Twitter_Form
         $text = new Zend_Form_Element_Text('login');
         $text->addFilters(array('StringTrim', 'StringToLower'));
         $text->setRequired(true);
-        $text->setLabel('E-mail Address');
+        $text->setLabel('E-mail address');
 
         $validator = new Zend_Validate_EmailAddress();
         $text->addValidator($validator);

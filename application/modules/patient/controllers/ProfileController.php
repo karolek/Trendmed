@@ -22,8 +22,9 @@ class Patient_ProfileController extends Zend_Controller_Action
 
         $this->view->reservations = $reservations;
 
+
         # config to use in view
-        $this->view->config = \Zend_Registry::get('config');
+           $this->view->config = \Zend_Registry::get('config');
 
         $this->view->headTitle('My reservations');
     }

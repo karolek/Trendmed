@@ -152,3 +152,9 @@ All services in %s;Wszystkie usługi w %s
 Last added clinics;Ostatnio dodane kliniki
 Last added services;Ostatnio dodane usługi
 Price max must be greater that price min;Cena maksymalna musi być większa od ceny minimalnej
+E-mail address;Adres e-mail
+Address used as account login;Adres użyty jako login do profilu
+Recovery password e-mail send to: %1$s;E-mail pozwalający na odzyskanie hasła został wysłany na adres: %1$s
+Recovery password e-mail send;Wysłano e-mail pozwalający na odzyskanie hasła do profilu
+Please check Your e-mail Inbox from e-mail from us. It will contain a link. Please click it, or copy paste into Your web browser URL address bar. It will allow to set a new password for You.;Prosimy sprawdzić skrzynkę e-mail, wysłaliśmy Państwu instrukcje dalszego postępowania celem odzyskania hasła.
+The two given tokens do not match;Podane wartości powinny być identyczne
