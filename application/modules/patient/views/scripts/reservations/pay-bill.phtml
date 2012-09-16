@@ -1,21 +1,29 @@
-<?php
-    printf(
-        $this->translate("Opłacasz kaucje w wysokości <strong>%3\$s euro</strong> za wizytę w placówce %1\$s. Numer rezerwacji to %2\$s. Po dokonaniu
-płatności klinika zostnie powiadomiona o tym fakcie. Pamiętaj, płatność jest wymagana aby rezerwacja była ważna."),
-        $this->reservation->clinic->name,
-        $this->reservation->id,
-        $this->config->clinics->settings->billSize
-    );
-?>
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-    <input type="hidden" name="cmd" value="_s-xclick">
-    <input type="hidden" name="hosted_button_id" value="G6R5FGLBUHTGU">
-    <input type="hidden" name="notify_url" value="http://www.trendmed.eu/payment/<?= $this->reservation->id; ?>/ok">
-    <input type="hidden" name="return" value="http://www.trendmed.eu/reservation/<?= $this->reservation->id; ?>/payment/<?= $this->reservation->paymentHash; ?>/ok">
-    <input type="hidden" name="notify_url" value="http://www.trendmed.eu/reservation/<?= $this->reservation->id; ?>/payment/<?= $this->reservation->paymentHash; ?>/confirm"">
+<div class="pay-bill">
+	<div class="hero-unit">
+	<div class="pay-desc">
+		<?php
+		    printf(
+		        $this->translate("<p>Opłacasz kaucje w wysokości <strong>%3\$s euro</strong> za wizytę w placówce %1\$s.<br />Numer rezerwacji to %2\$s. </p><div class='clinic-notice'><p>Po dokonaniu
+		płatności klinika zostnie powiadomiona o tym fakcie. <br />Pamiętaj, płatność jest wymagana aby rezerwacja była ważna.</p></div>"),
+		        $this->reservation->clinic->name,
+		        $this->reservation->id,
+		        $this->config->clinics->settings->billSize
+		    );
+		?>
+	</div>
+		<div class="paypal">
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+			    <input type="hidden" name="cmd" value="_s-xclick">
+			    <input type="hidden" name="hosted_button_id" value="G6R5FGLBUHTGU">
+			    <input type="hidden" name="notify_url" value="http://www.trendmed.eu/payment/<?= $this->reservation->id; ?>/ok">
+			    <input type="hidden" name="return" value="http://www.trendmed.eu/reservation/<?= $this->reservation->id; ?>/payment/<?= $this->reservation->paymentHash; ?>/ok">
+			    <input type="hidden" name="notify_url" value="http://www.trendmed.eu/reservation/<?= $this->reservation->id; ?>/payment/<?= $this->reservation->paymentHash; ?>/confirm">
 
-    <input type="hidden" name="rm" value="2">
-    <input type="hidden" name="item_number" value="<?= $this->reservation->id; ?>">
-    <input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal — The safer, easier way to pay online.">
-    <img alt="" border="0" src="https://www.paypalobjects.com/pl_PL/i/scr/pixel.gif" width="1" height="1">
-</form>
+			    <input type="hidden" name="rm" value="2">
+			    <input type="hidden" name="item_number" value="<?= $this->reservation->id; ?>">
+			    <input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal — The safer, easier way to pay online." id="paypal-submit">
+			    <img alt="" border="0" src="https://www.paypalobjects.com/pl_PL/i/scr/pixel.gif" width="1" height="1">
+			</form>
+		</div>
+	</div>
+</div>

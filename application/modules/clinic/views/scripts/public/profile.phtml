@@ -47,12 +47,12 @@
 
 	<div class="globalClear"></div>
 	
-    <?= $this->clinic->description; ?>
+    <div class="clinicDescription"><?= $this->clinic->description; ?></div>
     
 </div>
 <div class="row">
     <h2><?= $this->translate('Promotions'); ?></h2>
-    <?= $this->clinic->customPromos; ?>
+    <div class="clinicDescription"><?= $this->clinic->customPromos; ?></div>
 </div>
 <?php if ($this->clinic->isGroupPromoEnabled()): ?>
 <div class="row" id="clinic-grouppromotion">
