@@ -84,7 +84,7 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #menuFloat {width:969px; padding: 8px 15px; background:#ffffff; margin:0 auto; height:18px; position:relative; z-index:3; box-shadow:0 2px 6px -6px #000000; -webkit-box-shadow:0 2px 6px -6px #000000; -moz-box-shadow:0 2px 6px -6px #000000; border-radius:0 0 5px 5px; -moz-border-radius:0 0 5px 5px; -webkit-border-radius:0 0 5px 5px;}
 #menuFloat a {cursor:pointer;}
 #menuFloat ul {margin:0; list-style:inside none; float:left;}
-#menuFloat ul li {float:left; margin:0 10px 0 0;}
+#menuFloat ul li {}
 #menuFloat .pull-right {border-right: 1px solid #EEEEEE; float: left; margin: 0 15px 0 0; padding: 0 15px 0 0;}
 #menuFloat .dropdown.open {float:left; position: relative;}
 #menuFloat .dropdown.open .dropdown-toggle {background:none;}
