@@ -1,21 +1,5 @@
 <div class="hero-unit">
-    <h1>Zapraszamy do rejestracji</h1>
-
-    <p>Zapraszamy placówki do rejestracji już teraz.
-        Dzięki temu, po premierze serwisu uzyskasz atrakcyjne rabaty i aż 3 miesiące
-        abonamentu gratis.</p>
-
-    <p><a class="btn btn-primary btn-large" href="<?= $this->url(array(
-        'action' => 'index',
-        'controller' => 'register',
-        'module' => 'clinic',
-    ), 'default', true); ?>">Przejdź do rejestracji &raquo;</a>
-
-        <a class="btn btn-primary" href="<?= $this->url(array(
-            'action' => 'index',
-            'controller' => 'index',
-            'module' => 'clinic',
-        ), 'default', true); ?>">Logowanie &raquo;</a></p>
+    <?= $this->DisplayAd('homepageTop'); ?>
 </div>
 <div class="hero-unit">
     <h1>Dowiedz się więcej</h1>
