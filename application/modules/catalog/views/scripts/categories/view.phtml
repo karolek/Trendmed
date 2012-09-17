@@ -92,7 +92,7 @@
             <h3>
                 <a href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>"><?= $service->clinic->name; ?></a>
             </h3>
-            <address><strong class="location"><?= $service->clinic->city; ?>, <?= $service->clinic->province; ?></strong> <span class="map"><?= $this->ShowOnMap($service->clinic); ?></span></address>
+            <address><strong class="location"><?= $service->clinic->city; ?>, <?= $service->clinic->province; ?></strong> <span class="map"><a href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>#map">Show on map</a></span></address>
 
 
             <h4>Service description</h4>

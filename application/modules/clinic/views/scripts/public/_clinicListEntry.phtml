@@ -7,7 +7,7 @@
 	    <address>
 	        <?= $this->clinic->streetaddress; ?>, <?= $this->clinic->postcode; ?> <?= $this->clinic->city; ?>,
 	        <?= $this->clinic->province; ?>
-			<span class="map"><?= $this->ShowOnMap($this->clinic); ?></span>
+			<span class="map"><a href="<?= $this->url(array('slug' => $this->clinic->getSlug()), 'clinic'); ?>#map">Show on map</a></span>
 	    </address>
     </div>
         

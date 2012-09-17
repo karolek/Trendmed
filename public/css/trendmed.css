@@ -336,6 +336,8 @@ textarea#question { width: 100%; }
 .status-Canceled { color: red; background: url(../img/error.png) left center no-repeat; padding-left: 25px; }
 
 
+#map img { margin: 0 auto; position: relative; display: block; margin-top: 10px; }
+
 /* CLINIC STATISTICS */
 
 #clinicStatistics h3 { margin-bottom: 25px; }
