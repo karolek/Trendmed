@@ -11,6 +11,23 @@ class IndexController extends \Zend_Controller_Action
         /* Initialize action controller here */
     }
 
+    public function adRedirectAction()
+    {
+        $req = $this->getRequest();
+        $adId = $req->getParam('id', null);
+        // I will use adId as filename to hash the id in URL
+        $repo = $this->_em->getRepository('\Trendmed\Entity\BannerAd');
+        $ad = $repo->findOneByFile($adId);
+        if(!$ad) throw new \Exception('Cant find ad with filename :'.$adId);
+
+        $ad->clickCount++;
+        $this->_em->persist($ad);
+        $this->_em->flush();
+        $r = Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
+        $r->setCode(301);
+        $r->gotoUrl($ad->target)->redirectAndExit();
+    }
+
     public function indexAction()
     {
         // action body
