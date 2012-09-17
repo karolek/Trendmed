@@ -1,5 +1,4 @@
 <div class="view-reservation">
-	<div class="hero-unit">
 		<a class="btn" href="<?= $this->url(array('action' => 'index', 'controller' => 'profile', 'module' => 'patient'), 'default', true); ?>">&laquo; <?= $this->translate('List of reservations'); ?></a>
 
 		<?= $this->partial('reservations/_reservationDetails.phtml', array('reservation' => $this->reservation)); ?>
@@ -28,5 +27,4 @@
 		    </li>
 		    <?php endif; ?>
 		</ul>
-	</div>
 </div>
