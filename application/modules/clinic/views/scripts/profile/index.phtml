@@ -125,15 +125,22 @@
         <?= $this->translate('You do not have any reservations yet.'); ?>
     </div>
 <?php endif;?>
-<p>
-    Liczba odwiedziń Twojego profilu:
-    <big><?= $this->LoggedUser()->viewCount; ?></big>
-</p>
-<p>
-    Całkowita liczba Twoich rezerwacji:
-    <big><?= count($this->LoggedUser()->reservations); ?></big>
-</p>
-<p>
-    Twój ranking według pacjentów:
-    <big><?= count($this->LoggedUser()->rating); ?>%</big>
-</p>
+
+<div id="clinicStatistics">
+	<h3><?= $this->translate('Statystyki kliniki'); ?>:</h3>
+	<div class="row-fluid">
+   		<div class="span4">
+	   		<big><?= $this->LoggedUser()->viewCount; ?></big>
+	   		<p>Liczba odwiedziń Twojego profilu</p>
+	   	</div>
+	   	<div class="span4">
+	   	 	<big><?= count($this->LoggedUser()->reservations); ?></big>
+	   		<p>Całkowita liczba Twoich rezerwacji</p>		
+	   	</div>
+	   	<div class="span4">
+	   		<big><?= count($this->LoggedUser()->rating); ?>%</big>
+	   		<p>Twój ranking według pacjentów</p>
+	   	</div>
+	</div>
+</div>
+<div class="clearfix"></div>
