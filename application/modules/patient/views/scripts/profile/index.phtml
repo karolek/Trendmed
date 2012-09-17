@@ -1,93 +1,119 @@
 <?php if (count($this->reservations) >0 ): ?>
-<table class="table reservationList">
-    <thead>
-    <tr>
-        <th>
-            <?= $this->translate('Date added'); ?>
-        </th>
-        <th>
-            <?= $this->translate('Date of reservation'); ?>
-        </th>
-        <th>
-            <?= $this->translate('Clinic'); ?>
-        </th>
-        <th>
-            <?= $this->translate('Services'); ?>
-        </th>
-        <th>
-            <?= $this->translate('Status'); ?>
-        </th>
-        <th>
-            <?= $this->translate('Actions'); ?>
-        </th>
-    </tr>
-    </thead>
-    <tbody>
+<div class="reservationList">	
         <?php foreach ($this->reservations as $reservation): ?>
-            <tr class="<?= $reservation->getStatus(); ?>">
-                <td><?= $reservation->created->format("d-m-Y"); ?></td>
-                <td><?= $this->translate('From'); ?> <?= $reservation->dateFrom->format("d-m-Y"); ?>
-                    <?= $this->translate('to'); ?> <?= $reservation->dateTo->format("d-m-Y"); ?> </td>
-                <td><?= $reservation->clinic->name; ?></td>
-                <td>
-                    <ul>
-                    <?php foreach($reservation->services as $service): ?>
-                        <li><?= $service->category->name; ?></li>
-                    <?php endforeach; ?>
-                    </ul>
-                </td>
-                <td>
-                    <?php $status =  $reservation->getStatusAsArray(); echo $this->translate($status['name']); ?>
-                    <!-- payment option -->
-                    <?php if ($reservation->getBillStatus() == $reservation::BILL_STATUS_NOT_PAID): ?>
-                        <br><strong><?= $this->translate('Bill not paid yet'); ?></strong>
-                    <?php endif; ?>
-                </td>
-                <td>
+			<div class="row-fluid">
 
-                    <div class="btn-group">
-                        <a class="btn" href="<?= $this->url(
-                            array(
-                                'action' => 'view',
-                                'controller' =>
-                                'reservations',
-                                'module' => 'patient',
-                                'id' => $reservation->id), 'default', true); ?>"><?= $this->translate('See details'); ?></a>
-                        <?php if(count($status['actions']['patient']) >0 ): ?>
-                            <button class="btn dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <!-- dropdown menu links -->
-                                <?php foreach($status['actions']['patient'] as $action): ?>
-                                <li>
-                                    <a href="<?= $this->url(array('id' => $reservation->id),
-                                        $this->config->reservation->action->patient->$action->routeName); ?>">
-                                        <?= $this->translate($this->config->reservation->action->patient->$action->name); ?>
-                                    </a>
-                                </li>
-                                <?php endforeach; ?>
-                                <!-- payment option -->
-                                <?php if ($reservation->getBillStatus() == $reservation::BILL_STATUS_NOT_PAID and $reservation->getStatus() == 'confirmed'): ?>
-                                    <li>
-                                        <a href="<?= $this->url(
-                                            array(
-                                                'id' => $reservation->id
-                                            ), 'makePayment'); ?>">
-                                            <?= $this->translate('Pay bill'); ?>
-                                        </a>
-                                    </li>
-                                <?php endif; ?>
-                            </ul>
-                        <? elseif($reservation->status != 'closed'): ?>
-                            <br><em><?= $this->translate('Waiting for clinic response'); ?></em>
-                        <?php endif;?>
-                    </div>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+		        <div class="span2 clinicLogo">
+		        	<?= $this->ShowClinicLogo($reservation->clinic); ?>
+		        </div><!-- /clinicLogo -->
+
+
+		        <div class="span10">
+					<div class="row-fluid">
+						<div class="span12">
+							<h3>
+				                <a href="<?= $this->url(array('slug' => $reservation->clinic->getSlug()), 'clinic'); ?>"><?= $reservation->clinic->name; ?></a>
+				            </h3>
+				            <address><strong class="location"><?= $reservation->clinic->city; ?>, <?= $reservation->clinic->province; ?></strong></address>
+						</div>
+					</div><!-- /row-fluid -->
+					
+					
+					<div class="row-fluid">
+						<div class="span8">
+							<div class="row-fluid">
+								<div class="span2">
+									<h4>Services</h4>
+								</div>
+								<div class="span10">
+									<ul class="serviceList">
+						                <?php foreach($reservation->services as $service): ?>
+							            <li><a href="<?= $this->url(array(
+							                'id' => $service->id,
+							            ), 'service'); ?>"><?= $service->category->name;?></a></li>
+							            <?php endforeach; ?>
+						            </ul>
+								</div>
+							</div><!-- /row-fluid -->
+
+				            <div class="row-fluid">
+								<div class="span2">
+									<h4>Status</h4>
+								</div>
+								<div class="span10">
+									<?php $status =  $reservation->getStatusAsArray(); ?>
+									<p class="status-<?= $status['name']; ?>">
+									<?php echo $this->translate($status['name']); ?>
+									</p>
+								</div>
+							</div><!-- /row-fluid -->
+							
+							 <!-- payment option -->
+			                    <?php if ($reservation->getBillStatus() == $reservation::BILL_STATUS_NOT_PAID): ?>
+									<div class="row-fluid">
+										<div class="span12	">
+											<div class="alert alert-error"><strong><?= $this->translate('Bill not paid yet'); ?></strong></div>
+										</div><!-- /span12 -->
+									</div><!-- /row-fluid -->
+			                    <?php endif; ?>
+							
+						</div><!-- /span8 -->
+						
+						<div class="span4">
+								<a class="btn pull-right" href="<?= $this->url(
+							          array(
+							              'action' => 'view',
+							              'controller' =>
+							              'reservations',
+							              'module' => 'patient',
+							              'id' => $reservation->id), 'default', true); ?>"><?= $this->translate('See details'); ?></a><div class="clearfix"></div>
+							 <div class="btn-group pull-right btn-options">
+							      
+							      <?php if(count($status['actions']['patient']) >0 ): ?>
+							          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+										  <?= $this->translate('Options'); ?>
+							              <span class="caret"></span>
+							          </a>
+							          <ul class="dropdown-menu">
+							              <!-- dropdown menu links -->
+							              <?php foreach($status['actions']['patient'] as $action): ?>
+							              <li>
+							                  <a href="<?= $this->url(array('id' => $reservation->id),
+							                      $this->config->reservation->action->patient->$action->routeName); ?>">
+							                      <?= $this->translate($this->config->reservation->action->patient->$action->name); ?>
+							                  </a>
+							              </li>
+							              <?php endforeach; ?>
+							              <!-- payment option -->
+							              <?php if ($reservation->getBillStatus() == $reservation::BILL_STATUS_NOT_PAID and $reservation->getStatus() == 'confirmed'): ?>
+							                  <li>
+							                      <a href="<?= $this->url(
+							                          array(
+							                              'id' => $reservation->id
+							                          ), 'makePayment'); ?>">
+							                          <?= $this->translate('Pay bill'); ?>
+							                      </a>
+							                  </li>
+							              <?php endif; ?>
+							          </ul>
+							      <? elseif($reservation->status != 'closed'): ?>
+							          <br><em><?= $this->translate('Waiting for clinic response'); ?></em>
+							      <?php endif;?>
+								</div><!-- /span4 -->
+								
+					</div><!-- /row-fluid -->
+					
+						
+					
+		        </div><!-- /span10 -->
+			
+				
+		    </div><!-- /row-fluid -->
+		
+		</div><!-- /row-fluid -->
+
+		<?php endforeach; ?>
+</div><!-- /reservationList -->
 <?php else: ?>
     <div class="alert alert-block">
         <?= $this->translate('You do not have any reservations yet.'); ?>
