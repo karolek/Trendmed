@@ -21,9 +21,10 @@
 		<div class="page-header">
 			<h1><?= $this->translate(strip_tags($this->headTitle()->toString())); ?></h1>
 		</div>
+		<div class="hero-unit">
 		<?php echo $this->FlashMessenger(); ?>
 		<?php echo $this->layout()->content ?>
-
+		</div>
         <hr>
         <footer>
             <?= $this->render('_footer.phtml'); ?>
