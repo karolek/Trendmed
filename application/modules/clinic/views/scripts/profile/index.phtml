@@ -41,9 +41,6 @@
     <thead>
     <tr>
         <th>
-            <?= $this->translate('Creation date'); ?>
-        </th>
-        <th>
             <?= $this->translate('Patient'); ?>
         </th>
         <th>
@@ -64,7 +61,6 @@
         <?php foreach ($this->reservations as $reservation): ?>
 
         <tr<?php if($reservation->getStatus() == 'new'):?> class="new"<?php endif;?>>
-                <td><?= $reservation->created->format("d-m-Y"); ?></td>
                 <td><?= $reservation->patient->name; ?></td>
                 <td>
                     <ul>
@@ -77,16 +73,22 @@
                     Od <?= $reservation->dateFrom->format("d-m-Y"); ?> do <?= $reservation->dateTo->format("d-m-Y"); ?>
                 </td>
                 <td>
-                    <?php $status = $reservation->getStatusAsArray(); echo $this->translate($status['name']); ?>
+                    <?php $status =  $reservation->getStatusAsArray(); ?>
+					<p class="status-<?= $status['name']; ?>">
+					<?php echo $this->translate($status['name']); ?></p>
+					<?php if(!count($status['actions']['clinic']) >0 && $reservation->status != 'closed'):?>
+						 <em>Czeka na reakcje pacjenta</em>
+					<?php endif;?>
                 </td>
                 <td>
-                    <div class="btn-group">
-                        <a class="btn" href="#reservation-details-<?= $reservation->id;?>" data-toggle="modal"><?= $this->translate('Zobacz szczegóły'); ?></a>
+                   
+                        <a class="btn pull-right" role="button" href="#reservation-details-<?= $reservation->id;?>" data-toggle="modal"><?= $this->translate('Zobacz szczegóły'); ?></a><div class="clearfix"></div>
                         <?php if(count($status['actions']['clinic']) >0 ): ?>
-
-                            <button class="btn dropdown-toggle" data-toggle="dropdown">
+							<div class="btn-group pull-right">
+                            <a class="btn dropdown-toggle btn-options" data-toggle="dropdown" href="#">
+							<?= $this->translate('Options'); ?>
                             <span class="caret"></span>
-                            </button>
+                            </a>
                             <ul class="dropdown-menu">
                                 <!-- dropdown menu links -->
                                 <?php foreach($status['actions']['clinic'] as $action): ?>
@@ -98,26 +100,23 @@
                                 </li>
                                 <?php endforeach; ?>
                             </ul>
-                        <? elseif($reservation->status != 'closed'): ?>
-                            <em>Czeka na reakcje pacjenta</em>
+ 						</div>
                         <?php endif; ?>
-                    </div>
                 </td>
                 <!-- Modal -->
-                <div class="modal hide fade" id="reservation-details-<?= $reservation->id;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                
+            </tr>	<div class="modal hide fade" id="reservation-details-<?= $reservation->id;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h3 id="myModalLabel">Modal header</h3>
+						<h3 id="myModalLabel">Szczegóły rezerwacji</h3>
                     </div>
                     <div class="modal-body">
                         <?= $this->partial('reservations/_reservationDetails.phtml', array('reservation' => $reservation)); ?>
                     </div>
                     <div class="modal-footer">
                         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                        <button class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
-            </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
