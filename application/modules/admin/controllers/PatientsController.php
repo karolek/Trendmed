@@ -1,17 +1,12 @@
 <?php
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of ClinicsController
+ * Maintnance of patients in the system
  *
- * @author Bard
+ * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
-class Admin_ClinicsController extends Zend_Controller_Action {
+class Admin_PatientsController extends Zend_Controller_Action {
 
 
     protected $_em; // entity manager od doctrine
@@ -26,13 +21,13 @@ class Admin_ClinicsController extends Zend_Controller_Action {
      * Displays list of clinics 
      */
     public function indexAction() {
-        $this->view->headTitle('Lista zarejestrowanych placówek');
+        $this->view->headTitle('Lista zarejestrowanych pacjentów');
         $request = $this->getRequest();
         
         $qb = $this->_helper->getEm()->createQueryBuilder();
-        $qb->select('c')
-                ->from('\Trendmed\Entity\Clinic', 'c')
-                ->orderBy('c.created', 'DESC');
+        $qb->select('p')
+                ->from('\Trendmed\Entity\Patient', 'p')
+                ->orderBy('p.created', 'DESC');
         $qb->setMaxResults(50);
         $qb->setFirstResult(0);
         
@@ -48,20 +43,20 @@ class Admin_ClinicsController extends Zend_Controller_Action {
         $request = $this->getRequest();
         $newState = $request->getParam('new-state');
 
-        $clinic = $this->_fetchClinicFromParams();
+        $clinic = $this->_fetchEntityFromParams();
 
         switch($newState) {
             case 1:
                 $clinic->activate();
                 $this->_helper->FlashMessenger(array(
-                    'info' => 'Klinika aktywowana'
+                    'info' => 'Pacjent aktywowany'
                     )
                 );
                 break;
             case 0:
                 $clinic->deactivate();
                 $this->_helper->FlashMessenger(array(
-                    'info' => 'Klinika deaktywowana'
+                    'info' => 'Pacjent deaktywowany'
                     )
                 );
                 break;
@@ -75,13 +70,13 @@ class Admin_ClinicsController extends Zend_Controller_Action {
         $this->_helper->Redirector('index');
     }
 
-    public function deleteClinicAction()
+    public function deleteAction()
     {
         $request = $this->getRequest();
 
-        $this->view->HeadTitle('Usuwanie placówki z portalu');
+        $this->view->HeadTitle('Usuwanie pacjenta z portalu');
 
-        $clinic = $this->_fetchClinicFromParams();
+        $clinic = $this->_fetchEntityFromParams();
 
         $form       = new Admin_Form_DeletePatient();
 
@@ -90,7 +85,7 @@ class Admin_ClinicsController extends Zend_Controller_Action {
             $this->_em->flush();
 
             $this->_helper->FlashMessenger(array(
-                'warning' => 'Placówka o loginie: '. $clinic->getLogin(). ' została usunięta'
+                'warning' => 'PAcjent o loginie: '. $clinic->getLogin(). ' została usunięta'
             ));
             $this->_helper->Redirector('index');
         }
@@ -101,43 +96,19 @@ class Admin_ClinicsController extends Zend_Controller_Action {
     }
 
     /**
-     * This function will generate random password for clinic and send it to them.
-     */
-    public function regeneratePasswordForClinicAction()
-    {
-        $clinic = $this->_fetchClinicFromParams();
-        $request = $this->getRequest();
-
-        # geenrate and set up a new password
-        $password = $clinic->generateRandomPassword();
-
-        # we must pass the plain password, in object it is allready hased.
-        $clinic->sendNewPasswordSetNotification($password);
-        $this->_em->persist($clinic);
-        $this->_em->flush();
-        # message and redirect
-        $this->_helper->FlashMessenger(array(
-            'info' => 'Nowe hasło dla kliniki '.$clinic->getName().' zostało wygenerowane
-                i wysłane do e-mail reprezentanta'
-        ));
-        $this->_helper->Redirector('index');
-
-    }
-
-    /**
      * Fetches clinic by id param in get and returns it.
      *
-     * @return \Trendmed\Entity\Clinic
+     * @return \Trendmed\Entity\Patient
      * @throws Exception
      */
-    protected function _fetchClinicFromParams()
+    protected function _fetchEntityFromParams()
     {
         $request = $this->getRequest();
-        $repo = $this->_em->getRepository('\Trendmed\Entity\Clinic');
+        $repo = $this->_em->getRepository('\Trendmed\Entity\Patient');
 
         if($request->getParam('id')) {
             $userId    = $request->getParam('id');
-            $user      = $this->_em->find('\Trendmed\Entity\Clinic', $userId);
+            $user      = $repo->find($userId);
             if(!$user) throw new \Exception('No clinic found');
         } else {
             throw new \Exception('bad parameters given in '.__FUNCTION__);

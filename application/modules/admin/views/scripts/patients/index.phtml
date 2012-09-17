@@ -1,0 +1,69 @@
+<?php if (count($this->paginator)): ?>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Login / imię i nazwisko</th>
+            <th>Kraj</th>
+            <th>Telefon</th>
+            <th>Data zarejestrowania</th>
+            <th>Stan</th>
+            <th>Ostatnio zalogowny</th>
+            <th>Zapisany do newslettera</th>
+            <th>Opcje</th>
+        </tr>
+    </thead>
+<?php foreach ($this->paginator as $item): ?>
+    <tr>
+        <td><?= $item->id; ?></td>
+        <td><?= $item->login; ?> / <?= $item->title; ?>  <?= $item->name; ?></td>
+        <td><?= $item->country; ?></td>
+        <td><?= $item->phoneNumber; ?></td>
+        <td><?= $item->created->format('d/m/Y'); ?></td>
+        <td><?= $item->isActive() ? 'aktywny' : 'nie aktywny'; ?></td>
+        <td>
+        <? if($item->lastLoginTime): ?>
+            <?= $item->lastLoginTime->format('d/m/Y'); ?>
+        <? else: ?>
+            Pacjent jeszcze nie się nie logował
+        <? endif; ?>
+        </td>
+        <td>
+            <?= $item->isNewsletterActive() ? 'tak' : 'nie'; ?>
+        </td>
+        <td>
+            <div class="btn-group">
+                <a class="btn" href="#"><?= $this->translate('Opcje'); ?></a>
+                <button class="btn dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <!-- dropdown menu links -->
+                    <li>
+                        <a class="confirm" confirm-message="łoszo sqłoszo?" href="<?= $this->url(array(
+                            'action' => 'change-active-state',
+                            'controller' => 'patients',
+                            'module' => 'admin',
+                            'id'  => $item->id,
+                            'new-state' => $item->isActive() ? '0' : '1'
+                        ), 'default'); ?>">
+                            <?php echo $item->isActive() ? 'Deaktywuj' : 'Aktywuj'; ?>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= $this->url(array(
+                            'action'        => 'delete',
+                            'controller'    => 'patients',
+                            'module'        => 'admin',
+                            'id'            => $item->id,
+                        ), 'default'); ?>">Usuń konto</a>
+                    </li>
+                </ul>
+            </div>
+
+        </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+<?php endif; ?>

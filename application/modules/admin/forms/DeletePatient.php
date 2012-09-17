@@ -18,7 +18,7 @@ class Admin_Form_DeletePatient extends Twitter_Form
         $this->addElement($id);
 
         $submit = new \Zend_Form_Element_Submit('submit');
-        $submit->setLabel('Usuń placówke');
+        $submit->setLabel('Usuń, jestem pewny(a)');
 
         $this->addElement($submit);
     }

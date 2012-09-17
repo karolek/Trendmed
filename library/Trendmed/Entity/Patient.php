@@ -71,6 +71,28 @@ class Patient extends \Trendmed\Entity\User
      */
     protected $isNewsletterActive;
 
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $reservations
+     */
+    public function setReservations($reservations)
+    {
+        $this->reservations = $reservations;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getReservations()
+    {
+        return $this->reservations;
+    }
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\Reservation", mappedBy="patient", cascade={"all"})
+     */
+    protected $reservations;
+
     /* GETTERS AND SETTERS */
     public function getId() {
         return $this->id;
