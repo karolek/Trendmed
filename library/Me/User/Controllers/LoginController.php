@@ -142,7 +142,7 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
                     // we have to save token that our model generated
                     $this->_helper->getEm()->persist($userModel);
                     $this->_helper->getEm()->flush();
-                    $this->_helper->FlashMessenger(array('success' => 'Recovery password e-mail send to: ' . $userModel->getEmailaddress()));
+                    $this->_helper->FlashMessenger(array('success' => 'Recovery password e-mail send'));
                     $this->_helper->viewRenderer->setRender('password-recovery-confirm');
                 }
             } else {

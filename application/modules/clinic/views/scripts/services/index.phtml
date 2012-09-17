@@ -1,4 +1,4 @@
-<a id="addNewService" class="btn" href="<?= $this->url(array('action' => 'edit-services')); ?>"><?= $this->translate('Add new service'); ?></a>
+<a id="addNewService" class="btn" href="<?= $this->url(array('action' => 'add-service')); ?>"><?= $this->translate('Add new service'); ?></a>
 
 <? if (count($this->services) < 1 ): ?>
 <div class="alert alert-info">
@@ -28,7 +28,7 @@
                 <div class="btn-group">
                   <a class="btn" href="<?= $this->url(
                         array(
-                            'action' => 'edit-services',
+                            'action' => 'edit-service',
                             'controller' => 'services',
                             'module' => 'clinic',
                             'id' => $service->getId()

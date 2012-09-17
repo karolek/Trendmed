@@ -313,9 +313,16 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
      */
     public function sendPasswordRecoveryToken($link)
     {
-        $mail = new \Zend_Mail('UTF-8');
+
         $config = \Zend_Registry::get('config');
+        $view = \Zend_Registry::get('view');
         $log = \Zend_Registry::get('log');
+        $templatePath = APPLICATION_PATH . '/layouts/scripts/reservationNotifications';
+        $view->addScriptPath($templatePath);
+
+        # sending notification to clinic
+        $mail = new \Zend_Mail('UTF-8');
+
         // we'r setting the password recovery link
         // we should check if the token is valid, if not, we should generate new one
         $token = $this->getToken();
@@ -324,12 +331,19 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
         }
         $link = sprintf($link, $token);
 
-        $mail->setBodyText('This is Your password recovery link: ' . $link);
-        $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName);
-        $mail->addTo($this->getEmailaddress(), $this->getUsername());
-        $mail->setSubject($config->siteEmail->passwordRecoveryEmailSubject);
+        # passing password to view
+        $view->link = $link;
+
+        # setting up a mail object with content and config
+        $htmlContent = $view->render(strtolower($this->getRoleName()).'/passwordRecoveryToken.phtml'); // rendering a view template for content
+        $mail->setBodyHtml($htmlContent);
+        $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName); // setting FROM values from config
+        $mail->addTo($this->getEmailaddress(), $this->getLogin());
+        $mail->addBcc($config->siteEmail->fromAddress, 'Redaktor Trendmed.eu'); //Adding copy for admin
+        $subject = $view->translate($config->siteEmail->passwordRecoveryEmailSubject);
+        $mail->setSubject($subject);
         $mail->send();
-        $log->debug('E-mail send to: ' . $this->getEmailaddress() . ' 
+        $log->debug('E-mail send to: ' . $this->getEmailaddress() . '
         from ' . $mail->getFrom() . ' subject: ' . $mail->getSubject());
     }
 

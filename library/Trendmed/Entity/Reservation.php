@@ -429,6 +429,11 @@ class Reservation extends  \Me\Model\ModelAbstract {
         }
     }
 
+    /**
+     * Composing PDF we have access to all nessesery data like $reservation object, clinic object, services object.
+     *
+     * @return \fpdf\FPDF
+     */
     public function getPDF()
     {
         $fpdf = new \fpdf\FPDF('P', 'mm', 'A4');
@@ -436,7 +441,19 @@ class Reservation extends  \Me\Model\ModelAbstract {
         $fpdf->SetFont('Arial', '', 13);
         $fpdf->Cell(40, 20, $this->view->translate('Reservation') . ' #' . $this->id, 0, 1);
         $fpdf->Cell(80, 10, $this->view->translate('Clinic name').': '.$this->clinic->name.$fpdf->ln());
-        $fpdf->Cell(80, 10, $this->view->translate('Clinic address').': '.$this->clinic->streetaddress.' '.$fpdf->clinic->city.$fpdf->ln());
+        $fpdf->Cell(100, 10, $this->view->translate('Clinic address').': '.$this->clinic->streetaddress.' '.$fpdf->clinic->city.$fpdf->ln().$this->clinic->postcode);
+        $fpdf->Cell(120, 10, $this->view->translate('Date of visit: ').': '.$this->dateFrom->format("d-m-Y").' - '.$this->dateTo->format("d-m-Y"));
+
+        # to access reservation data use #
+        /**
+         * $this->id; // reservation number
+         * $this->services // reserved services (foreach them)
+         * $this->clinic->name //clinic name
+         * $this->clinic->city
+         * $this->clinic->postcode
+         * $this->clinic->province
+         *
+         */
         return $fpdf;
     }
 

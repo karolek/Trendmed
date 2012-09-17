@@ -2,7 +2,7 @@ $(document).ready(function(){
    $("#mainCategory").change(function() {
        var parentId = $(this).val();
        $.ajax({
-           url: "/index/get-categories",
+           url: "/index/get-subcategories-for-clinic",
            dataType: 'json',
            data: {
                parentId: parentId

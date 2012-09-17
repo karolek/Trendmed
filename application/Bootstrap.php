@@ -157,16 +157,30 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             $myAcl->addResource(new Zend_Acl_Resource('mvc:admin'))
             ->addResource(new Zend_Acl_Resource('mvc:admin.index', 'mvc:admin'))
             ->addResource(new Zend_Acl_Resource('mvc:catalog'))
-            ->addResource(new Zend_Acl_Resource('mvc:catalog.reservations'));
+            ->addResource(new Zend_Acl_Resource('mvc:catalog.reservations'))
+            ->addResource(new Zend_Acl_Resource('mvc:clinic'))
+            ->addResource(new Zend_Acl_Resource('mvc:clinic.index', 'mvc:clinic'));
 
             /** Creating permissions */
-            $myAcl->deny('guest', 'mvc:admin')
+            $myAcl
+                # admin panel rights #
+                ->deny('guest', 'mvc:admin')
                 ->allow('admin', 'mvc:admin')
+                ->allow('guest', 'mvc:admin.index', 'index')
+
+                # catalog rights #
                 ->allow('guest', 'mvc:catalog')
                 ->deny('guest', 'mvc:catalog.reservations', array('new'))
                 ->allow('guest', 'mvc:catalog.reservations')
                 ->allow('patient', 'mvc:catalog.reservations', array('new'))
-                ->allow('guest', 'mvc:admin.index', 'index');
+
+                # clinic panel rights
+                ->allow('clinic', 'mvc:clinic')
+                ->deny('guest', 'mvc:clinic')
+                ->allow('guest', 'mvc:clinic.index', array('index', 'password-recovery', 'new-password-from-token'))
+                ;
+
+
 
             /** Getting the user role */
             $auth = \Zend_Auth::getInstance();
