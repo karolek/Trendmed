@@ -101,7 +101,7 @@
             </p>
 
 			<?php if($this->LoggedUser()->roleName == 'patient'): ?>
-            	<input class="buttonBook btn-primary" type="submit" value="Book now">
+            	<a id="buttonBook" href="<?= $this->url(array('slug' => $service->clinic->slug), 'newReservation', true);?>" class="btn-primary buttonBook"><?= $this->translate('Book now'); ?></a>
             <?php else: ?>
             	<?= $this->LoggedLink("Book now", array('class' => 'buttonBook btn-primary')); ?>
             <?php endif; ?>
