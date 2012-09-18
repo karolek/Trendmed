@@ -92,7 +92,7 @@
             <h3>
                 <a href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>"><?= $service->clinic->name; ?></a>
             </h3>
-            <address><strong class="location"><?= $service->clinic->city; ?>, <?= $service->clinic->province; ?></strong> <span class="map"><?= $this->ShowOnMap($service->clinic); ?></span></address>
+            <address><strong class="location"><?= $service->clinic->city; ?>, <?= $service->clinic->province; ?></strong> <span class="map"><a href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>#map">Show on map</a></span></address>
 
 
             <h4>Service description</h4>
@@ -101,7 +101,7 @@
             </p>
 
 			<?php if($this->LoggedUser()->roleName == 'patient'): ?>
-            	<input class="buttonBook btn-primary" type="submit" value="Book now">
+            	<a id="buttonBook" href="<?= $this->url(array('slug' => $service->clinic->slug), 'newReservation', true);?>" class="btn-primary buttonBook"><?= $this->translate('Book now'); ?></a>
             <?php else: ?>
             	<?= $this->LoggedLink("Book now", array('class' => 'buttonBook btn-primary')); ?>
             <?php endif; ?>

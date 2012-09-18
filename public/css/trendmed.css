@@ -84,7 +84,8 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #menuFloat {width:969px; padding: 8px 15px; background:#ffffff; margin:0 auto; height:18px; position:relative; z-index:3; box-shadow:0 2px 6px -6px #000000; -webkit-box-shadow:0 2px 6px -6px #000000; -moz-box-shadow:0 2px 6px -6px #000000; border-radius:0 0 5px 5px; -moz-border-radius:0 0 5px 5px; -webkit-border-radius:0 0 5px 5px;}
 #menuFloat a {cursor:pointer;}
 #menuFloat ul {margin:0; list-style:inside none; float:left;}
-#menuFloat ul li {float:left; margin:0 10px 0 0;}
+#menuFloat ul li { float:left; margin:0 10px 0 0;}
+#menuFloat ul li ul li { float: none; margin: 0; } 
 #menuFloat .pull-right {border-right: 1px solid #EEEEEE; float: left; margin: 0 15px 0 0; padding: 0 15px 0 0;}
 #menuFloat .dropdown.open {float:left; position: relative;}
 #menuFloat .dropdown.open .dropdown-toggle {background:none;}
@@ -262,27 +263,30 @@ section {padding:24px;}
 #serviceDetails #clinicProfile p { padding-top: 0; }
 /* EDIT CLINIC */
 
-#photoUpload {width:700px; height:55px;}
+#photoUpload {}
 #photoUpload * {display:block; float:left; clear:none; width:auto; margin:0; padding:0;}
 #photoUpload label {padding: 5px 15px 0 0;}
 #photoUpload .form-actions {background:none;}
 #photoUpload input#upload {padding:8px 14px 6px; margin: -3px 0 0 17px;}
 #photoUpload #clinic_photo {border:none;}
 
-#editClinic {padding:18px 0 0;}
-#editClinic .control-group {padding:0 0 18px; border-bottom:1px solid #eeeeee; width:976px;}
+#editClinic {}
+#editClinic .control-group {  }
 #editClinic form {margin:0;}
-#editClinic .form-actions {margin:-18px 0 0; padding: 18px 0 17px 295px; width:682px;}
-#editClinic .controls {padding:0 16px 0 0;}
+#editClinic .form-actions { }
+#editClinic .controls { }
+
+.thumbnailsList { margin-top: 20px;}
 
 #editClinicAddress form {margin:0;}
 #editClinicAddress dt {display:none;}
 #editClinicAddress dd fieldset {border:none;}
-#editClinicAddress fieldset {width: 977px;}
+#editClinicAddress fieldset {  }
 #editClinicAddress .form-actions {padding: 18px 0 17px 296px;}
 
-#clinicServicesTable {margin: 0 24px; width: 932px;}
-#addNewService {position:absolute; margin: -60px 0 0 802px;}
+#clinicServicesTable {margin: 0 24px; }
+#clinicServicesTable p { font-size: inherit !important; line-height: inherit !important; }
+#addNewService {margin-bottom: 20px; }
 
 
 /* RESERVATION */
@@ -333,6 +337,8 @@ textarea#question { width: 100%; }
 .status-Canceled { color: red; background: url(../img/error.png) left center no-repeat; padding-left: 25px; }
 
 
+#map img { margin: 0 auto; position: relative; display: block; margin-top: 10px; }
+
 /* CLINIC STATISTICS */
 
 #clinicStatistics h3 { margin-bottom: 25px; }
@@ -341,16 +347,16 @@ textarea#question { width: 100%; }
 
 /* FORMS */
 
-.form-horizontal {border:1px solid #EEEEEE; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;}
-.form-horizontal fieldset {width:929px; border-bottom: 1px solid #eeeeee;}
-.form-horizontal fieldset legend {border:none; font-family: 'TeXGyreHerosBold'; margin: 0; padding:18px 24px 0;}
+.form-horizontal {border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;}
+.form-horizontal fieldset { }
+.form-horizontal fieldset legend {border:none; font-family: 'TeXGyreHerosBold'; margin: 0; }
 .form-horizontal dd {border-bottom:1px solid #EEEEEE;}
 
-.form-horizontal .control-label {width:270px;}
-.form-horizontal .controls {margin-left:295px;}
+.form-horizontal .control-label {}
+.form-horizontal .controls { }
 
 .form-actions {border-top: medium none; margin: 0;}
-.form-horizontal .form-actions {padding:18px 0 17px 320px;}
+.form-horizontal .form-actions {}
 .form-horizontal .form-horizontal {border:none;}
 
 form#login fieldset {padding:24px 24px 0;}

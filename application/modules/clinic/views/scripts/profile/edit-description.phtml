@@ -17,7 +17,7 @@
         </div>
         
         
-        <div style="border:none;" class="form-horizontal"><div class="controls">
+        <div style="border:none;" class="form-horizontal">
 
 	        <h3 style="padding:0 0 10px;">Zdjęcia Twojej placówki</h3>
 	        <? if( count($this->LoggedUser()->photos) < $this->config->clinics->photo->limit): ?>
@@ -27,11 +27,12 @@
 	            <p>Nie możesz dodać więcej zdjęć z uwagi na limit (<?= $this->config->clinics->photo->limit; ?>)</p>
 	        <? endif;?>
 	        <? if(count($this->LoggedUser()->photos)>0): ?>
+				<div class="clearfix"></div>
 	            <div class="thumbnailsList">
 	            <ul class="thumbnails">
 	            <? foreach($this->LoggedUser()->photos as $photo): ?>
 	                <li class="thumbnail">
-	                    <?= $this->ShowPhoto($photo, 'medium'); ?>
+	                    <?= $this->ShowPhoto($photo, 'small'); ?>
 	                    <p class="caption"><a href="<?= $this->url(
 	                        array(
 	                            'action' => 'delete-clinic-photo',
@@ -46,7 +47,6 @@
 	            </div>
 	        <? endif; ?>
 	        
-	</div>
         </div>
         <div id="editClinic" class="form-horizontal">
             <?= $this->form; ?>
