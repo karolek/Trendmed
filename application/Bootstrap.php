@@ -160,7 +160,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             ->addResource(new Zend_Acl_Resource('mvc:catalog.reservations'))
             ->addResource(new Zend_Acl_Resource('mvc:clinic'))
             ->addResource(new Zend_Acl_Resource('mvc:clinic.index', 'mvc:clinic'))
-            ->addResource(new Zend_Acl_Resource('mvc:clinic.public', 'mvc:clinic'));
+            ->addResource(new Zend_Acl_Resource('mvc:clinic.public', 'mvc:clinic'))
+            ->addResource(new Zend_Acl_Resource('mvc:clinic.register', 'mvc:clinic'));
 
             /** Creating permissions */
             $myAcl
@@ -180,6 +181,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 ->deny('guest', 'mvc:clinic')
                 ->allow('guest', 'mvc:clinic.index', array('index', 'password-recovery', 'new-password-from-token'))
                 ->allow('guest', 'mvc:clinic.public')
+                ->allow('guest', 'mvc:clinic.register')
                 ;
 
 
