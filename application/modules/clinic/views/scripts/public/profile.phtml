@@ -14,8 +14,8 @@
     <div class="right rating">
         <span class="count"><?= $this->clinic->rating; ?>%</span>
         <?= $this->AddToFavorite($this->clinic); ?>
-        <big>Rating</big><br/ >
-		<small>based on <?= $this->clinic->reviews->count(); ?> reviews</small>
+        <big><?= $this->translate('Rating'); ?></big><br/ >
+		<small><?= $this->translate('based on');?> <?= $this->clinic->reviews->count(); ?> <?= $this->translate('reviews');?></small>
     </div>
     
 
@@ -38,7 +38,7 @@
 					<?php if($this->LoggedUser()->roleName == 'patient'): ?>
 					    <a id="buttonBook" href="<?= $this->url(array('slug' => $this->clinic->slug), 'newReservation', true);?>" class="btn-primary buttonBook"><?= $this->translate('Book now'); ?></a>
 					<?php else: ?>
-					    <?= $this->LoggedLink("Book now", array('class' => 'btn-primary buttonBook')); ?>
+					    <?= $this->LoggedLink($this->translate('Book now'), array('class' => 'btn-primary buttonBook')); ?>
 					<?php endif; ?>	
 				</div>
 			</div>
@@ -50,10 +50,12 @@
     <div class="clinicDescription"><?= $this->clinic->description; ?></div>
     
 </div>
+<?php if (!empty($this->clinic->customPromocs)): ?>
 <div class="row">
     <h2><?= $this->translate('Promotions'); ?></h2>
     <div class="clinicDescription"><?= $this->clinic->customPromos; ?></div>
 </div>
+<?php endif; ?>
 <?php if ($this->clinic->isGroupPromoEnabled()): ?>
 <div class="row" id="clinic-grouppromotion">
     <img src="/img/group_promotion.png" />
@@ -97,7 +99,7 @@
 </div>
 <? endif; ?>
 <div id="map" class="row">
-	<h3>Location</h3>
+	<h3><?= $this->translate('Location'); ?></h3>
 	<p><?= $this->clinic->streetaddress; ?>, <?= $this->clinic->postcode; ?> <?= $this->clinic->city; ?>,
     <?= $this->clinic->province; ?></p>
 	<img src="<?= $this->ShowOnMap($this->clinic, 600, 250, 13); ?>">

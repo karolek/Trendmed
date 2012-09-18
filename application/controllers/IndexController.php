@@ -90,6 +90,60 @@ class IndexController extends \Zend_Controller_Action
         }
     }
 
+    public function contactAction()
+    {
+        $request    = $this->getRequest();
+        $type       = $this->getParam('type');
+        if (!$type) throw new \Exception('invalid type parameter or none given in '.__FUNCTION__);
 
+        $formClassName = 'Application_Form_'.ucfirst($type);
+
+        $form = new $formClassName;
+
+        # adding type field in hidden element in every form to pass on in request
+        $form->addElement('hidden', 'type', array('value' => $type));
+
+        # checking if user is logged, if yes then remove user information field (change them to hidden)
+        if ($user = $this->_helper->LoggedUser()) {
+            $form->getElement('email')->setValue($user->getEmailaddress());
+
+        }
+
+        if ($request->isPost()) {
+            $log = \Zend_Registry::get('log');
+            $config = \Zend_Registry::get('config');
+            $post = $request->getPost();
+            if ($form->isValid($post)) {
+
+                $values = $form->getValues();
+
+                # sending notification to clinic
+                $mail = new \Zend_Mail('UTF-8');
+
+                $message = $form->getMessageIntro();
+                $message .="\n\n";
+
+                foreach ($values as $valueName => $value) {
+                    if ($valueName != 'type') {
+                        $message .= $form->getElement($valueName)->getLabel().': '.$value."\n";
+                    }
+                }
+
+                $mail->setBodyText($message);
+                $mail->setFrom($values['email'], $config->siteEmail->fromName); // setting FROM values from config
+                $mail->addTo($config->siteEmail->fromAddress, $config->siteEmail->fromName);
+                $mail->setSubject($form->getSubject());
+                $mail->send();
+                $log->debug('E-mail send to admin (type: '.$type.')');
+                $this->_helper->FlashMessenger(array('success' => 'Message send. Thanks for shearing.'));
+            } else {
+                $this->_helper->FlashMessenger(array('warning' => 'Please fix the errors in the form.'));
+            }
+        }
+
+        $this->view->headTitle($this->view->translate('Contact Trendmed.eu'));
+        $this->view->form = $form;
+
+    }
 }
 

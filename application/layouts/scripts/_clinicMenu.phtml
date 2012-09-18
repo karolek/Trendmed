@@ -56,8 +56,10 @@
             'slug' => $this->LoggedUser()->slug), 'default', true); ?>">
                 <?= $this->translate('See public profile'); ?></a>
             </li>
+
         </ul>
     </li>
+    <li class=""><a href="<?= $this->url(array('type' => 'feedback'), 'contact', true); ?>"><?= $this->translate('Send feedback!'); ?></a></li>
 
 </ul>
 

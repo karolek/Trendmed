@@ -7,6 +7,11 @@
     Dodaj usługi wykonywane w Twojej placówce.
 </div>
 <? endif; ?>
+<div class="alert alert-info">
+    Nie znalazłeś odpowiedniej kategorii dla swojej usługi?
+    <a href="<?= $this->url(array('type' => 'newcategory'), 'contact', true); ?>"><?= $this->translate('Zaproponuj ją nam.'); ?></a>
+
+</div>
 
 <? if (count($this->services) > 0 ): ?>
     <table id="clinicServicesTable" class="table">
