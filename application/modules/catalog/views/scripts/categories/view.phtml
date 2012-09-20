@@ -85,17 +85,17 @@
 			<div class="pull-right rating">
 		        <span class="count"><?= $service->clinic->rating; ?>%</span>
 		        <?= $this->AddToFavorite($service->clinic); ?>
-		        <big>Rating</big><br/ >
-				<small>based on <?= $service->clinic->reviews->count(); ?> reviews</small>
+		        <big><?= $this->translate('Rating'); ?></big><br/ >
+				<small><?= $this->translate('based on'); ?> <?= $service->clinic->reviews->count(); ?> <?= $this->translate('reviews'); ?></small>
 		    </div>
 		
             <h3>
                 <a href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>"><?= $service->clinic->name; ?></a>
             </h3>
-            <address><strong class="location"><?= $service->clinic->city; ?>, <?= $service->clinic->province; ?></strong> <span class="map"><a href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>#map">Show on map</a></span></address>
+            <address><strong class="location"><?= $service->clinic->city; ?>, <?= $service->clinic->province; ?></strong> <span class="map"><a href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>#map"><?= $this->translate('Show on map'); ?></a></span></address>
 
 
-            <h4>Service description</h4>
+            <h4><?= $this->translate('Service description'); ?></h4>
             <p>
                 <?= $this->truncate($service->description)->toLength(250); ?>
             </p>
@@ -103,7 +103,7 @@
 			<?php if($this->LoggedUser()->roleName == 'patient'): ?>
             	<a id="buttonBook" href="<?= $this->url(array('slug' => $service->clinic->slug), 'newReservation', true);?>" class="btn-primary buttonBook"><?= $this->translate('Book now'); ?></a>
             <?php else: ?>
-            	<?= $this->LoggedLink("Book now", array('class' => 'buttonBook btn-primary')); ?>
+            	<?= $this->LoggedLink($this->translate("Book now"), array('class' => 'buttonBook btn-primary')); ?>
             <?php endif; ?>
 
             <!-- other clinic services -->

@@ -7,7 +7,7 @@
 	    <address>
 	        <?= $this->clinic->streetaddress; ?>, <?= $this->clinic->postcode; ?> <?= $this->clinic->city; ?>,
 	        <?= $this->clinic->province; ?>
-			<span class="map"><a href="<?= $this->url(array('slug' => $this->clinic->getSlug()), 'clinic'); ?>#map">Show on map</a></span>
+			<span class="map"><a href="<?= $this->url(array('slug' => $this->clinic->getSlug()), 'clinic'); ?>#map"><?= $this->translate('Show on map'); ?></a></span>
 	    </address>
     </div>
         
@@ -68,7 +68,7 @@
         <form method="post" action="<?= $this->url(array(
             'slug' => $this->clinic->slug,
         ), 'newReservation', true); ?>">
-            <h2>Services of <?= $this->clinic->name; ?></h2>
+            <h2><?= $this->translate('Services of'); ?> <?= $this->clinic->name; ?></h2>
 
             <table class="table">
                 <thead>
@@ -91,9 +91,9 @@
                 </tbody>
             </table>
         <?php if($this->LoggedUser()->roleName == 'patient'): ?>
-            <input class="buttonBook btn-primary" type="submit" value="Book now">
+            <input class="buttonBook btn-primary" type="submit" value="<?= $this->translate('Book now'); ?>">
         <?php else: ?>
-            <?= $this->LoggedLink("Book now", array('class' => 'buttonBook btn-primary')); ?>
+            <?= $this->LoggedLink($this->translate("Book now"), array('class' => 'buttonBook btn-primary')); ?>
         <?php endif; ?>
         </form>
 </div>
