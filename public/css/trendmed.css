@@ -118,6 +118,7 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #catalog .entry .thumbnails img.photo-small {width:48px; height:48px; float:left; margin: 9px 13px 13px 0; border-color: #ddd; border-width: 1px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; }
 #catalog .entry .thumbnails a:nth-child(odd) img { margin-right: 0; }
 
+#catalog .entry .thumbnails .thumbnail img { width: 110px; height: 110px; }
 #catalog .entry .thumbnails li {margin:0; padding:0; box-shadow:none; border:1px solid #eae9e9;}
 #catalog .entry .thumbnails li img { border: 1px solid #ddd; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; }
 #catalog .entry .right {width:505px; float:right;}
