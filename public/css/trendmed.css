@@ -263,11 +263,10 @@ section {padding:24px;}
 #serviceDetails #clinicProfile p { padding-top: 0; }
 /* EDIT CLINIC */
 
-#photoUpload {}
-#photoUpload * {display:block; float:left; clear:none; width:auto; margin:0; padding:0;}
+#photoUpload {margin-top: 30px; }
 #photoUpload label {padding: 5px 15px 0 0;}
-#photoUpload .form-actions {background:none;}
-#photoUpload input#upload {padding:8px 14px 6px; margin: -3px 0 0 17px;}
+#photoUpload .form-actions {padding-left: 0; background: none; }
+#photoUpload input#upload {margin: 0 auto; position: relative; display: block;}
 #photoUpload #clinic_photo {border:none;}
 
 #editClinic {}
