@@ -7,15 +7,15 @@
 	    <address>
 	        <?= $this->clinic->streetaddress; ?>, <?= $this->clinic->postcode; ?> <?= $this->clinic->city; ?>,
 	        <?= $this->clinic->province; ?>
-			<span class="map"><a href="<?= $this->url(array('slug' => $this->clinic->getSlug()), 'clinic'); ?>#map">Show on map</a></span>
+			<span class="map"><a href="<?= $this->url(array('slug' => $this->clinic->getSlug()), 'clinic'); ?>#map"><?= $this->translate('Show on map'); ?></a></span>
 	    </address>
     </div>
         
     <div class="right rating">
         <span class="count"><?= $this->clinic->rating; ?>%</span>
         <?= $this->AddToFavorite($this->clinic); ?>
-        <big>Rating</big><br/ >
-		<small>based on <?= $this->clinic->reviews->count(); ?> reviews</small>
+        <big><?= $this->translate('Rating'); ?></big><br/ >
+		<small><?= $this->translate('based on '); ?><?= $this->clinic->reviews->count(); ?><?= $this->translate(' reviews'); ?></small>
     </div>
     
 
@@ -38,7 +38,7 @@
 					<?php if($this->LoggedUser()->roleName == 'patient'): ?>
 					    <a id="buttonBook" href="<?= $this->url(array('slug' => $this->clinic->slug), 'newReservation', true);?>" class="btn-primary buttonBook"><?= $this->translate('Book now'); ?></a>
 					<?php else: ?>
-					    <?= $this->LoggedLink("Book now", array('class' => 'btn-primary buttonBook')); ?>
+					    <?= $this->LoggedLink($this->translate("Book now"), array('class' => 'btn-primary buttonBook')); ?>
 					<?php endif; ?>	
 				</div>
 			</div>
