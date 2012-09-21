@@ -149,6 +149,140 @@ class Reservation extends  \Me\Model\ModelAbstract {
      */
     protected $paymentHash;
 
+    /**
+     * @var  \DateTime date and time of last reminder about reservation send
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $lastReminderSendAboutReservation;
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    protected $amountOfReminderAboutReservationSend = 0;
+
+    /**
+     * @var  \DateTime date and time of last reminder about reservation send
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $lastReminderAboutPaymentSend;
+
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    protected $amountOfReminderAboutPaymentSend = 0;
+
+    /**
+     * @param int $amountOfReminderAboutPaymentSend
+     */
+    public function setAmountOfReminderAboutPaymentSend($amountOfReminderAboutPaymentSend)
+    {
+        $this->amountOfReminderAboutPaymentSend = $amountOfReminderAboutPaymentSend;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAmountOfReminderAboutPaymentSend()
+    {
+        return $this->amountOfReminderAboutPaymentSend;
+    }
+
+    /**
+     * @param int $amountOfReminderAboutReservationSend
+     */
+    public function setAmountOfReminderAboutReservationSend($amountOfReminderAboutReservationSend)
+    {
+        $this->amountOfReminderAboutReservationSend = $amountOfReminderAboutReservationSend;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAmountOfReminderAboutReservationSend()
+    {
+        return $this->amountOfReminderAboutReservationSend;
+    }
+
+    /**
+     * @param int $amountOfReminderAboutSurveySend
+     */
+    public function setAmountOfReminderAboutSurveySend($amountOfReminderAboutSurveySend)
+    {
+        $this->amountOfReminderAboutSurveySend = $amountOfReminderAboutSurveySend;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAmountOfReminderAboutSurveySend()
+    {
+        return $this->amountOfReminderAboutSurveySend;
+    }
+
+    /**
+     * @param \DateTime $lastReminderAboutPaymentSend
+     */
+    public function setLastReminderAboutPaymentSend($lastReminderAboutPaymentSend)
+    {
+        $this->lastReminderAboutPaymentSend = $lastReminderAboutPaymentSend;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastReminderAboutPaymentSend()
+    {
+        return $this->lastReminderAboutPaymentSend;
+    }
+
+    /**
+     * @param \DateTime $lastReminderAboutSurveySend
+     */
+    public function setLastReminderAboutSurveySend($lastReminderAboutSurveySend)
+    {
+        $this->lastReminderAboutSurveySend = $lastReminderAboutSurveySend;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastReminderAboutSurveySend()
+    {
+        return $this->lastReminderAboutSurveySend;
+    }
+
+    /**
+     * @param \DateTime $lastReminderSendAboutReservation
+     */
+    public function setLastReminderSendAboutReservation($lastReminderSendAboutReservation)
+    {
+        $this->lastReminderSendAboutReservation = $lastReminderSendAboutReservation;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastReminderSendAboutReservation()
+    {
+        return $this->lastReminderSendAboutReservation;
+    }
+
+    /**
+     * @var \DateTime date and time of last reminder about making a survery after visit
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $lastReminderAboutSurveySend;
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    protected $amountOfReminderAboutSurveySend = 0;
+
+
     protected function validate()
     {
         if (!$this->patient) {

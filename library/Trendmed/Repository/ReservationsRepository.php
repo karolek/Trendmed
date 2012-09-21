@@ -32,4 +32,27 @@ class ReservationsRepository extends \Doctrine\ORM\EntityRepository
         $reservations = $query->getResult();
         return $reservations;
     }
+
+    /**
+     *  if reservation is confirmed, and requires payment and not paid and now is before from date
+     *
+     */
+    public function findAllUnpaidAndDue()
+    {
+        $dql = "
+            SELECT r FROM \Trendmed\Entity\Reservation r
+            JOIN r.patient p
+            WHERE r.status = :status
+            AND r.billStatus = :billStatus
+            AND r.dateFrom < :dateFrom";
+
+        $query = $this->_em->createQuery($dql);
+        $query->setParameter('status', 'confirmed');
+        $query->setParameter('billStatus', \Trendmed\Entity\Reservation::BILL_STATUS_NOT_PAID);
+        $query->setParameter('dateFrom', new \DateTime());
+
+        return $reservations = $query->getResult();
+
+
+    }
 }
