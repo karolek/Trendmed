@@ -57,4 +57,14 @@ $executor = new ORMExecutor($em, $purger);
 $executor->execute($loader->getFixtures());
 
 print "Fixtures load into DB\n";
+
+// creating public directories
+if (!file_exists(APPLICATION_PATH . '/../public/clinicPhotos')) {
+    mkdir(APPLICATION_PATH . '/../public/clinicPhotos');
+    print "created directory public/clinicPhotos\n";
+}
+if (!file_exists(APPLICATION_PATH . '/../public/clinicPhotos/originals')) {
+    mkdir(APPLICATION_PATH . '/../public/clinicPhotos/originals');
+    print "created directory public/clinicPhotos/originals\n";
+}
 print "END\n";

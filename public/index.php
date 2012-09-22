@@ -12,7 +12,6 @@ set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../library'),
     get_include_path(),
 )));
-
 ## Autoloader from Composer ##
 require_once __DIR__.'/../vendor/autoload.php';
 

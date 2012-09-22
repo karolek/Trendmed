@@ -52,7 +52,48 @@ class ReservationsRepository extends \Doctrine\ORM\EntityRepository
         $query->setParameter('dateFrom', new \DateTime());
 
         return $reservations = $query->getResult();
-
-
     }
+
+    public function findAllPaidAndDue()
+    {
+        $dql = "
+            SELECT r FROM \Trendmed\Entity\Reservation r
+            JOIN r.patient p
+            WHERE r.status = :status
+            AND r.billStatus = :billStatus
+            AND r.dateFrom < :dateFrom";
+
+        $query = $this->_em->createQuery($dql);
+        $query->setParameter('status', 'confirmed');
+        $query->setParameter('billStatus', \Trendmed\Entity\Reservation::BILL_STATUS_PAID);
+        $query->setParameter('dateFrom', new \DateTime());
+
+        return $reservations = $query->getResult();
+    }
+
+    public function findAllDueForSurvey($maxNotifications = 3, $timeIntervalH = 72)
+    {
+        $interval = new \DateInterval("PT".$timeIntervalH."H");
+        $now = new \DateTime();
+        $lastSendMax = $now->sub($interval);
+
+        $dql = "
+            SELECT r FROM \Trendmed\Entity\Reservation r
+            WHERE NOT EXISTS (SELECT s FROM \Trendmed\Entity\Rating s WHERE s.reservation = r.id)
+            AND r.status = :status
+            AND r.billStatus = :billStatus
+            AND r.dateTo < :dateTo
+            AND r.amountOfReminderAboutSurveySend = :maxNotifications
+            AND r.lastReminderAboutSurveySend < :lastSendMax";
+
+        $query = $this->_em->createQuery($dql);
+        $query->setParameter('status', 'confirmed');
+        $query->setParameter('billStatus', \Trendmed\Entity\Reservation::BILL_STATUS_PAID);
+        $query->setParameter('dateTo', new \DateTime());
+        $query->setParameter('maxNotifications', $maxNotifications);
+        $query->setParameter('lastSendMax', $lastSendMax);
+
+        return $reservations = $query->getResult();
+    }
+
 }

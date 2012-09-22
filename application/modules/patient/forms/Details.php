@@ -25,7 +25,7 @@ class Patient_Form_Details extends Twitter_Form
             $country->addMultiOption($code, $name);
         }
         $country->setLabel('Your country');
-        $country->setDescription('Please, tell us from what country You are');
+        $country->setDescription('Please, tell us from what country you are');
         $this->addElement($country);
 
         // title

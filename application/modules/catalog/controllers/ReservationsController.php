@@ -82,6 +82,10 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
                             $reservation->addService($this->_em->find('\Trendmed\Entity\Service', $serviceId));
                         }
                         $clinic = $reservation->services[0]->clinic;
+                        # checkign if clinic want's bill
+                        if ($clinic->wantBill === false) {
+                           $reservation->setBillStatus(\Trendmed\Entity\Reservation::BILL_STATUS_PAID);
+                        }
                         $reservation->clinic = $clinic;
 
                         $this->_em->persist($clinic);

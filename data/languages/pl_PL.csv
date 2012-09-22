@@ -174,6 +174,7 @@ The same winsows as link;W tym samym oknie
 Publish this ad;Opublikuj ten banner
 You can leave this empty, then banner will be not clickable;Możesz zostawić to pole puste, wtedy banner nie będzie klikalny
 Delete ad;Usuń banner
+At least one service must be select;Przynajmniej jedna usługi musi być wybrana
 No banners in the system.;Brak bannerów w systemie
 Banner ad removed;Banner usunięty
 Location;Lokalizacja
@@ -187,3 +188,16 @@ Send feedback!;Wyślij feedback!
 Your e-mail address;Twój adres e-mail
 Message send. Thanks for shearing.;Wiadomość wysłana, dziękujemy!
 Contact Trendmed.eu;Skontaktuj się z Trendmed.eu
+Please, tell us from what country you are;Z jakiego jesteś kraju
+Start with your country prefix, e.g. +48 for Poland;Podaj prefix kraju, np. +48 dla Polski
+-- please choose --;-- proszę wybrać --
+Your country;Twój kraj
+Your real name;Twoje imie i nazwisko
+Your phone number;Twój numer telefonu
+In order to make reservations we need some of real data.;Aby móc składać rezerwacje w systemie potrzebujemy abyś wypełnij swój profil
+Your changes to the profile has been saved;Zmiany w profilu zapisane
+Before making reservation please fill your profile with personal data.;Aby złożyć rezerwacji musisz uzupełnić swój profil.
+Go to my profile edit;Przejdź do edycji mojego profilu
+Please fix the errors in form;Proszę poprawić błędy w formularzu
+Select services you are interest in;Zaznacz usługi które chcesz zarezerwować
+Additional questions or requirements to clinic;Dodatkowy komentarz do rezerwacji który trafi do placówki

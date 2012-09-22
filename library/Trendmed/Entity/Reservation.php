@@ -17,6 +17,11 @@ class Reservation extends  \Me\Model\ModelAbstract {
         $this->services = new \Doctrine\Common\Collections\ArrayCollection();
         $this->billStatus = self::BILL_STATUS_NOT_PAID;
         $this->paymentHash = substr(md5(time).rand(1,99999), 2, 10);
+
+        # we need to setup a date even if there was not any sendings
+        $this->lastReminderAboutPaymentSend         = new \DateTime("01/01/1970");
+        $this->lastReminderAboutSurveySend          = new \DateTime("01/01/1970");
+        $this->lastReminderAboutReservationSend     = new \DateTime("01/01/1970");
         return parent::__construct();
     }
 
@@ -151,9 +156,25 @@ class Reservation extends  \Me\Model\ModelAbstract {
 
     /**
      * @var  \DateTime date and time of last reminder about reservation send
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", nullable=false)
      */
-    protected $lastReminderSendAboutReservation;
+    protected $lastReminderAboutReservationSend;
+
+    /**
+     * @param \DateTime $lastReminderAboutReservationSend
+     */
+    public function setLastReminderAboutReservationSend($lastReminderAboutReservationSend)
+    {
+        $this->lastReminderAboutReservationSend = $lastReminderAboutReservationSend;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastReminderAboutReservationSend()
+    {
+        return $this->lastReminderAboutReservationSend;
+    }
 
     /**
      * @var int
@@ -163,7 +184,7 @@ class Reservation extends  \Me\Model\ModelAbstract {
 
     /**
      * @var  \DateTime date and time of last reminder about reservation send
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", nullable=false)
      */
     protected $lastReminderAboutPaymentSend;
 
@@ -254,25 +275,10 @@ class Reservation extends  \Me\Model\ModelAbstract {
         return $this->lastReminderAboutSurveySend;
     }
 
-    /**
-     * @param \DateTime $lastReminderSendAboutReservation
-     */
-    public function setLastReminderSendAboutReservation($lastReminderSendAboutReservation)
-    {
-        $this->lastReminderSendAboutReservation = $lastReminderSendAboutReservation;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getLastReminderSendAboutReservation()
-    {
-        return $this->lastReminderSendAboutReservation;
-    }
 
     /**
      * @var \DateTime date and time of last reminder about making a survery after visit
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", nullable=false)
      */
     protected $lastReminderAboutSurveySend;
 
@@ -606,9 +612,6 @@ class Reservation extends  \Me\Model\ModelAbstract {
      */
     public function setBillStatus($billStatus)
     {
-        if($billStatus == self::BILL_STATUS_PAID) {
-            $this->sendStatusNotification('paid');
-        }
         $this->billStatus = $billStatus;
     }
 
