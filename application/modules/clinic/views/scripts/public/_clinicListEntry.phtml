@@ -48,5 +48,7 @@
 	<div class="globalClear"></div>
 	
     <?= $this->clinic->description; ?>
-    
+    <div class="<?php echo $this->clinic->wantBill ? 'billRequired' : 'billNotRequired'; ?>"><?= $this->translate($this->clinic->wantBill ? 'Requires bill to be paid' : 'Bill is not required'); ?></div>
+
+
 </div>
