@@ -254,7 +254,7 @@ section {padding:24px;}
 #content .buttonBook { float:right; padding: 11px 13px 9px 43px; width: 75px; height:26px; background:url(../img/button_book.png) top left no-repeat; text-align: right; text-decoration:none; font-size: 14px; }
 #content .buttonBook:hover { background:url(../img/button_book_hover.png) top left no-repeat; text-indent:-9999px;}
 #content input.buttonBook { width: 131px; height: 38px; }
-.clinicDescription { margin-top: 20px; }
+.clinicDescription { margin-top: 20px !important; }
 
 #serviceDetails {}
 #serviceDetails #clinicProfile .row {border-radius:6px 6px 0 0; border-bottom:none; width:629px;}
@@ -429,6 +429,11 @@ footer .columnFacebook {}
 #newsletterForm label input { display: inline; margin-right: 10px;  float: left; }
 #newsletterForm label span { display: inline; float: left; font-size: 18px;}
 #newsletterForm .globalClear { margin-bottom: 30px;  }
+
+.billNotRequired, .billRequired { margin-top: 20px; padding: 15px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;  }
+.billNotRequired { background: #D8F0FF; }
+.billRequired { background: #FFEFC5; }
+
 
 @media only screen and (min-width: 35em) {
   /* Style adjustments for viewports that meet the condition */
