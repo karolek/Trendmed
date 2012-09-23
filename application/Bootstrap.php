@@ -104,18 +104,22 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     
     protected function _initHeadMeta()
     {
-         $this->bootstrap('view');
-         $view = $this->getResource('view');
-         $view->headMeta()->appendHttpEquiv('Content-Type',
- 		                                   'text/html; charset=UTF-8')
- 		                 ->appendHttpEquiv('Content-Language', 'en-GB');
- 		$view->headTitle('Trendmed.eu');
- 		$view->headTitle()->setSeparator(' / ');
+        $this->bootstrap('config');
+        $config = \Zend_Registry::get('config');
 
- 		// adding noindex, no fallow to all non-production instances
- 		if(APPLICATION_ENV != 'production') {
- 		    $view->headMeta()->appendName('nofallow,noindex', 'robots');
- 		}
+        $this->bootstrap('view');
+        $view = $this->getResource('view');
+        $view->headMeta()->appendHttpEquiv('Content-Type',
+            'text/html; charset=UTF-8')
+            ->appendHttpEquiv('Content-Language', 'en-GB');
+
+        $view->headTitle($view->translate($config->site->headTitle));
+        $view->headTitle()->setSeparator(' / ');
+
+        // adding noindex, no fallow to all non-production instances
+        if(APPLICATION_ENV != 'production') {
+            $view->headMeta()->appendName('nofallow,noindex', 'robots');
+        }
     }
     
     protected function _initMail()
