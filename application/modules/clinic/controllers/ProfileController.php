@@ -71,11 +71,13 @@ class Clinic_ProfileController extends Zend_Controller_Action
     public function editDescriptionAction()
     {
         $this->view->headTitle('Edycja opisu placówki');
+        $config = \Zend_Registry::get('config');
 
         $request = $this->getRequest();
 
-        $this->_helper->EnableCke($this->view, array(), 'ClinicToolbar');
-
+        if ($config->clinics->useCke == 1) {
+            $this->_helper->EnableCke($this->view, array(), 'ClinicToolbar');
+        }
 
         $form = new Clinic_Form_ClinicProfile_MultiLangDesc();
         $form->setAction($this->_helper->url('edit-description'));
@@ -91,7 +93,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
         }
 
         // populate form
-        $config = \Zend_Registry::get('config');
+
         $this->view->config = $config;
         $form->populateFromUser($user);
 
