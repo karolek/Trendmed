@@ -219,7 +219,9 @@ class Clinic_ServicesController extends Zend_Controller_Action
         $this->view->service = $service;
 
         $this->view->form = $form;
-        $this->_helper->EnableCke($this->view, array());
+        if ($config->clinics->useCke == 1) {
+            $this->_helper->EnableCke($this->view, array());
+        }
         $this->view->config = $config;
 
         $this->view->headScript()->appendFile('/js/servicesSelect.js');

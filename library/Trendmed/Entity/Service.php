@@ -15,7 +15,7 @@ class Service extends \Me\Model\ModelAbstract {
     public function __construct()
     {
         $this->created = new \DateTime();
-        $this->isactive = true;
+        $this->isActive = false;
         $this->viewcount = 0;
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection;
         return parent::__construct();
@@ -65,7 +65,7 @@ class Service extends \Me\Model\ModelAbstract {
      * @ORM\Column(type="boolean")
      * @var string
      */
-    protected $isactive;
+    protected $isActive;
 
     /**
      * @ORM\Column(type="datetime")
@@ -176,17 +176,17 @@ class Service extends \Me\Model\ModelAbstract {
     /**
      * @param string $isactive
      */
-    public function setIsactive($isactive)
+    public function setIsActive($isactive)
     {
-        $this->isactive = $isactive;
+        $this->isActive = $isactive;
     }
 
     /**
      * @return string
      */
-    public function getIsactive()
+    public function getIsActive()
     {
-        return $this->isactive;
+        return $this->isActive;
     }
 
     /**
@@ -261,7 +261,8 @@ class Service extends \Me\Model\ModelAbstract {
             'pricemin'      => $this->pricemin,
             'pricemax'      => $this->pricemax,
             'id'            => $this->id,
-            'mainCategory'  => $this->getCategory()->parent->id
+            'mainCategory'  => $this->getCategory()->parent->id,
+            'isActive'      => $this->getIsActive(),
 
         );
         return $arr;

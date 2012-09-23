@@ -428,6 +428,17 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
         return $this->services;
     }
 
+    public function getActiveServices()
+    {
+        return $this->getServices()->filter(
+            function($service) {
+                if($service->isActive == true) {
+                    return $service;
+                }
+            }
+        );
+    }
+
     public function setServices($services)
     {
         $this->services = $services;

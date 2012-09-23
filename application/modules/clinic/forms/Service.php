@@ -86,6 +86,14 @@ class Clinic_Form_Service extends Twitter_Form
         $priceMax->addValidator($floatValidator);
         $priceMax->addValidator(new Me_Validate_ServicePrice());
         $this->addElement($priceMax);
+
+
+        # active/not active
+        $publish = new Zend_Form_Element_Checkbox('isActive');
+        $publish->setLabel('Usługa aktywna?');
+        $publish->setDescription('Nieaktywna usługa nie jest widoczna w katalogu, nie mozna dokonywać rezerwacji na nią');
+        $this->addElement($publish);
+
         # photo objects
         for($i = 0; $i < $config->services->photo->limit; $i++ ) {
             $file = new Zend_Form_Element_File('photo'.$i);

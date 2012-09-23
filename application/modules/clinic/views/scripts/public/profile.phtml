@@ -64,7 +64,7 @@
 <?php endif; ?>
 
 
-<? if (count($this->clinic->services) > 0 ): ?>
+<? if (count($this->clinic->activeServices) > 0 ): ?>
 <div class="row">
         <form method="post" action="<?= $this->url(array(
             'slug' => $this->clinic->slug,
@@ -81,6 +81,7 @@
                 </thead>
                 <tbody>
                     <? foreach ($this->clinic->services as $service): ?>
+                        <?php if($service->isActive): ?>
                         <tr>
                             <td><span>&bull;</span> &nbsp; <strong><a href="<?= $this->url(array(
                                 'id' => $service->id
@@ -88,6 +89,7 @@
                             <td class="price"><span><?= $service->priceMin; ?></span> - <span><?= $service->priceMin; ?></span> Euro</td>
                             <td><input type="checkbox" name="pre_services[]" value="<?=$service->id; ?>"></td>
                         </tr>
+                        <?php endif;?>
                     <? endforeach; ?>
                 </tbody>
             </table>

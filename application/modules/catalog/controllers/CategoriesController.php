@@ -47,8 +47,10 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
             ->select('s')
             ->from('\Trendmed\Entity\Service', 's')
             ->join('s.clinic', 'c')
-            ->where('s.category = ?1');
+            ->where('s.category = ?1')
+            ->andWhere('s.isActive = ?2');
         $qb->setParameter(1, $category->id);
+        $qb->setParameter(2, TRUE);
 
         // adding filter type (just clinics / hospitals or small types or both)
         if ($type) {
@@ -119,6 +121,12 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
         if(!$service) {
             throw new \Exception('No service with ID '.$id.' found');
         }
+
+        if($service->isActive == false) {
+            $this->_helper->FlashMessenger('This service is currently unavailable');
+            $this->_helper->Redirector('profile', 'public', 'clinic', array('slug' => $service->clinic->slug));
+        }
+
 
         # adding new visist to clinic
         if (!$_COOKIE['visit_'.$service->clinic->id]) {
