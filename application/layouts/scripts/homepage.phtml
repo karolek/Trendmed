@@ -32,7 +32,7 @@
             	<div class="loopa"></div>
             	
                 <h3 class="search"><?= $this->translate('Search for clinic'); ?></h3>
-                <h4>Type clinic name or polish city:</h4>
+                <h4><?= $this->translate('Type clinic name or polish city'); ?>:</h4>
 
                 <form action="<?= $this->url(array(
                     'action' => 'search',
@@ -41,7 +41,7 @@
                     <input type="text" name="search" value="<?= $this->search; ?>">
                 </form>
                 
-                <a class="advanced" href="#">Advanced search</a>
+                <a class="advanced" href="#"><?= $this->translate('Advanced search'); ?></a>
                 
                 
                 
