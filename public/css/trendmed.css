@@ -434,6 +434,8 @@ footer .columnFacebook {}
 .billNotRequired { background: #D8F0FF; }
 .billRequired { background: #FFEFC5; }
 
+#shareLink { padding: 5px; font-size: 11px; margin-top: 20px; }
+#shareLink i { position: relative; top: -1px;}
 
 @media only screen and (min-width: 35em) {
   /* Style adjustments for viewports that meet the condition */

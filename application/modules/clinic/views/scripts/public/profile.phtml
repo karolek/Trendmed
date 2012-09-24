@@ -11,6 +11,7 @@
 	    </address>
     </div>
         
+
     <div class="right rating">
         <span class="count"><?= $this->clinic->rating; ?>%</span>
         <?= $this->AddToFavorite($this->clinic); ?>
@@ -50,6 +51,27 @@
     <div class="clinicDescription"><?= $this->clinic->description; ?></div>
     <div class="<?php echo $this->clinic->wantBill ? 'billRequired' : 'billNotRequired'; ?>"><?= $this->translate($this->clinic->wantBill ? 'Requires bill to be paid' : 'Bill is not required'); ?></div>
 
+	<a id="shareLink" class="btn" href="#share" role="button" data-toggle="modal"><i class="icon-share icon-white"></i> <?= $this->translate('Poleć znajomym'); ?></a>
+	
+	<div class="modal hide fade" id="share" tabindex="-1" role="dialog" aria-labelledby="myShareForm" aria-hidden="true">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	    <h3><?= $this->translate('Poleć znajomym'); ?></h3>
+	  </div>
+	  <form method="post">
+		  <div class="modal-body">
+	      	<div>
+		  		<label for="shareEmail">Adres e-mail</label>
+		  		<input type="email" id="shareEmail" name="shareEmail" />
+		  	</div>
+		  </div>
+		  <div class="modal-footer">
+		    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		    <input type="submit" value="<?= $this->translate('Poleć'); ?>" class="btn btn-primary" />
+		  </div>
+      </form>
+	</div>
+	
 </div>
 <?php if (!empty($this->clinic->customPromocs)): ?>
 <div class="row">
