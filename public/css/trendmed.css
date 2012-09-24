@@ -437,6 +437,14 @@ footer .columnFacebook {}
 #shareLink { padding: 5px; font-size: 11px; margin-top: 20px; }
 #shareLink i { position: relative; top: -1px;}
 
+#articles { }
+#articles .articleLink { font-size: 16px; }
+#articles p { font-size: 12px; }
+#articles .articlePhoto { margin-right: 20px; }
+#articles .articlePhoto img { width: 80px; height: 80px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; border:1px solid #ddd; }
+#articles .articlesList .row-fluid { padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid #eee; }
+#articles .articlesList .row-fluid:last-child { border: 0; }
+#articles .articlesList .row-fluid p:nth-child(odd) { margin: 0; padding: 0; }
 @media only screen and (min-width: 35em) {
   /* Style adjustments for viewports that meet the condition */
 }
