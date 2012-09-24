@@ -9,8 +9,15 @@ defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 
 // Define application environment
-defined('APPLICATION_ENV')
-    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'development'));
+// fetch environment from files
+$env = trim(file_get_contents(APPLICATION_PATH . '/../.env'));
+if(!$env)
+    $env = getenv('APPLICATION_ENV');
+if(!$env)
+    throw new \Exception('No information about environment stage available. Add .env file to Your root
+        directory or add APPLICATION_ENV to apache configuration');
+define('APPLICATION_ENV', $env);
+
 
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(

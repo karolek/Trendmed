@@ -3,7 +3,6 @@
 	<h3>Copyright</h3>
 	&copy; Trendmed Sp. z o.o.<br />
 	Copyright 2012<br />
-	&bull; <a href="#">About us</a>
 </div>
 
 
@@ -22,29 +21,28 @@
 
 
 <div class="column">
-	<h3>Features</h3>
+	<h3><?= $this->translate('For clinics'); ?></h3>
 	<ul>
-		<li>&bull; <a href="#">Terms of Use</a></li>
-		<li>&bull; <a href="#">Privacy Policy</a></li>
-		<li>&bull; <a href="#">Review Policy</a></li>
-		<li>&bull; <a href="#">Disclaimer</a></li>
+
+        <li>&bull; <a href="<?= $this->url(
+            array('module'=> 'clinic',
+                'action' => 'info',
+                'controller' => 'register'), 'default', true);?>"><?= $this->translate('Plans and pricing'); ?></a></li>
+        <li>&bull; <a href="<?= $this->url(array(
+            'module'=> 'clinic',
+            'action' => 'index',
+            'controller' => 'register'), 'default', true);?>"><?= $this->translate('Register'); ?></a></li>
+        <li>&bull; <a href="<?= $this->url(array(
+            'module'=> 'clinic',
+            'action' => 'index',
+            'controller' => 'index'), 'default', true);?>"><?= $this->translate('Login into panel'); ?></a></li>
 	</ul>
 </div>
 
 
-<div class="column">
-	<h3>Easy to use</h3>
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at 
-		sapien lorem. Donec volutpat, risus at ornare.
-	</p>
-</div>
-
-
 <div class="column columnFacebook">
-	<h3>Share Trendmed</h3>
+	<h3><?= $this->translate('Share Trendmed'); ?></h3>
 </div>
 
 
 <div class="globalClear"></div>
-

@@ -149,7 +149,10 @@ class Patient_ReservationsController extends Me_User_Controllers_LoginController
         }
 
         if ($reservation->getStatus() != 'confirmed') {
-            throw new \Exception('Only confirmed reservation needs payment');
+            $this->_helper->FlashMessenger(array(
+               'warning' => 'Only confirmed reservation needs payment'
+            ));
+            $this->_helper->Redirector('index', 'profile');
         }
 
         $request = $this->getRequest();
