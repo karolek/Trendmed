@@ -33,7 +33,7 @@ class Trendmed_View_Helper_ShowFavClinics extends Zend_View_Helper_Abstract
         // also wee need to add javascript with will handle disapear of the favorite element after ajaxSuccess
         $this->view->headScript()->appendScript('
             $(function() {
-                $(".add-to-fav").ajaxSuccess(function() {
+                $(".add-to-fav").click(function() {
                     $(this).parent(".clinic-favorite").fadeOut();
                 })
             })

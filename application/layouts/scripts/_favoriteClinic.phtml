@@ -1,6 +1,8 @@
-<div class="clinic-favorite">
+<div class="clinic-favorite span4">
 	<?= $this->ShowClinicLogo($this->clinic); ?>
-	<?= $this->clinic->name; ?><br>
-	<?= $this->clinic->city; ?><br>
+	<h3>
+        <a href="<?= $this->url(array('slug' => $this->clinic->getSlug()), 'clinic'); ?>"><?= $this->clinic->name; ?></a>
+    </h3>
+    <address><strong class="location"><?= $this->clinic->city; ?>, <?= $this->clinic->province; ?></strong></address>
 	<?= $this->AddToFavorite($this->clinic, 'remove'); ?>
 </div>

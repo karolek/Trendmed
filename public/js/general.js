@@ -22,11 +22,29 @@ $(document).ready(function() {
     $("#sidebar").find("a.active").parents("ul.hidden").removeClass("hidden");
 
 });
+
+var addClinicToFav = "Dodaj klinikę do ulubionych";
+var removeClinicFromFav = "Usuń klinikę z ulubionych";
+function prepareTooltips() {
+	$(".rating .fav").tooltip({
+		placement: "top",
+		title: addClinicToFav
+	});
+	$(".rating .unfav").tooltip({
+		placement: "top",
+		title: removeClinicFromFav
+	});
+}
+
 // adding clinic as fav.
 $(document).ready(function() {
+	
+	prepareTooltips();
+	
     $("a.add-to-fav").click(function(e){
         var url = $(this).attr("href");
         var clickedLink = this;
+
         $.post(url, {
             entity: $(clickedLink).attr("entity"),
             format: "html"
@@ -38,7 +56,12 @@ $(document).ready(function() {
                 $(clickedLink).addClass('fav');
                 $(clickedLink).removeClass('unfav');
             }
+			$(clickedLink).removeData('tooltip');
+			$('.tooltip').fadeOut();
+			prepareTooltips();
         })
+		
+		
         e.preventDefault();
     })
     .ajaxStart(function(){
