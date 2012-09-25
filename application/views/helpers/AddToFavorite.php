@@ -31,7 +31,7 @@ class Trendmed_View_Helper_AddToFavorite extends Zend_View_Helper_Abstract
         if($this->view->LoggedUser()) {
             // set up class, fav or not fav
             if($entity->isFavoredByUser($this->view->LoggedUser())) {
-                $class = 'unfav';
+                $class = 'btn-danger btn-mini unfav';
             } else {
                 $class = 'fav';
             }
