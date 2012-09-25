@@ -1,5 +1,24 @@
 <p>
-    Witamy, <br>
-    dotyczy rezerwacji nr: <?= $this->reservation->id; ?><br>
-    Rezerwacja jest potwierdzona, do zobaczenia. Pozdrawiamy
+    Witaj, <br>
+    <br>
+    Potwierdzamy złożenie rezerwacji do kliniki "<?= $this->reservation->clinic->name; ?>". Twój numer rezerwacji to <?= $this->reservation->id; ?>, zachowaj go. <br>
+    <br>
+    Rezerwacja musi zostać potwierdzona przez klinikę. O zmianie statusu zostaniesz poinformowany mailowo. 
+    Możesz też <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/patient/reservations/view/id/<?= $this->reservation->id; ?>">śledzić status na swoim profilu</a>.
+    <br>
+    Wybrane przez Ciebie usługi: <br>
+    
+    <?php foreach ($this->reservation->services as $service): ?>
+     - <?= $service->category->name; ?>,<br>
+    <?php endforeach; ?>
+     
+        Twój proponowany termin wizyty: od <?= $this->reservation->dateFrom->format('d-m-Y'); ?> do <?= $this->reservation->dateTo->format('d-m-Y'); ?>. <br>
+    
+    <?php if ($this->reservation->question <>""): ?>
+        Twoje dodatkowe uwgagi: <?= $this->reservation->question ?> <br>   
+    <?php endif; ?>
+    
+    <br>
+    Pozdrawiamy<br>
+    Zespół Trendmed<br>
 </p>
