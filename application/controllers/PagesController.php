@@ -53,10 +53,12 @@ class PagesController extends Zend_Controller_Action
         $qb = $this->_em->createQueryBuilder()
             ->select('p')
             ->from('\Trendmed\Entity\Page', 'p')
-            ->orderBy('p.' . $order, $direction)
-            ->where('p.isActive = ?1');
+            ->where('p.isActive = ?1')
+            ->andWhere('p.type IN (?2)')
+            ->orderBy('p.' . $order, $direction);
 
         $qb->setParameter(1, 1); // only active
+        $qb->setParameter(2, array(\Trendmed\Entity\Page::$pageTypes['article_normal'], \Trendmed\Entity\Page::$pageTypes['article_sponsored']));
 
         // search for article
         if ($search) {
