@@ -12,7 +12,11 @@
 		<li>&bull; <a href="<?= $this->url(array('type' => 'feedback'), 'contact', true); ?>">
             <?= $this->translate('Contact us'); ?></a>
         </li>
-		<li>&bull; <a href="#">Terms of Use</a></li>
+		<li>&bull; <a href="<?= $this->url(array(
+            'action' => 'archive',
+            'controller' => 'pages',
+            'module' => 'default'
+        ), 'default', true); ?>"><?= $this->translate('Articles'); ?></a></li>
 		<li>&bull; <a href="#">Privacy Policy</a></li>
 		<li>&bull; <a href="#">Review Policy</a></li>
 		<li>&bull; <a href="#">Disclaimer</a></li>
