@@ -36,10 +36,12 @@
 			</div>
 			<div class="row-fluid">
 				<div class="span12">
-					<?php if($this->LoggedUser()->roleName == 'patient'): ?>
-					    <a id="buttonBook" href="<?= $this->url(array('slug' => $this->clinic->slug), 'newReservation', true);?>" class="btn-primary buttonBook"><?= $this->translate('Book now'); ?></a>
-					<?php else: ?>
-					    <?= $this->LoggedLink($this->translate('Book now'), array('class' => 'btn-primary buttonBook')); ?>
+					<? if (count($this->clinic->activeServices) > 0 ): ?>
+						<?php if($this->LoggedUser()->roleName == 'patient'): ?>
+						    <a id="buttonBook" href="<?= $this->url(array('slug' => $this->clinic->slug), 'newReservation', true);?>" class="btn-primary buttonBook"><?= $this->translate('Book now'); ?></a>
+						<?php else: ?>
+						    <?= $this->LoggedLink($this->translate('Book now'), array('class' => 'btn-primary buttonBook')); ?>
+						<?php endif; ?>	
 					<?php endif; ?>	
 				</div>
 			</div>
