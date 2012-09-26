@@ -1,5 +1,22 @@
 <p>
     Witamy,<br>
-    dotyczy rezerwacji nr: <?= $this->reservation->id; ?><br>
-    Rezerwacja jest potwierdzona, do zobaczenia. Pozdrawiamy
+    Właśnie potwierdzili Państwo rezerwację <?= $this->reservation->patient->title; ?> <?= $this->reservation->patient->name; ?> o numerze <?= $this->reservation->id; ?>. Klient również został o tym fakcie poinformowany drogą mailową. <br>
+    <br>
+    <br>
+    <?php if ($this->reservation->clinic->wantBill == 1): ?>
+        W Państwa ustawieniach jest zaznaczona opcja wymagania zaliczki. Opłacenie zaliczki przez Klienta zostanie potwierdzone przez nas drogą mailową. Można też sprawdzić status rezerwacji <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/clinic/profile/">na Państwa profilu</a>.<br>
+    <?php endif ?>
+    
+    <?php if ($this->reservation->clinic->wantBill == ""): ?>
+        Prosimy pamiętać o osobistym ustaleniu dokładnej daty wizyty pacjenta, dane kontaktowe: <br>
+        Numer telefonu: <?= $this->reservation->patient->phoneNumber; ?> <br>
+        Adres email: <?= $this->reservation->patient->getEmailaddress(); ?> <br>  
+    <?php endif ?>
+    <br>
+    Pozdrawiamy<br>
+    Zespół Trendmed<br>
+    <br>
+    <br>
+    Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/contact/feedback/">skontaktuj się z nami</a>. <br>
+</p>
 </p>

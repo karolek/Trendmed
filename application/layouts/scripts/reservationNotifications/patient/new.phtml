@@ -3,22 +3,26 @@
     <br>
     Potwierdzamy złożenie rezerwacji do kliniki "<?= $this->reservation->clinic->name; ?>". Twój numer rezerwacji to <?= $this->reservation->id; ?>, zachowaj go. <br>
     <br>
-    Rezerwacja musi zostać potwierdzona przez klinikę. O zmianie statusu zostaniesz poinformowany mailowo. 
-    Możesz też <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/patient/reservations/view/id/<?= $this->reservation->id; ?>">śledzić status na swoim profilu</a>.
     <br>
     Wybrane przez Ciebie usługi: <br>
     
     <?php foreach ($this->reservation->services as $service): ?>
-     - <?= $service->category->name; ?>,<br>
+     - <a href="http://<?= $_SERVER['HTTP_HOST'];?>/service/<?= $service->id; ?>/"><?= $service->category->name; ?></a><br>
     <?php endforeach; ?>
      
         Twój proponowany termin wizyty: od <?= $this->reservation->dateFrom->format('d-m-Y'); ?> do <?= $this->reservation->dateTo->format('d-m-Y'); ?>. <br>
     
     <?php if ($this->reservation->question <>""): ?>
-        Twoje dodatkowe uwgagi: <?= $this->reservation->question ?> <br>   
+        Twój dodatkowy komentarz: <?= $this->reservation->question ?> <br>   
     <?php endif; ?>
-    
+    <br>
+    Rezerwacja musi zostać potwierdzona przez klinikę. O zmianie statusu zostaniesz poinformowany mailowo. 
+    Możesz też <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/patient/reservations/view/id/<?= $this->reservation->id; ?>">śledzić status na swoim profilu</a>.
     <br>
     Pozdrawiamy<br>
     Zespół Trendmed<br>
+    <br>
+    <br>
+    Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/contact/feedback/">skontaktuj się z nami</a>. <br>
+</p>
 </p>
