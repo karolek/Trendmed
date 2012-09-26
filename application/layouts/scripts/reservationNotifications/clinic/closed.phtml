@@ -1,7 +1,17 @@
 <p>
-    Dotyczy rezerwacji nr:<?= $this->reservation->id; ?> Rezerwujący odwołuje  rezerwację  w Państwa obiekcie.
-<p>
-    Dodatkowe informacje od pacjenta:
+    Witamy,<br>
     <br>
-    <?= $this->reservation->question; ?>
+    Rezerwacja klienta <?= $this->reservation->patient->title; ?> <?= $this->reservation->patient->name; ?> o numerze <?= $this->reservation->id; ?> została przez niego odwołana.<br>
+    <br>
+    <?php if (!$this->reservation->question == ""): ?>
+        Kometarz klienta uzupełniony podczas anulowania rezerwacji: <?= $this->reservation->question?> <br>   
+    <?php endif; ?>
+    Szczegóły rezerwacji znajdą Państwo na swoim profilu. <!--Link: http://trendmed.localhost/patient/reservations/view/id/62 --> .
+    <br>
+    Pozdrawiamy<br>
+    Zespół Trendmed<br>
+    <br>
+    <br>
+    Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/contact/feedback/">skontaktuj się z nami</a>. <br>
+</p>
 </p>

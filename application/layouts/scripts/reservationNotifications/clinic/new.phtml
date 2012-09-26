@@ -8,7 +8,7 @@
      - <?= $service->category->name; ?>,<br>
     <?php endforeach; ?>
     Wstępnie proponowana data: od <?= $this->reservation->dateFrom->format('d-m-Y'); ?> do <?= $this->reservation->dateTo->format('d-m-Y'); ?>. (Dokładne daty prosimy ustalić z klientem telefonicznie lub mailowo po zakończeniu procesu rezerwacji. Przypomnimy jeszcze o tym.) <br>
-    <?php if ($this->reservation->question <>""): ?>
+    <?php if (!$this->reservation->question == "") : ?>
         Dodatkowy komentarz i pytania od klienta: <?= $this->reservation->question ?> <br>   
     <?php endif; ?>
     Numer rezerwacji: <?= $this->reservation->id; ?><br>

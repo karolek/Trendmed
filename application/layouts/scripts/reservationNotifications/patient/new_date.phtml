@@ -1,7 +1,22 @@
-<p>dotyczy rezerwacji nr <?= $this->reservation->id; ?></p>
-<p>Witamy,<br>
-Wybrana data rezerwacji nie jest możliwa, sugerujemy wybranie terminu:
-    <?= $this->reservation->alternativeDateFrom->format("d-m-Y"); ?> do
+<p>
+    Witaj,<br>
+    <br>
+    Klinika <?= $this->reservation->clinic->name; ?> odpowiedziała na Twoją rezerwację numer <?= $this->reservation->id; ?> i proponuje alternatywny termin wizyty:<br>
+    Od <?= $this->reservation->alternativeDateFrom->format("d-m-Y"); ?> do
     <?= $this->reservation->alternativeDateTo->format("d-m-Y"); ?><br>
-Pozdrawiamy
+    <br>
+    <?php if (!empty($this->reservation->answer)): ?>
+        Kometarz kliniki do Twojej rezerwacji: <?= $this->reservation->answer ?> <br>   
+    <?php endif; ?>
+    <br>
+    Możesz teraz<br>
+     - potwierdzić nowe daty: <!--Link: http://trendmed.localhost/reservation/62/confirm-new-date --> <br>
+     - lub zrezygnować z rezerwacji: <!--Link: http://trendmed.localhost/reservation/62/confirm-new-date --> <br> 
+     <br>
+    Szczegóły rezerwacji znajdziesz na swoim profilu. <!--Link: http://trendmed.localhost/patient/reservations/view/id/62 --> .
+    Pozdrawiamy<br>
+    Zespół Trendmed<br>
+    <br>
+    <br>
+    Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/contact/feedback/">skontaktuj się z nami</a>. <br>
 </p>

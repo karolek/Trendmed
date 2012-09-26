@@ -5,14 +5,13 @@
     <br>
     <br>
     Wybrane przez Ciebie usługi: <br>
-    
     <?php foreach ($this->reservation->services as $service): ?>
-     - <a href="http://<?= $_SERVER['HTTP_HOST'];?>/service/<?= $service->id; ?>/"><?= $service->category->name; ?></a><br>
+     - <a href="<?= $this->url(array('id' => $this->reservation->id, ), 'service') ?>"><?= $service->category->name; ?></a><br>
     <?php endforeach; ?>
      
         Twój proponowany termin wizyty: od <?= $this->reservation->dateFrom->format('d-m-Y'); ?> do <?= $this->reservation->dateTo->format('d-m-Y'); ?>. <br>
     
-    <?php if ($this->reservation->question <>""): ?>
+    <?php if (!$this->reservation->question == ""): ?>
         Twój dodatkowy komentarz: <?= $this->reservation->question ?> <br>   
     <?php endif; ?>
     <br>

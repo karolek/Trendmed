@@ -3,7 +3,9 @@
     <br>
     Klinika <?= $this->reservation->clinic->name; ?> potwierdziła Twoją rezerwację numer <?= $this->reservation->id; ?>.<br>
     <br>
-    Komentarz kliniki do rezerwacji: <?= $this->reservation->answer; ?><br>
+    <?php if (!$this->reservation->answer == "") : ?>
+        Dodatkowy komentarz i pytania od klienta: <?= $this->reservation->answer ?> <br>   
+    <?php endif; ?>
     <br>
     W skład zamawianych usług wchodzą: <br>
     <?php foreach ($this->reservation->services as $service): ?>
@@ -17,6 +19,8 @@
     <?php if ($this->reservation->clinic->wantBill == 1): ?>
         Aby ostatecznie potwierdzić rezerwację musisz wpłacić kaucję. <a href="http://<?= $_SERVER['HTTP_HOST'];?>/reservation/<?= $this->reservation->id; ?>/pay">Możesz tego dokonać online poprzez swój profil.</a>
     <?php endif ?>
+    <br>
+    <br>
     Pozdrawiamy<br>
     Zespół Trendmed<br>
     <br>
