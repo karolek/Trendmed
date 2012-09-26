@@ -1,5 +1,26 @@
 <p>
-    Witamy,<br>
-    dotyczy rezerwacji nr: <?= $this->reservation->id; ?><br>
-    Rezerwacja jest potwierdzona, do zobaczenia. Pozdrawiamy
+    Witaj,<br>
+    <br>
+    Klinika <?= $this->reservation->clinic->name; ?> potwierdziła Twoją rezerwację numer <?= $this->reservation->id; ?>.<br>
+    <br>
+    Komentarz kliniki do rezerwacji: <?= $this->reservation->answer; ?><br>
+    <br>
+    W skład zamawianych usług wchodzą: <br>
+    <?php foreach ($this->reservation->services as $service): ?>
+     - <a href="http://<?= $_SERVER['HTTP_HOST'];?>/service/<?= $service->id; ?>/"><?= $service->category->name; ?></a><br>
+    <?php endforeach; ?>
+    <br>
+    <br>
+    Dla Twojej wygody możesz <a href="http://<?= $_SERVER['HTTP_HOST'];?>/reservation/<?= $this->reservation->id; ?>/print-pdf">pobrać plik PDF ze szczegółami rejestracji </a> lub 
+    <a href="http://<?= $_SERVER['HTTP_HOST'];?>/patient/reservations/view/id/<?= $this->reservation->id; ?>/">zobaczyć szczegóły online.</a><br>
+    <br>
+    <?php if ($this->reservation->clinic->wantBill == 1): ?>
+        Aby ostatecznie potwierdzić rezerwację musisz wpłacić kaucję. <a href="http://<?= $_SERVER['HTTP_HOST'];?>/reservation/<?= $this->reservation->id; ?>/pay">Możesz tego dokonać online poprzez swój profil.</a>
+    <?php endif ?>
+    Pozdrawiamy<br>
+    Zespół Trendmed<br>
+    <br>
+    <br>
+    Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/contact/feedback/">skontaktuj się z nami</a>. <br>
+</p>
 </p>
