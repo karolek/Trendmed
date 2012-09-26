@@ -171,7 +171,7 @@ a.ASC { background: url(../img/arrow-up.png) no-repeat right center; }
 #content .articles .row-fluid { background: url(../img/silver-dot.png) center 20px repeat-y; }
 #content .articles .row-fluid a.read-more { margin-top: 10px; display: inline-block; padding-left: 15px; background: url(../img/read-more-arrow.png) no-repeat left center; font-size: 11px; text-decoration: underline; color: #636465; }
 #content .articles .row-fluid a.read-more:hover { color: #bbb; }
-#content .articles p { font-size: 11px; }
+#content .articles p { font-size: 11px; text-align: justify; }
 #content .articles h1 { text-decoration: underline; }
 #content .articles h2 { font-family: Arial; font-size: 15px; color: #022330; line-height: 20px; }
 #content .articles .lead-article {  float: left; position: relative; }
@@ -234,7 +234,7 @@ section {padding:24px;}
 .rating {text-align:right; color:#292828;font-family: 'TeXGyreHerosBold'; padding: 21px 0 0;}
 .rating .add-to-fav { background: url(../img/icon_fav.png) left center no-repeat; height: 16px; text-align:left; float:left; margin:0 0 0 54px; width: 22px; text-indent: -9999px; padding: 0; }
 .rating .unfav { background-image: url(../img/icon_fav_hover.png); }
-.rating .fav { background-image: url(../img/icon_fav.png); }
+.rating .fav { background-image: url(../img/icon_fav_hover.png); }
 .rating a { padding-left: 20px; display:inline-block; background:url(../img/fav.png) left center no-repeat;  top:-2px; margin:0 2px 0 0; text-decoration: none; }
 .rating big {font-size:18px; margin-left: 5px; }
 .rating small {font-size:13px; position: relative; top: -4px;}
@@ -324,7 +324,7 @@ section {padding:24px;}
 .modal-body dt { font-size: 16px; margin: 10px 0;}
 .modal-body dd { margin-bottom: 20px; }
 
-.container .hero-unit { background: #fff; border:1px solid #eee; text-align: justify; padding: 25px; }
+.container .hero-unit { background: #fff; border:1px solid #eee; padding: 25px; }
 .hero-unit .clinic-notice p { margin-top: 20px; font-size: 14px; }
 .pay-bill .paypal { margin-top: 40px; }
 .pay-bill .paypal #paypal-submit { display: block; margin: 0 auto; }
@@ -409,7 +409,6 @@ dd {margin:0;}
 
 
 /* TEXT PAGE */
-#textPage {padding: 0 27px 15px;}
 #textPage p {font-size:12px;}
 
 
