@@ -848,4 +848,32 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
         return $categories;
     }
 
+
+    public function recommendedBy($recomendingEmail, $recommendToEmail)
+    {
+        $config = \Zend_Registry::get('config');
+        $view = \Zend_Registry::get('view');
+        $log = \Zend_Registry::get('log');
+        $templatePath = APPLICATION_PATH . '/layouts/scripts/reservationNotifications';
+        $view->addScriptPath($templatePath);
+
+        # sending notification to clinic
+        $mail = new \Zend_Mail('UTF-8');
+
+        # passing password to view
+        $view->password = $password;
+
+        # setting up a mail object with content and config
+        $htmlContent = $view->render('clinic/recommend.phtml'); // rendering a view template for content
+        $mail->setBodyHtml($htmlContent);
+        $mail->setFrom($recomendingEmail, $recomendingEmail); // setting FROM values from config
+        $mail->addTo($recommendToEmail, $recommendToEmail);
+        $mail->addBcc($config->siteEmail->fromAddress, 'Redaktor Trendmed.eu'); //Adding copy for admin
+        $subject = $view->translate($config->siteEmail->clinic->recommend->subject);
+        $mail->setSubject($subject);
+        $mail->send();
+        $log->debug('E-mail send to: ' . $mail->getRecipients() . '
+        from ' . $mail->getFrom() . ' subject: ' . $mail->getSubject());
+    }
+
 }

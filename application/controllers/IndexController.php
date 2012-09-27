@@ -143,7 +143,36 @@ class IndexController extends \Zend_Controller_Action
 
         $this->view->headTitle($this->view->translate('Contact Trendmed.eu'));
         $this->view->form = $form;
+    }
 
+    public function shareLinkAction()
+    {
+        $request = $this->getRequest();
+
+        if ($request->isPost()) {
+            $this->_helper->layout()->disableLayout();
+            $this->_helper->viewRenderer->setNoRender(true);
+            $post = $request->getPost();
+            $myEmail = $post['myEmail'];
+            // geting clinic to recomendation
+            $clinic = $this->_em->find('\Trendmed\Entity\Clinic', $post['clinic_id']);
+            if (!$clinic) {
+                throw new \Exception('Given clinic with id '.$post['clinic_id']. ' not found');
+            }
+
+            // list of emails addres to send email to
+            $list = explode(',', trim($post['shareEmail']));
+            $i = 0;
+            foreach($list as $email) {
+                $clinic->recommendedBy($myEmail, $email);
+                $i++;
+            }
+
+            echo $this->view->translate('Recommendation send! Thank you!');
+
+        } else {
+            throw new \Exception('Request should be POST in '.__FUNCTION__);
+        }
     }
 }
 

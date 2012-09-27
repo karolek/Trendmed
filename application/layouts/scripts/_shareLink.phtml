@@ -1,0 +1,42 @@
+<div class="modal hide fade" id="share" tabindex="-1" role="dialog" aria-labelledby="myShareForm" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3><?= $this->translate('Recommend this clinic to your friends'); ?></h3>
+    </div>
+    <form method="post" class="ajax" action="<?= $this->url(array(
+        'controller'    => 'index',
+        'action'        => 'share-link',
+        'module'        => 'default'
+    ), 'default', true); ?>">
+        <div class="modal-body">
+            <div>
+                <label for="shareEmail"><?= $this->translate('Your friend e-mail address'); ?></label>
+                <input type="email" id="shareEmail" name="shareEmail" value="" required="required" />
+                <p class="description">
+                    <?= $this->translate('You can type multiply e-mail separating them with comma'); ?>
+                </p>
+            </div>
+            <div>
+                <label for="shareEmail"><?= $this->translate('Your e-mail address'); ?></label>
+                <input type="email" id="myEmail" name="myEmail"  required="required" value="<?= $this->patient ? $this->patient->getEmailaddress() : ''; ?>" />
+            </div>
+        </div>
+        <div class="modal-footer">
+            <input type="hidden" name="clinic_id" value="<?=$this->clinic->id; ?>">
+            <button class="btn" data-dismiss="modal" aria-hidden="true"><?= $this->translate('Close'); ?></button>
+            <input type="submit" value="<?= $this->translate('Poleć'); ?>" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+       $("form.ajax").bind("submit", function(event) {
+           var form = this;
+           $.post($(this).attr("action"), $(this).serialize(), function(data) {
+               $(form).children("div.modal-body").html(data);
+               $(form).find("input[type=submit]").addClass("hidden");
+           });
+           event.preventDefault();
+       });
+    });
+</script> 
