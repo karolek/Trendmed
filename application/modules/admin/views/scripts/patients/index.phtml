@@ -22,11 +22,11 @@
         <td><?= $item->created->format('d/m/Y'); ?></td>
         <td><?= $item->isActive() ? 'aktywny' : 'nie aktywny'; ?></td>
         <td>
-        <? if($item->lastLoginTime): ?>
+        <?php if($item->lastLoginTime): ?>
             <?= $item->lastLoginTime->format('d/m/Y'); ?>
-        <? else: ?>
+        <?php else: ?>
             Pacjent jeszcze nie się nie logował
-        <? endif; ?>
+        <?php endif; ?>
         </td>
         <td>
             <?= $item->isNewsletterActive() ? 'tak' : 'nie'; ?>
