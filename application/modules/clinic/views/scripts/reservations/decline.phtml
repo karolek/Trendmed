@@ -1,0 +1,10 @@
+<a class="btn" href="<?= $this->url(
+    array('action' => 'index', 'controller' => 'profile', 'module' => 'clinic'), 'default', true
+); ?>">&laquo; lista rezerwacji</a>
+
+<?= $this->partial('reservations/_reservationDetails.phtml', array('reservation' => $this->reservation)); ?>
+    <p>
+        Anulowanie rezerwacji oznacza zamknięcie tej rezerwacji. Pacjent zostanie poinformowany przez e-mail o twojej decyzji.
+        Dobrą praktyką jest dopisanie komentarze z powodem anulowania rezerwacji.
+    </p>
+<?= $this->form; ?>

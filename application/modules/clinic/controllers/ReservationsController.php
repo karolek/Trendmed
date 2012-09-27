@@ -80,6 +80,36 @@ class Clinic_ReservationsController extends Me_User_Controllers_LoginController
         $this->view->headTitle('Propozycja nowej daty rezerwacji');
     }
 
+    public function declineAction()
+    {
+        $reservation = $this->_getReservationFromParams();
+        $request = $this->getRequest();
+
+        # reservation anwser form
+        $form = new \Clinic_Form_ReservationAnwser();
+
+        # setting up a label for submit button
+        $form->addSubmitWithLabel('Anuluj rezerwacje');
+
+        if ($request->isPost()) {
+            # clinic want to decline this reservation
+            if ($form->isValid($request->getPost())) {
+                $values = $form->getValues();
+                $reservation->setAnswer($values['anwser']);
+
+                $reservation->setStatus('closed');
+                $this->_em->persist($reservation);
+                $this->_em->flush();
+                $this->_helper->FlashMessenger(array('success' => 'Rezerwacja zamknięta'));
+                # forward to reservations list
+                $this->_helper->Redirector('index', 'profile', 'clinic');
+            }
+        }
+        $this->view->form = $form;
+        $this->view->reservation = $reservation;
+        $this->view->headTitle('Odrzucanie propozycji rezerwacji');
+    }
+
     /**
      * Fetches and validates reservation given in "id" parameter in URL
      *
