@@ -6,12 +6,12 @@
     <?php if (!$this->reservation->question == ""): ?>
         Kometarz klienta uzupełniony podczas anulowania rezerwacji: <?= $this->reservation->question?> <br>   
     <?php endif; ?>
-    Szczegóły rezerwacji znajdą Państwo na swoim profilu. <!--Link: http://trendmed.localhost/patient/reservations/view/id/62 --> .
+    Szczegóły rezerwacji znajdą Państwo na swoim profilu.
     <br>
     Pozdrawiamy<br>
     Zespół Trendmed<br>
     <br>
     <br>
-    Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/contact/feedback/">skontaktuj się z nami</a>. <br>
+    Jeśli mają Państwo jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('type' => "feedback"), 'contact'); ?>">zapraszamy do kontaktu</a>. <br>
 </p>
 </p>

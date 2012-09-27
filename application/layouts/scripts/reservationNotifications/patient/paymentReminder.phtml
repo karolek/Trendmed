@@ -1,1 +1,21 @@
-Przypomnienie o zapłaceniu kaucji
+<p>
+    Witaj,<br>
+    <br>
+    Przypominamy o konieczności opłacenia zaliczki za Twoje usługi aby ostatecznie zakończyć proces rezerwacji w klinice <?= $this->reservation->clinic->name; ?>. <br>
+    <br>
+    Szczegóły rezerwacji: <br>
+     - Numer <?= $this->reservation->id; ?>.<br>
+     - W skład zamawianych usług wchodzą:
+    <?php foreach ($this->reservation->services as $service): ?> <a href="<?= $this->url(array('id' => $this->reservation->id, ), 'service') ?>"><?= $service->category->name; ?></a>, 
+    <?php endforeach; ?>.
+    - Twój termin wizyty: od <?= $this->reservation->dateFrom->format('d-m-Y'); ?> do <?= $this->reservation->dateTo->format('d-m-Y'); ?>. <br>
+    <br>
+    Szczegóły rezerwacji znajdziesz też na swoim profilu.<br>
+    <br>
+    Pozdrawiamy<br>
+    Zespół Trendmed<br>
+    <br>
+    <br>
+    Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/contact/feedback/">skontaktuj się z nami</a>. <br>
+</p>
+</p>

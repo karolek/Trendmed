@@ -4,7 +4,7 @@
     Rezerwacja dla <?= $this->reservation->patient->title; ?> <?= $this->reservation->patient->name; ?> o numerze <?= $this->reservation->id; ?> została potwierdzona. Klient również został o tym fakcie poinformowany drogą mailową. <br>
     <br>
     <?php if ($this->reservation->clinic->wantBill): ?>
-        W Państwa ustawieniach jest zaznaczona opcja wymagania zaliczki. Opłacenie zaliczki przez Klienta zostanie potwierdzone przez nas drogą mailową. Można też sprawdzić status rezerwacji <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/clinic/profile/">na Państwa profilu</a>.<br>
+        W Państwa ustawieniach jest zaznaczona opcja wymagania zaliczki. Opłacenie zaliczki przez Klienta zostanie potwierdzone przez nas drogą mailową. Można też sprawdzić status rezerwacji na Państwa profilu.<br>
     <?php endif ?>
     
     <?php if (!$this->reservation->clinic->wantBill): ?>
@@ -17,6 +17,6 @@
     Zespół Trendmed<br>
     <br>
     <br>
-    Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/contact/feedback/">skontaktuj się z nami</a>. <br>
+    Jeśli mają Państwo jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('type' => "feedback"), 'contact'); ?>">zapraszamy do kontaktu</a>. <br>
 </p>
 </p>

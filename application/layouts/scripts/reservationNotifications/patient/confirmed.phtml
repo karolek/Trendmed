@@ -4,20 +4,24 @@
     Klinika <?= $this->reservation->clinic->name; ?> potwierdziła Twoją rezerwację numer <?= $this->reservation->id; ?>.<br>
     <br>
     <?php if (!$this->reservation->answer == "") : ?>
-        Dodatkowy komentarz i pytania od klienta: <?= $this->reservation->answer ?> <br>   
+        Dodatkowy komentarz kliniki: <?= $this->reservation->answer ?> <br>   
     <?php endif; ?>
     <br>
     W skład zamawianych usług wchodzą: <br>
     <?php foreach ($this->reservation->services as $service): ?>
-     - <a href="http://<?= $_SERVER['HTTP_HOST'];?>/service/<?= $service->id; ?>/"><?= $service->category->name; ?></a><br>
+     - <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' =>$service->id), 'service'); ?>"><?= $service->category->name; ?></a><br>
     <?php endforeach; ?>
+    Twój proponowany termin wizyty: od <?= $this->reservation->dateFrom->format('d-m-Y'); ?> do <?= $this->reservation->dateTo->format('d-m-Y'); ?>. <br>
     <br>
     <br>
-    Dla Twojej wygody możesz <a href="http://<?= $_SERVER['HTTP_HOST'];?>/reservation/<?= $this->reservation->id; ?>/print-pdf">pobrać plik PDF ze szczegółami rejestracji </a> lub 
-    <a href="http://<?= $_SERVER['HTTP_HOST'];?>/patient/reservations/view/id/<?= $this->reservation->id; ?>/">zobaczyć szczegóły online.</a><br>
+    Dla Twojej wygody możesz 
+    <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' =>$this->reservation->id), 'print_reservation_pdf'); ?>">pobrać plik PDF ze szczegółami rejestracji </a>
+    lub 
+    <a href="http://<?= $_SERVER['HTTP_HOST'];?>/patient/reservations/view/id/<?= $this->reservation->id; ?>/">zobaczyć szczegóły online.</a>
+    <br>
     <br>
     <?php if ($this->reservation->clinic->wantBill == 1): ?>
-        Aby ostatecznie potwierdzić rezerwację musisz wpłacić kaucję. <a href="http://<?= $_SERVER['HTTP_HOST'];?>/reservation/<?= $this->reservation->id; ?>/pay">Możesz tego dokonać online poprzez swój profil.</a>
+        Aby ostatecznie potwierdzić rezerwację musisz wpłacić kaucję. <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' =>$this->reservation->id), 'makePayment'); ?>">Możesz tego dokonać online poprzez swój profil.</a>
     <?php endif ?>
     <br>
     <br>
@@ -25,6 +29,6 @@
     Zespół Trendmed<br>
     <br>
     <br>
-    Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/contact/feedback/">skontaktuj się z nami</a>. <br>
+    Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('type' => "feedback"), 'contact'); ?>">skontaktuj się z nami</a>. <br>
 </p>
 </p>
