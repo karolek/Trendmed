@@ -1,7 +1,7 @@
 <p>
-    <?= printf($this->translate('Your friend would like to recommend you a clinic on Trendmed.eu by name %1\s.'), $this->clinic->name);?>
+    <?php printf($this->translate('Your friend would like to recommend you a clinic on Trendmed.eu by name %s.'), $this->clinic->name);?>
 </p>
 <p>
-    <?= printf($this->translate('Check it out on:')); ?><br>
-    <a href="><?= $this->url(array('slug' => $this->clinic->slug), 'clinic', true); ?></a>
+    <?= $this->translate('Check it out on'); ?>:<br>
+    <a href="<?= $this->url(array('slug' => $this->clinic->slug), 'clinic', true); ?>"><?= $this->url(array('slug' => $this->clinic->slug), 'clinic', true); ?></a>
 </p>

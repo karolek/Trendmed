@@ -856,12 +856,9 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
         $log = \Zend_Registry::get('log');
         $templatePath = APPLICATION_PATH . '/layouts/scripts/reservationNotifications';
         $view->addScriptPath($templatePath);
-
+        $view->clinic = $this;
         # sending notification to clinic
         $mail = new \Zend_Mail('UTF-8');
-
-        # passing password to view
-        $view->password = $password;
 
         # setting up a mail object with content and config
         $htmlContent = $view->render('clinic/recommend.phtml'); // rendering a view template for content
