@@ -70,5 +70,12 @@ $(document).ready(function() {
     .ajaxComplete(function() {
         $(this).removeClass("loading");
     });
+
+
+	//hide datepicker after changing date
+	$(".datepicker").on('changeDate', function(){
+		$(".datepicker.dropdown-menu").hide();
+	});
+
 });
 

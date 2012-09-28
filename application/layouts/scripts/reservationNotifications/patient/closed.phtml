@@ -1,7 +1,18 @@
 <p>
-Witamy,<br>
-    Dotyczy rezerwacji nr <?= $this->reservation->id; ?>.<br>
-    Zawiadomienie o odwołaniu dokonanej rezerwacji. <br>
-    Kaucja o ile została opłacona zostanie zwrócona na Państwa konto w terminie kilku dni.<br>
-    Bardzo przepraszamy, prosimy o rezerwację usługi w innym terminie – Pozdrawiamy <br>
+    Witaj,<br>
+    <br>
+    Klinika <?= $this->reservation->clinic->name; ?> anulowała Twoją rezerwację numer <?= $this->reservation->id; ?>.<br>
+    <br>
+    <?php if (!$this->reservation->answer == "") : ?>
+        Dodatkowy komentarz kliniki: <?= $this->reservation->answer ?> <br>   
+    <?php endif; ?>
+    <br>
+    Szczegóły rezerwacji znajdziesz na swoim profilu. <br>
+    <br>
+    Pozdrawiamy<br>
+    Zespół Trendmed<br>
+    <br>
+    <br>
+    Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('type' => "feedback"), 'contact'); ?>">skontaktuj się z nami</a>. <br>
+</p>
 </p>

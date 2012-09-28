@@ -1,1 +1,16 @@
-Prosimy o dodanie ankiety nt. wizyty w klinice i podzielenie się opinia
+<p>
+    Witaj,<br>
+    <br>
+    Dziękujemy za skorzystanie z usługi w klinice <?= $this->reservation->clinic->name; ?> za pośrednictwem portalu Trendmed. <br>
+    <br>
+    Cały czas dbamy o to, żeby skupiać jak najlepszych usługodawców medycznych z całej Polski. Dlatego też przygotowaliśmy krótką ankietę na temat wykupionych przez Ciebie usług. Interesuje nas czy przebieg realizacji przeszedł pomyślnie, czy jesteś zadowolony z usług i czy spełniły Twoje oczekiwania. Dzięki Tobie nasz katalog będzie jeszcze lepszy! <br>
+    <br>
+    <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' => $this->reservation->id), 'rate'); ?>">Wypełnij ją już teraz!</a><br>
+    <br>
+    Pozdrawiamy<br>
+    Zespół Trendmed<br>
+    <br>
+    <br>
+    Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('type' => "feedback"), 'contact'); ?>">skontaktuj się z nami</a>. <br>
+</p>
+</p>

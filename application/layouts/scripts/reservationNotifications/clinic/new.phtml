@@ -1,7 +1,32 @@
 <p>
-    Nr. rezerwacji <?= $this->reservation->id; ?>
-<p>
-    Witam,<br>
-    Klient prosi  o dokonanie rezerwacji w wybranym terminie, oczekuje na  potwierdzenie dokonania rezerwacji oraz
-    ewentualne uwagi dotyczące godziny przybycia.
+    Witamy, <br>
+    <br>
+    Właśnie dokonana została nowa rezerwacja w Państwa obiekcie poprzez portal <a href="http://<?= $_SERVER['HTTP_HOST']; ?>">Trendmed</a>.<br>
+    <br>
+    <?= $this->reservation->patient->title; ?> <?= $this->reservation->patient->name; ?> wybrał następujące usługi: <br>
+    <?php foreach ($this->reservation->services as $service): ?>
+     - <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' =>$service->id), 'service'); ?>"><?= $service->category->name; ?></a>,<br>
+    <?php endforeach; ?>
+    Wstępnie proponowana data: od <?= $this->reservation->dateFrom->format('d-m-Y'); ?> do <?= $this->reservation->dateTo->format('d-m-Y'); ?>. (Dokładne daty prosimy ustalić z klientem telefonicznie lub mailowo po zakończeniu procesu rezerwacji. Przypomnimy jeszcze o tym.) <br>
+    <?php if (!$this->reservation->question == "") : ?>
+        Dodatkowy komentarz i pytania od klienta: <?= $this->reservation->question ?> <br>   
+    <?php endif; ?>
+    Numer rezerwacji: <?= $this->reservation->id; ?><br>
+    <br>
+    Prosimy pamiętać, że klient obecnie czeka na Państwa reakcję. Mogą Państwo: <br>
+    <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array( 'id'=>$this->reservation->id), 'action_confirm'); ?>">Potwierdzić rezerwację</a><br>
+    <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array( 'id'=>$this->reservation->id), 'action_decline'); ?>">Odrzucić rezerwację</a><br>
+    <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array( 'id'=>$this->reservation->id), 'action_newDate'); ?>">Zaproponować inną datę</a><br>  
+    <br>
+    Dane kontaktowe Klienta:<br>
+    Numer telefonu: <?= $this->reservation->patient->phoneNumber; ?> <br>
+    Adres email: <?= $this->reservation->patient->getEmailaddress(); ?> <br>    
+    <br>
+    Szybka odpowiedź przyśpieszy proces rezerwacji i ułatwi klientowi zakup Państwa usług. Jeśli życzą sobie Państwo zaliczki na poczet przyszłych zabiegów, płatność online zostanie dokonana po potwierdzeniu niniejszej rezerwacji na numer konta podany w ustawieniach. <br>
+    <br>
+    Pozdrawiamy<br>
+    Zespół Trendmed<br>
+    <br>
+    <br>
+    Jeśli mają Państwo jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('type' => "feedback"), 'contact'); ?>">zapraszamy do kontaktu</a>. <br>
 </p>

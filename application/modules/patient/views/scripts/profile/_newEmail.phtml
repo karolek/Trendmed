@@ -1,19 +1,14 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
-</head>
-<body>
 <p>
-    Dzień Dobry,<br>
-    prosiłeś aby zmienić adres e-mail do Twojego konta na serwisie Trendmed.eu
-</p>
-<p>
-    Aby potwierdzić zmianę proszę udać się pod adres:
+    Witamj,<br>
+    <br>
+    prosiłeś o zmianę adresu emaul do Twojego konta na serwisie <a herf="http://<?= $_SERVER['HTTP_HOST'];?>">Trendmed.eu</a>
+    <br>
+    Aby potwierdzić zmianę proszę przejść na podany link lub skopiować go w całości do przeglądarki:
     <a href="<?= $this->link; ?>"><?= $this->link; ?></a>
+    <br>
+    Pozdrawiamy<br>
+    Zespół Trendmed<br>
+    <br>
+    <br>
+    Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('type' => "feedback"), 'contact'); ?>">skontaktuj się z nami</a>. <br>
 </p>
-<footer>
-    Zespół Trendmed
-</footer>
-</body>
-</html>

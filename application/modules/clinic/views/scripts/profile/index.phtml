@@ -1,5 +1,5 @@
 <div class="form-horizontal">
-    <? if (!$this->clinic->description): ?>
+    <?php if (!$this->clinic->description): ?>
         <div class="alert alert-block">
             <h4 class="alert-heading">Krok 1</h4>
                 <a href="<?= $this->url(
@@ -10,8 +10,8 @@
                     )
                 ); ?>">Uzupełnij opis swojej placówki</a> widoczny dla Twoich potencjalnych pacjentów oraz dodaj zdjęcia.
         </div>
-    <? endif;?>
-    <? if (count($this->clinic->services) < 1): ?>
+    <?php endif;?>
+    <?php if (count($this->clinic->services) < 1): ?>
         <div class="alert alert-block">
             <h4 class="alert-heading">Krok 2</h4>
             <a href="<?= $this->url(
@@ -22,8 +22,8 @@
                 )
             ); ?>">Dodaj usługi</a> swojej placówki, aby być widocznym w naszym katalogu.
         </div>
-    <? endif;?>
-    <? if (!$this->clinic->logoDir): ?>
+    <?php endif;?>
+    <?php if (!$this->clinic->logoDir): ?>
         <div class="alert alert-block">
             <h4 class="alert-heading">Krok 3</h4>
             <a href="<?= $this->url(
@@ -34,7 +34,7 @@
                 )
             ); ?>">Wgraj logo</a> swojej placówki.
         </div>
-    <? endif;?>
+    <?php endif;?>
 </div>
 <?php if (count($this->reservations) >0 ): ?>
 <table class="table reservationList">
@@ -60,7 +60,7 @@
     <tbody>
         <?php foreach ($this->reservations as $reservation): ?>
 
-        <tr<?php if($reservation->getStatus() == 'new'):?> class="new"<?php endif;?>>
+        <tr <?php if($reservation->getStatus() == 'new'):?> class="new"<?php endif;?>>
                 <td><?= $reservation->patient->name; ?></td>
                 <td>
                     <ul>

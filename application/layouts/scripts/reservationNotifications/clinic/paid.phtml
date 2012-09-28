@@ -1,5 +1,18 @@
 <p>
     Witamy,<br>
-    dotyczy rezerwacji nr:<?= $this->reservation->id; ?><br>
-    Rezerwacja jest potwierdzona, do zobaczenia. Pozdrawiamy<br>
+    <br>
+    Rezerwacja dla <?= $this->reservation->patient->title; ?> <?= $this->reservation->patient->name; ?> o numerze <?= $this->reservation->id; ?> została opłacona. <br>
+    <br>
+    <?php if (!$this->reservation->clinic->wantBill): ?>
+        Prosimy pamiętać o osobistym ustaleniu dokładnej daty wizyty pacjenta, dane kontaktowe: <br>
+        Numer telefonu: <?= $this->reservation->patient->phoneNumber; ?> <br>
+        Adres email: <?= $this->reservation->patient->getEmailaddress(); ?> <br>  
+    <?php endif ?>
+    <br>
+    Pozdrawiamy<br>
+    Zespół Trendmed<br>
+    <br>
+    <br>
+    Jeśli mają Państwo jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('type' => "feedback"), 'contact'); ?>">zapraszamy do kontaktu</a>. <br>
+</p>
 </p>

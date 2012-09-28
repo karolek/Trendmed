@@ -1,5 +1,19 @@
 <p>
     Witamy,<br>
-    dotyczy rezerwacji nr:<?= $this->reservation->id; ?><br>
-    Rezerwacja jest potwierdzona, do zobaczenia. Pozdrawiamy
+    <br>
+    Rezerwacja w klinice <?= $this->reservation->clinic->name; ?> o numerze <?= $this->reservation->id; ?> została opłacona.<br>
+    <br>
+    Wybrane przez Ciebie usługi: <br>
+    <?php foreach ($this->reservation->services as $service): ?>
+     - <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' => $service->id, ), 'service') ?>"><?= $service->category->name; ?></a><br>
+    <?php endforeach; ?>
+    <br>
+    Szczegóły rezerwacji znajdziesz na swoim profilu.<br>
+    <br>
+    Pozdrawiamy<br>
+    Zespół Trendmed<br>
+    <br>
+    <br>
+    Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('type' => "feedback"), 'contact'); ?>">skontaktuj się z nami</a>. <br>
+</p>
 </p>
