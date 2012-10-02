@@ -576,14 +576,59 @@ class Reservation extends  \Me\Model\ModelAbstract {
      */
     public function getPDF()
     {
+		define('FPDF_FONTPATH', APPLICATION_PATH.'/../public/fonts/');
         $fpdf = new \fpdf\FPDF('P', 'mm', 'A4');
+		$fpdf->AddFont('arialpl', '','arialpl.php');
+		$fpdf->SetDrawColor(223, 223, 223); //color for borders
         $fpdf->AddPage();
-        $fpdf->SetFont('Arial', '', 13);
-        $fpdf->Cell(40, 20, $this->view->translate('Reservation') . ' #' . $this->id, 0, 1);
-        $fpdf->Cell(80, 10, $this->view->translate('Clinic name').': '.$this->clinic->name.$fpdf->ln());
-        $fpdf->Cell(100, 10, $this->view->translate('Clinic address').': '.$this->clinic->streetaddress.' '.$fpdf->clinic->city.$fpdf->ln().$this->clinic->postcode);
-        $fpdf->Cell(120, 10, $this->view->translate('Date of visit: ').': '.$this->dateFrom->format("d-m-Y").' - '.$this->dateTo->format("d-m-Y"));
 
+		/* Logo */
+		$logoFile = APPLICATION_PATH.'/../public/img/logo.png';
+		$fpdf->image($logoFile);
+		
+		/* Reservation Number */
+		$fpdf->ln(10);
+        $fpdf->SetFont('arialpl', '', 35);
+        $fpdf->Cell(0, 17, iconv('utf-8','iso-8859-2', $this->view->translate('Reservation') . ' #' . $this->id), 0, 1, 'C');
+		$fpdf->SetFont('arialpl', '', 15);
+		$fpdf->Cell(0, 9, iconv('utf-8','iso-8859-2', $this->patient->name), 0, 1, 'C');
+		$fpdf->ln(20);
+		
+		/* Clinic Info */
+		$fpdf->SetFont('arialpl', '', 30);
+        $fpdf->Cell(0, 9, iconv('utf-8','iso-8859-2', $this->clinic->name), 0, 2);
+		$fpdf->SetFont('arialpl', '', 15);
+        $fpdf->Cell(0, 15, iconv('utf-8','iso-8859-2', $this->clinic->streetaddress).', '.iconv('utf-8','iso-8859-2', $this->clinic->postcode).' '.iconv('utf-8','iso-8859-2', $this->clinic->city), 0, 2);
+		$fpdf->ln(15);
+
+		/* Date of visit */
+		$fpdf->SetFont('arialpl', '', 21);
+        $fpdf->Cell(0, 12, iconv('utf-8','iso-8859-2', $this->view->translate('Date of visit: ')), 0, 2);
+		$fpdf->SetFont('arialpl', '', 13);
+		$fpdf->Cell(0, 9, $this->dateFrom->format("d-m-Y").' - '.$this->dateTo->format("d-m-Y"), 0, 2);
+		$fpdf->ln(10);
+		
+		/* Services */
+		$fpdf->SetFont('arialpl', '', 21);
+        $fpdf->Cell(0, 12, iconv('utf-8','iso-8859-2', $this->view->translate('Services: ')), 0, 2);
+		$fpdf->SetFont('arialpl', '', 13);		
+		$i = 0;
+		$len = count($this->services);
+		foreach($this->services as $service) {
+			if($i == $len-1) { 
+				$fpdf->Cell(0, 9, iconv('utf-8','iso-8859-2', $service->category->name), 0, 2);
+			} else {
+				$fpdf->Cell(0, 9, iconv('utf-8','iso-8859-2', $service->category->name), 'B', 2);
+			}
+			$i++;
+		}
+		
+		/* Footer */
+		$fpdf->SetY(-30);
+		$fpdf->SetTextColor(102, 102, 102);
+		$fpdf->SetFont('arialpl', '', 12);
+		$fpdf->Cell(0, 9, $this->view->translate('Generated on: ').date('d-m-Y'), 0, 1, 'C');
+		
         # to access reservation data use #
         /**
          * $this->id; // reservation number
