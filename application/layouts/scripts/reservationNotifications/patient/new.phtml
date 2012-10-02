@@ -16,7 +16,7 @@
     <?php endif; ?>
     <br>
     Rezerwacja musi zostać potwierdzona przez klinikę. O zmianie statusu zostaniesz poinformowany mailowo. 
-    Możesz też <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/patient/reservations/view/id/<?= $this->reservation->id; ?>">śledzić status na swoim profilu</a>.
+    Możesz też <a href="http://<?= $_SERVER['HTTP_HOST']; ?><?= $this->url(array('module'=>'patient', 'controller'=>'reservations', 'action'=>'view', 'id'=>$this->reservation->id), 'default')?>">śledzić status na swoim profilu</a>.
     <br>
     Pozdrawiamy<br>
     Zespół Trendmed<br>

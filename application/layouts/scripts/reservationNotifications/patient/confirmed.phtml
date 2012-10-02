@@ -17,10 +17,10 @@
     Dla Twojej wygody możesz 
     <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' =>$this->reservation->id), 'print_reservation_pdf'); ?>">pobrać plik PDF ze szczegółami rejestracji </a>
     lub 
-    <a href="http://<?= $_SERVER['HTTP_HOST'];?>/patient/reservations/view/id/<?= $this->reservation->id; ?>/">zobaczyć szczegóły online.</a>
+    <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('module' => 'patient', 'controller'=> 'reservations', 'action'=>'view', 'id'=> $this->reservation->id), 'default' ) ?>/">zobaczyć szczegóły online.</a>
     <br>
     <br>
-    <?php if ($this->reservation->clinic->wantBill == 1): ?>
+    <?php if ($this->reservation->clinic->wantBill): ?>
         Aby ostatecznie potwierdzić rezerwację musisz wpłacić kaucję. <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' =>$this->reservation->id), 'makePayment'); ?>">Możesz tego dokonać online poprzez swój profil.</a>
     <?php endif ?>
     <br>

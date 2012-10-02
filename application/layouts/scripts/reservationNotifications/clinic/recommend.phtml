@@ -1,7 +1,12 @@
 <p>
-    <?php printf($this->translate('Your friend would like to recommend you a clinic on Trendmed.eu by name %s.'), $this->clinic->name);?>
-</p>
-<p>
-    <?= $this->translate('Check it out on'); ?>:<br>
-    <a href="<?= $this->url(array('slug' => $this->clinic->slug), 'clinic', true); ?>"><?= $this->url(array('slug' => $this->clinic->slug), 'clinic', true); ?></a>
+    Witaj! <br>
+    <br>
+    <?php printf($this->translate('Twój znajomy przeglądając portal Trendmed.eu pomyślał, że będziesz zainteresowany kliniką %s. Możesz ją zobaczyć '), $this->clinic->name);?><a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('slug' => $this->clinic->slug), 'clinic', true); ?>"><?= $this->translate('pod tym linkiem.') ?></a>
+    <br>
+    <br>
+    Co to jest portal Trendmed.eu? Rejestrując się na nim masz nieograniczony dostęp do katalogu usług medycznych, kosmetycznych, sanatoriów czy spa-weelness zebranych z całej Polski. Możesz online rezerwować wybrane usługi bez potrzeby osobistego kontaktu i zbędnych formalności!
+    <br>
+    Pozdrawiamy<br>
+    Zespół Trendmed<br>
+    <br>
 </p>
