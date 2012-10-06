@@ -192,10 +192,10 @@ Contact Trendmed.eu;Skontaktuj się z Trendmed.eu
 Please, tell us from what country you are;Z jakiego jesteś kraju
 Start with your country prefix, e.g. +48 for Poland;Podaj prefix kraju, np. +48 dla Polski
 -- please choose --;-- proszę wybrać --
-Your country;Twój kraj
-Your real name;Twoje imie i nazwisko
-Your phone number;Twój numer telefonu
-In order to make reservations we need some of real data.;Aby móc składać rezerwacje w systemie potrzebujemy abyś wypełnij swój profil
+Your country;Kraj
+Your real name;Imie i nazwisko
+Your phone number;Twój numer telefonu z prefixem kraju, np. +48
+In order to make reservations we need some of real data.;Prosimy o wypełnienie danych:
 Your changes to the profile has been saved;Zmiany w profilu zapisane
 Before making reservation please fill your profile with personal data.;Aby złożyć rezerwacji musisz uzupełnić swój profil.
 Go to my profile edit;Przejdź do edycji mojego profilu
@@ -213,3 +213,7 @@ Contact us;Skontaktuj się z nami
 Your friend e-mail address;Adres e-mail twojego znajomego
 Recommend this clinic to your friends;Poleć tą placówkę swoim znajomym!
 Your e-mail address;Twój adres e-mail
+You profile is filled correctly and you can go back to <a href="%s">booking your reservation</a>;Twój profil jest wypełniony prawidłowo, możesz kontynować <a href="%s">składanie swojej rezerwacji</a>
+Reservation booked;Rezerwacja dokonana
+Mr;Pan
+Ms;Pani

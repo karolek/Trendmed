@@ -50,7 +50,7 @@ class Patient_Form_Details extends Twitter_Form
         // user phone number
         $phoneNumber = new \Zend_Form_Element_Text('phoneNumber');
         $phoneNumber->setLabel('Your phone number');
-        $phoneNumber->setDescription('Start with your country prefix, e.g. +48 for Poland');
+        # $phoneNumber->setDescription('Start with your country prefix, e.g. +48 for Poland');
         $this->addElement($phoneNumber);
 
 		$submit      = new Zend_Form_Element_Submit('register');

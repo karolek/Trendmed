@@ -54,7 +54,7 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
             $reservationInSession->clinic_id = $clinic->id;
             $reservationInSession->clinic_slug = $clinic->slug;
 
-            $reservationInSession->setExpirationHops(3);
+            $reservationInSession->setExpirationHops(6);
         }
 
 
