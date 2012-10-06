@@ -50,7 +50,7 @@ class Patient_Form_PatientRegistration extends Twitter_Form
 
 
         $newsletter = new Zend_Form_Element_Checkbox('isNewsletterActive');
-        $newsletter->setLabel('Please include me in Trendmed.eu updates (optional)');
+        $newsletter->setLabel('Please include me in Trendmed.eu updates');
         $this->addElement($newsletter);
 		$submit      = new Zend_Form_Element_Submit('register');
         

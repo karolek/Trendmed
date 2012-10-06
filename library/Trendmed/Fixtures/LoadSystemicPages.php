@@ -26,6 +26,15 @@ class LoadSystemicPages extends \Doctrine\Common\DataFixtures\AbstractFixture im
         $page->setIsSystemic(true);
 
         $manager->persist($page);
+
+        $page = new \Trendmed\Entity\Page();
+        $page->setTitle('Regulamin dla pacjentów');
+        $page->setContent('To jest regulamin dla pacjentów, proszę wydetuj mnie w panelu administratora');
+        $page->setActive(true);
+        $page->setSlug('regulamin-dla-pacjentow');
+        $page->setIsSystemic(true);
+
+        $manager->persist($page);
         $manager->flush();
     }
 
