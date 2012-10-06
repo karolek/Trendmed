@@ -46,6 +46,18 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
             );
         }
 
+
+
+        // saveing reservation to session temporary if patient profile is not filled
+        if ($this->_helper->LoggedUser()->isProfileFilled() != 1) {
+            $reservationInSession = new Zend_Session_Namespace('Reservation_Temp');
+            $reservationInSession->clinic_id = $clinic->id;
+            $reservationInSession->clinic_slug = $clinic->slug;
+
+            $reservationInSession->setExpirationHops(3);
+        }
+
+
         # populating the form with services of a given clinic
 
         if ($request->isPost()) {
@@ -62,6 +74,12 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
                 # validating if atleast one service is selected
                 if($this->_helper->LoggedUser()->isProfileFilled() <1 ) {
                     $form->addError('You have to fill Your profile with Your personal data before making a reservation.');
+                    $form->populate($post);
+                    # saveing to session pre selected services and anything from temp
+                    foreach ($post as $key => $value) {
+                        $reservationInSession->$key = $value;
+                    }
+
                 }
                 if(count($post['services']) < 1) {
                     $form->getElement('services')->addError('At least one service must be select');
@@ -95,6 +113,9 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
                         # sending confirmation about new reservation to clinic and patient
                         $reservation->sendStatusNotification('new');
 
+                        # clearing session
+                        Zend_Session::namespaceUnset('Reservation_Temp');
+
                         $this->_helper->FlashMessenger(array(
                             'success' => 'Reservation booked'
                         ));
@@ -107,9 +128,12 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
                 }
             }
 
+        } else {
+            // if not post than maybe this is a redirect from edit profile details page
+            // and I have to filling from session to make on form
         }
-
         $form->populateServicesFromClinic($clinic);
+
 
         #passing form to view
         $this->view->clinic = $clinic;

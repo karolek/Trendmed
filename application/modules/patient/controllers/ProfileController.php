@@ -77,6 +77,15 @@ class Patient_ProfileController extends Zend_Controller_Action
         $form = new \Patient_Form_Details();
         $patient = $this->_helper->LoggedUser();
         $request = $this->getRequest();
+
+        // checking if client was on new reservation page before comming here
+        $reservationInSession = new Zend_Session_Namespace('Reservation_Temp');
+
+        if (isset($reservationInSession->clinic_id)) {
+            $this->view->reservationOngoing = true;
+            $this->view->reservation_clinic_slug = $reservationInSession->clinic_slug;
+        }
+
         if($request->isPost()) {
             if($form->isValid($request->getPost())) {
                 $values = $form->getValues();
@@ -93,6 +102,7 @@ class Patient_ProfileController extends Zend_Controller_Action
                 $this->_helper->FlashMessenger(array('warning' => 'Please, fix errors in the form'));
             }
         }
+
 
         // populate form with current logged user
         $form->populateFromObject($patient);

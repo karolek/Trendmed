@@ -59,7 +59,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$view->addHelperPath(APPLICATION_PATH . '/../library/Trendmed/view/helpers', 'Trendmed_View_Helper');
 		$view->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Br_View_Helper');
 		$view->addHelperPath(APPLICATION_PATH . '/modules/user/views/helpers', 'Br_View_Helper');
-        $view->addHelperPath(APPLICATION_PATH . '/../library/Me/User/View/helpers',
+        $view->addHelperPath(APPLICATION_PATH . '/../library/Me/User/View/Helpers',
                 'Me_User_View_Helpers_');
 
         # adding scripts path to layouts and paritals dir
