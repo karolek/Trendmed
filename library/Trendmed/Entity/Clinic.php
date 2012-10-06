@@ -565,7 +565,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
             $handle->image_resize = true;
             $handle->image_x = $config->clinics->logo->sizes->big->width;
             $handle->image_y = $config->clinics->logo->sizes->big->height;
-            $handle->image_ratio_crop = true;
+            $handle->image_ratio_fill = true;
             $handle->process($config->clinics->logo->uploadDir . $dir);
 
             if ($handle->processed) {
@@ -580,7 +580,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
             $handle->image_resize = true;
             $handle->image_x = $config->clinics->logo->sizes->medium->width;
             $handle->image_y = $config->clinics->logo->sizes->medium->height;
-            $handle->image_ratio_crop = true;
+            $handle->image_ratio_fill = true;
             $handle->file_new_name_body = 'medium';
             $handle->file_new_name_ext = 'jpg';
             $handle->process($config->clinics->logo->uploadDir . $dir);
@@ -596,7 +596,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
             $handle->image_resize = true;
             $handle->image_x = $config->clinics->logo->sizes->small->width;
             $handle->image_y = $config->clinics->logo->sizes->small->height;
-            $handle->image_ratio_crop = true;
+            $handle->image_ratio_fill = true;
             $handle->file_new_name_body = 'small';
             $handle->file_new_name_ext = 'jpg';
             $handle->process($config->clinics->logo->uploadDir . $dir);
