@@ -41,7 +41,7 @@ class Patient_Form_PatientRegistration extends Twitter_Form
 
         $terms = new Zend_Form_Element_Checkbox('terms');
 
-        $terms->setLabel('I agree to accept the site <a href="/page/terms-and-conditions" target="_blank">Rules and Terms & Conditions</a>');
+        $terms->setLabel('I agree to accept the site <a href="/page/regulamin-dla-pacjentow" target="_blank">Rules and Terms & Conditions</a>');
         $terms->setRequired(true);
         $checkboxValidator = new Zend_Validate_InArray(array(1));
         $checkboxValidator->setMessage('Agreement is required', Zend_Validate_InArray::NOT_IN_ARRAY);
