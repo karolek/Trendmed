@@ -217,3 +217,9 @@ You profile is filled correctly and you can go back to <a href="%s">booking your
 Reservation booked;Rezerwacja dokonana
 Mr;Pan
 Ms;Pani
+Hello!;Witaj!
+We can confirm that You have placed reservation in the clinic %s. Your reservation number is %u, remember it.;Potwierdzamy złożenie rezerwacji do kliniki %s. Twój numer rezerwacji to %u, zachowaj go.
+Your proposed dates of reservation, from %s to %s;Twój proponowany termin wizyty: od %s do %s.
+Your comment;Twój dodatkowy komentarz
+Reservation needs to be confirmed by the clinic. You will be informed about that via email.;Rezerwacja musi zostać potwierdzona przez klinikę. O zmianie statusu zostaniesz poinformowany mailowo.
+If you require any further information please do not hesitate <a href="http://%s">to contact us.</a>;Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://%s">skontaktuj się z nami.</a>

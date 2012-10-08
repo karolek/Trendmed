@@ -1,5 +1,5 @@
 <p>
-    Witamy,<br>
+    <?php printf($this->translate('Hello!'))?>, <br>
     <br>
     Rezerwacja w klinice <?= $this->reservation->clinic->name; ?> o numerze <?= $this->reservation->id; ?> została opłacona.<br>
     <br>
@@ -14,6 +14,6 @@
     Zespół Trendmed<br>
     <br>
     <br>
-    Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('type' => "feedback"), 'contact'); ?>">skontaktuj się z nami</a>. <br>
+    <?php printf($this->translate('If you require any further information please do not hesitate <a href="http://%s">to contact us.</a>', $_SERVER['HTTP_HOST'].$this->url(array('type' => "feedback"), 'contact')))?><br>
     <a href="http://<?= $_SERVER['HTTP_HOST'];?>"><img src="<?= $_SERVER['HTTP_HOST'];?>/img/logo.png" /></a>
 </p>
