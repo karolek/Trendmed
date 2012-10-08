@@ -690,7 +690,7 @@ class Reservation extends  \Me\Model\ModelAbstract {
             $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName); // setting FROM values from config
             $mail->addTo($this->clinic->getEmailaddress(), $this->clinic->getLogin());
             $mail->addBcc($config->siteEmail->fromAddress, 'Redaktor Trendmed.eu'); //Adding copy for admin
-            $subject = $config->siteEmail->clinic->{$status.'Notification'}->subject;
+            $subject = $config->siteEmail->clinic->firstPartReservation->subject . " " . $this->id . " " . $config->siteEmail->clinic->{$status.'Notification'}->subject;
             $mail->setSubject($subject);
             $mail->send();
             $log->debug('E-mail send to: ' . $this->clinic->getEmailaddress() . '
@@ -705,7 +705,7 @@ class Reservation extends  \Me\Model\ModelAbstract {
             $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName);
             $mail->addTo($this->patient->getEmailaddress(), $this->patient->getLogin());
             $mail->addBcc($config->siteEmail->fromAddress, 'Redaktor Trendmed.eu'); //Adding copy for admin
-            $subject = $config->siteEmail->patient->{$status.'Notification'}->subject;
+            $subject = $config->siteEmail->patient->firstPartReservation->subject . " " . $this->id . " " . $config->siteEmail->patient->{$status.'Notification'}->subject;
 
             $mail->setSubject($view->translate($subject));
             $mail->send();
