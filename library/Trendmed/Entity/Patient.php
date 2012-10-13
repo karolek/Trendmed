@@ -90,6 +90,7 @@ class Patient extends \Trendmed\Entity\User
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      * @ORM\OneToMany(targetEntity="\Trendmed\Entity\Reservation", mappedBy="patient", cascade={"all"})
+     * @ORM\OrderBy({"created" = "DESC"})
      */
     protected $reservations;
 

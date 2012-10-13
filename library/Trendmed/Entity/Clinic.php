@@ -866,7 +866,9 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
         $mail->setFrom($recomendingEmail, $recomendingEmail); // setting FROM values from config
         $mail->addTo($recommendToEmail, $recommendToEmail);
         $mail->addBcc($config->siteEmail->fromAddress, 'Redaktor Trendmed.eu'); //Adding copy for admin
-        $subject = $view->translate($config->siteEmail->clinic->recommend->subject);
+        // we should parse the subject string for recomender user name
+        $subject = str_replace('__recommender__', $recomendingEmail, $view->translate($config->siteEmail->clinic->recommend->subject));
+
         $mail->setSubject($subject);
         $mail->send();
         $log->debug('E-mail send to: ' . $mail->getRecipients() . '

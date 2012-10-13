@@ -47,7 +47,7 @@
                             'id'  => $item->id,
                             'new-state' => $item->isActive() ? '0' : '1'
                         ), 'default'); ?>">
-                            <?php echo $item->isActive() ? 'Deaktywuj' : 'Aktywuj'; ?>
+                            <?php echo $item->isActive() ? 'Dezaktywuj' : 'Aktywuj'; ?>
 
                         </a>
                     </li>
@@ -58,6 +58,15 @@
                             'module'        => 'admin',
                             'id'            => $item->id,
                         ), 'default'); ?>">Usuń konto</a>
+                    </li>
+                    <li>
+                    <li>
+                        <a href="<?= $this->url(array(
+                            'action'        => 'patient-reservations',
+                            'controller'    => 'reservations',
+                            'module'        => 'admin',
+                            'id'            => $item->id,
+                        ), 'default'); ?>">Szczegóły rezerwacji</a>
                     </li>
                 </ul>
             </div>

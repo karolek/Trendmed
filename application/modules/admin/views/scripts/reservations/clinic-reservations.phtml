@@ -1,0 +1,74 @@
+<p>
+    Informacje o rezerwacjach kliniki: <?= $this->clinic->name; ?>.<br>
+    Ostatnie logowanie do portalu: <?= $this->clinic->lastLoginTime->format("d-m-Y H:i:s"); ?>
+
+</p>
+<?php if(count($this->clinic->reservations) > 0): ?>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Numer
+                </th>
+                <th>
+                    Data złożenia
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Pacjent
+                </th>
+                <th>
+                    Status platności
+                </th>
+                <th>
+                    Usługi
+                </th>
+            </tr>
+        </thead>
+    <?php foreach($this->clinic->reservations as $reservation): ?>
+        <tr>
+            <td>
+                <?php $status =  $reservation->getStatusAsArray(); ?>
+
+                <?= $reservation->id;?>
+            </td>
+            <td>
+                <?= $reservation->created->format("d-m-Y H:i:s");?>
+            </td>
+            <td>
+                <?= $this->translate($reservation->status); ?>
+                <?php if(! count($status['actions']['patient']) >0  && $reservation->status != 'closed'): ?><br>
+                <em><?= $this->translate('oczekuje na reakcje kliniki'); ?></em>
+                <?php endif; ?>
+            </td>
+            <td>
+                <?= $reservation->patient->name; ?>
+            </td>
+            <td>
+                <?= $this->translate($reservation->getBillStatus()) ? 'opłacone lub nie wymaga opłaty' : 'czeka na opłatę'; ?>
+            </td>
+            <td>
+            <ul>
+                <?php foreach($reservation->services as $service): ?>
+                <li>
+                    <?= $service->category->name; ?>
+                </li>
+         </ul>
+        <?php endforeach; ?>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                Komentarz od pacjenta do kliniki:<br>
+                <blockquote><?= $reservation->question;?></blockquote><br>
+                Odpowiedź kliniki:<br>
+                <blockquote><?= $reservation->answer;?></blockquote>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+<?php else: ?>
+    Klinika nie ma żadnych rezerwacji w systemie.
+<?php endif; ?>
