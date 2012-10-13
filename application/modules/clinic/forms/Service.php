@@ -99,7 +99,7 @@ class Clinic_Form_Service extends Twitter_Form
             $file = new Zend_Form_Element_File('photo'.$i);
             $file->setLabel('Photo file (jpg, png, gif)');
             // limit to 100K
-            $file->addValidator('Size', false, 102400 * 10);
+            $file->addValidator('Size', false, 102400 * 50);
             // only JPEG, PNG, and GIFs
             $file->addValidator('Extension', false, 'jpeg,jpg,png,gif');
 
