@@ -43,7 +43,14 @@ class CategoryRepository extends \Gedmo\Tree\Entity\Repository\NestedTreeReposit
             ->where('node.id = ?1')
             ->getQuery();
         $query->setParameter(1, $id);
+        $query->setHint(
+            \Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER,
+            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
+        );
+
+
         $tree = $query->getArrayResult();
+
         return $tree[0]; //return only first element
     }
 
