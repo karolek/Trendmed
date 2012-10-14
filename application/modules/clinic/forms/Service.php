@@ -92,6 +92,7 @@ class Clinic_Form_Service extends Twitter_Form
         $publish = new Zend_Form_Element_Checkbox('isActive');
         $publish->setLabel('Usługa aktywna?');
         $publish->setDescription('Nieaktywna usługa nie jest widoczna w katalogu, nie mozna dokonywać rezerwacji na nią');
+        $publish->setValue(true);
         $this->addElement($publish);
 
         # photo objects

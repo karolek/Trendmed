@@ -15,7 +15,7 @@
         <span class="count"><?= $this->clinic->rating; ?>%</span>
         <?= $this->AddToFavorite($this->clinic); ?>
         <big><?= $this->translate('Rating'); ?></big><br/ >
-		<small><?= $this->translate('based on '); ?><?= $this->clinic->reviews->count(); ?><?= $this->translate(' reviews'); ?></small>
+		<small><?= $this->translate('based on'); ?> <?= $this->clinic->reviews->count(); ?> <?= $this->translate('reviews'); ?></small>
     </div>
     
 
@@ -29,16 +29,16 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<? foreach($this->clinic->photos as $photo): ?>
-			        <?= $this->ShowPhoto($photo, 'small'); ?>
+			        <?= $this->ShowPhoto($photo, 'small', 'clinics',  'clinic-'.$service->id); ?>
 			        <? endforeach; ?>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span12">
 					<?php if($this->LoggedUser()->roleName == 'patient'): ?>
-					    <a id="buttonBook" href="<?= $this->url(array('slug' => $this->clinic->slug), 'newReservation', true);?>" class="btn-primary buttonBook"><?= $this->translate('Book now'); ?></a>
+					    <a id="buttonBook" href="<?= $this->url(array('slug' => $this->clinic->slug), 'newReservation', true);?>" class="btn-primary buttonBook"><?= $this->translate('More'); ?></a>
 					<?php else: ?>
-					    <?= $this->LoggedLink($this->translate("Book now"), array('class' => 'btn-primary buttonBook')); ?>
+					    <?= $this->LoggedLink($this->translate("More"), array('class' => 'btn-primary buttonBook')); ?>
 					<?php endif; ?>	
 				</div>
 			</div>

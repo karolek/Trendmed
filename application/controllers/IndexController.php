@@ -136,6 +136,25 @@ class IndexController extends \Zend_Controller_Action
                 $mail->send();
                 $log->debug('E-mail send to admin (type: '.$type.')');
                 $this->_helper->FlashMessenger(array('success' => 'Message send. Thanks for shearing.'));
+
+                // clearing the message field
+                $form->getElement('categoryName')->setValue("");
+
+                // redirecting to panel if newcategory was suggested
+                if ($type == 'newcategory' and $this->_helper->LoggedUser()->roleName == 'clinic') {
+                    $this->redirect($this->view->url(array(
+                        'action'        => 'add-service',
+                        'controller'    => 'services',
+                        'module'        => 'clinic'
+                    ), 'default', true));
+                } else {
+                    // redirecting to HP
+                    $this->redirect($this->view->url(array(
+                        'action' => 'index',
+                        'controller' => 'index',
+                        'module' => 'default'
+                    ), 'default'));
+                }
             } else {
                 $this->_helper->FlashMessenger(array('warning' => 'Please fix the errors in the form.'));
             }
