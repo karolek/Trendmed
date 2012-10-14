@@ -13,7 +13,7 @@
         
 
     <div class="right rating">
-        <span class="count"><?= $this->clinic->rating; ?>%</span>
+        <span class="count" data-addclinic="<?= $this->translate('Dodaj klinikę do ulubionych'); ?>" data-removeclinic="<?= $this->translate('Usuń klinikę z ulubionych'); ?>"><?= $this->clinic->rating; ?>%</span>
         <?= $this->AddToFavorite($this->clinic); ?>
         <big><?= $this->translate('Rating'); ?></big><br/ >
 		<small><?= $this->translate('based on');?> <?= $this->clinic->reviews->count(); ?> <?= $this->translate('reviews');?></small>

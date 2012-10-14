@@ -23,16 +23,15 @@ $(document).ready(function() {
 
 });
 
-var addClinicToFav = "Dodaj klinikę do ulubionych";
-var removeClinicFromFav = "Usuń klinikę z ulubionych";
+
 function prepareTooltips() {
 	$(".rating .fav").tooltip({
 		placement: "top",
-		title: addClinicToFav
+		title: $(".count").attr("data-addclinic")
 	});
 	$(".rating .unfav").tooltip({
 		placement: "top",
-		title: removeClinicFromFav
+		title: $(".count").attr("data-removeclinic")
 	});
 }
 

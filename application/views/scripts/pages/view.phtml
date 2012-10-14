@@ -1,5 +1,9 @@
 <div id="textPage">
 
+	<?php if ($this->page->getLeadPhoto()): ?>
+	 	<?= $this->ShowPhoto($this->page->getLeadPhoto(), 'big', 'ArticlePhoto'); ?>
+	 <?php endif; ?>
+	
     <?= $this->page->content; ?>
     <? if ($this->LoggedUser()->role->name == 'admin'): ?>
     <a href="<?= $this->url(array('action' => 'save-page', 'controller' => 'pages', 'module' => 'admin', 'id' => $this->page->id), 'default', true); ?>"><?= $this->translate("Edit page"); ?></a>
