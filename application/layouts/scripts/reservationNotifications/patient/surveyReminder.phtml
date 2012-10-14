@@ -1,16 +1,16 @@
 <p>
-    Witaj,<br>
+    <?php printf($this->translate('Hello!'))?><br>
     <br>
-    Dziękujemy za skorzystanie z usługi w klinice <?= $this->reservation->clinic->name; ?> za pośrednictwem portalu Trendmed. <br>
+    <?php printf($this->translate('Thank You for using clinic <a href="http://%s">%s</a> services with Trendmed.eu!', $_SERVER['HTTP_HOST'].$this->url(array('slug' => $this->reservation->clinic->getSlug()), 'clinic'),$this->reservation->clinic->name))?><br>
     <br>
-    Cały czas dbamy o to, żeby skupiać jak najlepszych usługodawców medycznych z całej Polski. Dlatego też przygotowaliśmy krótką ankietę na temat wykupionych przez Ciebie usług. Interesuje nas czy przebieg realizacji przeszedł pomyślnie, czy jesteś zadowolony z usług i czy spełniły Twoje oczekiwania. Dzięki Tobie nasz katalog będzie jeszcze lepszy! <br>
+    <?php printf($this->translate('We are trying to collect only the best medical services from across the Poland. That is why we created that short survey that contains questions about services You have brought. We are interested if You are fully satisfied and if Your needs were meet. Thanks to You our we can improve our catalogue!'))?> <br>
     <br>
-    <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' => $this->reservation->id), 'rate'); ?>">Wypełnij ją już teraz!</a><br>
+    <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' => $this->reservation->id), 'rate'); ?>"><?php printf($this->translate('Feel it out right now!'))?></a><br>
     <br>
-    Pozdrawiamy<br>
-    Zespół Trendmed<br>
+    <?php printf($this->translate('Regards'))?>, <br>
+    <?php printf($this->translate('Trendmed.eu Team'))?><br>
     <br>
     <br>
-    Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('type' => "feedback"), 'contact'); ?>">skontaktuj się z nami</a>. <br>
+    <?php printf($this->translate('If you require any further information please do not hesitate <a href="http://%s">to contact us.</a>', $_SERVER['HTTP_HOST'].$this->url(array('type' => "feedback"), 'contact')))?><br>
     <a href="http://<?= $_SERVER['HTTP_HOST'];?>"><img src="<?= $_SERVER['HTTP_HOST'];?>/img/logo.png" /></a>
 </p>
