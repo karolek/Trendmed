@@ -178,8 +178,12 @@ a.ASC { background: url(../img/arrow-up.png) no-repeat right center; }
 #content .articles .lead-article img { width: 307px; height: 201px; -webkit-border-radius: 5px 0 0 8px; -moz-border-radius: 5px 0 0 8px; border-radius: 5px 0 0 8px;}
 #content .articles .lead-article .lead-article-content { position: absolute; bottom: 0px; left: 0px; }
 #content .articles .lead-article .lead-article-content-inner { padding: 20px; background: #F1F1F1; -webkit-border-radius: 0 0 0 5px; -moz-border-radius: 0 0 0 5px; border-radius: 0 0 0 5px; }
+#content .articles .lead-article .lead-article-content-inner h2 { margin-bottom: 10px; }
+#content .articles .lead-article #noPhoto { position: relative;  }
+#content .articles .lead-article #noPhoto .lead-article-content-inner {  height: 160px; }
 #content .articles .other-articles { background: #F1F1F1; -webkit-border-radius: 0 5px 5px 0; -moz-border-radius: 0 5px 5px 0; border-radius: 0 5px 5px 0; }
 #content .articles .other-articles img { margin-right: 20px; height: 95px; width: 100px; height: 100px; }
+#content .articles .other-articles .row-fluid { height: 100px; }
 #content .articles .other-articles h2 { margin-top: 10px; }
 #content .articles .other-articles .clear { height: 1px; background: #fff; }
 #content .articles > .row-fluid { margin-top: 20px; }
