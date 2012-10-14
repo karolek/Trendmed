@@ -2,8 +2,8 @@
 	<div class="pay-desc">
 		<?php
 		    printf(
-		        $this->translate("<p>Opłacasz kaucje w wysokości <strong>%3\$s euro</strong> za wizytę w placówce %1\$s.<br />Numer rezerwacji to %2\$s. </p><div class='clinic-notice'><p>Po dokonaniu
-		płatności klinika zostnie powiadomiona o tym fakcie. <br />Pamiętaj, płatność jest wymagana aby rezerwacja była ważna.</p></div>"),
+		        $this->translate("<p>Opłacasz kaucję rejestracyjną w wysokości <strong>%3\$s Euro</strong> za wizytę w placówce %1\$s.<br />Numer rezerwacji to %2\$s. </p><div class='clinic-notice'><p>Po dokonaniu
+		płatności placówka zostnie powiadomiona o tym fakcie. <br />Płatność jest wymagana aby rezerwacja była ważna.</p></div>"),
 		        $this->reservation->clinic->name,
 		        $this->reservation->id,
 		        $this->config->clinics->settings->billSize
