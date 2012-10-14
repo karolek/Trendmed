@@ -17,7 +17,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
     protected function _initLocale()
     {
-        $locale = new Zend_Locale();
+        try {
+            $locale = new Zend_Locale('auto');
+        } catch (Zend_Locale_Exception $e) {
+            $locale = new Zend_Locale('en_GB');
+        }
+
         Zend_Registry::set('locale', $locale);
     }
     
@@ -27,9 +32,20 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $translate = new Zend_Translate(
                         array(
                             'adapter' => 'csv',
-                            'content' => APPLICATION_PATH . '/../data/languages',
+                            'content' => APPLICATION_PATH . '/../data/languages/en_GB.csv',
+                            'locale' => 'en'
                         )
         );
+        $translate->addTranslation(
+            array(
+                'content' => APPLICATION_PATH . '/../data/languages/pl_PL.csv',
+                'locale' => 'pl'
+            )
+        );
+
+        $locale = Zend_Registry::get('locale');
+        $translate->setLocale($locale->getLanguage());
+
         Zend_Registry::set('Zend_Translate', $translate);
     }
     protected function _initTwitterBootstrap() {

@@ -215,4 +215,16 @@ class Category extends \Me\Model\ModelAbstract implements \Gedmo\Tree\Node
     {
         $this->services[] = $service;
     }
+
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+    }
+
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+
 }

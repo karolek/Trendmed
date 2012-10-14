@@ -36,9 +36,9 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<?php if($this->LoggedUser()->roleName == 'patient'): ?>
-					    <a id="buttonBook" href="<?= $this->url(array('slug' => $this->clinic->slug), 'newReservation', true);?>" class="btn-primary buttonBook"><?= $this->translate('More'); ?></a>
+					    <a id="buttonBook" href="<?= $this->url(array('slug' => $this->clinic->slug), 'newReservation', true);?>" class="btn-primary buttonBook"><?= $this->translate('Book'); ?></a>
 					<?php else: ?>
-					    <?= $this->LoggedLink($this->translate("More"), array('class' => 'btn-primary buttonBook')); ?>
+					    <?= $this->LoggedLink($this->translate("Book"), array('class' => 'btn-primary buttonBook')); ?>
 					<?php endif; ?>	
 				</div>
 			</div>
