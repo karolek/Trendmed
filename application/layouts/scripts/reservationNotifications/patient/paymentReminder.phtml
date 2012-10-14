@@ -1,19 +1,18 @@
 <p>
     <?php printf($this->translate('Hello!'))?>, <br>
     <br>
-    Przypominamy o konieczności opłacenia zaliczki za Twoje usługi aby ostatecznie zakończyć proces rezerwacji w klinice <?= $this->reservation->clinic->name; ?>. <br>
+    <?php printf($this->translate('Przypominamy o konieczności opłacenia zaliczki za Twoje usługi aby ostatecznie zakończyć proces rezerwacji w klinice <a href="http://%s">%s</a>. Reservation number is %u.' , $_SERVER['HTTP_HOST'].$this->url(array('slug' => $this->reservation->clinic->getSlug()), 'clinic'), $this->reservation->clinic->name , $this->reservation->id)) ?> <br>
     <br>
-    Szczegóły rezerwacji: <br>
-     - Numer <?= $this->reservation->id; ?>.<br>
-     - W skład zamawianych usług wchodzą:
-    <?php foreach ($this->reservation->services as $service): ?> <a href="<?= $this->url(array('id' => $this->reservation->id, ), 'service') ?>"><?= $service->category->name; ?></a>, 
-    <?php endforeach; ?>.
-    - Twój termin wizyty: od <?= $this->reservation->dateFrom->format('d-m-Y'); ?> do <?= $this->reservation->dateTo->format('d-m-Y'); ?>. <br>
+    <?php printf($this->translate('You have chosen services:'))?><br>
+    <?php foreach ($this->reservation->services as $service): ?>
+     - <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' =>$service->id), 'service'); ?>"><?= $service->category->name; ?></a><br>
+    <?php endforeach; ?>
+    <?php printf($this->translate('Your proposed dates of reservation, from %s to %s' , $this->reservation->dateFrom->format('d-m-Y'), $this->reservation->dateTo->format('d-m-Y') ))?> <br>
     <br>
-    Szczegóły rezerwacji znajdziesz też na swoim profilu.<br>
+    <?php printf($this->translate('You can also view details of this reservation <a href="http://%s">on your profile</a>.', $_SERVER['HTTP_HOST'].$this->url(array('module'=>'patient', 'controller'=>'reservations', 'action'=>'view', 'id'=>$this->reservation->id), 'default')))?>
     <br>
-    Pozdrawiamy<br>
-    Zespół Trendmed<br>
+    <?php printf($this->translate('Regards'))?>, <br>
+    <?php printf($this->translate('Trendmed.eu Team'))?><br>
     <br>
     <br>
     <?php printf($this->translate('If you require any further information please do not hesitate <a href="http://%s">to contact us.</a>', $_SERVER['HTTP_HOST'].$this->url(array('type' => "feedback"), 'contact')))?><br>

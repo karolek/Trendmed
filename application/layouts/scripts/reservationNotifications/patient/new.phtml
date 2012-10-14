@@ -1,9 +1,9 @@
 <p>
-    <?php printf($this->translate('Hello!'))?>, <br>
+    <?php printf($this->translate('Hello!'))?><br>
     <br>
-    <?php printf($this->translate('We can confirm that You have placed reservation in the clinic %s. Your reservation number is %u, remember it.', $this->reservation->clinic->name, $this->reservation->id )) ?> <br>
+    <?php printf($this->translate('We can confirm that You have placed reservation in the clinic <a href="http://%s">%s</a>. Your reservation number is %u, remember it.' , $_SERVER['HTTP_HOST'].$this->url(array('slug' => $this->reservation->clinic->getSlug()), 'clinic'), $this->reservation->clinic->name , $this->reservation->id)) ?> <br>
     <br>
-    Wybrane przez Ciebie usługi: <br>
+    <?php printf($this->translate('You have chosen services:'))?><br>
     <?php foreach ($this->reservation->services as $service): ?>
      - <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' =>$service->id), 'service'); ?>"><?= $service->category->name; ?></a><br>
     <?php endforeach; ?>
@@ -15,10 +15,10 @@
     <?php endif; ?>
     <br>
     <?php  printf($this->translate('Reservation needs to be confirmed by the clinic. You will be informed about that via email.')) ?>
-    Możesz też <a href="http://<?= $_SERVER['HTTP_HOST']; ?><?= $this->url(array('module'=>'patient', 'controller'=>'reservations', 'action'=>'view', 'id'=>$this->reservation->id), 'default')?>">śledzić status na swoim profilu</a>.
+    <?php printf($this->translate('You can also view details of this reservation <a href="http://%s">on your profile</a>.', $_SERVER['HTTP_HOST'].$this->url(array('module'=>'patient', 'controller'=>'reservations', 'action'=>'view', 'id'=>$this->reservation->id), 'default')))?>
     <br>
-    Pozdrawiamy<br>
-    Zespół Trendmed<br>
+    <?php printf($this->translate('Regards'))?>, <br>
+    <?php printf($this->translate('Trendmed.eu Team'))?><br>
     <br>
     <br>
     <?php printf($this->translate('If you require any further information please do not hesitate <a href="http://%s">to contact us.</a>', $_SERVER['HTTP_HOST'].$this->url(array('type' => "feedback"), 'contact')))?><br>

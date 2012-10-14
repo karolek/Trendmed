@@ -1,21 +1,27 @@
 <p>
-    <?php printf($this->translate('Hello!'))?>, <br>
+    <?php printf($this->translate('Hello!'))?><br>
     <br>
-    Klinika <?= $this->reservation->clinic->name; ?> odpowiedziała na Twoją rezerwację numer <?= $this->reservation->id; ?> i proponuje alternatywny termin wizyty:<br>
-    Od <?= $this->reservation->alternativeDateFrom->format("d-m-Y"); ?> do
-    <?= $this->reservation->alternativeDateTo->format("d-m-Y"); ?><br>
+        <?php printf($this->translate('Clinic <a href="http://%s">%s</a> answered to your reservation no %u and propose alternative dates: From %u to %u', 
+                                        $_SERVER['HTTP_HOST'].$this->url(array('slug' => $this->reservation->clinic->getSlug()), 'clinic'),
+                                        $this->reservation->clinic->name,
+                                        $this->reservation->id, 
+                                        $this->reservation->alternativeDateFrom->format("d-m-Y"), 
+                                         $this->reservation->alternativeDateTo->format("d-m-Y")
+                                      )
+                    )
+        ?><br>
     <br>
     <?php if (!$this->reservation->answer == ""): ?>
-        Kometarz kliniki do Twojej rezerwacji: <?= $this->reservation->answer ?> <br>   
+    <b><?php printf($this->translate('Additional remark from clinic:'))?> <?= $this->reservation->answer ?></b><br>   
     <?php endif; ?>
     <br>
-    Możesz teraz<br>
-     - <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' => $this->reservation->id), 'action_patient_confirm'); ?>">potwierdzić nowe daty</a><br>
-     - <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' => $this->reservation->id), 'action_cancel'); ?>">lub zrezygnować z rezerwacji</a><br> 
+    <?php printf($this->translate('Now you can:'))?><br>
+     - <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' => $this->reservation->id), 'action_patient_confirm'); ?>"><?php printf($this->translate('confirm new dates'))?>potwierdzić nowe daty</a><br>
+     - <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' => $this->reservation->id), 'action_cancel'); ?>"><?php printf($this->translate('resign from this reservation'))?>lub zrezygnować z rezerwacji</a><br> 
      <br>
-    Szczegóły rezerwacji znajdziesz na swoim profilu. <!--Link: http://trendmed.localhost/patient/reservations/view/id/62 --> .
-    Pozdrawiamy<br>
-    Zespół Trendmed<br>
+    <?php printf($this->translate('You can also view details of this reservation <a href="http://%s">on your profile</a>.', $_SERVER['HTTP_HOST'].$this->url(array('module'=>'patient', 'controller'=>'reservations', 'action'=>'view', 'id'=>$this->reservation->id), 'default')))?>
+    <?php printf($this->translate('Regards'))?>, <br>
+    <?php printf($this->translate('Trendmed.eu Team'))?><br>
     <br>
     <br>
     <?php printf($this->translate('If you require any further information please do not hesitate <a href="http://%s">to contact us.</a>', $_SERVER['HTTP_HOST'].$this->url(array('type' => "feedback"), 'contact')))?><br>
