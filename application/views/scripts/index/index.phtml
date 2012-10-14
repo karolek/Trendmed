@@ -32,7 +32,8 @@
 							<a href="<?= $this->url(
 							   	array('slug' => $this->articles[0]->getSlug()), 'page', true
 							    ); ?>"><h2><?= $this->articles[0]->getTitle(); ?></h2>
-							<?= $this->articles[0]->content; ?></a>
+							<?= $this->Truncate(strip_tags($this->articles[0]->content))->toLength(100); ?>
+							</a>
 						</div>
 					</div>
 				</div>
