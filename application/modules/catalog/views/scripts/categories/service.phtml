@@ -13,7 +13,7 @@
 		<div class="row-fluid">
 			<div class="span4">
 				<?php foreach ($this->service->photos as $photo): ?>
-				    <?= $this->ShowPhoto($photo, 'small', 'services'); ?>
+				    <?= $this->ShowPhoto($photo, 'small', 'services', 'service-'.$this->service->id); ?>
 				<?php endforeach; ?>
 			</div>
 			<div class="span8">

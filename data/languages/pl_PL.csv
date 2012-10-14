@@ -1,3 +1,4 @@
+book;Rezerwój
 Edit page; Edytuj treść
 Category saved;Zmiany do kategorii zapisane
 Category has been deleted. All children elements has been reordered.;Kategoria usunięta, podkategorie zostały odpowiednio przesunięte
@@ -230,3 +231,12 @@ Change my password;Zmień hasło
 Change my e-mail address;Zmień mój adres e-mail
 Manage newsletter subscription;Ustawienia newslettera
 My favorite clinics;Moje ulubione kliniki
+Service description;Opis usługi
+Show all treatments;Pokaż wszystkie usługi
+Service name;Nazwa usługi
+Price range;Zakres cenowy
+The process of reserving a visit is very simple. Just choose date You would like to come to clinic and services You are interested in. We will inform clinic about Your request. Clinic will reply and we will inform You about the status of the visit.;Proces rezerwacji wizyty jest bardzo prosty. Wybierz proponowaną date wizyty od do oraz usługi którymi jesteś zainteresowany. Poinformujemy placówkę o twojej rezerwacji automatycznie. Kiedy placówka odpowie na twoją rezerwacje, zostaniesz poinformowany o tym fakcie wiadomością e-mail.
+based on;na podstawie
+reviews;opinii
+more;więcej
+More;Więcej
