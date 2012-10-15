@@ -17,8 +17,12 @@
             'controller' => 'pages',
             'module' => 'default'
         ), 'default', true); ?>"><?= $this->translate('Articles'); ?></a></li>
-		<li>&bull; <a href="#">Privacy Policy</a></li>
-		<li>&bull; <a href="#">Review Policy</a></li>
+		<li>&bull; <a href="<?= $this->url(array(
+            'slug' => 'regulamin-dla-pacjentow'
+        ), 'page', true);?>"><?= $this->translate('Regulamin dla pacjentów'); ?></a></li>
+        <li>&bull; <a href="<?= $this->url(array(
+            'slug' => 'regulamin-dla-klinik'
+        ), 'page', true);?>"><?= $this->translate('Regulamin dla placówek'); ?></a></li>
 		<li>&bull; <a href="#">Disclaimer</a></li>
 	</ul>
 </div>

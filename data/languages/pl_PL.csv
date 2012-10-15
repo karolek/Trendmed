@@ -179,7 +179,7 @@ At least one service must be select;Przynajmniej jedna usługi musi być wybrana
 No banners in the system.;Brak bannerów w systemie
 Banner ad removed;Banner usunięty
 Location;Lokalizacja
-Book now;Rezerwuj
+Book now;Book now
 reviews;recenzji
 To:Do
 based on;na podstawie
@@ -277,4 +277,5 @@ Now you can:; Teraz możesz:
 confirm new dates;potwierdzić nowe daty
 resign from this reservation;lub zrezygnować z rezerwacji
 Clinic <a href="http://%s">%s</a> canceled your reservation number %u;Klinika <a href="http://%s">%s</a> anulowała Twoją rezerwację numer %u
->>>>>>> translate
+Book;Book
+This clinic offers group promotions;Ta placówka oferuję rabaty grupowe!

@@ -6,7 +6,7 @@
 		<?= $this->element->question; ?>
 		<?= $this->element->submit; ?>
 		<script type="text/javascript">
-		    $(".datepicker").datepicker();
+		    $(".datepicker").datepicker({'startDate': new Date(), 'autoclose' : true, 'todayHighlight' : true });
 		</script>
 
 	
