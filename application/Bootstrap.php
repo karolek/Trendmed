@@ -55,12 +55,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headLink()->appendStylesheet('/css/bootstrap.css');
         $view->headLink()->appendStylesheet('/css/trendmed.css');
         $view->headLink()->appendStylesheet('/css/bootstrap-responsive.css');
-        $view->headLink()->appendStylesheet('/css/datepicker.css');
         $view->headLink()->appendStylesheet('/css/lightbox.css');
+        $view->headLink()->appendStylesheet('/css/datepicker.css');
 
         $view->headScript()->appendFile('/js/bootstrap.min.js', $type = 'text/javascript');
-        $view->headScript()->appendFile('/js/bootstrap-datepicker.js', $type = 'text/javascript');
         $view->headScript()->appendFile('/js/lightbox.js', $type = 'text/javascript');
+        $view->headScript()->appendFile('/js/bootstrap-datepicker.js', $type = 'text/javascript');
         $view->headScript()->appendFile('/js/general.js', $type = 'text/javascript');
     }
     

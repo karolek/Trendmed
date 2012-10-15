@@ -25,7 +25,7 @@ class Trendmed_View_Helper_ShowPhoto extends Zend_View_Helper_Abstract
      * @param $relGroup will be added in rel attribute to group photos like so rel="lightbox[roadtrip]"
      *
      */
-    public function ShowPhoto($photo, $size = "small", $type = 'clinics', $relGroup = false)
+    public function ShowPhoto($photo, $size = "small", $type = 'clinics', $relGroup = false, $disableLink = false)
     {
         $config = Zend_Registry::get('config');
         // set up default image and alt
@@ -45,10 +45,12 @@ class Trendmed_View_Helper_ShowPhoto extends Zend_View_Helper_Abstract
                 $alt = $photo->getDescription();
             }
         }
-
         $relGroup ? $rel = "lightbox[$relGroup]" : $rel = 'lightbox';
 
-        $output = '<a href="' . $bigFileUrl . '" rel="'.$rel.'"><img src="' . $src . '" alt="Photo: ' . $alt . '" class="photo-' . $size . '" /></a>';
+        $output = '<img src="' . $src . '" alt="Photo: ' . $alt . '" class="photo-' . $size . '" />';
+        if ($disableLink == false) {
+            $output = '<a href="' . $bigFileUrl . '" rel="'.$rel.'">'.$output.'</a>';
+        }
         return $output;
     }
 }

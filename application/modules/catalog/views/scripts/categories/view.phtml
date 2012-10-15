@@ -99,7 +99,9 @@
             <p>
                 <?= $this->truncate($service->description)->toLength(250); ?>
             </p>
-
+            <?php if ($service->clinic->isGroupPromoEnabled()): ?>
+            <div class=""><?= $this->translate('This clinic offers group promotions'); ?></div>
+            <?php endif; ?>
 			<?php if($this->LoggedUser()->roleName == 'patient'): ?>
             	<a id="buttonBook" href="<?= $this->url(array('slug' => $service->clinic->slug), 'newReservation', true);?>" class="btn-primary buttonBook"><?= $this->translate('Book now'); ?></a>
             <?php else: ?>
