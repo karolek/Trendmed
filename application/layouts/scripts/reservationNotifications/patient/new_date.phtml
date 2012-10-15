@@ -1,7 +1,7 @@
 <p>
     <?php printf($this->translate('Hello!'))?><br>
     <br>
-        <?php printf($this->translate('Clinic <a href="http://%s">%s</a> answered to your reservation no %u and propose alternative dates: From %u to %u', 
+        <?php printf($this->translate('Clinic <a href="http://%s">%s</a> answered to your reservation no %u and propose alternative dates: From %s to %s', 
                                         $_SERVER['HTTP_HOST'].$this->url(array('slug' => $this->reservation->clinic->getSlug()), 'clinic'),
                                         $this->reservation->clinic->name,
                                         $this->reservation->id, 
