@@ -92,7 +92,6 @@
 <?php endif; ?>
 
 
-<!-- @todo ostylować usługi -->
 <?php if (count($this->newServices) > 0): ?>
 <div class="hero-unit">
 	<h1><?= $this->translate('Last added services'); ?>:</h1>
@@ -101,7 +100,7 @@
 		<div class="span4 grid-list-item">
 			<a href="<?= $this->url(
     		    array('id' => $service->id), 'service', true
-    		); ?>"><div class="crop"><?= $this->ShowPhoto($service->photos[0], 'small', 'services'); ?></div></a>
+    		); ?>"><div class="crop"><?= $this->ShowPhoto($service->photos[0], 'small', 'services', false, true); ?></div></a>
     		
     		<div class="grid-desc">
 	   			<a href="<?= $this->url(

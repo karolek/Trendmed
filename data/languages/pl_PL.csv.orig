@@ -1,4 +1,4 @@
-book;Rezerwuj
+book;Rezerwój
 Edit page; Edytuj treść
 Category saved;Zmiany do kategorii zapisane
 Category has been deleted. All children elements has been reordered.;Kategoria usunięta, podkategorie zostały odpowiednio przesunięte
@@ -125,7 +125,7 @@ My reservations;Moje rezerwacje
 List of reservations;Lista rezerwacji
 Cancel;Anuluj
 From;Od
-to:do
+To:Do
 You do not have any reservations yet.;Nie masz jeszcze żadnych rezerwacji
 My account;Moje konto
 Please include me in Trendmed.eu updates;Zapisz mnie do newslettera Trendmed.eu
@@ -179,7 +179,7 @@ At least one service must be select;Przynajmniej jedna usługi musi być wybrana
 No banners in the system.;Brak bannerów w systemie
 Banner ad removed;Banner usunięty
 Location;Lokalizacja
-Book now;Book now
+Book now;Rezerwuj
 reviews;recenzji
 To:Do
 based on;na podstawie
@@ -218,6 +218,7 @@ You profile is filled correctly and you can go back to <a href="%s">booking your
 Reservation booked;Rezerwacja dokonana
 Mr;Pan
 Ms;Pani
+<<<<<<< HEAD
 __recommender__ want to recommend you a clinic on Trendmed.eu;__recommender__ zaprasza Cię do dobrej  oferty na Trendmed.eu
 Bill is not required;Kaucja nie jest wymagana
 Close;Zamknij
@@ -244,6 +245,7 @@ Requires bill to be paid;Wymaga opłacenia kaucji przy rezerwacji
 Bill is not required;Kaucja przy rezerwacji nie jest wymagana
 Services of;Usługi placówki
 Show all articles;Pokaż wszystkie artykuły
+=======
 Hello!;Witaj!
 We can confirm that You have placed reservation in the clinic <a href="http://%s">%s</a>. Your reservation number is %u, remember it.;Potwierdzamy złożenie rezerwacji w klinice <a href="http://%s">%s</a>. Twój numer rezerwacji to %u, zachowaj go.
 Your proposed dates of reservation, from %s to %s;Twój proponowany termin wizyty: od %s do %s.
@@ -277,5 +279,4 @@ Now you can:; Teraz możesz:
 confirm new dates;potwierdzić nowe daty
 resign from this reservation;lub zrezygnować z rezerwacji
 Clinic <a href="http://%s">%s</a> canceled your reservation number %u;Klinika <a href="http://%s">%s</a> anulowała Twoją rezerwację numer %u
-Book;Book
-This clinic offers group promotions;Ta placówka oferuję rabaty grupowe!
+>>>>>>> translate
