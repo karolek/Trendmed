@@ -46,12 +46,14 @@
 				<div class="other-articles">
                 <?php if (!empty($this->articles[1])): ?>
                     <div class="row-fluid">
+						<?php if ($this->articles[1]->getLeadPhoto()): ?>
 						<div class="span4">
-							 <?php if ($this->articles[1]->getLeadPhoto()): ?>
 							 	<?= $this->ShowPhoto($this->articles[1]->getLeadPhoto(), 'small', 'ArticlePhoto'); ?>
-							 <?php endif; ?>
 						</div>
 						<div class="span8">
+						<?php else: ?>
+						<div class="span12">
+						<?php endif; ?>	
 							 <a href="<?= $this->url(
 						        array('slug' => $this->articles[1]->getSlug()), 'page', true
 						    ); ?>"><h2><?= $this->articles[1]->getTitle(); ?></h2></a>
@@ -59,18 +61,21 @@
 						        array('slug' => $this->articles[1]->getSlug()), 'page', true
 						    ); ?>" class="read-more"><?= $this->translate('Read more'); ?></a>
 						</div>
+			
 					</div>
 					<div class="clear"></div>
                 <?php endif; ?>
                 <?php if (!empty($this->articles[2])): ?>
 
                     <div class="row-fluid">
+						<?php if ($this->articles[2]->getLeadPhoto()): ?>
 						<div class="span4">
-					 		<?php if ($this->articles[2]->getLeadPhoto()): ?>
 							 	<?= $this->ShowPhoto($this->articles[2]->getLeadPhoto(), 'small', 'ArticlePhoto'); ?>
-							 <?php endif; ?>
 						</div>
 						<div class="span8">
+						<?php else: ?>
+						<div class="span12">
+						<?php endif; ?>
 							 <a href="<?= $this->url(
 					    	    array('slug' => $this->articles[2]->getSlug()), 'page', true
 					    	); ?>"><h2><?= $this->articles[2]->getTitle(); ?></h2></a>
