@@ -177,11 +177,17 @@ a.ASC { background: url(../img/arrow-up.png) no-repeat right center; }
 #content .articles .lead-article {  float: left; position: relative; }
 #content .articles .lead-article img { width: 307px; height: 201px; -webkit-border-radius: 5px 0 0 8px; -moz-border-radius: 5px 0 0 8px; border-radius: 5px 0 0 8px;}
 #content .articles .lead-article .lead-article-content { position: absolute; bottom: 0px; left: 0px; }
-#content .articles .lead-article .lead-article-content-inner { padding: 20px; background: #F1F1F1; -webkit-border-radius: 0 0 0 5px; -moz-border-radius: 0 0 0 5px; border-radius: 0 0 0 5px; }
-#content .articles .other-articles { background: #F1F1F1; -webkit-border-radius: 0 5px 5px 0; -moz-border-radius: 0 5px 5px 0; border-radius: 0 5px 5px 0; }
+#content .articles .lead-article .lead-article-content-inner { text-align: justify; padding: 20px; background: #F1F1F1; -webkit-border-radius: 0 0 0 5px; -moz-border-radius: 0 0 0 5px; border-radius: 0 0 0 5px; }
+#content .articles .lead-article .lead-article-content-inner h2 { margin-bottom: 10px; }
+#content .articles .lead-article #noPhoto { position: relative;  }
+#content .articles .lead-article #noPhoto .lead-article-content-inner {  height: 160px; }
+#content .articles .other-articles { text-align: justify; background: #F1F1F1; -webkit-border-radius: 0 5px 5px 0; -moz-border-radius: 0 5px 5px 0; border-radius: 0 5px 5px 0; }
 #content .articles .other-articles img { margin-right: 20px; height: 95px; width: 100px; height: 100px; }
+#content .articles .other-articles .row-fluid { height: 100px; }
 #content .articles .other-articles h2 { margin-top: 10px; }
 #content .articles .other-articles .clear { height: 1px; background: #fff; }
+#content .articles .other-articles .row-fluid .span8 {  }
+#content .articles .other-articles .row-fluid .span12 { padding-left: 10px; padding-right: 10px;}
 #content .articles > .row-fluid { margin-top: 20px; }
 #content .articles .row-fluid p { padding: 0; }
 #content .articles .row-fluid a { text-decoration: none; color: inherit; }
@@ -231,11 +237,11 @@ section {padding:24px;}
 #clinicProfile #seeProfile {float: right; margin: 15px -3px 0 0;}
 
 
-.rating {text-align:right; color:#292828;font-family: 'TeXGyreHerosBold'; padding: 21px 0 0;}
-.rating .add-to-fav { background: url(../img/icon_fav.png) left center no-repeat; height: 16px; text-align:left; float:left; margin:0 0 0 54px; width: 22px; text-indent: -9999px; padding: 0; }
-.rating .unfav { background-image: url(../img/icon_fav_hover.png); }
-.rating .fav { background-image: url(../img/icon_fav_hover.png); }
-.rating a { padding-left: 20px; display:inline-block; background:url(../img/fav.png) left center no-repeat;  top:-2px; margin:0 2px 0 0; text-decoration: none; }
+.rating {background: #fff;text-align:right; color:#292828;font-family: 'TeXGyreHerosBold'; padding: 21px 0 0;}
+.rating .add-to-fav { background-position: left center; background-repeat: no-repeat; height: 16px; text-align:left; float:left; margin:0 0 0 54px; width: 22px; text-indent: -9999px; padding: 0; }
+.rating .unfav { background: url(../img/fav.png) 3px top no-repeat; }
+.rating .fav { background: url(../img/icon_fav.png); }
+.rating a { padding-left: 20px; display:inline-block;  top:-2px; margin:0 2px 0 0; text-decoration: none; }
 .rating big {font-size:18px; margin-left: 5px; }
 .rating small {font-size:13px; position: relative; top: -4px;}
 .rating .count {font-size: 26px; margin:0 0 0 11px; padding: 7px; float:right; display:block; font-family: 'TeXGyreHerosRegular'; background:#e7e6e6; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
@@ -449,7 +455,7 @@ footer .columnFacebook {}
 #articles .articlesList .row-fluid:last-child { border: 0; }
 #articles .articlesList .row-fluid p:nth-child(odd) { margin: 0; padding: 0; }
 
-.clinic-favorite { margin-top: 50px; }
+.clinic-favorite { margin-top: 20px; }
 .clinic-favorite img { width: 110px; height: 110px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; border:1px solid #ddd; float: left; margin-right: 20px; }
 .unfav { border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; text-decoration: none !important; }
 

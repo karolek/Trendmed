@@ -1,14 +1,15 @@
 <p>
-    Witamj,<br>
+    <?php printf($this->translate('Hello!'))?>, <br>
     <br>
-    prosiłeś o zmianę adresu emaul do Twojego konta na serwisie <a herf="http://<?= $_SERVER['HTTP_HOST'];?>">Trendmed.eu</a>
+    <?php printf($this->translate('You have asked to change Your email adress associated to your <a herf="http://%s">Trendmed.eu</a> account', $_SERVER['HTTP_HOST']))?>
     <br>
-    Aby potwierdzić zmianę proszę przejść na podany link lub skopiować go w całości do przeglądarki:
+    <?php printf($this->translate('To confirm email change please click the link below or copy it and pastle to your browser:'))?>
     <a href="<?= $this->link; ?>"><?= $this->link; ?></a>
     <br>
-    Pozdrawiamy<br>
-    Zespół Trendmed<br>
+    <?php printf($this->translate('Regards'))?>, <br>
+    <?php printf($this->translate('Trendmed.eu Team'))?><br>
     <br>
     <br>
-    Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('type' => "feedback"), 'contact'); ?>">skontaktuj się z nami</a>. <br>
+    <?php printf($this->translate('If you require any further information please do not hesitate <a href="http://%s">to contact us.</a>', $_SERVER['HTTP_HOST'].$this->url(array('type' => "feedback"), 'contact')))?><br>
+    <a href="http://<?= $_SERVER['HTTP_HOST'];?>"><img src="<?= $_SERVER['HTTP_HOST'];?>/img/logo.png" /></a>
 </p>

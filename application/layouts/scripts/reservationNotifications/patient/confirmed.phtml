@@ -1,34 +1,33 @@
 <p>
-    Witaj,<br>
+    <?php printf($this->translate('Hello!'))?><br>
     <br>
-    Klinika <?= $this->reservation->clinic->name; ?> potwierdziła Twoją rezerwację numer <?= $this->reservation->id; ?>.<br>
+    <?php printf($this->translate('Clinic <a href="http://%s">%s</a> confirmed your reservation no %u', $_SERVER['HTTP_HOST'].$this->url(array('slug' => $this->reservation->clinic->getSlug()), 'clinic'),$this->reservation->clinic->name,$this->reservation->id ))?><br>
     <br>
     <?php if (!$this->reservation->answer == "") : ?>
-        Dodatkowy komentarz kliniki: <?= $this->reservation->answer ?> <br>   
+    <b><?php printf($this->translate('Additional remark from clinic:'))?> <?= $this->reservation->answer ?></b><br>   
     <?php endif; ?>
     <br>
-    W skład zamawianych usług wchodzą: <br>
+    <?php printf($this->translate('Your order includes:'))?><br>
     <?php foreach ($this->reservation->services as $service): ?>
      - <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' =>$service->id), 'service'); ?>"><?= $service->category->name; ?></a><br>
     <?php endforeach; ?>
-    Twój proponowany termin wizyty: od <?= $this->reservation->dateFrom->format('d-m-Y'); ?> do <?= $this->reservation->dateTo->format('d-m-Y'); ?>. <br>
+    <?php printf($this->translate('Your confirmed reservation date is from %s to %s', $this->reservation->dateFrom->format('d-m-Y'), $this->reservation->dateTo->format('d-m-Y') ))?><br>
     <br>
-    <br>
-    Dla Twojej wygody możesz 
-    <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' =>$this->reservation->id), 'print_reservation_pdf'); ?>">pobrać plik PDF ze szczegółami rejestracji </a>
+    <?php printf($this->translate('For your comfor You can'))?><br>
+    <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' =>$this->reservation->id), 'print_reservation_pdf'); ?>"><?php printf($this->translate('Download PDF file with details'))?></a>
     lub 
-    <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('module' => 'patient', 'controller'=> 'reservations', 'action'=>'view', 'id'=> $this->reservation->id), 'default' ) ?>/">zobaczyć szczegóły online.</a>
+    <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('module' => 'patient', 'controller'=> 'reservations', 'action'=>'view', 'id'=> $this->reservation->id), 'default' ) ?>/"><?php printf($this->translate('view details online'))?>.</a>
     <br>
     <br>
     <?php if ($this->reservation->clinic->wantBill): ?>
-        Aby ostatecznie potwierdzić rezerwację musisz wpłacić kaucję. <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' =>$this->reservation->id), 'makePayment'); ?>">Możesz tego dokonać online poprzez swój profil.</a>
+        <?php printf($this->translate('To finally confirm reservation You need to make a payment for an advance. <a href="http://%s">That can be done online at your profile.</a>', $_SERVER['HTTP_HOST'].$this->url(array('id' =>$this->reservation->id), 'makePayment')))?><br>
     <?php endif ?>
     <br>
     <br>
-    Pozdrawiamy<br>
-    Zespół Trendmed<br>
+    <?php printf($this->translate('Regards'))?>, <br>
+    <?php printf($this->translate('Trendmed.eu Team'))?><br>
     <br>
     <br>
-    Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('type' => "feedback"), 'contact'); ?>">skontaktuj się z nami</a>. <br>
+    <?php printf($this->translate('If you require any further information please do not hesitate <a href="http://%s">to contact us.</a>', $_SERVER['HTTP_HOST'].$this->url(array('type' => "feedback"), 'contact')))?><br>
     <a href="http://<?= $_SERVER['HTTP_HOST'];?>"><img src="<?= $_SERVER['HTTP_HOST'];?>/img/logo.png" /></a>
 </p>

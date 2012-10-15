@@ -1,10 +1,13 @@
 <p>
-    Witamy na portalu Trendmed.eu!<br>
-    <br>
-    Właśnie dokonałeś pełnej aktywacji konta. Masz teraz nieograniczony dostęp do katalogu usług medycznych, kosmetycznych, sanatoriów czy spa-weelness. Możesz online rezerwować wybrane usługi bez potrzeby osobistego kontaktu i zbędnych formalności! 
-    Pozdrawiamy<br>
-    Zespół Trendmed<br>
+    <?php printf($this->translate('Welcome to Trendmed.eu!'))?><br>
     <br>
     <br>
-    Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('type' => "feedback"), 'contact'); ?>">skontaktuj się z nami</a>. <br>
+    <?php printf ($this->translate('You have just activated your account. From now on You have unlimited access to medical services, beauty parlours and spa centres. You can book all these services without going out of Your home and without all complicated formalities <a href="http://%s">Log in and book Your service now!</a>', $_SERVER['HTTP_HOST'].$this->url(array('module' => 'patient', 'controller'=> 'index'), 'default' ))) ?><br>
+    <br>
+    <?php printf($this->translate('Regards'))?>, <br>
+    <?php printf($this->translate('Trendmed.eu Team'))?><br>
+    <br>
+    <br>
+    <?php printf($this->translate('If you require any further information please do not hesitate <a href="http://%s">to contact us.</a>', $_SERVER['HTTP_HOST'].$this->url(array('type' => "feedback"), 'contact')))?><br>
+    <a href="http://<?= $_SERVER['HTTP_HOST'];?>"><img src="<?= $_SERVER['HTTP_HOST'];?>/img/logo.png" /></a>
 </p>
