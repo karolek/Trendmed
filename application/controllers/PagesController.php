@@ -58,7 +58,7 @@ class PagesController extends Zend_Controller_Action
             ->orderBy('p.' . $order, $direction);
 
         $qb->setParameter(1, 1); // only active
-        $qb->setParameter(2, array(\Trendmed\Entity\Page::$pageTypes['article_normal'], \Trendmed\Entity\Page::$pageTypes['article_sponsored']));
+        $qb->setParameter(2, array('article_normal', 'article_sponsored'));
 
         // search for article
         if ($search) {
