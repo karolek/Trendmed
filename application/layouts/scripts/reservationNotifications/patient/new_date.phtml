@@ -5,8 +5,8 @@
                                         $_SERVER['HTTP_HOST'].$this->url(array('slug' => $this->reservation->clinic->getSlug()), 'clinic'),
                                         $this->reservation->clinic->name,
                                         $this->reservation->id, 
-                                        $this->reservation->alternativeDateFrom->format("d-m-Y"), 
-                                         $this->reservation->alternativeDateTo->format("d-m-Y")
+                                        $this->reservation->alternativeDateFrom->format("d / m / Y"),
+                                         $this->reservation->alternativeDateTo->format("d / m / Y")
                                       )
                     )
         ?><br>
