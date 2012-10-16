@@ -111,8 +111,7 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #catalog #filters ul {margin:6px 0 0; padding:0; list-style:none inside;}
 #catalog #filters ul li {margin: 0 0 0 7px;}
 
-#catalog .entry {clear:both; border-left:1px solid #f0f0f0; border-right:1px solid #f0f0f0; padding:25px 25px 17px;}
-#catalog .entry:nth-child(even) {background:#f0f0f0;}
+#catalog .entry {clear:both; border-left:1px solid #f0f0f0; border-right:1px solid #f0f0f0; padding:25px 25px 17px; border-bottom: 1px solid #f0f0f0; }
 #catalog .entry h3 a {font-size:24px; color:#292828;}
 #catalog .entry .thumbnails {margin:0; float:left; padding:0; clear:none; width:110px;}
 #catalog .entry .thumbnails img.photo-small {width:48px; height:48px; float:left; margin: 9px 13px 13px 0; border-color: #ddd; border-width: 1px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; }
@@ -237,7 +236,7 @@ section {padding:24px;}
 #clinicProfile #seeProfile {float: right; margin: 15px -3px 0 0;}
 
 
-.rating {background: #fff;text-align:right; color:#292828;font-family: 'TeXGyreHerosBold'; padding: 21px 0 0;}
+.rating {text-align:right; color:#292828;font-family: 'TeXGyreHerosBold'; padding: 21px 0 0;}
 .rating .add-to-fav { background-position: left center; background-repeat: no-repeat; height: 16px; text-align:left; float:left; margin:0 0 0 54px; width: 22px; text-indent: -9999px; padding: 0; }
 .rating .unfav { background: url(../img/fav.png) 3px top no-repeat; }
 .rating .fav { background: url(../img/icon_fav.png); }
