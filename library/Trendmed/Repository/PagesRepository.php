@@ -38,6 +38,7 @@ class PagesRepository extends \Doctrine\ORM\EntityRepository
             '2' => 'article_normal',
             '3' => 1
         ));
+        $qb->orderBy('p.created', 'DESC');
         $qb->setMaxResults($limit);
         $query = $qb->getQuery();
         $result = $query->getResult();
