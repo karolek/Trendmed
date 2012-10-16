@@ -5,26 +5,29 @@
 
 		<h2><?= $this->translate('Available actions'); ?></h2>
 		<?php $status = $this->reservation->getStatusAsArray(); ?>
-		<ul>
-		    <!-- dropdown menu links -->
-		    <?php foreach($status['actions']['patient'] as $action): ?>
-		    <li>
-		        <a href="<?= $this->url(array('id' => $this->reservation->id),
-		            $this->config->reservation->action->patient->$action->routeName); ?>">
-		            <?= $this->translate($this->config->reservation->action->patient->$action->name); ?>
-		        </a> - <?= $this->translate($this->config->reservation->action->patient->$action->description); ?>
-		    </li>
-		    <?php endforeach; ?>
-		    <!-- payment option -->
-		    <?php if ($this->reservation->getBillStatus() == \Trendmed\Entity\Reservation::BILL_STATUS_NOT_PAID AND $this->reservation->getStatus() == 'confirmed'): ?>
-		    <li>
-		        <a href="<?= $this->url(
-		            array(
-		                'id' => $this->reservation->id
-		            ), 'makePayment'); ?>">
-		            <?= $this->translate('Pay bill'); ?></a> -
-		        <?php printf($this->translate('This clinic requires that pay a bill in amount of %1\$s euro for reservation'), $this->config->clinics->settings->billSize ); ?>
-		    </li>
-		    <?php endif; ?>
-		</ul>
+            <?php if(count($status['actions']['patient']) > 0): ?>
+            <ul>
+                <?php foreach($status['actions']['patient'] as $action): ?>
+                    <li>
+                        <a href="<?= $this->url(array('id' => $this->reservation->id),
+                            $this->config->reservation->action->patient->$action->routeName); ?>">
+                            <?= $this->translate($this->config->reservation->action->patient->$action->name); ?>
+                        </a> - <?= $this->translate($this->config->reservation->action->patient->$action->description); ?>
+                    </li>
+                <?php endforeach; ?>
+                <!-- payment option -->
+                <?php if ($this->reservation->getBillStatus() == \Trendmed\Entity\Reservation::BILL_STATUS_NOT_PAID AND $this->reservation->getStatus() == 'confirmed'): ?>
+                    <li>
+                        <a href="<?= $this->url(
+                            array(
+                                'id' => $this->reservation->id
+                            ), 'makePayment'); ?>">
+                            <?= $this->translate('Pay bill'); ?></a> -
+                        <?php printf($this->translate('This clinic requires that pay a bill in amount of %1\$s euro for reservation'), $this->config->clinics->settings->billSize ); ?>
+                    </li>
+                <?php endif; ?>
+		    </ul>
+            <?php else: ?>
+                <?= $this->translate('No available actions at this moment'); ?>
+            <?php endif;?>
 </div>

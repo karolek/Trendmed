@@ -1,8 +1,7 @@
 <dl>
 	
 	<?php if ($this->reservation->getBillStatus() == \Trendmed\Entity\Reservation::BILL_STATUS_NOT_PAID): ?>
-        <div class="alert alert-error"><strong><?= $this->translate('Bill for this reservation is not paid yet. Please pay the bill to make
-        reservation valid'); ?></strong><br>
+        <div class="alert alert-error"><strong><?= $this->translate('Bill for this reservation is not paid yet. Please pay the bill to make reservation valid'); ?></strong><br>
         <a href="<?= $this->url(
             array(
                 'id' => $this->reservation->id
@@ -13,14 +12,16 @@
 
 
 	<div class="row-fluid">
-		<div class="span6">
-			<dt><?= $this->translate('Reservation booked on'); ?></dt>
-		    <dd><?= $this->reservation->created->format("d-m-Y h:i:s");?></dd>
-		</div>
+        <div class="span6">
+            <dt><?= $this->translate('Reservation number'); ?></dt>
+            <dd><big>#<?= $this->reservation->id;?></big></dd>
+            <dt><?= $this->translate('Reservation booked on'); ?></dt>
+            <dd><?= $this->reservation->created->format("d-m-Y h:i:s");?></dd>
+        </div>
 		<div class="span6">
 			<dt><?= $this->translate('Contact to clinic'); ?></dt>
 		    <dd>
-		        <?= $this->translate('Clinic name'); ?>: <?= $this->reservation->clinic->name; ?> (<a href="<?= $this->url(array('slug' => $this->reservation->clinic->slug), 'clinic');?>">see full profile</a>)<br>
+		        <?= $this->translate('Clinic name'); ?>: <?= $this->reservation->clinic->name; ?> (<a href="<?= $this->url(array('slug' => $this->reservation->clinic->slug), 'clinic');?>"><?= $this->translate('see full profile');?></a>)<br>
 		        <?= $this->translate('Phone'); ?>: <?= $this->reservation->patient->phoneNumber; ?><br>
 		        E-mail: <a href="mailto:<?= $this->reservation->patient->getEmailaddress(); ?>">
 		            <?= $this->reservation->patient->getEmailaddress(); ?></a></dd>
@@ -61,7 +62,7 @@
 		        <dt><?= $this->translate('Clinic proposed another date of visist'); ?></dt>
 		        <dd>
 		            <?= $this->translate('from');?> <?= $this->reservation->alternativeDateFrom->format("d-m-Y"); ?>
-		            <?= $this->translate('to');?> <?= $this->reservation->alternativeDateTo->format("d-m-Y"); ?>
+		            <?= $this->translate('to date');?> <?= $this->reservation->alternativeDateTo->format("d-m-Y"); ?>
 		        </dd>
 		    <?php endif; ?>
 		</div>

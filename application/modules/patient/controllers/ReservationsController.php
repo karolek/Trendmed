@@ -97,7 +97,7 @@ class Patient_ReservationsController extends Me_User_Controllers_LoginController
     {
         $reservation = $this->_getReservationFromParams();
         $this->view->reservation = $reservation;
-        $this->view->headTitle('Details of reservation #'.$reservation->id);
+        $this->view->headTitle('Details of reservation');
         $this->view->config = \Zend_Registry::get('config');
     }
 

@@ -47,7 +47,17 @@
                 <?= $reservation->patient->name; ?>
             </td>
             <td>
-                <?= $this->translate($reservation->getBillStatus()) ? 'opłacone lub nie wymaga opłaty' : 'czeka na opłatę'; ?>
+<?php switch($reservation->getBillStatus()): ?>
+<?php case \Trendmed\Entity\Reservation::BILL_STATUS_NOT_PAID: ?>
+<strong><?= $this->translate('Bill not paid yet'); ?></strong>
+<?php break;?>
+<?php case \Trendmed\Entity\Reservation::BILL_STATUS_NOT_WANTED: ?>
+Nie wymagana przy tej rezerwacji.
+<?php break;?>
+<?php case \Trendmed\Entity\Reservation::BILL_STATUS_PAID: ?>
+Kaucja wpłacona
+<?php break; ?>
+<?php endswitch; ?>
             </td>
             <td>
             <ul>
@@ -55,8 +65,8 @@
                 <li>
                     <?= $service->category->name; ?>
                 </li>
-         </ul>
-        <?php endforeach; ?>
+                <?php endforeach; ?>
+            </ul>
             </td>
         </tr>
         <tr>

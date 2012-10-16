@@ -4,5 +4,5 @@
         <a href="<?= $this->url(array('slug' => $this->clinic->getSlug()), 'clinic'); ?>"><?= $this->clinic->name; ?></a>
     </h3>
     <address><strong class="location"><?= $this->clinic->city; ?>, <?= $this->clinic->province; ?></strong></address>
-	<?= $this->AddToFavorite($this->clinic, 'remove'); ?>
+	<?= $this->AddToFavorite($this->clinic, $this->translate('remove')); ?>
 </div>

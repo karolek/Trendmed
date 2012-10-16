@@ -18,13 +18,15 @@ class Trendmed_View_Helper_ShowFavClinics extends Zend_View_Helper_Abstract
     {
         // first let's check if user has any fav clinics
         if($patient->favoriteClinics->count() < 1) {
-            return;
+            return $this->view->translate('No favorite clinics added yet. Add some from clinic profile.');
         }
         // setting up view scripPath for main layouts and partial directory
         $this->view->setScriptPath(APPLICATION_PATH . '/layouts/scripts');
         $i = 0;
         $output = "";
-        
+        if(count($patient->favoriteClinics) <1 ) {
+            return count($patient->favoriteClinics);
+        }
         foreach ($patient->favoriteClinics as $clinic) {
             if($i > $amount) return $output;
             $output .= $this->view->partial('_favoriteClinic.phtml', array('clinic' => $clinic));
@@ -38,6 +40,6 @@ class Trendmed_View_Helper_ShowFavClinics extends Zend_View_Helper_Abstract
                 })
             })
         ');
-        return $output; 
+        return $output;
     }
 }

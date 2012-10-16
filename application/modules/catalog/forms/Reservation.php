@@ -27,7 +27,7 @@ class Catalog_Form_Reservation extends \Twitter_Form
 
         $to = new \Zend_Form_Element_Text('dateTo');
         $to->setAttrib('class', 'datepicker');
-        $to->setLabel('To');
+        $to->setLabel('To date');
         $to->setRequired(true);
         $to->setAttrib('data-date-format', 'dd-mm-yyyy');
         $to->setValue($today->add(new \DateInterval('P1W'))->format("d-m-Y"));
@@ -38,7 +38,7 @@ class Catalog_Form_Reservation extends \Twitter_Form
         $this->addElement($question);
 
         $submit      = new Zend_Form_Element_Submit('submit');
-        $submit->setLabel('book');
+        $submit->setLabel('Book');
 
         $this->addElement($submit);
     }

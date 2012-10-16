@@ -102,7 +102,7 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
                         $clinic = $reservation->services[0]->clinic;
                         # checkign if clinic want's bill
                         if ($clinic->wantBill === false) {
-                           $reservation->setBillStatus(\Trendmed\Entity\Reservation::BILL_STATUS_PAID);
+                           $reservation->setBillStatus(\Trendmed\Entity\Reservation::BILL_STATUS_NOT_WANTED);
                         }
                         $reservation->clinic = $clinic;
 

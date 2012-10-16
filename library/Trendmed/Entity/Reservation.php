@@ -63,8 +63,9 @@ class Reservation extends  \Me\Model\ModelAbstract {
         ))
     );
 
-    const BILL_STATUS_PAID = 1; #if payment has been done and was e' okey!
-    const BILL_STATUS_NOT_PAID = 0; # for either not paid or clinic does not require
+    const BILL_STATUS_NOT_WANTED = 2; # clinic does not require
+    const BILL_STATUS_PAID = 1; # if payment has been done and was e' okey!
+    const BILL_STATUS_NOT_PAID = 0; # for either not paid
 
 
     /**
