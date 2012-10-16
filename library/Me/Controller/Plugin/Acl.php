@@ -126,6 +126,7 @@ class Me_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         $controller     = $request->getControllerName();
         $action         = $request->getActionName();
 
+
         // defining the resource name
 
         //go from more specific to less specific
@@ -155,8 +156,30 @@ class Me_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
      **/
     public function denyAccess()
     {
-        $this->_request->setModuleName($this->_errorPage['module']);
-        $this->_request->setControllerName($this->_errorPage['controller']);
-        $this->_request->setActionName($this->_errorPage['action']);
+        // lets save the place where user was trying to get in the session to redirect him there later on
+        $requestUri = $_SERVER['REQUEST_URI'];
+        $session = new \Zend_Session_Namespace('request_denied_url');
+        $session->requestUri = $requestUri;
+
+        // setting up a message
+        $messenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
+        $messenger->addMessage(array('warning' => 'You have to be login to get access there'));
+
+
+        // lets choose on what login page do redirect user (of with module)
+        switch($this->_errorPage['module']) {
+            case 'patient':
+                $module = 'patient';
+                break;
+            case 'clinic':
+                $module = 'clinic';
+                break;
+            default:
+                $module = 'patient';
+                break;
+        }
+        $this->_request->setModuleName($module);
+        $this->_request->setControllerName('index');
+        $this->_request->setActionName('index');
     }
 }

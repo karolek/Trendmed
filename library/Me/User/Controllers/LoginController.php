@@ -37,9 +37,10 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
 		$form = $this->getLoginForm();
         $model = new $this->_userModel;
         $log = $this->_helper->getLogger();
+        $log->debug('in login action again');
+
+
         if($request->isPost()) {
-        	
-        	$log->debug('login: is POST');
 			if ($form->isValid($request->getPost())) {
 				$values = $form->getValues();
 				
@@ -63,11 +64,27 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
                         $this->_helper->getEm()->flush();
     					$this->_helper->FlashMessenger->clearCurrentMessages(); // to remove any ACL "You dont have access messages if any"
     					$this->_helper->FlashMessenger($this->_messageAfterLogin);
-    					$this->_helper->Redirector(
+
+                        // lets see if user was trying to get somewhere else and ACL did forbid him to
+                        $session = new \Zend_Session_Namespace('request_denied_url');
+                        if(!empty($session->requestUri)) {
+                            // yes, infakt he was
+                            $log->debug('there is access_denied requerst url:'.$session->requestUri);
+                            $targetUrl = $session->requestUri;
+                            unset($session->requestUri);
+                            $log->debug('session value is clear and now is: '.$session->requestUri. ' and I will redirect to '.$targetUrl);
+                            $this->_redirect($targetUrl);
+                            $log->debug('and this should be never reached');
+                            // now, we can clear that value in session
+                        } else {
+                            $log->debug('no access denied uri saved in session, redirecting to default location');
+                            // no, just plain old redirect me to default
+                            $this->_helper->Redirector(
                                 $this->_redirectAfterLogin['action'],
                                 $this->_redirectAfterLogin['controller'],
                                 $this->_redirectAfterLogin['module']
-                                );
+                            );
+                        }
     				} else {
     					$this->_helper->FlashMessenger(array('error' => 'Wrong login or password supplied'));
     				}
@@ -75,8 +92,6 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
             } else {
 					$this->_helper->FlashMessenger(array('error' => 'Please fill the form'));
 			}
-		} else {
-			$log->debug('login: is not POST');
 		}
 		$this->view->form = $form;
         $this->view->headTitle($this->view->translate('Login'));

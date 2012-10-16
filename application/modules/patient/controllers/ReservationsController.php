@@ -117,7 +117,9 @@ class Patient_ReservationsController extends Me_User_Controllers_LoginController
         if (!$reservation) throw new \Exception('No reservation with id ' . $reservationId .' found');
         # checking if current logged clinic is the owner of this reservation
         if ($this->_helper->LoggedUser()->id != $reservation->patient->id) {
-            throw new \Exception('The reservation You are trying to view is not yours');
+            //throw new \Exception('The reservation You are trying to view is not yours');
+            $this->_helper->FlashMessenger(array('warning' => 'The reservation you are trying to view is not yours'));
+            $this->_helper->Redirector('index','index','default');
         }
         # ok, everything is fine, if you need more validation of reservation add it here
         return $reservation;
