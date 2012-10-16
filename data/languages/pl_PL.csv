@@ -255,7 +255,7 @@ You have just activated your account. From now on You have unlimited access to m
 Regards;Pozdrawiamy
 Trendmed.eu Team;Zespół Trendmed.eu
 To confirm email change please click the link below or copy it and pastle to your browser:;Aby potwierdzić zmianę proszę przejść na podany link lub skopiować go w całości do przeglądarki:
-You have asked to change Your email adress associated to your <a herf="http://%s">Trendmed.eu</a> account;Prosiłeś o zmianę adresu emaul do Twojego konta na serwisie <a herf="http://%s">Trendmed.eu</a>
+You have asked to change Your email adress associated to your <a herf="http://%s">Trendmed.eu</a> account;Prosiłeś o zmianę adresu email do Twojego konta na serwisie <a href="http://%s">Trendmed.eu</a>
 This email informs that your <a href="%s">Trendmed.eu</a> account has a new password.;Ten e-mail informuję o zmianie hasła do Twojego konta na profilu <a href="%s">Trendmed.eu</a>.
 If You have not change your password and yet you have recieved this message, please  <a href="http://%s">contact the administration</a>.;Jeśli nie zmieniałeś hasła do swojego profilu a mimo wszystko otrzymałeś niniejszą wiadomośc <a href="http://%s">prosimy o kontakt z administracją</a>.
 You have chosen services:;Wybrane przez Ciebie usługi:
@@ -272,7 +272,7 @@ Thank You for using clinic <a href="http://%s">%s</a> services with Trendmed.eu!
 We are trying to collect only the best medical services from across the Poland. That is why we created that short survey that contains questions about services You have brought. We are interested if You are fully satisfied and if Your needs were meet. Thanks to You our we can improve our catalogue!;Cały czas dbamy o to, żeby skupiać jak najlepszych usługodawców medycznych z całej Polski. Dlatego też przygotowaliśmy krótką ankietę na temat wykupionych przez Ciebie usług. Interesuje nas czy przebieg realizacji przeszedł pomyślnie, czy jesteś zadowolony z usług i czy spełniły Twoje oczekiwania. Dzięki Tobie nasz katalog będzie jeszcze lepszy!
 Feel it out right now!;Wypełnij ją już teraz!
 Your reservation no %u in clinic <a href="http://%s">%s</a> has been paid.;Twoja rezerwacja numer %u w klinice <a href="http://%s">%s</a> została opłacona. 
-Clinic <a href="http://%s">%s</a> answered to your reservation no %u and propose alternative dates: From %u to %u;Klinika <a href="http://%s">%s</a> odpowiedziała na Twoją rezerwację numer %u i proponuje alternatywne terminy wizyty: Od %u do %u
+Clinic <a href="http://%s">%s</a> answered to your reservation no %u and propose alternative dates: From %s to %s;Klinika <a href="http://%s">%s</a> odpowiedziała na Twoją rezerwację numer %u i proponuje alternatywne terminy wizyty: Od %u do %u
 Now you can:; Teraz możesz: 
 confirm new dates;potwierdzić nowe daty
 resign from this reservation;lub zrezygnować z rezerwacji
