@@ -1,7 +1,7 @@
+<a href="<?= $this->url(array('action' => 'index', 'controller' => 'patients', 'module' => 'admin'), 'default', true); ?>">Wróć na liste pacjentów</a>
 <p>
     Informacje o rezerwacjach pacjenta: <?= $this->patient->username; ?>.<br>
     Ostatnie logowanie pacjenta do portalu: <?= $this->patient->lastLoginTime->format("d-m-Y H:i:s"); ?>
-
 </p>
 <?php if(count($this->patient->reservations) > 0): ?>
     <table class="table">
@@ -51,13 +51,27 @@
             <td>
 <?php switch($reservation->getBillStatus()): ?>
 <?php case \Trendmed\Entity\Reservation::BILL_STATUS_NOT_PAID: ?>
-<strong><?= $this->translate('Bill not paid yet'); ?></strong>
+    <strong><?= $this->translate('Bill not paid yet'); ?></strong><br>
+    <a href="<?= $this->url(array(
+        'action' => 'change-pay-bill-state',
+        'new-state' => 'paid',
+        'controller' => 'reservations',
+        'module' => 'admin',
+        'id' => $reservation->id,
+    ), 'default', true);?>" class="confirm">Oznacz jako opłacona</a><br>
 <?php break;?>
 <?php case \Trendmed\Entity\Reservation::BILL_STATUS_NOT_WANTED: ?>
 Nie wymagana przy tej rezerwacji.
 <?php break;?>
 <?php case \Trendmed\Entity\Reservation::BILL_STATUS_PAID: ?>
-Kaucja wpłacona
+    Kaucja wpłacona<br>
+    <a href="<?= $this->url(array(
+        'action' => 'change-pay-bill-state',
+        'controller' => 'reservations',
+        'module' => 'admin',
+        'new-state' => 'not-paid',
+        'id' => $reservation->id,
+    ), 'default', true);?>" class="confirm">Oznacz jako nieopłacona</a><br>
 <?php break; ?>
 <?php endswitch; ?>
             </td>
