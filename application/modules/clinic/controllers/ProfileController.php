@@ -335,7 +335,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
         $form       = new \Clinic_Form_Settings();
         $form->populate(array(
             'wantBill' => $clinic->wantBill,
-            'backAccount' => $clinic->bankAccount,
+            'bankAccount' => $clinic->bankAccount,
         ));
 
         if($request->isPost())
