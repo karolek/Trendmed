@@ -155,7 +155,7 @@ class Clinic_ProfileController extends Zend_Controller_Action
         $clinic = $this->_helper->LoggedUser();
         $config = \Zend_Registry::get('config');
         if($request->isPost()) {
-            for($i = 1; $i <= $config->clinics->photo->limit; $i++ ) {
+            for($i = 0; $i < $config->clinics->photo->limit; $i++ ) {
                 if(!empty($_FILES['photo'.$i]['tmp_name'])) {
                     $photo = new \Trendmed\Entity\ClinicPhoto();
 
