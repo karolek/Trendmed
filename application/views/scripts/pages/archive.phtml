@@ -8,7 +8,7 @@
 	</form>
 	<?php if($this->article_search): ?>
 	    <div class="alert alert-success">
-	        <?= $this->translate("Articles found: %1\$s", count($this->articles)); ?>
+	        <?= sprintf($this->translate("Articles found: %u"), count($this->articles)); ?>
 	    </div>
 	<?php endif; ?>
 

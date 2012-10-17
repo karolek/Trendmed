@@ -62,8 +62,8 @@ class PagesController extends Zend_Controller_Action
 
         // search for article
         if ($search) {
-            $qb->andWhere('p.title LIKE ?2');
-            $qb->setParameter(2, '%' . $search . '%');
+            $qb->andWhere('p.title LIKE ?3');
+            $qb->setParameter(3, '%' . $search . '%');
             $this->view->article_search = $search;
         }
 
