@@ -367,9 +367,9 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
     public static function getTypesForCategoryAsArray($category)
     {
         $return = array();
-        foreach (self::$TYPES as $type) {
-            if ($type['category'] == $category) {
-                $return[] = $type;
+        foreach (self::$TYPES as $key => $values) {
+            if ($values['category'] == $category) {
+                $return[] = $key;
             }
         }
         return $return;

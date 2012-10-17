@@ -57,7 +57,7 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
             // fetching types of clinics for category selected by user
             $ors = array();
             foreach (\Trendmed\Entity\Clinic::getTypesForCategoryAsArray($type) as $key => $prop) {
-                $ors[] = $qb->expr()->orx('c.type = ' . $qb->expr()->literal($prop['name']));
+                $ors[] = $qb->expr()->orx('c.type = ' . $qb->expr()->literal($prop));
             }
             $qb->andWhere(join(' OR ', $ors));
         }
@@ -85,10 +85,10 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
                 $qb->orderBy('c.name', $direction);
                 break;
             default:
-                throw new \Exception('Undefined order given for sroting (' . $order . ')');
+                throw new \Exception('Undefined order given for sorting (' . $order . ')');
                 break;
         }
-
+        // echo $qb->getQuery()->getDql(); exit();
         $pagination = new \Trendmed\Pagination($qb->getQuery(), $config->pagination->catalog->clinics, $page);
 
         $this->view->zendPaginator = $pagination->getZendPaginator();
