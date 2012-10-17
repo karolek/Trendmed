@@ -74,15 +74,6 @@ class Clinic_Form_ClinicProfile_Account extends Twitter_Form
         $email->setDescription('Pamiętaj, że login do konta się nie zmieni');
 
         $this->addElement($email);
-        // rep email must be unique
-
-        $uniqueRepEmailValidator = new Zend_Validate_Db_NoRecordExists(
-            array(
-                'table' => 'clinics',
-                'field' => 'repEmail'
-            )
-        );
-        $email->addValidator($uniqueRepEmailValidator);
 
         $this->addDisplayGroup(array('repEmail', 'repName', 'repPhone'), 'representantInfo');
         $group = $this->getDisplayGroup('representantInfo');
@@ -91,5 +82,29 @@ class Clinic_Form_ClinicProfile_Account extends Twitter_Form
         $submit = new \Zend_Form_Element_Submit('submit');
         $submit->setLabel('Save');
         $this->addElement($submit);
+
+        $id = new \Zend_Form_Element_Hidden('id');
+        $this->addElement($id);
+    }
+
+    public function isValid($data)
+    {
+
+        // rep email must be unique
+
+        $this->getElement('repEmail')
+            ->addValidator(
+            'Db_NoRecordExists',
+            false,
+            array(
+                'table'     => 'clinics',
+                'field'     => 'repEmail',
+                'exclude'   => array(
+                    'field' => 'id',
+                    'value' => $this->getValue('id')
+                )
+            )
+        );
+        return parent::isValid($data);
     }
 }

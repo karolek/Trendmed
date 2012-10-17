@@ -331,14 +331,14 @@ class BannerAd extends  \Me\Model\ModelAbstract {
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
-     * @throws \Trenedmed\Validate\Exception
+     * @throws \Exception
      */
     public function validate()
     {
-        if(!$this->zone) throw new \Trenedmed\Validate\Exception('BannerAd must have a zone');
-        if(!$this->file) throw new \Trenedmed\Validate\Exception('BannerAd must have a file or code');
-        if(!$this->type) throw new \Trenedmed\Validate\Exception('BannerAd must have a type');
-        if( !array_key_exists($this->type, self::$BANNER_TYPES) ) throw new \Trenedmed\Validate\Exception(
+        if(!$this->zone) throw new \Exception('BannerAd must have a zone');
+        if(!$this->file) throw new \Exception('BannerAd must have a file or code');
+        if(!$this->type) throw new \Exception('BannerAd must have a type');
+        if( !array_key_exists($this->type, self::$BANNER_TYPES) ) throw new \Exception(
             'Bad BannerAd type. Not defined. Given: ' . $this->type
         );
     }
