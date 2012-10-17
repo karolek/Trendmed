@@ -2,7 +2,7 @@
     <?= $this->DisplayAd('homepageTop'); ?>
 </div>
 <div class="hero-unit">
-    <h1><?= $this->translate('Dowiedz się więcej'); ?></h1>
+    <h1><?= $this->translate('Trendmed.eu - tu rezerwuje Europa'); ?></h1>
 
     <p><?= $this->translate('Więcej na temat tego czym jest <strong>Trendmed</strong> możesz dowiedzieć się z naszej prezentacji.'); ?></p>
 
@@ -10,7 +10,6 @@
         PDF &raquo;</a></p>
 </div>
 
-<!-- @todo ostylować -->
 <?php if (count($this->articles) > 0): ?>
 <div class="hero-unit articles">
 	<h1 class="pull-left"><?= $this->translate('Latest articles'); ?>:</h1>
@@ -115,7 +114,7 @@
 </div>
 <?php endif; ?>
 
-<!-- NAJWNOSZE KLINIKI @todo ostylować -->
+<!-- NAJWNOSZE KLINIKI  -->
 <?php if (count($this->newClinics) > 0): ?>
 <div class="hero-unit">
 	<h1><?= $this->translate('Last added clinics'); ?>:</h1>
@@ -138,7 +137,7 @@
 </div>
 <?php endif; ?>
 
-<!-- NAJWNOSZE KLINIKI @todo ostylować -->
+<!-- POPULARNE KLINIKI  -->
 <?php if (count($this->popularClinics) > 0): ?>
 <div class="hero-unit">
     <h1><?= $this->translate('Popularne kliniki'); ?>:</h1>
@@ -160,3 +159,13 @@
     </div>
 </div>
 <?php endif; ?>
+<!-- DOLNE STREFY BANNEROWE -->
+<!-- @todo ostylować -->
+<div class="row">
+    <div class="span3">
+        <?= $this->DisplayAd('bottomLeft'); ?>
+    </div>
+    <div class="span3">
+        <?= $this->DisplayAd('bottomRight'); ?>
+    </div>
+</div>

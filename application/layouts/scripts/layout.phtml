@@ -17,7 +17,9 @@
     <?= $this->render('_navbar.phtml'); ?>
 
     <div class="container">
-		<div class="page-header">
+        <?= $this->DisplayAd('subpagesTop'); ?>
+
+        <div class="page-header">
             <?php $this->headTitle()->offsetUnset(0); ?>
 			<h1><?= $this->translate(strip_tags($this->headTitle()->toString())); ?></h1>
 		</div>
