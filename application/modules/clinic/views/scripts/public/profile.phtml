@@ -94,7 +94,7 @@
                             <td><span>&bull;</span> &nbsp; <strong><a href="<?= $this->url(array(
                                 'id' => $service->id
                             ), 'service', true); ?>"><?= $service->category->name; ?></a></strong></td>
-                            <td class="price"><span><?= $service->priceMin; ?></span> - <span><?= $service->priceMin; ?></span> Euro</td>
+                            <td class="price"><span><?= $service->priceMin; ?></span> - <span><?= $service->priceMax; ?></span> Euro</td>
                             <td><input type="checkbox" name="pre_services[]" value="<?=$service->id; ?>"></td>
                         </tr>
                         <?php endif;?>
