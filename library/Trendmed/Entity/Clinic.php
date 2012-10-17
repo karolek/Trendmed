@@ -35,7 +35,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
     public static $TYPES = array(
         'clinic' => array('name' => 'Klinika', 'category' => 'big'),
         'hospital' => array('name' => 'Szpital', 'category' => 'big'),
-        'salon' => array('name' => 'Gabinet', 'category' => 'small'),
+        'gabinet' => array('name' => 'Gabinet', 'category' => 'small'),
         'salon' => array('name' => 'Salon', 'category' => 'small'),
         'sanatorium' => array('name' => 'Sanatorium', 'category' => 'big'),
         'spa' => array('name' => 'Spa-wellness', 'category' => 'small')
