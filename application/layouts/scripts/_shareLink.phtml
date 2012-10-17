@@ -20,6 +20,15 @@
                 <label for="shareEmail"><?= $this->translate('Your e-mail address'); ?></label>
                 <input type="email" id="myEmail" name="myEmail"  required="required" value="<?= $this->patient ? $this->patient->getEmailaddress() : ''; ?>" />
             </div>
+            <div>
+                <?= $this->translate('Share on facebook'); ?><br>
+                <div class="fb-like" data-send="false" data-width="200" data-show-faces="true" data-action="recommend"></div>
+            </div>
+            <div>
+                <?= $this->translate('Share on Twitter'); ?><br>
+                <a href="https://twitter.com/share" class="twitter-share-button" data-via="trendmed" data-size="large">Tweet</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+            </div>
         </div>
         <div class="modal-footer">
             <input type="hidden" name="clinic_id" value="<?=$this->clinic->id; ?>">
