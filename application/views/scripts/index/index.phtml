@@ -34,7 +34,7 @@
 							<?php if ($this->articles[0]->getLeadPhoto()): ?>
 								<?= $this->Truncate(strip_tags($this->articles[0]->content))->toLength(100); ?>
 							<?php else: ?>
-								<?= $this->Truncate(strip_tags($this->articles[0]->content))->toLength(350); ?>
+								<?= $this->Truncate(strip_tags($this->articles[0]->content))->toLength(150); ?>
 							<?php endif; ?>
 							</a>
 						</div>
