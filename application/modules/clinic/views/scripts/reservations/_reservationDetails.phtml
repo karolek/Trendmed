@@ -3,7 +3,9 @@
 	<div class="row-fluid">
 		<div class="span6">
 			<dt>Złożona przez</dt>
-		    <dd><?= $this->reservation->patient->name;?></dd>
+		    <dd><?= $this->reservation->patient->name;?> <br>Telefon: <?= $this->reservation->patient->phoneNumber; ?><br>
+		        E-mail: <a href="mailto:<?= $this->reservation->patient->getEmailaddress(); ?>">
+		            <?= $this->reservation->patient->getEmailaddress(); ?></a></dd>
 		</div>
 		<div class="span6">
 			<dt>Data złożenia rezerwacji</dt>
@@ -11,12 +13,24 @@
 		</div>
 	</div>
 	<div class="row-fluid">
-		<div class="span6">
-			<dt>Kontakt do pacjenta</dt>
-		    <dd>Telefon: <?= $this->reservation->patient->phoneNumber; ?><br>
-		        E-mail: <a href="mailto:<?= $this->reservation->patient->getEmailaddress(); ?>">
-		            <?= $this->reservation->patient->getEmailaddress(); ?></a></dd>
-		</div>
+			<div class="span6">
+				<dt>
+			        Status opłacenia rezerwacji
+			    </dt>
+			    <dd>
+	                <?php switch($this->reservation->getBillStatus()):
+						case \Trendmed\Entity\Reservation::BILL_STATUS_NOT_PAID: ?>
+	    <strong><?php echo $this->translate('Bill not paid yet'); ?></strong>
+	    <?php break;?>
+	<?php case \Trendmed\Entity\Reservation::BILL_STATUS_NOT_WANTED: ?>
+	    Nie wymagana przy tej rezerwacji.
+	<?php break;?>
+	<?php case \Trendmed\Entity\Reservation::BILL_STATUS_PAID: ?>
+	    Kaucja wpłacona
+	<?php break; ?>
+	                <?php endswitch; ?>
+	            </dd>
+			</div>
 		<div class="span6">
 			<dt>Zamówione usługi</dt>
 		    <dd>
@@ -55,24 +69,7 @@
 		        <?php endif; ?>
 		    </dd>
 		</div>
-		<div class="span6">
-			<dt>
-		        Status opłacenia rezerwacji
-		    </dt>
-		    <dd>
-                <?php switch($this->reservation->getBillStatus()): ?>
-<?php case \Trendmed\Entity\Reservation::BILL_STATUS_NOT_PAID: ?>
-    <strong><?= $this->translate('Bill not paid yet'); ?></strong>
-    <?php break;?>
-<?php case \Trendmed\Entity\Reservation::BILL_STATUS_NOT_WANTED: ?>
-    Nie wymagana przy tej rezerwacji.
-<?php break;?>
-<?php case \Trendmed\Entity\Reservation::BILL_STATUS_PAID: ?>
-    Kaucja wpłacona
-<?php break; ?>
-                <?php endswitch; ?>
-            </dd>
-		</div>
+	
 	</div>
 	<div class="row-fluid">
 		<div class="span6">

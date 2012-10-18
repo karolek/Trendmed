@@ -3,8 +3,8 @@
 ); ?>">&laquo; lista rezerwacji</a>
 
 <?= $this->partial('reservations/_reservationDetails.phtml', array('reservation' => $this->reservation)); ?>
-    <p>
+    <h3 class="reservationNotice">
         Anulowanie rezerwacji oznacza zamknięcie tej rezerwacji. Pacjent zostanie poinformowany przez e-mail o twojej decyzji.
         Dobrą praktyką jest dopisanie komentarze z powodem anulowania rezerwacji.
-    </p>
+    </h3>
 <?= $this->form; ?>

@@ -345,6 +345,11 @@ textarea#question { width: 100%; }
 .status-Confirmed { font-size: 12px; color: green; background: url(../img/success.png) left center no-repeat; padding-left: 25px; }
 .status-Canceled { color: red; background: url(../img/error.png) left center no-repeat; padding-left: 25px; }
 
+#reservation_anwser textarea { width: 100%; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
+#reservation_anwser .form-actions { margin-top: 20px; }
+.reservationNotice { margin-bottom: 10px; }
+.hero-unit dt { font-size: 15px; font-weight: bold; margin-bottom: 5px; color: #292828; }
+.hero-unit dd { margin-bottom: 10px; }
 
 #map img { margin: 0 auto; position: relative; display: block; margin-top: 10px; }
 
