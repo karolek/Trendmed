@@ -486,7 +486,13 @@ footer .columnFacebook {}
 .clearfix:after { clear: both; }
 .clearfix { *zoom: 1; }
 
-
+/* SHARE FORM */
+#shareForm { }
+#shareForm label { float: left; width: 200px; }
+#shareForm input { width: 320px; }
+#shareForm p.description { margin-left: 200px; margin-bottom: 20px; font-style: italic; }
+#shareForm .shareFormInput { margin-bottom: 15px; }
+#shareForm h4 { margin-bottom: 10px; }
 
 /* ==|== print styles =======================================================
    Print styles.
