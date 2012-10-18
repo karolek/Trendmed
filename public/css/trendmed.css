@@ -494,6 +494,13 @@ footer .columnFacebook {}
 #shareForm .shareFormInput { margin-bottom: 15px; }
 #shareForm h4 { margin-bottom: 10px; }
 
+/* ADS */
+#topAd img { margin-top: -10px; float: right; }
+#bottomAds .row-fluid { background: url(../img/silver-dot.png) center 20px repeat-y; }
+#bottomAds .first img { -webkit-border-radius: 5px 0 0 8px; -moz-border-radius: 5px 0 0 8px; border-radius: 5px 0 0 8px; }
+#bottomAds .second img { float: right; -webkit-border-radius: 0 5px 5px 0; -moz-border-radius: 0 5px 5px 0; border-radius: 0 5px 5px 0; }
+#subpageTopAd img { margin: 0 auto; position: relative; display: block; }
+
 /* ==|== print styles =======================================================
    Print styles.
    Inlined to avoid required HTTP connection: h5bp.com/r

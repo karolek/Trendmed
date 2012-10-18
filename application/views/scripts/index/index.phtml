@@ -1,6 +1,6 @@
-<div class="hero-unit">
+<div id="topAd">
     <?= $this->DisplayAd('homepageTop'); ?>
-</div>
+</div><div class="clearfix"></div>
 <div class="hero-unit">
     <h1><?= $this->translate('Trendmed.eu - tu rezerwuje Europa'); ?></h1>
 
@@ -161,11 +161,13 @@
 <?php endif; ?>
 <!-- DOLNE STREFY BANNEROWE -->
 <!-- @todo ostylować -->
-<div class="row">
-    <div class="span3">
-        <?= $this->DisplayAd('bottomLeft'); ?>
-    </div>
-    <div class="span3">
-        <?= $this->DisplayAd('bottomRight'); ?>
-    </div>
+<div id="bottomAds" class="hero-unit">
+	<div class="row-fluid">
+	    <div class="span6 first">
+	        <?= $this->DisplayAd('bottomLeft'); ?>
+	    </div>
+	    <div class="span6 second">
+	        <?= $this->DisplayAd('bottomRight'); ?>
+	    </div>
+	</div><div class="clearfix"></div>
 </div>
