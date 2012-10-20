@@ -217,6 +217,28 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
      */
     protected $groupPromoEnabled;
 
+    /**
+     * @param Array $groupPromoDiscounts
+     */
+    public function setGroupPromoDiscounts(array $groupPromoDiscounts)
+    {
+        $this->groupPromoDiscounts = $groupPromoDiscounts;
+    }
+
+    /**
+     * @return Array
+     */
+    public function getGroupPromoDiscounts()
+    {
+        return $this->groupPromoDiscounts;
+    }
+
+    /**
+     * @var Array $groupPromoDiscounts
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $groupPromoDiscounts;
+
     protected $_welcomeEmailScript = 'register/_welcomeEmail.phtml';
     protected $_newPasswordScript = 'register/_newPassword.phtml';
     protected $_newEmailScript = 'profile/_newEmail.phtml';

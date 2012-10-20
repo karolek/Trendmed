@@ -19,6 +19,12 @@ class Admin_Form_BannerAd extends Twitter_Form
         $this->setMethod('post');
         $this->setAttrib('class', 'form-horizontal');
 
+        $zone = new \Zend_Form_Element_Select('zone');
+        $zone->addMultiOption(0, '-- CHOSE --');
+        $zone->setLabel('Where to shown this banner');
+        $zone->setDescription('You can choose the zone on site in with this banner will rotate');
+        $this->addElement($zone);
+
         $file = new \Zend_Form_Element_File('file');
         $file->setRequired(true);
         $file->setLabel('Your banner file');
@@ -43,11 +49,7 @@ class Admin_Form_BannerAd extends Twitter_Form
         $description->setLabel('Ad description');
         $this->addElement($description);
 
-        $zone = new \Zend_Form_Element_Select('zone');
-        $zone->addMultiOption(0, '-- CHOSE --');
-        $zone->setLabel('Where to shown this banner');
-        $zone->setDescription('You can choose the zone on site in with this banner will rotate');
-        $this->addElement($zone);
+
 
         $link = new \Zend_Form_Element_Text('target');
         $link->setLabel('Target URL');
@@ -96,7 +98,7 @@ class Admin_Form_BannerAd extends Twitter_Form
 
     protected function _populateZones($zones, $element) {
         foreach($zones as $key => $value) {
-            $element->addMultiOption($key, $value['name']);
+            $element->addMultiOption($key, $value['name']. '('.$value['width'] .' x '.$value['height'].')');
         }
         return $element;
     }

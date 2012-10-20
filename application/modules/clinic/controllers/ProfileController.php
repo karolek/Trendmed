@@ -23,6 +23,10 @@ class Clinic_ProfileController extends Zend_Controller_Action
     {
         $request = $this->getRequest();
         $clinic = $this->_helper->LoggedUser();
+        $config = Zend_Registry::get('config');
+        $this->view->config = $config;
+
+
         if ($request->isPost()) {
             $post = $request->getPost();
             if ($post['active'] == '1') {
@@ -36,15 +40,22 @@ class Clinic_ProfileController extends Zend_Controller_Action
                     array('success' => 'Wyłączono udział w promocjach grupowych')
                 );
             }
+            // create an array with promo discounts; key is amount of patients, value is discount percent
+            $clinic->setGroupPromoDiscounts($post['discounts']);
+
 
             $this->_em->persist($clinic);
             $this->_em->flush();
+            $this->_helper->Redirector('edit-group-promotions', 'profile', 'clinic');
         }
         $this->view->headTitle('Zarządzanie grupowymi promocjami placówki');
+        // passing with current promo discounts to view
+
+        $this->view->discounts = $clinic->getGroupPromoDiscounts();
 
     }
 
-    /** 
+    /**
      * Dashboard for logged clinic. Shows latest reservations and infos.
      * Also, shows info about completition of adding information to profile
      */
