@@ -1,5 +1,4 @@
 <?php
-use IAA\Interfaces\Photo;
 /**
  * Class for returning info about logged user into system (if any).
  *

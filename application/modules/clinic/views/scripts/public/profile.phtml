@@ -34,7 +34,7 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<? foreach($this->clinic->photos as $photo): ?>
-			        <?= $this->ShowPhoto($photo, 'small'); ?>
+			        <?= $this->ShowPhoto($photo, 'small', 'clinics', 'photos-'.$this->clinic->id); ?>
 			        <? endforeach; ?>
 				</div>
 			</div>
