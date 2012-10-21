@@ -283,7 +283,7 @@ Bill not paid yet;Kaucja nie opłacona
 To date;Do
 Waiting for clinic response;Czeka na odpowiedź placówki
 remove;usuń
-Bill for this reservation is not paid yet. Please pay the bill to make reservation valid;Kaucje nie jest opłacona. Prosze opłacić kaucje aby potwierdzić rezerwacje.
+Bill for this reservation is not paid yet. Please pay the bill to make reservation valid;Kaucja nie jest opłacona. Prosze opłacić kaucje aby potwierdzić rezerwacje.
 Pay bill;Opłać kaucje
 Reservation booked on;Rezerwacja dokonana w dniu
 Services booked;Zarezerowane usługi
@@ -295,6 +295,8 @@ to date:do
 Contact to clinic;Kontakt do kliniki
 Current reservation status;Aktualny status rezerwacji
 Available actions;Dostępne akcje
+This account is not active, please contact administration;To konto jest nieaktywne, prosimy o kontakt z administracją serwisu
+You have invited %u more friends to join in your group reservation;Zaprosiłeś %u znajomych do dołaczenia do Twojej rezerwacji grupowej
 Details of reservation;Szczegóły rezerwacji
 Phone;Telefon
 see full profile;zobacz profil
@@ -312,3 +314,32 @@ Choose the type of a banner;Typ bannera
 Please correct the form error;Proszę poprawić błędy w formularzu
 The same windows as link;To samo okno co link
 Banner info changed;Zapisano dane o banerze
+Date of visit:Przedział czasowy wizyty
+Rate visit;Oceń wizyte
+Print PDF reservation;Wydrukuj rezerwacje w PDF
+Download PDF;Pobierz PDF
+This clinic offers group promotion at given discounts;Ta placówka oferuje promocje grupowe według stawek
+With %u friends;Z %u znajomymi
+Learn more about group promotions;Dowiedz się więcej o promocjach grupowych
+-- CHOSE --;-- wybierz --
+Your banner file;Plik bannera
+Supply file according to type of a banner;Plik zgodny z rozmiarem strefy
+Static banner;Banner statyczny
+Reservation survey;Ocena wizyty
+How do you rate the price of the service from 1 to 10;Jak oceniasz cene za usługę w skali od 1 do 10
+10 is the best, 1 is the worst;10 najlepiej, 1 najgorzej
+How do you rate the service itself from 1 to 10;Jak oceniasz jakośc wykonania obsługi?
+How do you rate the stuff of the clinic from 1 to 10;Jak oceniasz personel placówki?
+Submit;Wyślij
+Any aditional comments about what you think about your visist you would like to share;Dodatkowe komentarze odnośnie wizyty którymi chciałbyś się podzielić
+This clinic will require you to pay a bill in amount of 100 euro upon reservation confirm. You will be able to pay after the clinic confirms the reservation via our Pay Pal system from your account.;Ta klinika będzie wymagała od Ciebie opłacenia kaucji w wysokości 100 euro po potwierdzeniu przez nią rezerwacji. Platności będziesz mógł dokonać przez system PayPal.
+If you want to use group promotion discounts, invite your friends. You will receive discount depending how many of invited friends will confirm the reservation;Jeżeli chcesz wziąć udział w promocji grupowe, zaproś do rezerwacji swoich znajomych. Wysokość rabatu będzie uzależniona od tego ilu znajomych potwierdzi rezerwacje.
+Friends e-mail addresses;Adresy e-mail Twoich znajomych
+Seperate e-mail's with comma;Oddziel adresy przecińkiem
+Group promotion, not confirmed;Udział w grupowe promocji nie potwierdzony
+Another user already has username "%value%";Użytkownik o adresie "%value%" już istnieje w naszej bazie
+Trendmed.eu. Reservation nr :;Trendmed.eu. Rezerwacja nr:
+%u confirmed reservations out of %u invites;%u osób potwierdziło swoje rezerwacji z %u zaproszonych
+Current discount is %u;Aktualna zniżka wynosi %u
+Group reservation status;Status rezerwacji grupowej
+You have invited %u friends to join in your group reservation;Zaprosiłeś %u znajomych do udziału w Twojej rezerwacji grupowej

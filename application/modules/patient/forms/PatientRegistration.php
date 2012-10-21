@@ -71,7 +71,7 @@ class Patient_Form_PatientRegistration extends Twitter_Form
                 'class' => 'Trendmed\Entity\Patient',
                 'property' => 'login',
                 'exclude' => array(
-                    //array('property' => 'id', 'value' => $this->getValue('id'))
+                    array('property' => 'isTemp', 'value' => 1)
                 )
             )
         );

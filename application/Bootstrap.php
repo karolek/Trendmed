@@ -182,7 +182,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             ->addResource(new Zend_Acl_Resource('mvc:clinic'))
             ->addResource(new Zend_Acl_Resource('mvc:clinic.index', 'mvc:clinic'))
             ->addResource(new Zend_Acl_Resource('mvc:clinic.public', 'mvc:clinic'))
-            ->addResource(new Zend_Acl_Resource('mvc:clinic.register', 'mvc:clinic'));
+            ->addResource(new Zend_Acl_Resource('mvc:clinic.register', 'mvc:clinic'))
+            ->addResource(new Zend_Acl_Resource('mvc:patient'))
+            ->addResource(new Zend_Acl_Resource('mvc:patient.index', 'mvc:patient'))
+            ->addResource(new Zend_Acl_Resource('mvc:patient.public', 'mvc:patient'))
+            ->addResource(new Zend_Acl_Resource('mvc:patient.register', 'mvc:patient'));
 
             /** Creating permissions */
             $myAcl
@@ -207,7 +211,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
                 # patient reservation only for patient
                 ->deny('guest', 'mvc:patient.reservations')
-                ->allow('patient', 'mvc:patient.reservations');
+                ->allow('patient', 'mvc:patient.reservations')
+
+                #patient panel rights
+                ->allow('patient', 'mvc:patient')
+                ->deny('guest', 'mvc:patient')
+                ->allow('guest', 'mvc:patient.index', array('index', 'password-recovery', 'new-password-from-token'))
+                ->allow('guest', 'mvc:patient.public')
+                ->allow('guest', 'mvc:patient.register');
 
 
             /** Getting the user role */

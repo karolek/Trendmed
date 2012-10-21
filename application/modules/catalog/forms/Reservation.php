@@ -52,4 +52,12 @@ class Catalog_Form_Reservation extends \Twitter_Form
             $this->getElement('services')->addMultiOption($service->id, $service->category->name. '(' .$service->priceMin.' Euro - '.$service->priceMax.' Euro)');
         }
     }
+
+    public function addInviteToGroupPromotion()
+    {
+        $invite = new \Zend_Form_Element_Text('invite');
+        $invite->setLabel('Friends e-mail addresses');
+        $invite->setDescription('Seperate e-mail\'s with comma');
+        $this->addElement($invite);
+    }
 }

@@ -46,7 +46,10 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
             );
         }
 
-
+        // if clinic has group reservations enabled add the info to the form
+        if ($clinic->isGroupPromoEnabled()) {
+            $form->addInviteToGroupPromotion();
+        }
 
         // saveing reservation to session temporary if patient profile is not filled
         if ($this->_helper->LoggedUser()->isProfileFilled() != 1) {
@@ -96,16 +99,68 @@ class Catalog_ReservationsController extends \Zend_Controller_Action
                         $reservation->patient   = $this->_helper->LoggedUser();
                         $reservation->dateFrom  = new \DateTime($values['dateFrom']);
                         $reservation->dateTo    = new \DateTime($values['dateTo']);
+                        $reservation->setClinic($clinic);
+
                         foreach($values['services'] as $serviceId) {
                             $reservation->addService($this->_em->find('\Trendmed\Entity\Service', $serviceId));
                         }
-                        $clinic = $reservation->services[0]->clinic;
                         # checkign if clinic want's bill
                         if ($clinic->wantBill === false) {
                            $reservation->setBillStatus(\Trendmed\Entity\Reservation::BILL_STATUS_NOT_WANTED);
                         }
-                        $reservation->clinic = $clinic;
 
+                        // checking if user is invting some usera
+                        if ($clinic->isGroupPromoEnabled() and $values['invite'] != "") {
+                            // explode e-mail addresses and trim
+                            $inviteEmails = explode(',', $values['invite']);
+                            $emailValidator = new Zend_Validate_EmailAddress();
+                            $counter = 0;
+                            $properEmails = array();
+                            foreach($inviteEmails as $email) {
+                                $email = trim($email);
+                                if($emailValidator->isValid($email) and $email != $this->_helper->LoggedUser()->login) {
+                                    $properEmails[] = $email;
+                                    $counter ++;
+                                }
+                            }
+                            if($counter > 0 ) {
+                                // we'r starting new group reservation using this new reservation a parent reservation
+                                $groupReservation = $reservation->startGroupReservation();
+
+                                // ok, new will invite each of emails address, making a new reservation for them
+                                foreach($properEmails as $email) {
+                                    // lets check if patient is registered
+                                    $patient = $this->_em->getRepository('Trendmed\Entity\Patient')->findOneByLogin($email);
+                                    if(!$patient) { // no
+                                        // we must create new, not active patient
+                                        $patient = new \Trendmed\Entity\Patient();
+                                        $patient->generateRandomPassword(8);
+                                        $patient->setLogin($email);
+                                        $patient->setIsActive(false);
+                                        $patient->setIsTemp(true);
+                                        $role = $this->_em->getRepository('\Trendmed\Entity\Role')
+                                            ->findOneByName('patient');
+                                        if (!$role) throw new \Exception('Given role not found in DB in '.__FUNCTION__);
+                                        $patient->setRole($role);
+
+                                        $this->_em->persist($patient);
+                                    }
+                                    // adding each patient to group reservation
+                                    $newReservation = $groupReservation->addPatient($patient);
+                                    $this->_em->persist($newReservation);
+                                    // let send info to patient about he's invite
+                                    $newReservation->sendStatusNotification('newGroupInvite');
+                                }
+
+
+                                $this->_em->persist($groupReservation);
+                                $this->_helper->FlashMessenger(array('notice' => sprintf($this->view->translate('You have invited %u friends to join in your group reservation'), $counter)));
+                            } else {
+                                $this->_helper->FlashMessenger(array('notice' => 'No correct e-mail address typed in invite field'));
+                            }
+
+
+                        }
                         $this->_em->persist($clinic);
                         $this->_em->persist($reservation);
                         $this->_em->flush();

@@ -36,14 +36,26 @@ abstract class Me_User_Controllers_RegisterController extends Zend_Controller_Ac
         $form = $this->getRegistrationForm();
         $em = $this->_helper->getEm();
 
-        // we initialize model (you should fill _userModel in Your controller)
+
         $model = new $this->_userModel;
 
         if ($request->isPost()) {
             $post = $request->getPost();
             if ($form->isValid($post)) { // data in the form are valid so we
-                // can register new user
+
                 $values = $form->getValues();
+                // we initialize model (you should fill _userModel in Your controller)
+                // @20.10.2012: we must check is user is not of type temp. that means he is allready in database but not activated
+                if($this->_userModel == '\Trendmed\Entity\Patient') { // we want to register patient
+                    // check if there is allready temp user with e-mail we want to register
+                    $invitedUser = $em->getRepository($this->_userModel)->findOneByLogin($values['login']);
+                    if ($invitedUser) {
+                        $model = $invitedUser;
+                    }
+                }
+
+
+                // can register new user
                 $model->setOptions($values);
                 // adding role to object
                 $role = $em->getRepository('\Trendmed\Entity\Role')

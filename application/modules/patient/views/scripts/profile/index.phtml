@@ -55,7 +55,7 @@
 						              <!-- dropdown menu links -->
 						              <?php foreach($status['actions']['patient'] as $action): ?>
 						              <li>
-						                  <a href="<?= $this->url(array('id' => $reservation->id),
+                                          <a href="<?= $this->url(array('id' => $reservation->id),
 						                      $this->config->reservation->action->patient->$action->routeName); ?>">
 						                      <?= $this->translate($this->config->reservation->action->patient->$action->name); ?>
 						                  </a>
@@ -89,6 +89,10 @@
 						<?php if(! count($status['actions']['patient']) >0  && $reservation->status != 'closed'): ?>
 					         <p><?= $this->translate('Waiting for clinic response'); ?></p>
 					    <?php endif; ?>
+
+                        <?php if($reservation->isGroupReservation()): ?>
+                        <p><em>Rezerwacja grupowa</em></p>
+                        <?php endif; ?>
 					
 				</div><div class="clearfix"></div>
 		 

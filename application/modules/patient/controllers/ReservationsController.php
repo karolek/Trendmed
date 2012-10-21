@@ -351,5 +351,30 @@ class Patient_ReservationsController extends Me_User_Controllers_LoginController
         $this->view->form = $form;
     }
 
+    public function confirmGroupReservationAction()
+    {
+        $reservation = $this->_getReservationFromParams();
+        $request     = $this->getRequest();
+
+        # checking if reservation has got status to be confirmed
+        if ($reservation->status != 'group_not_confirmed') {
+            $this->_helper->FlashMessenger(array('warning' => 'This reservation does not need to be confirmed'));
+            $this->_helper->Redirector('index', 'profile');
+        }
+
+        # checking if reservation was in past
+        if ($reservation->getDateTo() < new \DateTime()) {
+            $this->_helper->FlashMessenger(array('warning' => 'This reservation is outdated.'));
+            $this->_helper->Redirector('index', 'profile');
+        }
+
+
+        $reservation->setStatus('new');
+        $this->_em->persist($reservation);
+        $this->_em->flush();
+        $this->_helper->FlashMessenger(array('success' => 'Reservation has been confirmed by you. You now take part in group reservation promotion.'));
+        $this->_helper->Redirector('index', 'profile');
+    }
+
 }
 

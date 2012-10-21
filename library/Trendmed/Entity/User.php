@@ -14,7 +14,7 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
     public function __construct()
     {
         $this->created = new \DateTime();
-        $this->isActive = false;
+        $this->isActive = true;
         $this->salt = $this->_generateSalt();
         return parent::__construct();
     }

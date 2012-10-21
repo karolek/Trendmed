@@ -40,6 +40,25 @@
 		            <?php endforeach; ?>
 		        </ul>
 		    </dd>
+            <?php if($this->reservation->isGroupReservation()): ?>
+            <dt>
+                <?= $this->translate('Group reservation status'); ?>
+            </dt>
+            <dd>
+                <?= sprintf($this->translate(
+                    '%u confirmed reservations out of %u invites', $this->reservation->getGroupReservation()->getConfirmedCount(), $this->reservation->getGroupReservation()->getTotalReservationsCount())
+            ); ?><br>
+                <?= sprintf($this->translate('Current discount is %u', $this->reservation->getGroupReservation()->getCurrentBonusRate())); ?>%
+                <br>
+                Rezerwacje powiązane grupowo to:
+                <ul>
+                    <?php foreach($this->reservation->getGroupReservation()->getReservations() as $reservation): ?>
+                        <li>#<?= $reservation->id; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+
+            </dd>
+            <?php endif; ?>
 		</div>
 	</div>
 	<div class="row-fluid">
@@ -86,6 +105,7 @@
 		            Dodatkowy komentarz: <?= $this->reservation->rating->comment ?: 'brak komentarza'; ?>
 		        </dd>
 		    <?php endif; ?>
+
 		</div>
 		<div class="span6">
 		

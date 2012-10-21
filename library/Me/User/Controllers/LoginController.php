@@ -48,8 +48,11 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
 				$model  = $this->_helper->getEm()->getRepository($this->_userModel)
                         ->findOneByLogin($values['username']);
 				if (!$model) { // we didnt find the user in DB
-				    $this->_helper->FlashMessenger(array('error' => 'Given clinic e-mail not found in database'));
-				} else {
+				    $this->_helper->FlashMessenger(array('error' => 'Given e-mail not found in database'));
+				} elseif(!$model->isActive()) {
+                    $this->_helper->FlashMessenger(array('error' => 'This account is not active, please contact administration'));
+                } else {
+
 				    if ($values['rememberMe'] == 1) {
 				        $config = Zend_Registry::get('config'); 
 				        $rememberMe = $config->usersAccounts->rememberMeTimeinHours;

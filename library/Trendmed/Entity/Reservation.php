@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="reservations")
  * @ORM\Entity(repositoryClass="Trendmed\Repository\ReservationsRepository")
+ * @ORM\HasLifecycleCallbacks
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
 class Reservation extends  \Me\Model\ModelAbstract {
@@ -60,8 +61,28 @@ class Reservation extends  \Me\Model\ModelAbstract {
         'new_date'  => array('name' => 'New date proposed', 'actions' => array(
             'clinic'    => array(),
             'patient' => array('confirmNewDate', 'discardNewDate')
+        )),
+        'group_not_confirmed'  => array('name' => 'Group promotion, not confirmed', 'actions' => array(
+            'clinic'    => array(),
+            'patient' => array('confirmGroupPromotion')
         ))
     );
+
+    /**
+     * @param \Trendmed\Entity\GroupReservation $parentGroupPromotion
+     */
+    public function setParentGroupPromotion($parentGroupPromotion)
+    {
+        $this->parentGroupPromotion = $parentGroupPromotion;
+    }
+
+    /**
+     * @return \Trendmed\Entity\GroupReservation
+     */
+    public function getParentGroupPromotion()
+    {
+        return $this->parentGroupPromotion;
+    }
 
     const BILL_STATUS_NOT_WANTED = 2; # clinic does not require
     const BILL_STATUS_PAID = 1; # if payment has been done and was e' okey!
@@ -162,6 +183,18 @@ class Reservation extends  \Me\Model\ModelAbstract {
     protected $lastReminderAboutReservationSend;
 
     /**
+     * @ORM\OneToOne(targetEntity="\Trendmed\Entity\GroupReservation", cascade={"PERSIST"})
+     * @var \Trendmed\Entity\GroupReservation;
+     */
+    protected $startedGroupPromotion;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Trendmed\Entity\GroupReservation")
+     * @var \Trendmed\Entity\GroupReservation;
+     */
+    protected $parentGroupPromotion;
+
+    /**
      * @param \DateTime $lastReminderAboutReservationSend
      */
     public function setLastReminderAboutReservationSend($lastReminderAboutReservationSend)
@@ -241,7 +274,7 @@ class Reservation extends  \Me\Model\ModelAbstract {
      */
     public function getAmountOfReminderAboutSurveySend()
     {
-        return $this->amountOfReminderAboutSurveySend;
+        return $this->amountOfReminderAbouGroupRetSurveySend;
     }
 
     /**
@@ -290,6 +323,10 @@ class Reservation extends  \Me\Model\ModelAbstract {
     protected $amountOfReminderAboutSurveySend = 0;
 
 
+    /**
+     * @ORM\PrePersist
+     * @throws \Exception
+     */
     protected function validate()
     {
         if (!$this->patient) {
@@ -495,7 +532,7 @@ class Reservation extends  \Me\Model\ModelAbstract {
     }
 
     /**
-     * @return Array
+     * @return ArrayUser index
      */
     public function getStatusAsArray()
     {
@@ -604,14 +641,14 @@ class Reservation extends  \Me\Model\ModelAbstract {
 
 		/* Date of visit */
 		$fpdf->SetFont('arialpl', '', 21);
-        $fpdf->Cell(0, 12, iconv('utf-8','iso-8859-2', $this->view->translate('Date of visit: ')), 0, 2);
+        $fpdf->Cell(0, 12, iconv('utf-8','iso-8859-2', $this->view->translate('Date of visit').': '), 0, 2);
 		$fpdf->SetFont('arialpl', '', 13);
-		$fpdf->Cell(0, 9, $this->dateFrom->format("d-m-Y").' - '.$this->dateTo->format("d-m-Y"), 0, 2);
+		$fpdf->Cell(0, 9, $this->view->translate('From').' '.$this->dateFrom->format("d-m-Y").' '.$this->view->translate('To date').' '.$this->dateTo->format("d-m-Y"), 0, 2);
 		$fpdf->ln(10);
 		
 		/* Services */
 		$fpdf->SetFont('arialpl', '', 21);
-        $fpdf->Cell(0, 12, iconv('utf-8','iso-8859-2', $this->view->translate('Services: ')), 0, 2);
+        $fpdf->Cell(0, 12, iconv('utf-8','iso-8859-2', $this->view->translate('Services').': '), 0, 2);
 		$fpdf->SetFont('arialpl', '', 13);		
 		$i = 0;
 		$len = count($this->services);
@@ -696,6 +733,8 @@ class Reservation extends  \Me\Model\ModelAbstract {
             $mail->send();
             $log->debug('E-mail send to: ' . $this->clinic->getEmailaddress() . '
             from ' . $mail->getFrom() . ' subject: ' . $mail->getSubject());
+        } else {
+            $log->debug('Clinic template '.$clinicTemplate.' not found');
         }
 
         if(file_exists($patientTemplate)) {
@@ -712,6 +751,8 @@ class Reservation extends  \Me\Model\ModelAbstract {
             $mail->send();
             $log->debug('E-mail send to: ' . $this->patient->getEmailaddress() . '
             from ' . $mail->getFrom() . ' subject: ' . $mail->getSubject());
+        } else {
+            $log->debug('Patient template '.$patientTemplate.' not found');
         }
 
     }
@@ -724,7 +765,49 @@ class Reservation extends  \Me\Model\ModelAbstract {
         return $this->paymentHash;
     }
 
+    public function startGroupReservation()
+    {
+        // make a  group promotion object if does not exists
+        if (!$this->startedGroupPromotion) {
+            $groupReservation = new \Trendmed\Entity\GroupReservation();
+            $groupReservation->setParentReservation($this);
+            $this->startedGroupPromotion = $groupReservation;
+        }
+        return $this->startedGroupPromotion;
+    }
 
+    public function getStartedGroupPromotion()
+    {
+        return $this->startedGroupPromotion;
+
+    }
+
+    /**
+     * When cloning reset object id to null
+     */
+    public function __clone()
+    {
+        $this->id = null;
+        $this->startedGroupPromotion = null;
+    }
+
+    public function isGroupReservation()
+    {
+        if($this->getParentGroupPromotion() or count($this->getStartedGroupPromotion()) > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getGroupReservation()
+    {
+        if($this->getParentGroupPromotion()) {
+            return $this->getParentGroupPromotion();
+        } elseif (count($this->getStartedGroupPromotion()) > 0) {
+            return $this->getStartedGroupPromotion();
+        }
+        return null;
+    }
     /** END GETTERS AND SETTERS **/
 
 }

@@ -46,7 +46,18 @@
 		        <dt><?= $this->translate('Current reservation status'); ?></dt>
 				<?php $status = $this->reservation->getStatusAsArray(); ?>
 		        <dd class="status-<?= $status['name']; ?>"><?= $this->translate($status['name']); ?></dd>
-		    </dd>
+                <?php if($this->reservation->isGroupReservation()): ?>
+                    <dt>
+                        <?= $this->translate('Group reservation status'); ?>
+                    </dt>
+                    <dd>
+                        <?= sprintf($this->translate(
+                        '%u confirmed reservations out of %u invites', $this->reservation->getGroupReservation()->getConfirmedCount(), $this->reservation->getGroupReservation()->getTotalReservationsCount())
+                    ); ?><br>
+                        <?= sprintf($this->translate('Current discount is %u', $this->reservation->getGroupReservation()->getCurrentBonusRate())); ?>%
+                     </dd>
+                <?php endif; ?>
+            </dd>
 		</div>
 	</div>
 

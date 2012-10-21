@@ -9,6 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @author Bartosz Rychlicki <bartosz.rychlicki@gmail.com>
  */
 class GroupReservation extends \Me\Model\ModelAbstract {
+
+    public function __construct()
+    {
+        $this->childReservations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /* PROPERTIES */
     /**
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -26,24 +32,70 @@ class GroupReservation extends \Me\Model\ModelAbstract {
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
-     * @ORM\OneToOne(targetEntity="\Trendmed\Entity\Reservation")
+     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\Reservation", mappedBy="parentGroupPromotion", cascade={"PERSIST"})
      */
     protected $childReservations;
 
     /**
      * @var array $discountValues copied discount values from clinic settings
      * @ORM\Column(type="array", nullable=false)
+     *
+     * @return \Trendmed\Entity\Reservation $reservation New reservation created for invitied patient
      */
     protected $discountValues;
 
-    public function inviteByEmail($email) {
+    public function addPatient(\Trendmed\Entity\Patient $patient) {
         // make new reservation for each invited user up to limit
-        // send e-mail notification to user
+        if(!$this->parentReservation) {
+            throw new \Exception('Group Reservation dont have parent reservation object setup in '.__FUNCTION__);
+        }
+        $reservation = $this->parentReservation;
+
+        $childrenReservation = clone($reservation);
+        $childrenReservation->setStatus('group_not_confirmed');
+        $childrenReservation->setPatient($patient);
+        $childrenReservation->setParentGroupPromotion($this);
+
+        $this->childReservations->add($childrenReservation);
+
+        return $childrenReservation;
     }
 
     public function getConfirmedCount()
     {
         // how many user did confirm the reservation
+        $counter = 0;
+        foreach($this->childReservations as $reservation) {
+            if($reservation->status == 'confirmed') {
+                $counter++;
+            }
+        }
+        if($this->parentReservation->status == 'confirmed') {
+            $counter++;
+        }
+        return $counter;
+    }
+
+    public function getTotalReservationsCount()
+    {
+        // +1 for parent reservation
+        return count($this->childReservations) + 1;
+    }
+
+    public function getCurrentBonusRate()
+    {
+
+        if($this->discountValues[$this->getConfirmedCount()]) {
+            return $this->discountValues[$this->getConfirmedCount()];
+        }
+        // checking if the array is not maxed out
+        $values = $this->discountValues;
+        krsort($values);
+        foreach($values as $key => $value) {
+            if($key <= $this->getConfirmedCount()) {
+                return $value;
+            }
+        }
     }
 
     /**
@@ -65,7 +117,7 @@ class GroupReservation extends \Me\Model\ModelAbstract {
     /**
      * @param \Trendmed\Entity\Reservation $parentReservation
      */
-    public function setParentReservation($parentReservation)
+    public function setParentReservation(\Trendmed\Entity\Reservation $parentReservation)
     {
         $this->parentReservation = $parentReservation;
         // copying discount values
@@ -83,6 +135,12 @@ class GroupReservation extends \Me\Model\ModelAbstract {
         return $this->parentReservation;
     }
 
+    public function getReservations()
+    {
+        $collection = $this->getChildReservations();
+        $collection->add($this->getParentReservation());
+        return $collection;
+    }
 
 
 }

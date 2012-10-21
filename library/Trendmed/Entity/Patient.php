@@ -14,7 +14,8 @@ class Patient extends \Trendmed\Entity\User
         $this->roleName = 'patient';
         $this->favoriteClinics = new \Doctrine\Common\Collections\ArrayCollection;
         $this->isNewsletterActive = false;
-        $this->isActive = false;
+        $this->isActive = true;
+        $this->isTemp = false;
 
         parent::__construct();
     }
@@ -70,6 +71,12 @@ class Patient extends \Trendmed\Entity\User
      * @var type
      */
     protected $isNewsletterActive;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     * @var bool was user invited from group promotion (and dint have account before)
+     */
+    protected $isTemp;
 
     /**
      * @param \Doctrine\Common\Collections\ArrayCollection $reservations
@@ -275,4 +282,21 @@ class Patient extends \Trendmed\Entity\User
         }
         return $result;
     }
+
+    /**
+     * @param boolean $isTemp
+     */
+    public function setIsTemp($isTemp)
+    {
+        $this->isTemp = $isTemp;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsTemp()
+    {
+        return $this->isTemp;
+    }
+
 }

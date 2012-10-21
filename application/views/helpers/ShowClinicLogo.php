@@ -46,7 +46,7 @@ class Trendmed_View_Helper_ShowClinicLogo extends Zend_View_Helper_Abstract
                     'controller'    => 'public',
                     'module'        => 'clinic',
                     'slug'          => $user->getSlug(),
-                ), null, true
+                ), 'default', true
             ) .'">'. $output .'</a>';
         }
         return $output;

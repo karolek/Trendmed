@@ -27,12 +27,14 @@ class Admin_PatientsController extends Zend_Controller_Action {
         $qb = $this->_helper->getEm()->createQueryBuilder();
         $qb->select('p')
                 ->from('\Trendmed\Entity\Patient', 'p')
+                ->where('p.isTemp = ?1')
                 ->orderBy('p.created', 'DESC');
         $qb->setMaxResults(50);
         $qb->setFirstResult(0);
-        
+
         $query = $qb->getQuery();
-        
+        $query->setParameter(1, false);
+
         
         $paginator = new Paginator($query, $fetchJoin = true);
         $this->view->paginator = $paginator;
@@ -85,7 +87,7 @@ class Admin_PatientsController extends Zend_Controller_Action {
             $this->_em->flush();
 
             $this->_helper->FlashMessenger(array(
-                'warning' => 'PAcjent o loginie: '. $clinic->getLogin(). ' została usunięta'
+                'warning' => 'Pacjent z loginem: '. $clinic->getLogin(). ' został usunięty'
             ));
             $this->_helper->Redirector('index');
         }

@@ -79,6 +79,10 @@
 					<?php if(!count($status['actions']['clinic']) >0 && $reservation->status != 'closed'):?>
 						 <em>Czeka na reakcje pacjenta</em>
 					<?php endif;?>
+                    <?php if($reservation->isGroupReservation()): ?>
+                         <br>
+                         <em>Rezerwacja grupowa</em>
+                    <?php endif; ?>
                 </td>
                 <td>
                    

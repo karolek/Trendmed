@@ -1,0 +1,14 @@
+<?= sprintf($this->translate('Twój znajomy %s zaprasza Cię do zaprasza do wspólnego wyjazdu do Polski'), $this->reservation->getGroupReservation()->getParentReservation()->patient->name);?>
+
+<br>
+<?php
+// tutaj masz obiekt pacjenta który zaprasza:
+$this->reservation->getGroupReservation()->getParentReservation()->patient;
+// obiekt placówki dot. rezerwacji
+$this->reservation->clinic;
+// data
+$this->reservation->dateFrom->format("d-m-Y");
+
+?>
+<a href="http://<?= $_SERVER['HTTP_HOST'];?>"><img src="<?= $_SERVER['HTTP_HOST'];?>/img/logo.png" /></a>
+

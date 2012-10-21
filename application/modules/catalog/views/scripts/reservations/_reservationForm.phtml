@@ -4,6 +4,10 @@
 		<?= $this->element->dateFrom; ?>
 		<?= $this->element->dateTo; ?>
 		<?= $this->element->question; ?>
+        <?php if(isset($this->element->invite)): ?>
+            <?= $this->translate('If you want to use group promotion discounts, invite your friends. You will receive discount depending how many of invited friends will confirm the reservation'); ?>
+		    <?= $this->element->invite; ?>
+        <?php endif; ?>
 		<?= $this->element->submit; ?>
 		<script type="text/javascript">
 		    $(".datepicker").datepicker({'startDate': new Date(), 'autoclose' : true, 'todayHighlight' : true });
