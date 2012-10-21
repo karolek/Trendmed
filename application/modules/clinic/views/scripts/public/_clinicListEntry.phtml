@@ -47,7 +47,11 @@
 
 	<div class="globalClear"></div>
 
-    <p class="clinicDescription"> <?= $this->clinic->description; ?></p>
+    <p class="clinicDescription">
+        <?php if($this->clinic->description != ""): ?>
+            <?= $this->Truncate(strip_tags($this->clinic->description))->toLength(200); ?> <a href="<?= $this->url(array('slug' => $this->clinic->slug), 'clinic', true);?>"><?= $this->translate('more'); ?></a>
+        <?php endif; ?>
+    </p>
     <div class="<?php echo $this->clinic->wantBill ? 'billRequired' : 'billNotRequired'; ?>"><?= $this->translate($this->clinic->wantBill ? 'Requires bill to be paid' : 'Bill is not required'); ?></div>
     <?php if ($this->clinic->isGroupPromoEnabled()): ?>
         <div class="alert"><?= $this->translate('This clinic offers group promotions'); ?></div>
