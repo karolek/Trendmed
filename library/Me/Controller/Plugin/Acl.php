@@ -160,6 +160,7 @@ class Me_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         $requestUri = $_SERVER['REQUEST_URI'];
         $session = new \Zend_Session_Namespace('request_denied_url');
         $session->requestUri = $requestUri;
+        $session->setExpirationSeconds(2*60);
 
         // setting up a message
         $messenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
