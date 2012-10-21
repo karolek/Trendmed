@@ -50,7 +50,7 @@
     <p class="clinicDescription"> <?= $this->clinic->description; ?></p>
     <div class="<?php echo $this->clinic->wantBill ? 'billRequired' : 'billNotRequired'; ?>"><?= $this->translate($this->clinic->wantBill ? 'Requires bill to be paid' : 'Bill is not required'); ?></div>
     <?php if ($this->clinic->isGroupPromoEnabled()): ?>
-        <div class="alert"><?= $this->translate('This clinic offers group promotions'); ?></div>
+        <div class="alert groupPromotionsOn"><?= $this->translate('This clinic offers group promotions'); ?></div>
     <?php endif; ?>
 
 

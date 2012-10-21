@@ -26,14 +26,16 @@
     </div>
     <?php if ($this->clinic->isGroupPromoEnabled()): ?>
     <div class="row" id="clinic-grouppromotion">
-        <?= $this->translate('This clinic offers group promotion at given discounts'); ?>:
-        <dl>
-            <?php foreach($this->clinic->getGroupPromoDiscounts() as $key => $value): ?>
-            <dt><?= sprintf($this->translate('With %u friends'), $key);?>: </dt>
-            <dd><?= $value; ?>%</dd>
-            <?php endforeach; ?>
-        </dl>
-        <a href="<?= $this->url(array('slug' => 'group-promotions'), 'page', true); ?>"><?= $this->translate('Learn more about group promotions'); ?></a>
+			<h2 class="pull-left"><?= $this->translate('Group promotion'); ?>!</h2>
+			 <a class="btn pull-right" id="how_it_works" href="<?= $this->url(array('slug' => 'group-promotions'), 'page', true); ?>"><?= $this->translate('How it works'); ?></a>
+			<div class="clearfix"></div>
+		    <p class="linic-grouppromotion-info"><?= $this->translate('This clinic offers group promotion at given discounts'); ?>:<br />
+			<?= $this->translate('Price is lower if You take your friends or family with You'); ?>!</p>
+		    <ul>
+		    <?php foreach($this->clinic->getGroupPromoDiscounts() as $key => $value): ?>
+		        <li><span class="promotion_<?= $key; ?>_persons"><?= sprintf($this->translate('%u persons'), $key);?>: <?= $value; ?>%</span> <?= $this->translate('off total value'); ?>!</li>
+		    <?php endforeach; ?>
+		    </ul>
     </div>
     <?php endif; ?>
     <div id="reservation1">

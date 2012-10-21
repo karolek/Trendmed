@@ -251,8 +251,26 @@ section {padding:24px;}
 #clinicProfile .span9 a:last-child img{ margin-right: 0px; }
 #clinicProfile img { border:1px solid #ddd; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;  }
 #clinicProfile .buttonBook { margin-top: 20px; }
-#clinicProfile #clinic-grouppromotion {height: 184px;}
-#clinicProfile #clinic-grouppromotion img {position: absolute; margin: -40px 0 0 -24px; z-index: 1;}
+#clinic-grouppromotion { padding: 25px; margin: 0; width: 630px; border-top: 0; padding-bottom: 0; height: 286px; background: url(../img/group_promotion_bg.png); background-repeat: no-repeat; }
+#clinic-grouppromotion h2 { color: #fff; font-size: 35px; margin-top: 6px; }
+#clinic-grouppromotion p.linic-grouppromotion-info { color: #000; margin-top: 30px; font-weight: bold; font-size: 14px;}
+#clinic-grouppromotion span { font-size: 19px; }
+#clinic-grouppromotion ul { margin-top: 7px; list-style-type: none; margin-left: 0; }
+#clinic-grouppromotion li { font-weight: bold; color: #000; line-height: 22px; }
+#clinic-grouppromotion .promotion_2_persons { color: #35C1E4; }
+#clinic-grouppromotion .promotion_3_persons { color: #18A9CD; }
+#clinic-grouppromotion .promotion_4_persons{ color: #10819D; }
+#clinic-grouppromotion .promotion_5_persons { color: #085582; }
+#clinic-grouppromotion #how_it_works { margin-top: 5px; background: url(../img/how_it_works.png); width: 125px; color: #fff; text-shadow: none; padding-left: 10px; text-align: left;}
+#clinic-grouppromotion #how_it_works:active { box-shadow: none; }
+#clinic-grouppromotion #how_it_works:hover { background: url(../img/how_it_works_hover.png); }
+#clinic-grouppromotion p.inviteFriends { color: #000; font-weight: bold; margin-bottom: 10px; }
+#clinic-grouppromotion #inviteFriendsForm { margin-top: 20px; }
+#clinic-grouppromotion #friendsEmails { width: 150px; padding: 8px; }
+#clinic-grouppromotion #sendInvitation { margin-top: -7px; margin-left: 5px; background: url(../img/send_invitation.png); width: 150px; color: #fff; text-shadow: none; padding-left: 10px; text-align: left;}
+#clinic-grouppromotion #sendInvitation:active { box-shadow: none; }
+#clinic-grouppromotion #sendInvitation:hover { background:url(../img/send_invitation_hover.png); }
+.groupPromotionsOn { margin-top: 20px; }
 #clinicProfile .table {margin:10px 0 0;}
 #clinicProfile .table th {color:#292828;}
 #clinicProfile .table td {border-top:1px dotted #DDDDDD;}
