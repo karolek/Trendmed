@@ -204,7 +204,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 # clinic panel rights
                 ->allow('clinic', 'mvc:clinic')
                 ->deny('guest', 'mvc:clinic')
-                ->allow('guest', 'mvc:clinic.index', array('index', 'password-recovery', 'new-password-from-token'))
+                ->allow('guest', 'mvc:clinic.index', array('index', 'password-recovery', 'new-password-from-token', 'logout'))
                 ->allow('guest', 'mvc:clinic.public')
                 ->allow('guest', 'mvc:clinic.register')
 
@@ -216,7 +216,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 #patient panel rights
                 ->allow('patient', 'mvc:patient')
                 ->deny('guest', 'mvc:patient')
-                ->allow('guest', 'mvc:patient.index', array('index', 'password-recovery', 'new-password-from-token'))
+                ->allow('guest', 'mvc:patient.index', array('index', 'password-recovery', 'new-password-from-token', 'logout'))
                 ->allow('guest', 'mvc:patient.public')
                 ->allow('guest', 'mvc:patient.register');
 
