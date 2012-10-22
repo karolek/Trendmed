@@ -1,4 +1,4 @@
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-fixed-top" xmlns="http://www.w3.org/1999/html">
     <div class="paski"></div>
   <div class="navbar-inner">
     <div class="container">
@@ -24,6 +24,11 @@
                 
                 
         <ul class="nav">
+            <?php foreach($this->GetConfig()->languages as $language): ?>
+                <a href="<?= $this->url(array(
+                    'lang' => $language->code,
+                ),'changeLanguage', true); ?>"><img src="/img/flags/<?= $language->code;?>.png" alt="Change language to: <?= $language->name;?>"></a>
+            <?php endforeach; ?>
         </ul>
                 
                 

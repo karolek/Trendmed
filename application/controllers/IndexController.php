@@ -193,5 +193,15 @@ class IndexController extends \Zend_Controller_Action
             throw new \Exception('Request should be POST in '.__FUNCTION__);
         }
     }
+
+    public function changeLanguageAction()
+    {
+        $request = $this->getRequest();
+        $newLang = $request->getParam('lang');
+
+        $session = new Zend_Session_Namespace('selectedLanguage');
+        $session->currentLanguage = $newLang;
+        $this->_helper->Redirector('index','index', 'default');
+    }
 }
 

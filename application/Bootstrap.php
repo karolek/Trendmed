@@ -17,11 +17,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
     protected function _initLocale()
     {
-        try {
-            $locale = new Zend_Locale('auto');
-        } catch (Zend_Locale_Exception $e) {
-            $locale = new Zend_Locale('en_GB');
+        $session = new Zend_Session_Namespace('selectedLanguage');
+        if($session->currentLanguage != "") { // user had choosen language
+            $locale = new Zend_Locale($session->currentLanguage);
+        } else {
+            try {
+                $locale = new Zend_Locale('auto');
+            } catch (Zend_Locale_Exception $e) {
+                $locale = new Zend_Locale('en_GB');
+            }
         }
+
+
 
         Zend_Registry::set('locale', $locale);
     }
@@ -40,6 +47,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             array(
                 'content' => APPLICATION_PATH . '/../data/languages/pl_PL.csv',
                 'locale' => 'pl'
+            )
+        );
+        $translate->addTranslation(
+            array(
+                'content' => APPLICATION_PATH . '/../data/languages/de_de.csv',
+                'locale' => 'de'
             )
         );
 
