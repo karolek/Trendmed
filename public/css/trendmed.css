@@ -524,6 +524,10 @@ footer .columnFacebook {}
 #bottomAds .second img { float: right; -webkit-border-radius: 0 5px 5px 0; -moz-border-radius: 0 5px 5px 0; border-radius: 0 5px 5px 0; }
 #subpageTopAd img { margin: 0 auto; position: relative; display: block; }
 
+/* LANGUAGE */
+#language { float: right; margin-top: 32px; }
+#language a { margin-left: 10px; }
+
 /* ==|== print styles =======================================================
    Print styles.
    Inlined to avoid required HTTP connection: h5bp.com/r
