@@ -23,14 +23,14 @@
 		</p>
                 
                 
-        <ul class="nav">
+        <div id="language">
             <?php foreach($this->GetConfig()->languages as $language): ?>
                 <a href="<?= $this->url(array(
                     'lang' => $language->code,
                 ),'changeLanguage', true); ?>"><img src="/img/flags/<?= $language->code;?>.png" alt="Change language to: <?= $language->name;?>"></a>
             <?php endforeach; ?>
-        </ul>
-                
+        </div>
+        <div class="clearfix"></div>
                 
       </div><!--/.nav-collapse -->
     </div>
