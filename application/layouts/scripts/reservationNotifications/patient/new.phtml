@@ -11,7 +11,7 @@
      <?php printf($this->translate('Your proposed dates of reservation, from %s to %s' , $this->reservation->dateFrom->format('d-m-Y'), $this->reservation->dateTo->format('d-m-Y') ))?> <br>
     
     <?php if (!$this->reservation->question == ""): ?>
-        <?php printf($this->translate('Your comment'))?> <?= $this->reservation->question?><br>   
+     <b> <?php printf($this->translate('Your comment'))?> <?= $this->reservation->question?><br>   </b>
     <?php endif; ?>
     <br>
     <?php  printf($this->translate('Reservation needs to be confirmed by the clinic. You will be informed about that via email.')) ?>
