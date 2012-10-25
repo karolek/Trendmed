@@ -95,16 +95,26 @@ class Category extends \Me\Model\ModelAbstract implements \Gedmo\Tree\Node
 
     /**
      * @Gedmo\TreeParent
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="children", cascade={"ALL"})
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent", cascade={"ALL"})
      * @ORM\OrderBy({"lft" = "ASC"})
      */
     private $children;
+
+    public function setChildren($children)
+    {
+        $this->children = $children;
+    }
+
+    public function getChildren()
+    {
+        return $this->children;
+    }
 
     /**
      * @Gedmo\Locale
@@ -113,8 +123,18 @@ class Category extends \Me\Model\ModelAbstract implements \Gedmo\Tree\Node
      */
     private $locale;
 
+    public function setServices($services)
+    {
+        $this->services = $services;
+    }
+
+    public function getServices()
+    {
+        return $this->services;
+    }
+
     /**
-     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\Service", mappedBy="category", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\Service", mappedBy="category", cascade="remove")
      */
     protected $services;
 

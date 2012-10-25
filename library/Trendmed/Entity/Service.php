@@ -85,7 +85,7 @@ class Service extends \Me\Model\ModelAbstract {
     protected $clinic;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Trendmed\Entity\Category", inversedBy="services")
+     * @ORM\ManyToOne(targetEntity="\Trendmed\Entity\Category", inversedBy="services", cascade={"ALL"})
      */
     protected $category;
 

@@ -37,8 +37,13 @@ class Admin_CategoriesController extends Zend_Controller_Action
 
             }
         );
-        $tree = $repo->findAllAsArrayTree($options);
-        return $tree;
+        $htmlTree = $repo->childrenHierarchy(
+            null, /* starting from root nodes */
+            false, /* load all children, not only direct */
+            $options
+        );
+        //$tree = $repo->findAllAsArrayTree($options);
+        return $htmlTree;
     }
     
     public function init()
@@ -67,6 +72,8 @@ class Admin_CategoriesController extends Zend_Controller_Action
 
         if ($modelId) {
             $model = $em->find('\Trendmed\Entity\Category', $modelId);
+            $model->setTranslatableLocale('pl_PL');
+            $em->refresh($model);
             $translations = $repository->findTranslations($model);
             $form->setDefault('name', $model->getName());
             $form->setDefault('description', $model->getDescription());
@@ -83,25 +90,23 @@ class Admin_CategoriesController extends Zend_Controller_Action
             $post = $request->getPost();
             if ($form->isValid($post)) {
                 $values = $form->getValues();
-
                 foreach ($config->languages as $lang) {
-                    
-                    if ($lang->default == true) { // we must add default values to our main entity
-                        $model->setName($values['name']);
-                        $model->setDescription(
-                            $values['description']
+                    if( $values['name_'.$lang->code] != "") {
+                        $repository->translate(
+                            $model, 'name', $lang->code,
+                            $values['name_'.$lang->code]
                         );
-                        continue;
+                        $repository->translate(
+                            $model, 'description', $lang->code,
+                            $values['description_'.$lang->code]
+                        );
                     }
-                    $repository->translate(
-                        $model, 'name', $lang->code, 
-                        $values['name_'.$lang->code]
-                    );
-                    $repository->translate(
-                        $model, 'description', $lang->code, 
-                        $values['description_'.$lang->code]
-                    );
                 }
+                $model->setName($values['name']);
+                $model->setDescription(
+                    $values['description']
+                );
+
                 // fetching parent
                 if ($values['parent_id'] == 0) {
                     // setting the root parent
@@ -142,6 +147,13 @@ class Admin_CategoriesController extends Zend_Controller_Action
             throw new \Exception('No node found with ID:'. $nodeId.', cant
                 delete node');
         }
+        // removing any children
+        if(count($node->services) > 0 ) {
+            foreach($node->services as $service) {
+                $em->remove($service);
+            }
+        }
+        $em->flush();
         $repo->removeFromTree($node);
         $em->clear();
         $this->_helper->FlashMessenger(array('success' => 'Category has been deleted. All children elements has been reordered.'));

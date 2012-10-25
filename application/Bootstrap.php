@@ -28,7 +28,20 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             }
         }
 
+        // doctrine
+        $this->bootstrap('doctrine');
+        $doctrine = Zend_Registry::get('doctrine');
+        $evm = $doctrine->getEntityManager()->getEventManager();
 
+        // translatable
+        $translatableListener = new Gedmo\Translatable\TranslatableListener;
+        // current translation locale should be set from session or hook later into the listener
+        // most important, before entity manager is flushed
+        $translatableListener->setDefaultLocale('pl_PL');
+        $translatableListener->setTranslatableLocale($locale->getLanguage().'_'.$locale->getRegion());
+        $translatableListener->setPersistDefaultLocaleTranslation(true);
+
+        $evm->addEventSubscriber($translatableListener);
 
         Zend_Registry::set('locale', $locale);
     }
@@ -58,6 +71,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         $locale = Zend_Registry::get('locale');
         $translate->setLocale($locale->getLanguage());
+
 
         Zend_Registry::set('Zend_Translate', $translate);
     }
