@@ -35,6 +35,15 @@ class LoadSystemicPages extends \Doctrine\Common\DataFixtures\AbstractFixture im
         $page->setIsSystemic(true);
 
         $manager->persist($page);
+
+        $page = new \Trendmed\Entity\Page();
+        $page->setTitle('Serwis turystyczny');
+        $page->setContent('Proszę wydetuj mnie w panelu administratora');
+        $page->setActive(true);
+        $page->setSlug('serwis-turystyczny');
+        $page->setIsSystemic(true);
+
+        $manager->persist($page);
         $manager->flush();
     }
 
