@@ -121,4 +121,18 @@ class CategoryRepository extends \Gedmo\Tree\Entity\Repository\NestedTreeReposit
         $tree = $query->getArrayResult();
         return $tree;
     }
+
+    public function getRootNode()
+    {
+        $query = $this->_em
+            ->createQueryBuilder()
+            ->select('node')
+            ->from('Trendmed\Entity\Category', 'node')
+            ->where('node.name = ?1')
+            ->andWhere('node.lvl = 0')
+            ->getQuery();
+        $query->setParameter(1, 'root');
+        return $query->getResult()[0];
+
+    }
 }
