@@ -16,7 +16,6 @@ class Trendmed_View_Helper_CategoriesTree extends Zend_View_Helper_Abstract
 
     public function categoriesTree($selected = null)
     {
-        var_dump($selected);
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
         $repo = $em->getRepository('\Trendmed\Entity\Category');
         $root = $repo->getRootNode();
