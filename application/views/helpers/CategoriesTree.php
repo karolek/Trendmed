@@ -16,25 +16,33 @@ class Trendmed_View_Helper_CategoriesTree extends Zend_View_Helper_Abstract
 
     public function categoriesTree($selected = null)
     {
+        var_dump($selected);
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
         $repo = $em->getRepository('\Trendmed\Entity\Category');
         $root = $repo->getRootNode();
         $output = '';
+
         if (count($root->getChildren()) > 0 ) {
-            $output .= '<ol>';
             foreach($root->children as $topCat) {
-                $output .= '<li>';
-                $output .= $topCat->name;
+                $output .= '<li class="nav-header"><a href="#">'. $topCat->name . '</a><span>(' . count($topCat->children). ')</span></li>';
+
                 if(count($topCat->children) > 0 ) {
-                    $output .= '<ul>';
+                    $output .= '<ul class="hidden">';
                     foreach ($topCat->children as $bottomCat) {
-                        $output .= '<li>'.$bottomCat->name.'</li>';
+                        $link   = $this->view->url(array('slug' => $bottomCat->slug), 'category', false);
+                        $class = 'class="';
+                        if ($bottomCat->slug == $selected and $bottomCat->slug != '') {
+
+                            $class .= 'active';
+                        }
+                        $class .= '" ';
+
+                        $output .= '<li><a href="'.$link.'" ' . $class . '>' . $bottomCat->name . '</a></li>';
                     }
                     $output .= '</ul>';
                 }
                 $output .= '</li>';
             }
-            $output .= '</ol>';
         } else {
             $output = $this->view->translate('No categories in system');
         }

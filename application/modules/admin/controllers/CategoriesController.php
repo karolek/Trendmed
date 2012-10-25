@@ -72,7 +72,7 @@ class Admin_CategoriesController extends Zend_Controller_Action
 
         if ($modelId) {
             $model = $em->find('\Trendmed\Entity\Category', $modelId);
-            $model->setTranslatableLocale('pl_PL');
+            #$model->setTranslatableLocale('pl_PL');
             $em->refresh($model);
             $translations = $repository->findTranslations($model);
             $form->setDefault('name', $model->getName());
@@ -90,18 +90,7 @@ class Admin_CategoriesController extends Zend_Controller_Action
             $post = $request->getPost();
             if ($form->isValid($post)) {
                 $values = $form->getValues();
-                foreach ($config->languages as $lang) {
-                    if( $values['name_'.$lang->code] != "") {
-                        $repository->translate(
-                            $model, 'name', $lang->code,
-                            $values['name_'.$lang->code]
-                        );
-                        $repository->translate(
-                            $model, 'description', $lang->code,
-                            $values['description_'.$lang->code]
-                        );
-                    }
-                }
+
                 $model->setName($values['name']);
                 $model->setDescription(
                     $values['description']
@@ -119,6 +108,21 @@ class Admin_CategoriesController extends Zend_Controller_Action
                     throw new Exception('Category must have a parent');
                 }
                 $model->setParent($parent);
+                $em->persist($model);
+                $em->flush();
+
+                foreach ($config->languages as $lang) {
+                    if( $values['name_'.$lang->code] != "") {
+                        $repository->translate(
+                            $model, 'name', $lang->code,
+                            $values['name_'.$lang->code]
+                        );
+                        $repository->translate(
+                            $model, 'description', $lang->code,
+                            $values['description_'.$lang->code]
+                        );
+                    }
+                }
                 $em->persist($model);
                 $em->flush();
 

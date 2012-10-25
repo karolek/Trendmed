@@ -201,6 +201,7 @@ class IndexController extends \Zend_Controller_Action
 
         $session = new Zend_Session_Namespace('selectedLanguage');
         $session->currentLanguage = $newLang;
+
         $this->_helper->Redirector('index','index', 'default');
     }
 }

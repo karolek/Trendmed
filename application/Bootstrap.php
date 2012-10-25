@@ -19,6 +19,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         $session = new Zend_Session_Namespace('selectedLanguage');
         if($session->currentLanguage != "") { // user had choosen language
+            // this is really stupid:
+
+            if ($session->currentLanguage == 'de_de') {
+                $session->currentLanguage = 'de_DE';
+            }
             $locale = new Zend_Locale($session->currentLanguage);
         } else {
             try {
@@ -38,7 +43,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         // current translation locale should be set from session or hook later into the listener
         // most important, before entity manager is flushed
         $translatableListener->setDefaultLocale('pl_PL');
-        $translatableListener->setTranslatableLocale($locale->getLanguage().'_'.$locale->getRegion());
+        $localeCode = $locale->getLanguage().'_'.$locale->getRegion();
+
+        $translatableListener->setTranslatableLocale($localeCode);
         $translatableListener->setPersistDefaultLocaleTranslation(true);
 
         $evm->addEventSubscriber($translatableListener);
