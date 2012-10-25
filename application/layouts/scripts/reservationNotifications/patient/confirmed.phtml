@@ -22,12 +22,5 @@
     <?php if ($this->reservation->clinic->wantBill): ?>
         <?php printf($this->translate('To finally confirm reservation You need to make a payment for an advance. <a href="http://%s">That can be done online at your profile.</a>', $_SERVER['HTTP_HOST'].$this->url(array('id' =>$this->reservation->id), 'makePayment')))?><br>
     <?php endif ?>
-    <br>
-    <br>
-    <?php printf($this->translate('Regards'))?>, <br>
-    <?php printf($this->translate('Trendmed.eu Team'))?><br>
-    <br>
-    <br>
-    <?php printf($this->translate('If you require any further information please do not hesitate <a href="http://%s">to contact us.</a>', $_SERVER['HTTP_HOST'].$this->url(array('type' => "feedback"), 'contact')))?><br>
-    <a href="http://<?= $_SERVER['HTTP_HOST'];?>"><img src="<?= $_SERVER['HTTP_HOST'];?>/img/logo.png" /></a>
 </p>
+<?= $this->render('patient/_patientEmailFooter.phtml'); ?>

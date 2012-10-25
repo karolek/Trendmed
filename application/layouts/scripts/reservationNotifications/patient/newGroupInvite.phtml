@@ -13,13 +13,7 @@
     <?php printf($this->translate('And the dates that %s proposed are from %s to %s' , $this->reservation->getGroupReservation()->getParentReservation()->patient->name, $this->reservation->dateFrom->format('d-m-Y'), $this->reservation->dateTo->format('d-m-Y') ))?> <br>
     <br>
     <?php printf($this->translate('To participate with Your friend <a href="http://%s">just follow that link</a>.', $_SERVER['HTTP_HOST']))?><br>
-    <br>
-    <?php printf($this->translate('Regards'))?>, <br>
-    <?php printf($this->translate('Trendmed.eu Team'))?><br>
-    <br>
-    <br>
-    <?php printf($this->translate('If you require any further information please do not hesitate <a href="http://%s">to contact us.</a>', $_SERVER['HTTP_HOST'].$this->url(array('type' => "feedback"), 'contact')))?><br>
-    <a href="http://<?= $_SERVER['HTTP_HOST'];?>"><img src="<?= $_SERVER['HTTP_HOST'];?>/img/logo.png" /></a>
 </p>
+<?= $this->render('patient/_patientEmailFooter.phtml'); ?>
 
 
