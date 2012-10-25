@@ -143,7 +143,7 @@ class Me_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         if ($acl->has($resource)) {
             if (!$this->getAcl()->isAllowed($role, $resource, $action)) {
                 /** Redirect to access denied page */
-                $this->denyAccess();
+                $this->denyAccess($request);
             }
         }
     }
@@ -154,7 +154,7 @@ class Me_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
      *
      * @return void
      **/
-    public function denyAccess()
+    public function denyAccess(Zend_Controller_Request_Abstract $request)
     {
         // lets save the place where user was trying to get in the session to redirect him there later on
         $requestUri = $_SERVER['REQUEST_URI'];
@@ -166,9 +166,8 @@ class Me_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         $messenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
         $messenger->addMessage(array('warning' => 'You have to be login to get access there'));
 
-
         // lets choose on what login page do redirect user (of with module)
-        switch($this->_errorPage['module']) {
+        switch($request->getModuleName()) {
             case 'patient':
                 $module = 'patient';
                 break;
