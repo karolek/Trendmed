@@ -88,7 +88,7 @@
 		        <big><?= $this->translate('Rating'); ?></big><br/ >
 				<small><?= $this->translate('based on'); ?> <?= $service->clinic->reviews->count(); ?> <?= $this->translate('reviews'); ?></small>
 		    </div>
-		
+
             <h3>
                 <a href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>"><?= $service->clinic->name; ?></a>
             </h3>
@@ -100,7 +100,7 @@
                 <?= $this->truncate($service->description)->toLength(250); ?>
             </p>
             <?php if ($service->clinic->isGroupPromoEnabled()): ?>
-            <div class=""><?= $this->translate('This clinic offers group promotions'); ?></div>
+                <div class=""><?= $this->translate('This clinic offers group promotions'); ?></div>
             <?php endif; ?>
 			<?php if($this->LoggedUser()->roleName == 'patient'): ?>
             	<a id="buttonBook" href="<?= $this->url(array('slug' => $service->clinic->slug), 'newReservation', true);?>" class="btn-primary buttonBook"><?= $this->translate('Book now'); ?></a>

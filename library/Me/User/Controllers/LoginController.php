@@ -208,7 +208,7 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
                $this->_em->persist($user);
                $this->_em->flush();
 
-               $this->_helper->FlashMessenger(array('success' => 'New password set for user: '.$user->getUsername()));
+               $this->_helper->FlashMessenger(array('success' => 'New password set'));
                
                $this->_helper->Redirector(
                        $this->_redirectAfterNewPassword['action'],

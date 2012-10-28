@@ -9,7 +9,13 @@
             <strong>Uwaga!</strong> Usunięcie kategorii spowoduje równierz usunięcie wszystkich usług w tej kategorii.
         </div>
 	</div>
-
+    <p style="text-align: right;">
+    <a href="<?= $this->url(array(
+        'action' => 'index',
+        'controller' => 'categories',
+        'module' => 'admin'
+    ), 'default', true); ?>" class="btn">Dodaj nową kategorie</a>
+    </p>
 	<?= $this->form; ?>
 	
 </div>

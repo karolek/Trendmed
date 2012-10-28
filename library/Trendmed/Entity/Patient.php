@@ -299,4 +299,13 @@ class Patient extends \Trendmed\Entity\User
         return $this->isTemp;
     }
 
+    /**
+     * Callback, before persisting model in registration (and only then)
+     */
+    public function beforeRegister()
+    {
+        // be sure to activate the user
+        $this->setIsActive(true);
+    }
+
 }

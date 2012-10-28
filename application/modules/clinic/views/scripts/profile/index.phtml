@@ -61,7 +61,7 @@
         <?php foreach ($this->reservations as $reservation): ?>
 
         <tr <?php if($reservation->getStatus() == 'new'):?> class="new"<?php endif;?>>
-                <td><?= $reservation->patient->name; ?></td>
+                <td><?php echo $reservation->patient->name ?: $reservation->patient->getEmailaddress(); ?></td>
                 <td>
                     <ul>
                         <?php foreach($reservation->services as $service): ?>

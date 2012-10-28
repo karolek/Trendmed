@@ -13,7 +13,7 @@
         
 
     <div class="right rating">
-        <span class="count" data-addclinic="<?= $this->translate('Dodaj klinikę do ulubionych'); ?>" data-removeclinic="<?= $this->translate('Usuń klinikę z ulubionych'); ?>"><?= $this->clinic->rating; ?>%</span>
+        <span class="count" data-addclinic="<?= $this->translate('Add to favorite'); ?>" data-removeclinic="<?= $this->translate('Remove from favorite'); ?>"><?= $this->clinic->rating; ?>%</span>
         <?= $this->AddToFavorite($this->clinic); ?>
         <?php if($this->clinic->reviews->count() > 0): ?>
         <big><?= $this->translate('Rating'); ?></big><br/ >
@@ -57,7 +57,7 @@
     <div class="clinicDescription"><?= $this->clinic->description; ?></div>
     <div class="<?php echo $this->clinic->wantBill ? 'billRequired' : 'billNotRequired'; ?>"><?= $this->translate($this->clinic->wantBill ? 'Requires bill to be paid' : 'Bill is not required'); ?></div>
 
-	<a id="shareLink" class="btn" href="#share" role="button" data-toggle="modal"><i class="icon-share icon-white"></i> <?= $this->translate('Poleć znajomym'); ?></a>
+	<a id="shareLink" class="btn" href="#share" role="button" data-toggle="modal"><i class="icon-share icon-white"></i> <?= $this->translate('Recommend to friends'); ?></a>
 
     <?= $this->render('_shareLink.phtml', array('clinic' => $this->clinic, 'patient' => $this->LoggedUser())); ?>
 
@@ -70,25 +70,7 @@
 </div>
 <?php endif; ?>
 <?php if ($this->clinic->isGroupPromoEnabled()): ?>
-<div class="row" id="clinic-grouppromotion">
-	<h2 class="pull-left"><?= $this->translate('Group promotion'); ?>!</h2>
-	 <a class="btn pull-right" id="how_it_works" href="<?= $this->url(array('slug' => 'group-promotions'), 'page', true); ?>"><?= $this->translate('How it works'); ?></a>
-	<div class="clearfix"></div>
-    <p class="linic-grouppromotion-info"><?= $this->translate('This clinic offers group promotion at given discounts'); ?>:<br />
-	<?= $this->translate('Price is lower if You take your friends or family with You'); ?>!</p>
-    <ul class="pull-left">
-    <?php foreach($this->clinic->getGroupPromoDiscounts() as $key => $value): ?>
-        <li><span class="promotion_<?= $key; ?>_persons"><?= sprintf($this->translate('%u persons'), $key);?>: <?= $value; ?>%</span> <?= $this->translate('off total value'); ?>!</li>
-    <?php endforeach; ?>
-    </ul>
- 	<div class="pull-right" id="inviteFriendsForm">
-	<form method="post">
-		<p class="inviteFriends"><?= $this->translate('To invite your friends just type their email address'); ?>:</p>
-		<input type="email" name="friendsEmails" id="friendsEmails" placeholder="<?=$this->translate('Email Address'); ?>" />
-		<input type="submit" value="<?=$this->translate('Invite'); ?>" class="btn" id="sendInvitation" />
-	</form>
-	</div>
-</div>
+<?= $this->partial('public/_groupPromoInfo.phtml', array('groupPromotionDiscounts' => $this->clinic->getGroupPromoDiscounts())); ?>
 <?php endif; ?>
 
 

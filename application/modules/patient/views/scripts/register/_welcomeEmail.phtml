@@ -3,11 +3,5 @@
     <br>
     <br>
     <?php printf ($this->translate('You have just activated your account. From now on You have unlimited access to medical services, beauty parlours and spa centres. You can book all these services without going out of Your home and without all complicated formalities <a href="http://%s">Log in and book Your service now!</a>', $_SERVER['HTTP_HOST'].$this->url(array('module' => 'patient', 'controller'=> 'index'), 'default' ))) ?><br>
-    <br>
-    <?php printf($this->translate('Regards'))?>, <br>
-    <?php printf($this->translate('Trendmed.eu Team'))?><br>
-    <br>
-    <br>
-    <?php printf($this->translate('If you require any further information please do not hesitate <a href="http://%s">to contact us.</a>', $_SERVER['HTTP_HOST'].$this->url(array('type' => "feedback"), 'contact')))?><br>
-    <a href="http://<?= $_SERVER['HTTP_HOST'];?>"><img src="<?= $_SERVER['HTTP_HOST'];?>/img/logo.png" /></a>
 </p>
+<?= $this->render('reservationNotifications/patient/_patientEmailFooter.phtml'); ?>

@@ -63,8 +63,7 @@ class Patient_ReservationsController extends Me_User_Controllers_LoginController
 
         # reservation anwser form
         $form = new \Patient_Form_ReservationAnwser();
-        $form->getElement('question')->setDescription('You can type in any additional comment to clinic, like reason for
-         cancellation');
+        $form->getElement('question')->setDescription('You can type in any additional comment to clinic, like reason for cancellation');
 
         # setting up a label for submit button
         $form->getElement('submit')->setLabel('Cancel reservation');

@@ -204,5 +204,57 @@ class IndexController extends \Zend_Controller_Action
 
         $this->_helper->Redirector('index','index', 'default');
     }
+
+    /**
+     * This is for the guest visitors who want to sign up
+     *
+     * We will create a temp patient account, the same as when we invite some that's not registered to our portal
+     * Users will be able to register later on, on given e-mail
+     */
+    public function newsletterSubscriptionAction()
+    {
+        $request = $this->getRequest();
+        if($request->isPost()) {
+            $post = $request->getPost();
+            $email = $post['email'];
+            $emailValidator = new Zend_Validate_EmailAddress();
+            if ($emailValidator->isValid($email)) {
+                // we must check if the user is not allready registered
+                $patient = $this->_em->getRepository('Trendmed\Entity\Patient')->findOneByLogin($email);
+                if(!$patient) { // no
+                    // we must create new, not active patient
+                    $patient = new \Trendmed\Entity\Patient();
+                    $patient->generateRandomPassword(8);
+                    $patient->setLogin($email);
+                    $patient->setIsActive(false);
+                    $patient->setIsTemp(true);
+                    $role = $this->_em->getRepository('\Trendmed\Entity\Role')
+                        ->findOneByName('patient');
+                    if (!$role) throw new \Exception('Given role not found in DB in '.__FUNCTION__);
+                    $patient->setRole($role);
+                    $patient->setIsNewsletterActive(true);
+                    $this->_em->persist($patient);
+                } elseif($patient->isNewsletterActive(true)) {
+                    // patient is allready registered in newsletter
+                    $this->_helper->FlashMessenger(array('notice' => 'You are already registered in our newsletter!'));
+                    // dont go further
+                    $this->_helper->Redirector('newsletter-subscription', 'index', 'default');
+                } else {
+                    // patient is registered (either as temp or normal user but hes subscription is not active
+                    $patient->setIsNewsletterActive(true);
+                    $this->_em->persist($patient);
+                }
+                $this->_em->flush();
+                $this->_helper->FlashMessenger(array('info' => 'You have been signed in our newsletter system'));
+                $this->_helper->Redirector('newsletter-subscription', 'index', 'default');
+
+            } else {
+                $this->_helper->FlashMessenger(array('warning' => 'Given e-mail is not correct'));
+
+            }
+
+        }
+        $this->view->headTitle('Newsletter sign-up');
+    }
 }
 

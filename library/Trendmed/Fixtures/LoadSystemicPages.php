@@ -44,6 +44,15 @@ class LoadSystemicPages extends \Doctrine\Common\DataFixtures\AbstractFixture im
         $page->setIsSystemic(true);
 
         $manager->persist($page);
+
+        $page = new \Trendmed\Entity\Page();
+        $page->setTitle('Rezerwacje grupowe');
+        $page->setContent('Proszę wydetuj mnie w panelu administratora');
+        $page->setActive(true);
+        $page->setSlug('group-promotions');
+        $page->setIsSystemic(true);
+
+        $manager->persist($page);
         $manager->flush();
     }
 

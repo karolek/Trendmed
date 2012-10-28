@@ -1,0 +1,12 @@
+<div class="row" id="clinic-grouppromotion">
+    <h2 class="pull-left"><?= $this->translate('Group promotion'); ?>!</h2>
+    <a class="btn pull-right" id="how_it_works" href="<?= $this->url(array('slug' => 'group-promotions'), 'page', true); ?>"><?= $this->translate('How it works'); ?></a>
+    <div class="clearfix"></div>
+    <p class="linic-grouppromotion-info"><?= $this->translate('This clinic offers group promotion at given discounts'); ?>:<br />
+        <?= $this->translate('Price is lower if you take your friends or family with you'); ?>!</p>
+    <ul class="pull-left">
+        <?php foreach($this->groupPromotionDiscounts as $key => $value): ?>
+        <li><span class="promotion_<?= $key; ?>_persons"><?= sprintf($this->translate('persons count: %u'), $key);?>: <?= $value; ?>%</span> <?= $this->translate('off total value'); ?>!</li>
+        <?php endforeach; ?>
+    </ul>
+</div>

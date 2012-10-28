@@ -34,6 +34,7 @@ Delete;Usuń
 Name of the clinic;Nazwa placówki
 Password;Hasło
 Heading;Nagłówek
+No reviews yet;Brak ocen
 Patient login;Logowanie pacjenta
 Patient signup;Rejestracja pacjenta
 For clinics;Dla placówek
@@ -87,6 +88,7 @@ You can change Your logo by uploading a new file;Wgrywając nowy plik możesz zm
 Delete logo;Usuń logo
 Logged in as;Zalogowany jako
 Log out?;Wylogować?
+Add to favorite;Dodaj do ulubionych
 Save;Zapisz
 Create account for free!;Zarejestruj się za darmo
 Password recovery;Nie pamiętasz hasła?
@@ -102,6 +104,7 @@ Setup Your new password;Ustaw nowe hasło
 %1$s registration;Rejestracja
 Plans and pricing;Oferta i abonamenty
 Articles;Artykuły
+Remove from favorite;Usuń z ulubionych
 You have registered successfully. You can login now.;Dziękujemy za rejestracje. Możesz zalogować się teraz do panelu zarządzania.
 Maximum allowed size for file '%value%' is '%max%' but '%size%' detected;Plik jest za duży, maksymalny rozmiar to '%max%', podałeś plik o rozmiarze '%size%'
 Service main category;Główna kategoria usługi
@@ -142,9 +145,20 @@ Newsletter sign up/sign out;Zarządzanie subskrypcją newslettera
 Agreement is required;Zgoda jest wymagana
 I agree to accept the site <a href="/page/regulamin-dla-pacjentow" target="_blank">Rules and Terms & Conditions</a>;Rejestrując się zgadzam się na warunki <a href="/page/regulamin-dla-pacjentow" target="_blank">regulaminu</a>
 Sort by;Posortuj
+Newsletter sign-up;Zapis do newslettera
+Your welcome to subscribe to our Trendmed.eu newsletter, just type in your e-mail;Zachęcamy do zapisania się do naszego newslettera, wystarczy wpisać swój adres e-mail
 filter by city;Filtruj przez miasto
+You have been signed in our newsletter system;Zostałeś zapisany do naszego newslettera
+You are already registered in our newsletter!;Ten adres jest już w naszej bazie
 Sorry, no services in this category found. Please try another category.;Nie znaleziono usług w danych ustawieniach filtra. Zmień ustawienia.
 Patient rating;Ocena pacjentów
+Change e-mail address;Zmień adres e-mail
+Account password;Hasło do konta
+For security reasons please type in your account password;Z uwagi na bezpieczeństwa, prosimy o podanie hasła do konta
+E-mail Address;Adres e-mail
+Change e-mail;Zmień adres
+Old password;Stare hasło
+Set new password;Ustaw nowe hasło
 Popularity;Popularność
 Price;Cena
 Added date;Data dodania
@@ -301,8 +315,14 @@ Details of reservation;Szczegóły rezerwacji
 Phone;Telefon
 see full profile;zobacz profil
 No available actions at this moment;Brak dostępnych akcji w tym momencie
+New password set;Nowe hasło ustanowione
+Recommend to friends;Poleć znajomym
+Your logo has been deleted;Logo zostało usunięte
 Reservation number;Numer rezerwacji
-No favorite clinics added yet. Add some from clinic profile.;Nie dodano żadnych ulubionych klinik. Możesz dodawać kliniki do ulubionych klikając w gwiazdkę obok ich oceny.
+Group promotion;Promocja grupowa
+How it works;Jak to działa
+Price is lower if you take your friends or family with you;Cena jest niższa jeżeli zabierzesz znajomych
+No favorite clinics added yet. Add some from clinic profile.;Nie dodano żadnych ulubionych klinik. Możesz dodawać kliniki do ulubionych klikając w gwiazdkę obok ich oceny na stronie profilu.
 The reservation you are trying to view is not yours;Rezerwacja którą chcesz obejrzeć nie jest zapisana na Ciebie.
 You have to be login to get access there;Musisz być zalogowany aby wykonać tą akcje
 Latest articles;Najnowsze artykuły
@@ -311,11 +331,25 @@ You can type multiply e-mail separating them with comma;Możesz podać wiele adr
 Share on facebook;Poleć na facebook.com
 Share on Twitter;Zatweetuj!
 Choose the type of a banner;Typ bannera
+%u persons;%u osób
+persons count: %u;ilość osób %u
+off total value;rabatu
+Options;opcje
+Invited friends;Zaproszeni goście
+Inviter;Zapraszający
+Confirm invitation to group reservation;Potwierdź udział w promocji grupowej
+Reservation has been confirmed by you. You now take part in group reservation promotion.;Rezerwacja potwierdzona. Bierzesz teraz udział w promocji grupowej
 Please correct the form error;Proszę poprawić błędy w formularzu
+Only confirmed reservation needs payment;Płatność za rezerwacje może nastapić dopiero po potwierdzeniu rezerwacji
+You can cancel your reservation any time. Clinic will be informed by e-mail about your action.;Możesz anulować rezerwacje w dowolnym momencie, klinika zostanie o tym poinformowana via e-mail
+Comments to clinic;Komentarz dla kliniki
+You can type in any additional comment to clinic, like reason for cancellation;Możesz pisać dowolny komentarz do wiadomości kliniki, np. powody do rezygnacji z rezerwacji
 The same windows as link;To samo okno co link
+Cancel reservation;Anuluj rezerwacje
 Banner info changed;Zapisano dane o banerze
 Date of visit:Przedział czasowy wizyty
 Rate visit;Oceń wizyte
+not published;nie opublikowane
 Print PDF reservation;Wydrukuj rezerwacje w PDF
 Download PDF;Pobierz PDF
 This clinic offers group promotion at given discounts;Ta placówka oferuje promocje grupowe według stawek

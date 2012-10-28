@@ -86,7 +86,7 @@
 							<p class="notPaid"><?= $this->translate('Bill not paid yet'); ?></p>
 	                    <?php endif; ?>
 
-						<?php if(! count($status['actions']['patient']) >0  && $reservation->status != 'closed'): ?>
+						<?php if( (count($status['actions']['patient']) < 0  && $reservation->status != 'closed') OR ($reservation->status == 'new')): ?>
 					         <p><?= $this->translate('Waiting for clinic response'); ?></p>
 					    <?php endif; ?>
 

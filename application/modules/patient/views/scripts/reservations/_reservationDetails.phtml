@@ -1,6 +1,6 @@
 <dl>
 	
-	<?php if ($this->reservation->getBillStatus() == \Trendmed\Entity\Reservation::BILL_STATUS_NOT_PAID): ?>
+	<?php if ($this->reservation->getBillStatus() == \Trendmed\Entity\Reservation::BILL_STATUS_NOT_PAID and $this->reservation->status == 'confirmed'): ?>
         <div class="alert alert-error"><strong><?= $this->translate('Bill for this reservation is not paid yet. Please pay the bill to make reservation valid'); ?></strong><br>
         <a href="<?= $this->url(
             array(
@@ -54,8 +54,17 @@
                         <?= sprintf($this->translate(
                         '%u confirmed reservations out of %u invites', $this->reservation->getGroupReservation()->getConfirmedCount(), $this->reservation->getGroupReservation()->getTotalReservationsCount())
                     ); ?><br>
-                        <?= sprintf($this->translate('Current discount is %u', $this->reservation->getGroupReservation()->getCurrentBonusRate())); ?>%
-                     </dd>
+                        <?= sprintf($this->translate('Current discount is %u', $this->reservation->getGroupReservation()->getCurrentBonusRate())); ?>%<br>
+                        <?= $this->translate('Invited friends'); ?>:
+                        <ul>
+                            <?php foreach($this->reservation->getGroupReservation()->childReservations as $child): ?>
+                            <li><a href="mailto:<?= $child->patient->getEmailaddress(); ?>"><?= $child->patient->getEmailaddress(); ?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <?= $this->translate('Inviter'); ?>:<br>
+                        <a href="mailto:<?= $this->reservation->getGroupReservation()->parentReservation->patient->getEmailaddress(); ?>"><?= $this->reservation->getGroupReservation()->parentReservation->patient->getEmailaddress(); ?></a>
+
+                    </dd>
                 <?php endif; ?>
             </dd>
 		</div>
@@ -70,7 +79,7 @@
 		</div>
     	<div class="span6">
 			<?php if($this->reservation->newDateWasProposed()): ?>
-		        <dt><?= $this->translate('Clinic proposed another date of visist'); ?></dt>
+		        <dt><?= $this->translate('Clinic proposed another date of visit'); ?></dt>
 		        <dd>
 		            <?= $this->translate('from');?> <?= $this->reservation->alternativeDateFrom->format("d-m-Y"); ?>
 		            <?= $this->translate('to date');?> <?= $this->reservation->alternativeDateTo->format("d-m-Y"); ?>

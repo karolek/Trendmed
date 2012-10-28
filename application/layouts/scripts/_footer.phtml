@@ -26,6 +26,11 @@
         <li>&bull; <a href="<?= $this->url(array(
             'slug' => 'serwis-turystyczny'
         ), 'page', true);?>"><?= $this->translate('Travel service'); ?></a></li>
+        <li>&bull; <a href="<?= $this->url(array(
+            'action' => 'newsletter-subscription',
+            'controller'    => 'index',
+            'module'    => 'default',
+        ), 'default', true);?>"><?= $this->translate('Newsletter sign-up'); ?></a></li>
 	</ul>
 </div>
 

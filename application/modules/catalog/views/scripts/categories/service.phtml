@@ -17,14 +17,16 @@
 				<?php endforeach; ?>
 			</div>
 			<div class="span8">
-				<?= $this->service->description; ?>
+				<?= nl2br($this->service->description); ?>
 			</div>
 		</div>
-		
-		
-		
-		
-	
+
 	</div>
+    <div class="row-fluid">
+        <div class="span8">
+            <?= $this->partial('public/_groupPromoInfo.phtml', array('groupPromotionDiscounts' => $this->service->clinic->getGroupPromoDiscounts())); ?>
+        </div>
+    </div>
+
 
 </div>

@@ -16,6 +16,9 @@ class Trendmed_View_Helper_AddToFavorite extends Zend_View_Helper_Abstract
 
     public function AddToFavorite($entity, $text = 'Add to favorite')
     {
+
+        // translate the text
+        $text = $this->view->translate($text);
         // add javascript to make a ajax request
         $this->view->headScript()->appendFile('/js/general.js');
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
@@ -36,8 +39,10 @@ class Trendmed_View_Helper_AddToFavorite extends Zend_View_Helper_Abstract
                 $class = 'fav';
             }
         } else { // user not logged, making special LoggedLink
-            return $this->view->LoggedLink($text, array());
+
+            return $this->view->LoggedLink($text, array('class' => 'btn-danger btn-mini fav add-to-fav'));
         }
+
 
         $output = '<a entity="' . $entityName . '" href="' . $linkUrl . '" class="'. $class .' add-to-fav">' . $text . '</a>';
 
