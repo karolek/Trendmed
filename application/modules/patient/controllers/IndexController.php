@@ -142,6 +142,11 @@ class Patient_IndexController extends Me_User_Controllers_LoginController
             }
         }
 
+        // lets check that we have user email
+        if(empty($user_profile['email'])) {
+            $log->debug($user_profile['email']);
+            throw new \Exception('No user e-mail from facebook');
+        }
         // we either didnt found any user, user is redirected to connect his account or we have found an
         // face account. Let us start with a new user, the one we didnt found in the database, let's register him
         if(!$user) { // user did connect accounts
