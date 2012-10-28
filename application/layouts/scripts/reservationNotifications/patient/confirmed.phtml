@@ -22,5 +22,7 @@
     <?php if ($this->reservation->clinic->wantBill): ?>
         <?php printf($this->translate('To finally confirm reservation You need to make a payment for an advance. <a href="http://%s">That can be done online at your profile.</a>', $_SERVER['HTTP_HOST'].$this->url(array('id' =>$this->reservation->id), 'makePayment')))?><br>
     <?php endif ?>
+    <?php printf($this->translate('You can also view details of this reservation <a href="http://%s">on your profile</a>.', $_SERVER['HTTP_HOST'].$this->url(array('module'=>'patient', 'controller'=>'reservations', 'action'=>'view', 'id'=>$this->reservation->id), 'default')))?>
+
 </p>
 <?= $this->render('patient/_patientEmailFooter.phtml'); ?>

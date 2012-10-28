@@ -5,6 +5,8 @@
     <?php if (!$this->reservation->answer == "") : ?>
     <b><?php printf($this->translate('Additional remark from clinic:'))?> <?= $this->reservation->answer ?></b><br>   
     <?php endif; ?>
+    <?php printf($this->translate('You can also view details of this reservation <a href="http://%s">on your profile</a>.', $_SERVER['HTTP_HOST'].$this->url(array('module'=>'patient', 'controller'=>'reservations', 'action'=>'view', 'id'=>$this->reservation->id), 'default')))?>
+
 
 </p>
 <?= $this->render('patient/_patientEmailFooter.phtml'); ?>
