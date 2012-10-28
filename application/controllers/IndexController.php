@@ -280,7 +280,18 @@ class IndexController extends \Zend_Controller_Action
 
         if ($verified) {
             $logger->debug('IPN response was VERIFIED');
-            mail('bartosz.rychlicki@gmail.com', 'Verified IPN', $listener->getTextReport());            // IPN response was "VERIFIED"
+            mail('bartosz.rychlicki@gmail.com', 'Verified IPN', $listener->getTextReport());
+            // IPN response was "VERIFIED"
+            // lets look for reservation
+            $reservationId = $_POST['item_number'];
+            $reservation = $this->_em->find('Trendmed\Entity\Reservation', $reservationId);
+            if (!$reservation) {
+                throw new \Exception('Reservation with ID '.$reservationId.' not found');
+            }
+            $reservation->setBillStatus(\Trendmed\Entity\Reservation::BILL_STATUS_PAID);
+            $this->_em->persist($reservation);
+            $reservation->sendStatusNotification('paid');
+            $this->_em->flush();
         } else {
             $logger->debug('IPN response was INVALID');
             // IPN response was "INVALID"
