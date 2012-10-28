@@ -108,6 +108,7 @@ class Patient_IndexController extends Me_User_Controllers_LoginController
             // If not, we'll get an exception, which we handle below.
             try {
                 $user_profile = $facebook->api('/me','GET');
+                var_dump($user_profile); exit();
             } catch(FacebookApiException $e) {
                 // If the user is logged out, you can have a
                 // user ID even though the access token is invalid.
@@ -122,7 +123,11 @@ class Patient_IndexController extends Me_User_Controllers_LoginController
                 $this->_helper->Redirector('index', 'index', 'default');
             }
         }
-
+        // lets check that we have user email
+        if(empty($user_profile['email'])) {
+            $log->debug($user_profile['email']);
+            throw new \Exception('No user e-mail from facebook');
+        }
         // lets check if user had registered on IAA
         $repo = $this->_em->getRepository('\Trendmed\Entity\Patient');
         // first, we check if we have a user with given Facebook userId.
@@ -142,11 +147,7 @@ class Patient_IndexController extends Me_User_Controllers_LoginController
             }
         }
 
-        // lets check that we have user email
-        if(empty($user_profile['email'])) {
-            $log->debug($user_profile['email']);
-            throw new \Exception('No user e-mail from facebook');
-        }
+
         // we either didnt found any user, user is redirected to connect his account or we have found an
         // face account. Let us start with a new user, the one we didnt found in the database, let's register him
         if(!$user) { // user did connect accounts
