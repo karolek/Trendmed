@@ -262,6 +262,10 @@ class IndexController extends \Zend_Controller_Action
      */
     public function payConfirmAction()
     {
+        // disable view
+        $this->_helper->layout()->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        // get logger
         $logger = Zend_Registry::get('log');
         $listener = new IpnListener();
         $listener->use_sandbox = true;
