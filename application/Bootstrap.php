@@ -27,7 +27,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             $locale = new Zend_Locale($session->currentLanguage);
         } else {
             try {
-                $locale = new Zend_Locale('auto');
+                $locale = new Zend_Locale('pl_PL');
             } catch (Zend_Locale_Exception $e) {
                 $locale = new Zend_Locale('en_GB');
             }
