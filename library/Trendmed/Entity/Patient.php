@@ -219,7 +219,8 @@ class Patient extends \Trendmed\Entity\User
      * @return string
      */
     public function getPhoneNumber()
-    {
+    {                $this->_persistUser(0);
+
         return $this->phoneNumber;
     }
 
@@ -306,6 +307,46 @@ class Patient extends \Trendmed\Entity\User
     {
         // be sure to activate the user
         $this->setIsActive(true);
+    }
+
+    /**
+     * This user authorizes (checks) user via Facebook service.
+     * If given Facebook Id is correct for this object and confirmed by logged user on Facebook than
+     * I will persist that user in session
+     *
+     * @param $facebookId integer Facebook user Id
+     * @return bool true on valid credentail, false on not valid
+     */
+    public function authorizeViaFacebook($facebookId)
+    {
+        if($facebookId == $this->getFacebookId()) {
+            // now, we'r gonna use facebook SDK to verify if user is logged into facebook
+            // initializing the Facebook API
+            $config = \Zend_Registry::get('config');
+            $fbConfig = array();
+            $fbConfig['appId']  = $config->facebook->appId;
+            $fbConfig['secret'] = $config->facebook->aapSecret;
+            $fbConfig['fileUpload'] = false; // optional
+            $facebook = new \Facebook($fbConfig);
+            $uid = $facebook->getUser();
+            if ($uid == $facebookId) {
+                $result = true;
+                $arrayToStore = array(
+                    'id' => $this->getId(),
+                    'roleName' => $this->getRole()->name,
+                    'entityNamespace' => get_class(),
+                );
+                $this->setLastLoginTime(new \DateTime());
+                $auth = \Zend_Auth::getInstance();
+
+                $auth->getStorage()->write($arrayToStore); // saveing user.id to session to use by
+            } else {
+                $result = false;
+            }
+        } else {
+            $result = false;
+        }
+        return $result;
     }
 
 }

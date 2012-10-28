@@ -250,7 +250,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 #patient panel rights
                 ->allow('patient', 'mvc:patient')
                 ->deny('guest', 'mvc:patient')
-                ->allow('guest', 'mvc:patient.index', array('index', 'password-recovery', 'new-password-from-token', 'logout'))
+                ->allow('guest', 'mvc:patient.index', array('index', 'password-recovery', 'new-password-from-token', 'logout', 'facebook-login', 'connect-accounts'))
                 ->allow('guest', 'mvc:patient.public')
                 ->allow('guest', 'mvc:patient.register');
 

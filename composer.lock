@@ -1,5 +1,5 @@
 {
-    "hash": "fc8e7a8dde4cd98c0c85a8f9fe4cf672",
+    "hash": "f48d8152fb90c4a89bebcc10d02c69de",
     "packages": [
         {
             "name": "adityapatadia/php-paypal-ipn",
@@ -66,7 +66,7 @@
             "require": {
                 "php": ">=5.3.2"
             },
-            "time": "2012-08-29 06:04:14",
+            "time": "2012-08-29 04:04:14",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -171,7 +171,7 @@
                 "php": ">=5.3.2",
                 "doctrine/common": ">=2.2.0,<=2.2.99"
             },
-            "time": "2012-04-13 05:56:12",
+            "time": "2012-04-13 03:56:12",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -230,7 +230,7 @@
                 "doctrine/common": ">=2.2.0,<2.2.99",
                 "doctrine/dbal": ">=2.2.1,<2.2.99"
             },
-            "time": "2012-01-29 15:04:23",
+            "time": "2012-01-29 14:04:23",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -265,6 +265,49 @@
             "keywords": [
                 "database",
                 "orm"
+            ]
+        },
+        {
+            "name": "facebook/php-sdk",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/facebook/facebook-php-sdk.git",
+                "reference": "v3.2.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/facebook/facebook-php-sdk/zipball/v3.2.0",
+                "reference": "v3.2.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0",
+                "ext-curl": "*",
+                "ext-json": "*"
+            },
+            "time": "1344965300",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ]
+            },
+            "license": [
+                "Apache2"
+            ],
+            "authors": [
+                {
+                    "name": "Facebook",
+                    "homepage": "https://github.com/facebook/facebook-php-sdk/contributors"
+                }
+            ],
+            "description": "Facebook PHP SDK",
+            "homepage": "https://github.com/facebook/facebook-php-sdk",
+            "keywords": [
+                "facebook",
+                "sdk"
             ]
         },
         {
@@ -313,7 +356,7 @@
             "require": {
                 "php": ">=5.3.2"
             },
-            "time": "2012-05-16 07:10:06",
+            "time": "2012-05-16 05:10:06",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -355,7 +398,7 @@
             "require": {
                 "php": ">=5.3.2"
             },
-            "time": "2012-05-15 14:56:32",
+            "time": "2012-05-15 12:56:32",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -390,7 +433,7 @@
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "2012-10-16 17:25:50",
+            "time": "2012-10-16 15:25:50",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -434,6 +477,7 @@
         "doctrine/data-fixtures": 20,
         "itbz/fpdf": 20,
         "zendframework/zendframework1": 20,
-        "adityapatadia/php-paypal-ipn": 20
+        "adityapatadia/php-paypal-ipn": 20,
+        "facebook/php-sdk": 20
     }
 }

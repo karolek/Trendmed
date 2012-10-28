@@ -5,6 +5,8 @@
 </fieldset>
 <div class="form-actions">
 	<?= $this->element->signin ?>
-	<a href="<?= $this->url(array('action' => 'index', 'controller' => 'register', 'module' => 'patient'), 'default', true); ?>" class="btn"><?= $this->translate('Create account for free!'); ?></a>
-	<a href="<?= $this->url(array('action' => 'password-recovery'), 'default', true); ?>"><?= $this->translate('Password recovery'); ?></a>
+
+    <a href="<?= $this->url(array('action' => 'index', 'controller' => 'register', 'module' => 'patient'), 'default', true); ?>" class="btn"><?= $this->translate('Create account for free!'); ?></a>
+    <a href="<?= $this->url(array('action' => 'password-recovery'), 'default', true); ?>"><?= $this->translate('Password recovery'); ?></a>
 </div>
+<a class="btn facebook-login">Login via Facebook</a>
