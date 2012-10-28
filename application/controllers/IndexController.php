@@ -256,5 +256,33 @@ class IndexController extends \Zend_Controller_Action
         }
         $this->view->headTitle('Newsletter sign-up');
     }
+
+    /**
+     * This action is for PAYPAL request informing about the payment
+     */
+    public function payConfirmAction()
+    {
+        $logger = Zend_Registry::get('log');
+        $listener = new IpnListener();
+        $listener->use_sandbox = true;
+
+        try {
+            $verified = $listener->processIpn();
+        } catch (Exception $e) {
+            // fatal error trying to process IPN
+            $logger->debug('processIPN thrown an exception: '.$e->getMessage());
+            exit(0);
+        }
+
+        if ($verified) {
+            $logger->debug('IPN response was VERIFIED');
+            mail('bartosz.rychlicki@gmail.com', 'Verified IPN', $listener->getTextReport());            // IPN response was "VERIFIED"
+        } else {
+            $logger->debug('IPN response was INVALID');
+            // IPN response was "INVALID"
+            mail('bartosz.rychlicki@gmail.com', 'Invalid IPN', $listener->getTextReport());
+
+        }
+    }
 }
 
