@@ -150,7 +150,7 @@ class Patient_IndexController extends Me_User_Controllers_LoginController
             $user = new \Trendmed\Entity\Patient;
             $user->setEmailaddress($user_profile['email']);
             $user->setIsActive(true);
-            $user->setDisplayname($user_profile['first_name'] .' '. $user_profile['last_name']);
+            $user->setName($user_profile['first_name'] .' '. $user_profile['last_name']);
             // setting up password with the facebok ID
             $user->setFacebookId($user_profile['id']);
             $user->setPassword($user_profile['id']); // this is just for requirments
