@@ -108,7 +108,6 @@ class Patient_IndexController extends Me_User_Controllers_LoginController
             // If not, we'll get an exception, which we handle below.
             try {
                 $user_profile = $facebook->api('/me','GET');
-                var_dump($user_profile); exit();
             } catch(FacebookApiException $e) {
                 // If the user is logged out, you can have a
                 // user ID even though the access token is invalid.
