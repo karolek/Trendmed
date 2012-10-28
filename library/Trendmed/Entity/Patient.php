@@ -219,7 +219,7 @@ class Patient extends \Trendmed\Entity\User
      * @return string
      */
     public function getPhoneNumber()
-    {                $this->_persistUser(0);
+    {
 
         return $this->phoneNumber;
     }
