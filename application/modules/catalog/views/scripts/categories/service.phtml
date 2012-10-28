@@ -22,11 +22,13 @@
 		</div>
 
 	</div>
+    <?php if ($this->clinic->isGroupPromoEnabled()): ?>
+
     <div class="row-fluid">
         <div class="span8">
             <?= $this->partial('public/_groupPromoInfo.phtml', array('groupPromotionDiscounts' => $this->service->clinic->getGroupPromoDiscounts())); ?>
         </div>
     </div>
-
+    <?php endif; ?>
 
 </div>
