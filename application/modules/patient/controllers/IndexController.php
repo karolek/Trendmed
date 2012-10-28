@@ -148,7 +148,7 @@ class Patient_IndexController extends Me_User_Controllers_LoginController
             $log->debug('User did not register');
             // creating new user
             $user = new \Trendmed\Entity\Patient;
-            $user->setEmailaddress($user_profile['email']);
+            $user->setLogin($user_profile['email']);
             $user->setIsActive(true);
             $user->setName($user_profile['first_name'] .' '. $user_profile['last_name']);
             // setting up password with the facebok ID
