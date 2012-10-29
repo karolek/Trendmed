@@ -27,6 +27,7 @@ Please fill out the form correctly;Proszę wypełnić poprawnie formularz
 Your e-mail;Twój adres e-mail
 Recover;Odzyskaj
 Logo uploaded.;Logo wgrane
+Date range of this reservation must past, before the reservation can be rated.;Rezerwacja musi odbyć się w czasie zanim będzie można ją oceniać
 Manage photos;Zarządzaj zdjęciami
 Accounts connected successfully;Konta połączone poprawnie
 Changes saved;Zmiany zachowane
@@ -54,6 +55,7 @@ Email address;Adres e-mail
 Representant name;Imię i nazwisko reprezentanta
 Representant phone;Telefon do reprezentanta
 Account info;Dane konta
+Reservation cancellation;Anulowanie rezerwacji
 Repeat password;Powtórz hasło
 Sign in!;Zapisz się
 Value is required and can't be empty;Pole jest wymagane
@@ -95,6 +97,7 @@ Add to favorite;Dodaj do ulubionych
 Save;Zapisz
 Create account for free!;Zarejestruj się za darmo
 Password recovery;Nie pamiętasz hasła?
+Login or create account;Zaloguj się albo załóż konto
 Trendmed / Password recovery;Trendmed / Odzyskiwanie hasła
 Service category;Kategoria usługi
 Please correct the form;Popraw błędy w formularzu

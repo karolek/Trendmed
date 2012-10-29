@@ -214,8 +214,7 @@ class Patient_ReservationsController extends Me_User_Controllers_LoginController
 
         # checking if reservation was in past
         if ($reservation->getDateTo() > new \DateTime()) {
-            $this->_helper->FlashMessenger(array('warning' => 'Date range of this reservation must past, before the
-                reservation can be rated.'));
+            $this->_helper->FlashMessenger(array('warning' => 'Date range of this reservation must past, before the reservation can be rated.'));
             $this->_helper->Redirector('index', 'profile');
         }
 
