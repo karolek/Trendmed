@@ -9,6 +9,9 @@ $(document).ready(function(){
             return confirm('Jesteś pewny?');
         }
     });
+
+	//nth-child(odd) for IE8
+	$("#catalog .entry .thumbnails a:nth-child(odd)").addClass('odd');
 })
 /**
  * Behaviour for tree menu

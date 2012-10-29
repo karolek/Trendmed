@@ -114,9 +114,11 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 #catalog .entry {clear:both; border-left:1px solid #f0f0f0; border-right:1px solid #f0f0f0; padding:25px 25px 17px; border-bottom: 1px solid #f0f0f0; }
 #catalog .entry h3 a {font-size:24px; color:#292828;}
 #catalog .entry .thumbnails {margin:0; float:left; padding:0; clear:none; width:110px;}
-#catalog .entry .thumbnails img.photo-small {width:48px; height:48px; float:left; margin: 9px 13px 13px 0; border-color: #ddd; border-width: 1px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; }
-#catalog .entry .thumbnails a:nth-child(odd) img { margin-right: 0; }
-
+#catalog .entry .thumbnails a { float: left; width: 49px; height: 50px; display: block; margin: 9px 12px 9px 0;}
+#catalog .entry .thumbnails img.photo-small {width:48px; height:48px; border-color: #ddd; border-width: 1px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; }
+#catalog .entry .thumbnails a:nth-child(odd) { margin-right: 0 !important;}
+#catalog .entry .thumbnails a.odd { margin-right: 0 !important; }
+#catalog .entry .thumbnails .thumbnail { width: 110px; }
 #catalog .entry .thumbnails .thumbnail img { width: 110px; height: 110px; }
 #catalog .entry .thumbnails li {margin:0; padding:0; box-shadow:none; border:1px solid #eae9e9;}
 #catalog .entry .thumbnails li img { border: 1px solid #ddd; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; }
@@ -128,9 +130,9 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 .fav {display:block; float:right;}
 .fav a {text-indent:-9999px; width:22px; height:16px; display:block; background:url(../img/icon_fav.png);}
 .fav a:hover {background:url(../img/icon_fav_hover.png);}
-#catalog .entry .btn-primary {float:right; width:130px; height:26px; background:url(../img/button_book.png) top left no-repeat; padding:10px 13px 27px 45px; text-align: right; text-decoration:none;}
-#catalog .entry a.btn-primary {padding: 11px 13px 9px 43px; width: 75px;}
-#catalog .entry .btn-primary:hover {background:url(../img/button_book_hover.png) top left no-repeat; text-indent:-9999xp;}
+#catalog .entry .btn-primary {float:right; width:130px; height:26px; background:url(../img/button_book.png) top left no-repeat; padding:10px 13px 27px 45px; text-decoration:none;}
+#catalog .entry a.btn-primary {padding: 11px 13px 9px 45px; width: 77px;}
+#catalog .entry .btn-primary:hover {background:url(../img/button_book_hover.png) top left no-repeat;}
 #catalog .entry .clear {width:500px; clear:both; height:1px;}
 #catalog .entry thead {display:none;}
 #catalog .entry td {border:none; padding:4px 0 0;}
@@ -276,8 +278,8 @@ section {padding:24px;}
 #clinicProfile .table td {border-top:1px dotted #DDDDDD;}
 .price span { font-weight: bold; color: #000; }
 #clinicProfile a { text-decoration: none; }
-#content .buttonBook { float:right; padding: 11px 13px 9px 43px; width: 75px; height:26px; background:url(../img/button_book.png) top left no-repeat; text-align: right; text-decoration:none; font-size: 14px; }
-#content .buttonBook:hover { background:url(../img/button_book_hover.png) top left no-repeat; text-indent:-9999px;}
+#content .buttonBook { float:right; padding: 11px 13px 9px 47px; width: 79px; height:26px; background:url(../img/button_book.png) top left no-repeat; text-decoration:none; font-size: 14px; }
+#content .buttonBook:hover { background:url(../img/button_book_hover.png) top left no-repeat; }
 #content input.buttonBook { width: 131px; height: 38px; }
 .clinicDescription { margin-top: 20px !important; }
 
@@ -443,14 +445,14 @@ dd {margin:0;}
 
 
 /* FOOTER */
-footer {clear:both; border: 1px solid #EEEEEE; margin:30px 0 0; border-radius: 6px 6px 6px 6px; padding:25px; background:url(../img/facebook.png) 730px 20px no-repeat;}
-footer .column {width:230px; float:left; font-size:11px;}
-footer .column h3 {font-family: 'TeXGyreHerosBold'; font-size:18px; color:#3a3a3a; margin:0; padding:0 0 16px;}
-footer .column a {color:#107ba8;}
-footer .column ul {list-style:none inside; margin:0; padding:0;}
-footer .column ul li {}
-footer .column p {padding:0 30px 0 0; margin:0;}
-footer .columnFacebook {}
+#footer {clear:both; border: 1px solid #EEEEEE; margin:30px 0 0; border-radius: 6px 6px 6px 6px; padding:25px; background:url(../img/facebook.png) 770px 20px no-repeat;}
+#footer .span3 {font-size:11px;}
+#footer .span3 h3 {font-family: 'TeXGyreHerosBold'; font-size:18px; color:#3a3a3a; margin:0; padding:0 0 16px;}
+#footer .span3 a {color:#107ba8;}
+#footer .span3 ul {list-style-type:none; margin:0; padding:0;}
+#footer .span3 ul li {list-style-type:none;}
+#footer .span3 p {padding:0 30px 0 0; margin:0;}
+#footer .columnFacebook {}
 
 
 #realData { margin-bottom: 30px;}
@@ -530,7 +532,8 @@ footer .columnFacebook {}
 
 /* FACEBOOK LOGIN BUTTON */
 .facebook-login, .facebook-login:hover, .facebook-login:active  { font-size:14px; font-family: 'TeXGyreHerosCnBold'; text-transform: uppercase; margin:0; padding: 8px 10px 6px 38px; background: url(../img/fb.png); padding-left: 38px; -webkit-box-shadow: inset 0px 0px 2px 0px #5D88C4; box-shadow: inset 0px 0px 2px 0px #5D88C4; border: 1px solid #2F457F; color: #fff; text-shadow: 1px 1px 5px #1F2D50; filter: dropshadow(color=#1F2D50, offx=1, offy=1); }
-}
+
+#bottomAds { border-bottom: 1px solid #eeeeee !important;}
 
 /* ==|== print styles =======================================================
    Print styles.
