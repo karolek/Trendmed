@@ -6,5 +6,6 @@
 </fieldset>
 <div class="form-actions">
 	<?= $this->element->register ?>
-	<a href="<?= $this->url(array('action' => 'index', 'controller' => 'index', 'module' => 'user')); ?>" class="btn"><?= $this->translate('Already have an account?'); ?></a>
+    <a class="btn facebook-login"><?= $this->translate('Login via Facebook'); ?></a>
+    <a href="<?= $this->url(array('action' => 'index', 'controller' => 'index', 'module' => 'user')); ?>" class="btn"><?= $this->translate('Already have an account?'); ?></a>
 </div>
