@@ -31,8 +31,8 @@ class Admin_CategoriesController extends Zend_Controller_Action
             'nodeDecorator' => function($node) {
                 return $node['name'] . ' <a href="/admin/categories/save/category_id/'.$node['id'].'"><i class="icon-pencil"></i></a>
                 <a class="confirm" href="/admin/categories/delete/node_id/'.$node['id'].'"><i class="icon-trash"></i></a>
-                <a class="ajax" href="/admin/categories/move-category/node_id/'.$node['id'].'/direction/up"><i class="icon-arrow-up"></i></a>
-                <a class="ajax" href="/admin/categories/move-category/node_id/'.$node['id'].'/direction/down"><i class="icon-arrow-down"></i></a>
+                <!-- <a class="ajax" href="/admin/categories/move-category/node_id/'.$node['id'].'/direction/up"><i class="icon-arrow-up"></i></a>
+                <a class="ajax" href="/admin/categories/move-category/node_id/'.$node['id'].'/direction/down"><i class="icon-arrow-down"></i></a> -->
                 ';
 
             }

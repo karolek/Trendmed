@@ -271,4 +271,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         }
     }
 
+    public function _initControllerPlugins()
+    {
+        $front = Zend_Controller_Front::getInstance();
+        $front->registerPlugin(new \Me_Controller_Plugin_SelectCategory());
+
+    }
 }
