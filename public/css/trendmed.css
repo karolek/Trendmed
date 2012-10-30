@@ -243,6 +243,7 @@ section {padding:24px;}
 .rating .unfav { background: url(../img/fav.png) 3px top no-repeat; }
 .rating .fav { background: url(../img/icon_fav.png); }
 .rating a { padding-left: 20px; display:inline-block;  top:-2px; margin:0 2px 0 0; text-decoration: none; }
+.rating a:focus { outline: none !important; }
 .rating big {font-size:18px; margin-left: 5px; }
 .rating small {font-size:13px; position: relative; top: -4px;}
 .rating .count {font-size: 26px; margin:0 0 0 11px; padding: 7px; float:right; display:block; font-family: 'TeXGyreHerosRegular'; background:#e7e6e6; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
