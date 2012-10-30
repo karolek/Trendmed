@@ -810,4 +810,9 @@ class Reservation extends  \Me\Model\ModelAbstract {
     }
     /** END GETTERS AND SETTERS **/
 
+    static public function getAllStatuses()
+    {
+        return self::$_statuses;
+    }
+
 }

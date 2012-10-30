@@ -36,6 +36,19 @@
         </div>
     <?php endif;?>
 </div>
+<form action="<?= $this->url(array('action' => 'index', 'controller' => 'profile', 'module' => 'clinic'), 'default', true); ?>" method="post" name="form_search_reservations">
+    <label>Wyszukaj rezerwacje <input type="search" value="<?= $this->search; ?>" name="search_reservation" placeholder="Wpisz nazwisko pacjenta lub nr. rezerwacji"></label>
+    <input type="submit" value="Szukaj">
+</form>
+<form action="<?= $this->url(array('action' => 'index', 'controller' => 'profile', 'module' => 'clinic'), 'default', true); ?>" method="post" name="form_filter_reservations">
+    <select name="status">
+        <option value="0">-- status --</option>
+        <?php foreach($this->statuses as $key => $value): ?>
+        <option <?php if($this->status == $key): ?>selected="selected"<?php endif; ?> value="<?= $key; ?>"><?= $this->translate($value['name']); ?></option>
+        <?php endforeach; ?>
+    </select>
+</form>
+
 <?php if (count($this->reservations) >0 ): ?>
 <table class="table reservationList">
     <thead>
@@ -126,7 +139,11 @@
 </table>
 <?php else: ?>
     <div class="alert alert-box">
-        <?= $this->translate('You do not have any reservations yet.'); ?>
+        <?php if($this->status or $this->search): ?>
+            <?= $this->translate('No reservation with given search criteria'); ?>
+        <?php else: ?>
+            <?= $this->translate('You do not have any reservations yet.'); ?>
+        <?php endif; ?>
     </div>
 <?php endif;?>
 

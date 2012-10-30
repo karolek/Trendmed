@@ -13,7 +13,14 @@ class Clinic_ProfileController extends Zend_Controller_Action
     {
         /* Initialize action controller here */
         $this->_em =  $this->_helper->getEm();
-
+        $this->view->statuses = \Trendmed\Entity\Reservation::getAllStatuses();
+        $this->view->headScript()->appendScript('
+            $(document).ready(function() {
+                $(\'select[name="status"]\').on("change", function() {
+                    $(this).parents("form").submit();
+                });
+            });
+        ');
     }
 
     /**
@@ -63,10 +70,21 @@ class Clinic_ProfileController extends Zend_Controller_Action
     {
         $this->view->headTitle('Twoja lista rezerwacji');
         $this->view->clinic = $this->_helper->LoggedUser();
+        $request = $this->getRequest();
+
+        $search = null;
+        if($request->isPost()) {
+            $post = $request->getPost();
+            $search = $post['search_reservation'];
+            $status = $post['status'];
+
+            $this->view->search = $search;
+            $this->view->status = $status;
+        }
 
         # fetching clinics reservations
         $repo = $this->_em->getRepository('\Trendmed\Entity\Reservation');
-        $reservations = $repo->fetchAllClinicReservations($this->_helper->LoggedUser());
+        $reservations = $repo->fetchAllClinicReservations($this->_helper->LoggedUser(), $search, $status);
         #config needed for reservation status change actions
         $this->view->config = \Zend_Registry::get('config');
 

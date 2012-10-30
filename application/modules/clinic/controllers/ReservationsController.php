@@ -16,6 +16,8 @@ class Clinic_ReservationsController extends Me_User_Controllers_LoginController
     {
         /* Initialize action controller here */
         $this->_em =  $this->_helper->getEm();
+        // get all aviable clinic status
+        $this->view->statuses = \Trendmed\Entity\Reservation::getAllStatuses();
     }
 
     public function confirmAction()

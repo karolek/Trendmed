@@ -24,11 +24,29 @@ class ReservationsRepository extends \Doctrine\ORM\EntityRepository
      * @param \Trendmed\Entity\Clinic    $patient
      * @return mixed
      */
-    public function fetchAllClinicReservations(\Trendmed\Entity\Clinic $clinic)
+    public function fetchAllClinicReservations(\Trendmed\Entity\Clinic $clinic, $patientIdOrName = null, $status = null)
     {
         $dql = "SELECT r FROM \Trendmed\Entity\Reservation r WHERE r.clinic = :clinic_id ORDER BY r.created DESC";
-        $query = $this->_em->createQuery($dql);
-        $query->setParameter('clinic_id', $clinic->id);
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('r')->from('Trendmed\Entity\Reservation', 'r')->where('r.clinic = :clinic_id')->orderBy('r.created', 'DESC');
+        $qb->setParameter('clinic_id', $clinic->id);
+
+        if($patientIdOrName) {
+            $qb->join('r.patient', 'p');
+            $qb->andWhere(
+              $qb->expr()->orX(
+                    $qb->expr()->like('p.name', $qb->expr()->literal("%$patientIdOrName%")),
+                    $qb->expr()->eq('r.id', ':patient')
+              )
+            );
+            $qb->setParameter('patient', $patientIdOrName);
+        }
+
+        if(!empty($status)) {
+            $qb->andWhere('r.status = :status');
+            $qb->setParameter('status', $status);
+        }
+        $query = $qb->getQuery();
         $reservations = $query->getResult();
         return $reservations;
     }
