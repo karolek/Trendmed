@@ -101,7 +101,7 @@ class Category extends \Me\Model\ModelAbstract implements \Gedmo\Tree\Node
 
     /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent", cascade={"ALL"})
-     * @ORM\OrderBy({"lft" = "ASC"})
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $children;
 

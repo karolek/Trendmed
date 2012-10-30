@@ -25,7 +25,11 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
         $category = $this->_fetchCategoryFromParams();
         $this->view->category = $category;
         $this->view->headTitle($category->name);
-        $this->view->selectedCategory = $category->slug;
+
+        // session for visisted category
+        $session = new Zend_Session_Namespace('visitedCategory');
+
+        $session->slug = $this->view->selectedCategory = $category->slug;
         $this->_helper->_layout->setLayout('homepage');
         $config = \Zend_Registry::get('config');
 
