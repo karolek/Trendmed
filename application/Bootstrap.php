@@ -51,6 +51,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $evm->addEventSubscriber($translatableListener);
 
         Zend_Registry::set('locale', $locale);
+
+        // pass info to view
+        $this->bootstrap('view');
+        $view = $this->getResource('view');
+        $view->assign('currentLanguage', $localeCode);
     }
     
     protected function _initTranslate()
