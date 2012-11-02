@@ -247,7 +247,7 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
      */
     public function sendWelcomeEmail()
     {
-        $mail = new \Zend_Mail('UTF-8');
+        $mail = new \Me_Mail_InlineImages('UTF-8');
         $config = \Zend_Registry::get('config');
         $log = \Zend_Registry::get('log');
 
@@ -275,11 +275,13 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
         $view->user = $this;
 
         $htmlContent = $view->render($this->_welcomeEmailScript); // rendering a view template for content
-        $mail->setBodyHtml($htmlContent);
+        $mail->setBodyHtml($htmlContent, 'UTF-8', \Zend_Mime::MULTIPART_RELATED);
         $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName);
         $mail->addTo($this->getEmailaddress(), $this->getLogin());
         $mail->addBcc($config->siteEmail->fromAddress, 'Redaktor Trendmed.eu'); //Adding copy for admin
-        $mail->setSubject($config->siteEmail->welcomeEmailSubject);
+        $mail->setSubject($view->translate($config->siteEmail->welcomeEmailSubject));
+        // adding embeded logo to bottom of the email
+        #$mail = \Me\Common\HtmlEmail::embedFooterLogo($mail);
         $mail->send();
         $log->debug('E-mail send to: ' . $this->getEmailaddress() . ' 
         from ' . $mail->getFrom() . ' subject: ' . $mail->getSubject());
@@ -321,7 +323,7 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
         $view->addScriptPath($templatePath);
 
         # sending notification to clinic
-        $mail = new \Zend_Mail('UTF-8');
+        $mail = new \Me_Mail_InlineImages('UTF-8');
 
         // we'r setting the password recovery link
         // we should check if the token is valid, if not, we should generate new one
@@ -336,7 +338,7 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
 
         # setting up a mail object with content and config
         $htmlContent = $view->render(strtolower($this->getRoleName()).'/passwordRecoveryToken.phtml'); // rendering a view template for content
-        $mail->setBodyHtml($htmlContent);
+        $mail->setBodyHtml($htmlContent, 'UTF-8', \Zend_Mime::MULTIPART_RELATED);
         $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName); // setting FROM values from config
         $mail->addTo($this->getEmailaddress(), $this->getLogin());
         $mail->addBcc($config->siteEmail->fromAddress, 'Redaktor Trendmed.eu'); //Adding copy for admin
@@ -438,7 +440,7 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
 
     public function sendNewPasswordEmail()
     {
-        $mail = new \Zend_Mail('UTF-8');
+        $mail = new \Me_Mail_InlineImages('UTF-8');
         $config = \Zend_Registry::get('config');
         $log = \Zend_Registry::get('log');
 
@@ -448,7 +450,7 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
         }
         $view = \Zend_Registry::get('view');
         $htmlContent = $view->render($this->_newPasswordScript); // rendering a view template for content
-        $mail->setBodyHtml($htmlContent);
+        $mail->setBodyHtml($htmlContent, 'UTF-8', \Zend_Mime::MULTIPART_RELATED);
         $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName);
         $mail->addTo($this->getEmailaddress(), $this->getLogin());
         $mail->addBcc($config->siteEmail->fromAddress, 'Redaktor Trendmed.eu'); //Adding copy for admin
@@ -478,7 +480,7 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
 
     public function sendNewEmailAddressEmail()
     {
-        $mail = new \Zend_Mail('UTF-8');
+        $mail = new \Me_Mail_InlineImages('UTF-8');
         $config = \Zend_Registry::get('config');
         $log = \Zend_Registry::get('log');
 
@@ -492,7 +494,7 @@ abstract class User extends \Me\Model\ModelAbstract implements \Me_User_Model_Us
         $view->link = $this->_getEmailChangeLink();
         $htmlContent = $view->render($this->_newEmailScript); // rendering a view template for content
 
-        $mail->setBodyHtml($htmlContent);
+        $mail->setBodyHtml($htmlContent, 'UTF-8', \Zend_Mime::MULTIPART_RELATED);
 
         $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName);
         $mail->addTo($this->getTempEmailAddress(), $this->getUsername());

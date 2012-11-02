@@ -817,7 +817,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
         $view->addScriptPath($templatePath);
 
         # sending notification to clinic
-        $mail = new \Zend_Mail('UTF-8');
+        $mail = new \Me_Mail_InlineImages('UTF-8');
 
         # passing password to view
         $view->password = $password;
@@ -880,7 +880,7 @@ class Clinic extends \Trendmed\Entity\User implements \Trendmed\Interfaces\Favor
         $view->addScriptPath($templatePath);
         $view->clinic = $this;
         # sending notification to clinic
-        $mail = new \Zend_Mail('UTF-8');
+        $mail = new \Me_Mail_InlineImages('UTF-8');
 
         # setting up a mail object with content and config
         $htmlContent = $view->render('clinic/recommend.phtml'); // rendering a view template for content

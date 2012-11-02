@@ -722,7 +722,7 @@ class Reservation extends  \Me\Model\ModelAbstract {
 
         if(file_exists($clinicTemplate)) {
             # sending notification to clinic
-            $mail = new \Zend_Mail('UTF-8');
+            $mail = new \Me_Mail_InlineImages('UTF-8');
             $htmlContent = $view->render('clinic/' . $status.'.phtml'); // rendering a view template for content
             $mail->setBodyHtml($htmlContent);
             $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName); // setting FROM values from config
@@ -739,7 +739,7 @@ class Reservation extends  \Me\Model\ModelAbstract {
 
         if(file_exists($patientTemplate)) {
             # sending notification to patient
-            $mail = new \Zend_Mail('UTF-8');
+            $mail = new \Me_Mail_InlineImages('UTF-8');
             $htmlContent = $view->render('patient/' . $status.'.phtml'); // rendering a view template for content
             $mail->setBodyHtml($htmlContent);
             $mail->setFrom($config->siteEmail->fromAddress, $config->siteEmail->fromName);
