@@ -243,6 +243,7 @@ section {padding:24px;}
 .rating .unfav { background: url(../img/fav.png) 3px top no-repeat; }
 .rating .fav { background: url(../img/icon_fav.png); }
 .rating a { padding-left: 20px; display:inline-block;  top:-2px; margin:0 2px 0 0; text-decoration: none; }
+.rating a:focus { outline: none !important; }
 .rating big {font-size:18px; margin-left: 5px; }
 .rating small {font-size:13px; position: relative; top: -4px;}
 .rating .count {font-size: 26px; margin:0 0 0 11px; padding: 7px; float:right; display:block; font-family: 'TeXGyreHerosRegular'; background:#e7e6e6; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
@@ -532,6 +533,7 @@ dd {margin:0;}
 
 /* FACEBOOK LOGIN BUTTON */
 .facebook-login, .facebook-login:hover, .facebook-login:active  { font-size:14px; font-family: 'TeXGyreHerosCnBold'; text-transform: uppercase; margin:0; padding: 8px 10px 6px 38px; background: url(../img/fb.png); padding-left: 38px; -webkit-box-shadow: inset 0px 0px 2px 0px #5D88C4; box-shadow: inset 0px 0px 2px 0px #5D88C4; border: 1px solid #2F457F; color: #fff; text-shadow: 1px 1px 5px #1F2D50; filter: dropshadow(color=#1F2D50, offx=1, offy=1); }
+#patientRegister .facebook-login { margin-top: -122px; margin-left: 329px; }
 
 #bottomAds { border-bottom: 1px solid #eeeeee !important;}
 
