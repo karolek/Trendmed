@@ -1,4 +1,5 @@
 <?php
+$benchmarkStart = microtime(true);
 // Define path to application directory
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
@@ -35,3 +36,17 @@ $application = new Zend_Application(
 );
 $application->bootstrap()
             ->run();
+
+// counting exection time
+// remove after some time
+$bechmarkEnd = microtime(true);
+$generateTime = ($bechmarkEnd)-($benchmarkStart);
+$log = \Zend_Registry::get('log');
+if ($generateTime > 5) {
+    $log->warn(sprintf( $_SERVER['REQUEST_URI']. ' DŁUGI CZAS, wczytywanie trwało in %.3fs', $generateTime));
+} else {
+    $log->info(sprintf( $_SERVER['REQUEST_URI']. ' wczytywanie trwało in %.3fs', $generateTime));
+}
+
+
+

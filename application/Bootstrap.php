@@ -280,6 +280,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         $front = Zend_Controller_Front::getInstance();
         $front->registerPlugin(new \Me_Controller_Plugin_SelectCategory());
+        $front->registerPlugin(new \Me_Controller_Plugin_Benchmark());
 
     }
 }
