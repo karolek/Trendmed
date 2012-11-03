@@ -1,5 +1,5 @@
 <?php
-class Admin_Form_Login extends Twitter_Form
+class Admin_Form_Login extends \Me_User_Form_Login
 {
 
     public function init()

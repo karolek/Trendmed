@@ -35,6 +35,9 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
     {
 		$request = $this->getRequest();
 		$form = $this->getLoginForm();
+        // track referer
+
+        $form->trackReferrer($request);
         $model = new $this->_userModel;
         $log = $this->_helper->getLogger();
         $log->debug('in login action again');
@@ -79,6 +82,9 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
                             $this->_redirect($targetUrl);
                             $log->debug('and this should be never reached');
                             // now, we can clear that value in session
+                        } elseif($form->getReferer() != '') {
+                            $this->_redirect($form->getReferer());
+
                         } else {
                             $log->debug('no access denied uri saved in session, redirecting to default location');
                             // no, just plain old redirect me to default

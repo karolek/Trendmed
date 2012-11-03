@@ -8,6 +8,7 @@
   <div class="modal-body">
       <?= $this->translate('Create free account to use all features on Trendmed.eu!'); ?>
     <? $form = new Patient_Form_Login();
+       $form->setReferer($_SERVER['REQUEST_URI']);
        $form->setAction($this->url(array(
            'action' => 'index',
            'controller' => 'index',

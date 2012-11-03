@@ -1,5 +1,5 @@
 <?php
-class Patient_Form_Login extends Twitter_Form
+class Patient_Form_Login extends Me_User_Form_Login
 {
 
     public function init()
@@ -28,9 +28,9 @@ class Patient_Form_Login extends Twitter_Form
 		
 		$rememberMe = new Zend_Form_Element_Checkbox('rememberMe');
 		$rememberMe->setLabel('Remember me for 7 days');
+
 		$this->addElement($rememberMe);
         
 		$this->addElement($submit);
     }
-
 }
