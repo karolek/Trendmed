@@ -36,18 +36,28 @@
         </div>
     <?php endif;?>
 </div>
-<form action="<?= $this->url(array('action' => 'index', 'controller' => 'profile', 'module' => 'clinic'), 'default', true); ?>" method="post" name="form_search_reservations">
-    <label>Wyszukaj rezerwacje <input type="search" value="<?= $this->search; ?>" name="search_reservation" placeholder="Wpisz nazwisko pacjenta lub nr. rezerwacji"></label>
-    <input type="submit" value="Szukaj">
-</form>
-<form action="<?= $this->url(array('action' => 'index', 'controller' => 'profile', 'module' => 'clinic'), 'default', true); ?>" method="post" name="form_filter_reservations">
-    <select name="status">
-        <option value="0">-- status --</option>
-        <?php foreach($this->statuses as $key => $value): ?>
-        <option <?php if($this->status == $key): ?>selected="selected"<?php endif; ?> value="<?= $key; ?>"><?= $this->translate($value['name']); ?></option>
-        <?php endforeach; ?>
-    </select>
-</form>
+<div id="searchReservations" class="row-fluid">
+	<div class="span6">
+		<h4>Wyszukaj rezerwację</h4>
+		<form action="<?= $this->url(array('action' => 'index', 'controller' => 'profile', 'module' => 'clinic'), 'default', true); ?>" method="post" name="form_search_reservations">
+		    <div><input type="search" value="<?= $this->search; ?>" name="search_reservation" placeholder="Wpisz nazwisko pacjenta lub nr. rezerwacji" id="searchReservationInput"></div>
+		    <div><input type="submit" value="Szukaj" class="btn btn-primary pull-right" id="submitButton"></div>
+		</form>
+	</div>
+	<div class="span6 pull-right">
+		<h4>Filtruj wg. statusu</h4>
+		<form action="<?= $this->url(array('action' => 'index', 'controller' => 'profile', 'module' => 'clinic'), 'default', true); ?>" method="post" name="form_filter_reservations">
+		    <select name="status">
+		        <option value="0">-- status --</option>
+		        <?php foreach($this->statuses as $key => $value): ?>
+		        <option <?php if($this->status == $key): ?>selected="selected"<?php endif; ?> value="<?= $key; ?>"><?= $this->translate($value['name']); ?></option>
+		        <?php endforeach; ?>
+		    </select>
+		</form>
+	</div>
+</div>
+<div class="clearfix"></div>
+
 
 <?php if (count($this->reservations) >0 ): ?>
 <table class="table reservationList">
