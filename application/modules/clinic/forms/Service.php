@@ -96,7 +96,7 @@ class Clinic_Form_Service extends Twitter_Form
         $this->addElement($publish);
 
         # photo objects
-        for($i = 0; $i < $config->services->photo->limit; $i++ ) {
+        for($i = 0; $i < $config->services->photo->perRequest; $i++ ) {
             $file = new Zend_Form_Element_File('photo'.$i);
             $file->setLabel('Photo file (jpg, png, gif)');
             // limit to 100K
@@ -165,13 +165,22 @@ class Clinic_Form_Service extends Twitter_Form
     {
         # removing the file element
         $config = Zend_Registry::get('config');
-
-        for ($i = 0; $i < $photosUsed; $i++) {
-            if($this->getElement('photo'.$i)) {
-                $this->removeElement('photo'.$i);
-            }
-        }
         $this->_photosLeft = $config->services->photo->limit - $photosUsed;
+
+        // first check if the amount of photoleft is bigger than limit per request
+        if($photosUsed > $config->services->photo->perRequest) {
+            // how many photos we should remove?
+            $remove = $photosUsed - $config->services->photo->perRequest;
+            var_dump($remove);
+            for ($i = 0; $i < $remove; $i++) {
+                if($this->getElement('photo'.$i)) {
+                    $this->removeElement('photo'.$i);
+                }
+            }
+        } else {
+            // limit per request is bigger or equal photos left, so there is no need to remove any fields
+        }
+
         $this->_photosUsed = $photosUsed;
     }
 
