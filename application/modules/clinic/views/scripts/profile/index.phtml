@@ -40,8 +40,8 @@
 	<div class="span6">
 		<h4>Wyszukaj rezerwację</h4>
 		<form action="<?= $this->url(array('action' => 'index', 'controller' => 'profile', 'module' => 'clinic'), 'default', true); ?>" method="post" name="form_search_reservations">
-		    <div><input type="search" value="<?= $this->search; ?>" name="search_reservation" placeholder="Wpisz nazwisko pacjenta lub nr. rezerwacji" id="searchReservationInput"></div>
-		    <div><input type="submit" value="Szukaj" class="btn btn-primary pull-right" id="submitButton"></div>
+		    <input type="search" value="<?= $this->search; ?>" name="search_reservation" placeholder="Wpisz nazwisko pacjenta lub nr. rezerwacji" id="searchReservationInput" />
+		    <input type="submit" value="Szukaj" class="btn btn-primary pull-right" id="submitButton" />
 		</form>
 	</div>
 	<div class="span6 pull-right">
