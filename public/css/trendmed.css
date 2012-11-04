@@ -538,12 +538,12 @@ dd {margin:0;}
 #bottomAds { border-bottom: 1px solid #eeeeee !important;}
 
 /* SEARCH RESERVATIONS */
-#searchReservations { background: #eee; padding: 20px; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; margin-bottom: 20px; }
+#searchReservations { background: #eee; padding: 20px; padding-bottom: 0; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; margin-bottom: 20px; }
 #searchReservations h4 { margin-bottom: 10px; font-size: 13px; }
 #searchReservations input, select { font-size: 11px !important; }
 #searchReservations input { }
 #searchReservations #submitButton { padding: 9px !important; line-height: 11px; }
-#searchReservationInput { width: 97.5%; }
+#searchReservationInput { float: left; width: 82%; }
 
 /* ==|== print styles =======================================================
    Print styles.
