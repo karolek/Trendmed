@@ -101,6 +101,10 @@ class Catalog_CategoriesController extends \Zend_Controller_Action
         $this->view->cities = $this->_em->getRepository('\Trendmed\Entity\Clinic')->findDistinctClinicCitiesAsArray();
         $this->view->headScript()->appendFile('/js/Catalog/view.js');
 
+        // add cli view script pat for group promo partial
+        $this->view->addScriptPath(APPLICATION_PATH . '/modules/clinic/views/scripts');
+
+
     }
 
     protected function _fetchCategoryFromParams()

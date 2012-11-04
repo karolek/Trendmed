@@ -99,9 +99,7 @@
             <p>
                 <?= $this->truncate($service->description)->toLength(250); ?>
             </p>
-            <?php if ($service->clinic->isGroupPromoEnabled()): ?>
-                <div class="alert groupPromotionsOn"><?= $this->translate('This clinic offers group promotions'); ?></div>
-            <?php endif; ?>
+
 			<?php if($this->LoggedUser()->roleName == 'patient'): ?>
             	<a id="buttonBook" href="<?= $this->url(array('slug' => $service->clinic->slug), 'newReservation', true);?>" class="btn-primary buttonBook"><?= $this->translate('Book now'); ?></a>
             <?php else: ?>
@@ -117,8 +115,17 @@
 
         </div>
         <div class="clear"></div>
+
     </div>
     <? endforeach; ?>
+    <?php if ($service->clinic->isGroupPromoEnabled()): ?>
+
+        <div class="row-fluid">
+            <div class="span8">
+                <?= $this->partial('public/_groupPromoInfo.phtml', array('groupPromotionDiscounts' => $service->clinic->getGroupPromoDiscounts())); ?>
+            </div>
+        </div>
+        <?php endif; ?>
 <?php else: ?>
 <div class="alert alert-block">
     <?= $this->translate('Sorry, no services in this category found. Please try another category.'); ?>
