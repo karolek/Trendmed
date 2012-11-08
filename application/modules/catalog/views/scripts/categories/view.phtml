@@ -97,7 +97,7 @@
 
             <h4><?= $this->translate('Service description'); ?></h4>
             <p>
-                <?= $this->truncate($service->description)->toLength(250); ?>
+                <?= $this->truncate($service->description)->toLength(250); ?> <a href="<?= $this->url(array('id' => $service->id), 'service', true); ?>"><?= $this->translate('more'); ?></a>
             </p>
 
 			<?php if($this->LoggedUser()->roleName == 'patient'): ?>
