@@ -1,0 +1,9 @@
+<p>
+    <?php printf($this->translate('Hello!'))?>, <br>
+    <br>
+    <?php printf($this->translate('You have asked to change Your email adress associated to your <a herf="http://%s">Trendmed.eu</a> account', $_SERVER['HTTP_HOST']))?>
+    <br>
+    <?php printf($this->translate('To confirm email change please click the link below or copy it and pastle to your browser:'))?>
+    <a href="<?= $this->link; ?>"><?= $this->link; ?></a>
+</p>
+<?= $this->render('reservationNotifications/patient/_patientEmailFooter.phtml'); ?>

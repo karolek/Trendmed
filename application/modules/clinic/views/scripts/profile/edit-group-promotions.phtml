@@ -1,0 +1,18 @@
+<form method="post" class="form-inline">
+    <label>Bierz udział w promocjach grupowych Trendmed <input name="active" type="checkbox" value="1" <?php if ($this->LoggedUser()->isGroupPromoEnabled()): ?>checked="checked"<?php endif; ?>></label>
+    <fieldset>
+        <legend>Wartości rabatów</legend>
+        <?php for($i = 2; $i <= $this->config->groupPromotions->maxPatients; $i++): ?>
+            <label>Dla <?= $i; ?> pacjentów:
+                <input type="text" name="discounts[<?= $i;?>]" maxlength="2" size="2"
+                <?php if($this->discounts[$i]):?>
+                        value="<?= $this->discounts[$i]; ?>"
+                <?php else: ?>
+                       value="0"
+                <?php endif; ?>> %
+            </label><br>
+        <?php endfor; ?>
+        <label></label>
+    </fieldset>
+    <input type="submit" value="Zapisz">
+</form>

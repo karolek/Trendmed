@@ -1,0 +1,16 @@
+<p>
+    Witamy,<br>
+    <br>
+    Rezerwacja dla <?= $this->reservation->patient->title; ?> <?= $this->reservation->patient->name; ?> o numerze <?= $this->reservation->id; ?> została potwierdzona. Klient również został o tym fakcie poinformowany drogą mailową. <br>
+    <br>
+    <?php if ($this->reservation->clinic->wantBill): ?>
+        W Państwa ustawieniach jest zaznaczona opcja wymagania zaliczki. Opłacenie zaliczki przez Klienta zostanie potwierdzone przez nas drogą mailową. Można też sprawdzić status rezerwacji na Państwa profilu.<br>
+    <?php endif ?>
+    
+    <?php if (!$this->reservation->clinic->wantBill): ?>
+        Prosimy pamiętać o osobistym ustaleniu dokładnej daty wizyty pacjenta, dane kontaktowe: <br>
+        Numer telefonu: <?= $this->reservation->patient->phoneNumber; ?> <br>
+        Adres email: <?= $this->reservation->patient->getEmailaddress(); ?> <br>  
+    <?php endif ?>
+</p>
+<?= $this->render('clinic/_clinicEmailFooter.phtml'); ?>

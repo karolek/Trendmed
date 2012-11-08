@@ -1,0 +1,7 @@
+<?php if (count($this->clinics) > 0): ?>
+    <?= $this->partial('/_listOfClinics.phtml', array('clinics' => $this->clinics))
+    ; ?>
+<?php else: ?>
+    <?= $this->translate('No clinics found for Your request')
+    ; ?>
+<?php endif; ?>

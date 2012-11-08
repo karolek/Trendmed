@@ -1,0 +1,6 @@
+<p>
+    Witaj! <br>
+    <br>
+    <?php printf($this->translate('Twój znajomy przeglądając portal Trendmed.eu pomyślał, że będziesz zainteresowany kliniką %s. Możesz ją zobaczyć '), $this->clinic->name);?><a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('slug' => $this->clinic->slug), 'clinic', true); ?>"><?= $this->translate('pod tym linkiem.') ?></a>
+</p>
+<?= $this->render('clinic/_clinicEmailFooter.phtml'); ?>

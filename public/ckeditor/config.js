@@ -9,7 +9,7 @@ CKEDITOR.editorConfig = function( config )
 	config.language = 'pl';
     //config.toolbar = 'Basic';
 	//config.uiColor = '#AADC6E';
-    config.skin = 'office2003';
+    //config.skin = 'office2003';
 
     config.toolbar = 'ClinicToolbar';
 
@@ -26,6 +26,22 @@ CKEDITOR.editorConfig = function( config )
             //{ name: 'styles', items : [ 'Styles','Format' ] },
             { name: 'basicstyles', items : [ 'Bold','Italic','Strike','-','RemoveFormat' ] },
             { name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote' ] },
+            //{ name: 'links', items : [ 'Link','Unlink','Anchor' ] },
+            { name: 'tools', items : [ 'Maximize','-','About' ] }
+        ];
+
+    config.toolbar_AdminToolbar =
+        [
+            { name: 'document', items : [ 'Source' ] },
+            { name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
+            { name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },
+            { name: 'insert', items : [ 'Image','Flash','Table','HorizontalRule','SpecialChar','PageBreak' ] },
+
+            //{ name: 'styles', items : [ 'Styles','Format' ] },
+            { name: 'basicstyles', items : [ 'Bold','Italic','Strike','-','RemoveFormat' ] },
+            { name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote' ] },
+            { name: 'links', items : [ 'Link','Unlink','Anchor' ] },
+
             //{ name: 'links', items : [ 'Link','Unlink','Anchor' ] },
             { name: 'tools', items : [ 'Maximize','-','About' ] }
         ];

@@ -1,8 +1,21 @@
-<h3>Lista kategorii usług</h3>
-<?= $this->categories; ?>
-<?= $this->form; ?>
-<script>
-    $("a.confirm").click(function() {
-        return confirm('Are You sure?');
-    });
-</script>
+<div id="treatmentsList">
+	
+	<div class="list">
+		<h3>Lista kategorii usług</h3>
+        <div id="tree">
+		    <?= $this->categories; ?>
+        </div>
+        <div class="alert alert-block alert-warning">
+            <strong>Uwaga!</strong> Usunięcie kategorii spowoduje równierz usunięcie wszystkich usług w tej kategorii.
+        </div>
+	</div>
+    <p style="text-align: right;">
+    <a href="<?= $this->url(array(
+        'action' => 'index',
+        'controller' => 'categories',
+        'module' => 'admin'
+    ), 'default', true); ?>" class="btn">Dodaj nową kategorie</a>
+    </p>
+	<?= $this->form; ?>
+	
+</div>

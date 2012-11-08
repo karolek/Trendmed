@@ -1,0 +1,31 @@
+<div id="textPage">
+
+	<?php if ($this->page->getLeadPhoto()): ?>
+	 	<?= $this->ShowPhoto($this->page->getLeadPhoto(), 'big', 'ArticlePhoto'); ?>
+	 <?php endif; ?>
+	
+    <?= $this->page->content; ?>
+    <? if ($this->LoggedUser()->role->name == 'admin'): ?>
+    <a href="<?= $this->url(array('action' => 'save-page', 'controller' => 'pages', 'module' => 'admin', 'id' => $this->page->id), 'default', true); ?>"><?= $this->translate("Edit page"); ?></a>
+    <? endif; ?>
+    <? if ($this->page->type == 'article_sponsored'): ?>
+    <p>
+        <?= $this->ShowClinicLogo($this->page->sponsoredByClinic); ?>
+        Artykuł sponsorwany przez: <a href="<?= $this->url(
+        array('slug' => $this->page->sponsoredByClinic->slug),
+        'clinic', true
+    ); ?>"><?= $this->page->sponsoredByClinic->name; ?></a>.
+    </p>
+    <? endif; ?>
+    <?php if($this->page->type != 'textpage'): ?>
+        <div>
+            <?= $this->translate('Share on facebook'); ?><br>
+            <div class="fb-like" data-send="false" data-width="200" data-show-faces="true" data-action="recommend"></div>
+        </div>
+        <div>
+            <?= $this->translate('Share on Twitter'); ?><br>
+            <a href="https://twitter.com/share" class="twitter-share-button" data-via="trendmed" data-size="large">Tweet</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+    <?php endif; ?>
+</div>

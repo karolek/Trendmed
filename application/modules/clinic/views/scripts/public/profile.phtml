@@ -1,0 +1,128 @@
+<div id="clinicProfile">
+
+<div class="row">
+	
+	<div class="left">
+		<h1><?= $this->clinic->name; ?></h1>
+	    <address>
+	        <?= $this->clinic->streetaddress; ?>, <?= $this->clinic->postcode; ?> <?= $this->clinic->city; ?>,
+	        <?= $this->clinic->province; ?>
+			<span class="map"><a href="<?= $this->url(array('slug' => $this->clinic->getSlug()), 'clinic'); ?>#map"><?= $this->translate('Show on map'); ?></a></span>
+	    </address>
+    </div>
+        
+
+    <div class="right rating">
+        <span class="count" data-addclinic="<?= $this->translate('Add to favorite'); ?>" data-removeclinic="<?= $this->translate('Remove from favorite'); ?>"><?= $this->clinic->rating; ?>%</span>
+        <?= $this->AddToFavorite($this->clinic); ?>
+        <?php if($this->clinic->reviews->count() > 0): ?>
+        <big><?= $this->translate('Rating'); ?></big><br/ >
+		<small><?= $this->translate('based on');?> <?= $this->clinic->reviews->count(); ?> <?= $this->translate('reviews');?></small>
+        <?php else: ?>
+            <?= $this->translate('No reviews yet'); ?>
+        <?php endif; ?>
+    </div>
+
+
+    <div class="globalClear"></div>
+    
+    <div class="row-fluid">
+        <div class="span3 clinicLogo">
+			<?= $this->ShowClinicLogo($this->clinic, 'medium', true); ?>
+		</div>
+        <div class="span9">
+			<div class="row-fluid">
+				<div class="span12">
+					<? foreach($this->clinic->photos as $photo): ?>
+			        <?= $this->ShowPhoto($photo, 'small', 'clinics', 'photos-'.$this->clinic->id); ?>
+			        <? endforeach; ?>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span12">
+					<? if (count($this->clinic->activeServices) > 0 ): ?>
+						<?php if($this->LoggedUser()->roleName == 'patient'): ?>
+						    <a id="buttonBook" href="<?= $this->url(array('slug' => $this->clinic->slug), 'newReservation', true);?>" class="btn-primary buttonBook"><?= $this->translate('Book now'); ?></a>
+						<?php else: ?>
+						    <?= $this->LoggedLink($this->translate('Book now'), array('class' => 'btn-primary buttonBook')); ?>
+						<?php endif; ?>	
+					<?php endif; ?>	
+				</div>
+			</div>
+		</div>
+    </div>
+
+	<div class="globalClear"></div>
+	
+    <div class="clinicDescription"><?= $this->clinic->description; ?></div>
+    <div class="<?php echo $this->clinic->wantBill ? 'billRequired' : 'billNotRequired'; ?>"><?= $this->translate($this->clinic->wantBill ? 'Requires bill to be paid' : 'Bill is not required'); ?></div>
+
+	<a id="shareLink" class="btn" href="#share" role="button" data-toggle="modal"><i class="icon-share icon-white"></i> <?= $this->translate('Recommend to friends'); ?></a>
+
+    <?= $this->render('_shareLink.phtml', array('clinic' => $this->clinic, 'patient' => $this->LoggedUser())); ?>
+
+	
+</div>
+<?php if (!empty($this->clinic->customPromocs)): ?>
+<div class="row">
+    <h2><?= $this->translate('Promotions'); ?></h2>
+    <div class="clinicDescription"><?= $this->clinic->customPromos; ?></div>
+</div>
+<?php endif; ?>
+<?php if ($this->clinic->isGroupPromoEnabled()): ?>
+<?= $this->partial('public/_groupPromoInfo.phtml', array('groupPromotionDiscounts' => $this->clinic->getGroupPromoDiscounts())); ?>
+<?php endif; ?>
+
+
+<? if (count($this->clinic->activeServices) > 0 ): ?>
+<div class="row">
+        <form method="post" action="<?= $this->url(array(
+            'slug' => $this->clinic->slug,
+        ), 'newReservation', true); ?>">
+            <h2><?= $this->translate('Services of'); ?> <?= $this->clinic->name; ?></h2>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><?= $this->translate('Service name'); ?>:</th>
+                        <th><?= $this->translate('Price range'); ?>:</th>
+                        <th><?= $this->translate('Book'); ?>:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <? foreach ($this->clinic->services as $service): ?>
+                        <?php if($service->isActive): ?>
+                        <tr>
+                            <td><span>&bull;</span> &nbsp; <strong><a href="<?= $this->url(array(
+                                'id' => $service->id
+                            ), 'service', true); ?>"><?= $service->category->name; ?></a></strong></td>
+                            <td class="price"><span><?= $service->priceMin; ?></span> - <span><?= $service->priceMax; ?></span> Euro</td>
+                            <td><input type="checkbox" name="pre_services[]" value="<?=$service->id; ?>"></td>
+                        </tr>
+                        <?php endif;?>
+                    <? endforeach; ?>
+                </tbody>
+            </table>
+        <?php if($this->LoggedUser()->roleName == 'patient'): ?>
+            <input class="buttonBook btn-primary" type="submit" value="<?= $this->translate('Book now'); ?>">
+        <?php else: ?>
+            <?= $this->LoggedLink($this->translate("Book now"), array('class' => 'buttonBook btn-primary')); ?>
+        <?php endif; ?>
+        </form>
+</div>
+<? endif; ?>
+<div id="map" class="row">
+	<h3><?= $this->translate('Location'); ?></h3>
+	<p><?= $this->clinic->streetaddress; ?>, <?= $this->clinic->postcode; ?> <?= $this->clinic->city; ?>,
+    <?= $this->clinic->province; ?></p>
+	<img src="<?= $this->ShowOnMap($this->clinic, 600, 250, 13); ?>">
+</div>
+
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+       $("a.ajax-post").click(function() {
+           $.post($(this).attr("href"), { format: $(this).attr("data-type") });
+       });
+    });
+</script>

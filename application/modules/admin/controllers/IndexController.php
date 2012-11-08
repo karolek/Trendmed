@@ -49,15 +49,15 @@ class Admin_IndexController extends Me_User_Controllers_LoginController
         $admin = $repo->findOneByLogin('admin');
         if (!$admin) {
             $admin = new \Trendmed\Entity\Admin;
-            $admin->login = 'admin';
-            $admin->password = 'admin';
+            $admin->setLogin('admin');
+            $admin->setPassword('admin');
             
             //$role = new \Trendmed\Entity\Role;
             $roleRepo = $em->getRepository('\Trendmed\Entity\Role');
             $role = $roleRepo->findOneByName('admin');
             if(!$role) {
                 $role = new \Trendmed\Entity\Role;
-                $role->name = 'admin';
+                $role->setName('admin');
                 $em->persist($role);
             }
             $admin->setRole($role);
@@ -69,6 +69,6 @@ class Admin_IndexController extends Me_User_Controllers_LoginController
         $this->_helper->layout()->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
     }
-   
+
 }
 

@@ -1,0 +1,34 @@
+<div id="serviceDetails">
+
+	<?=
+	$this->partial('public/_clinicListEntry.phtml', array(
+	    'clinic' => $this->service->clinic
+	))
+	; ?>
+
+	<div class="service">
+
+		<h2><?= $this->service->category->name; ?></h2>
+
+		<div class="row-fluid photos">
+			<div class="span4">
+				<?php foreach ($this->service->photos as $photo): ?>
+				    <?= $this->ShowPhoto($photo, 'small', 'services', 'service-'.$this->service->id); ?>
+				<?php endforeach; ?>
+			</div>
+			<div class="span8">
+				<?= nl2br($this->service->description); ?>
+			</div>
+		</div>
+
+	</div>
+    <?php if ($this->service->clinic->isGroupPromoEnabled()): ?>
+
+    <div class="row-fluid">
+        <div class="span8">
+            <?= $this->partial('public/_groupPromoInfo.phtml', array('groupPromotionDiscounts' => $this->service->clinic->getGroupPromoDiscounts())); ?>
+        </div>
+    </div>
+    <?php endif; ?>
+
+</div>

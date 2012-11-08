@@ -1,0 +1,13 @@
+<h3>Uwaga!</h3>
+<p>
+    Czy jesteś pewien na 100% że chcesz usunąć konto pacjenta "<?= $this->user->login; ?>"?
+    <br>
+    Zwróc uwage na to co usunięcie pacjenta może wywołać:
+    <ul>
+        <li>Pacjent nie będzie mógł się już zalogować na swoje konto</li>
+        <li>Usunięcie pacjenta <strong>nie może zostać cofnięte</strong></li>
+        <li>Wszystkie recenzje i rezerwacje (aktualnie <?= count($this->user->reservations); ?>) jak i recenzję
+        zostaną bezpowrotnie usunięte</li>
+    </ul>
+</p>
+<?= $this->form; ?>

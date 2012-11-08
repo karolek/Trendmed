@@ -1,0 +1,60 @@
+<a id="addNewService" class="btn" href="<?= $this->url(array('action' => 'add-service')); ?>"><?= $this->translate('Add new service'); ?></a>
+
+<? if (count($this->services) < 1 ): ?>
+<div class="alert alert-info">
+    <strong>Nie dodałeś żadnych usług</strong><br />
+    Usługi pozwolą Twoim potencjalnym pocjentom odnaleźć Cię w naszym katalogu.
+    Dodaj usługi wykonywane w Twojej placówce.
+</div>
+<? endif; ?>
+<div class="alert alert-info">
+    Nie znalazłeś odpowiedniej kategorii dla swojej usługi?
+    <a href="<?= $this->url(array('type' => 'newcategory'), 'contact', true); ?>"><?= $this->translate('Zaproponuj ją nam.'); ?></a>
+
+</div>
+
+<? if (count($this->services) > 0 ): ?>
+    <table id="clinicServicesTable" class="table">
+        <thead>
+            <tr>
+                <th>Kategoria</th>
+                <th>Opis</th>
+                <th>Cena od - do</th>
+                <th>Opcje</th>
+            </tr>
+        </thead>
+        <tbody>
+    <? foreach($this->services as $service): ?>
+        <tr>
+            <td><?= $service->category->name; ?><br><em><?= $service->isActive == true ? 'usługa aktywna' : 'usługa nieaktywna'; ?></em></td>
+            <td><?= $service->description; ?></td>
+            <td width="120"><?= $service->pricemin; ?> - <?= $service->pricemax; ?></td>
+            <td width="120">
+                <div class="btn-group">
+                  <a class="btn" href="<?= $this->url(
+                        array(
+                            'action' => 'edit-service',
+                            'controller' => 'services',
+                            'module' => 'clinic',
+                            'id' => $service->getId()
+                        ), 'default', true); ?>"><?= $this->translate('Edit'); ?></a>
+                    <button class="btn dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <!-- dropdown menu links -->
+                        <li>
+                            <a class="confirm" href="<?= $this->url(array('action' => 'delete-service',
+                                'id' => $service->getId())); ?>"><?= $this->translate('Delete'); ?></a>
+                        </li>
+                    </ul>
+                </div>
+
+            </td>
+        </tr>
+    <? endforeach; ?>
+        </tbody>
+    </table>
+<? else: ?>
+
+<? endif; ?>

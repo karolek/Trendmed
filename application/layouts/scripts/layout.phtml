@@ -1,4 +1,3 @@
-<!-- application/layouts/scripts/layout.phtml -->
 <?php echo $this->doctype() ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -10,17 +9,31 @@
 <?php echo $this->headTitle(); ?>
 </head>
 <body>
+    <?= $this->render('_facebookApi.phtml'); ?>
+
+    <?= $this->userMenu(); ?>
     
     <div class="shadow"></div>
         
     <?= $this->render('_navbar.phtml'); ?>
 
     <div class="container">
-		<div class="page-header">
+        <div id="subpageTopAd"><?= $this->DisplayAd('subpagesTop'); ?></div>
+
+        <div class="page-header">
+            <?php $this->headTitle()->offsetUnset(0); ?>
 			<h1><?= $this->translate(strip_tags($this->headTitle()->toString())); ?></h1>
 		</div>
+		<div class="hero-unit">
 		<?php echo $this->FlashMessenger(); ?>
 		<?php echo $this->layout()->content ?>
+		</div>
+        <hr>
+        <div id="footer" class="row-fluid">
+            <?= $this->render('_footer.phtml'); ?>
+        </div>
     </div> <!-- /container -->
+    <?= $this->render('_loginCallToAction.phtml'); ?>
+
 </body>
 </html>

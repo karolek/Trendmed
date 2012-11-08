@@ -1,0 +1,28 @@
+<p>
+    <?php printf($this->translate('Hello!'))?><br>
+    <br>
+    <?php printf($this->translate('Clinic <a href="http://%s">%s</a> confirmed your reservation no %u', $_SERVER['HTTP_HOST'].$this->url(array('slug' => $this->reservation->clinic->getSlug()), 'clinic'),$this->reservation->clinic->name,$this->reservation->id ))?><br>
+    <br>
+    <?php if (!$this->reservation->answer == "") : ?>
+    <b><?php printf($this->translate('Additional remark from clinic:'))?> <?= $this->reservation->answer ?></b><br>   
+    <?php endif; ?>
+    <br>
+    <?php printf($this->translate('Your order includes:'))?><br>
+    <?php foreach ($this->reservation->services as $service): ?>
+     - <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' =>$service->id), 'service'); ?>"><?= $service->category->name; ?></a><br>
+    <?php endforeach; ?>
+    <?php printf($this->translate('Your confirmed reservation date is from %s to %s', $this->reservation->dateFrom->format('d-m-Y'), $this->reservation->dateTo->format('d-m-Y') ))?><br>
+    <br>
+    <?php printf($this->translate('For your comfor You can'))?><br>
+    <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' =>$this->reservation->id), 'print_reservation_pdf'); ?>"><?php printf($this->translate('Download PDF file with details'))?></a>
+    lub 
+    <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('module' => 'patient', 'controller'=> 'reservations', 'action'=>'view', 'id'=> $this->reservation->id), 'default' ) ?>/"><?php printf($this->translate('view details online'))?>.</a>
+    <br>
+    <br>
+    <?php if ($this->reservation->clinic->wantBill): ?>
+        <?php printf($this->translate('To finally confirm reservation You need to make a payment for an advance. <a href="http://%s">That can be done online at your profile.</a>', $_SERVER['HTTP_HOST'].$this->url(array('id' =>$this->reservation->id), 'makePayment')))?><br>
+    <?php endif ?>
+    <?php printf($this->translate('You can also view details of this reservation <a href="http://%s">on your profile</a>.', $_SERVER['HTTP_HOST'].$this->url(array('module'=>'patient', 'controller'=>'reservations', 'action'=>'view', 'id'=>$this->reservation->id), 'default')))?>
+
+</p>
+<?= $this->render('patient/_patientEmailFooter.phtml'); ?>

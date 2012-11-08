@@ -1,0 +1,34 @@
+<div id="articles" class="hero-unit">
+	<form method="GET" action="<?= $this->url(array(
+	    'action'        => 'archive',
+	    'controller'    => 'pages',
+	    'module'        => 'default'
+	), 'default', true); ?>">
+	    <label><?= $this->translate('Search for article'); ?><input value="<?= $this->article_search; ?>" type="text" name="article_search"></label>
+	</form>
+	<?php if($this->article_search): ?>
+	    <div class="alert alert-success">
+	        <?= sprintf($this->translate("Articles found: %u"), count($this->articles)); ?>
+	    </div>
+	<?php endif; ?>
+
+	<?php if (count($this->articles) > 0): ?>
+	<?php echo $this->paginationControl($this->zendPaginator, 'Sliding', '_defaultPagination.phtml'); ?>
+	<div class="articlesList">
+	    <?php foreach ($this->articles as $article): ?>
+	        <div class="row-fluid">
+				<div class="span12">
+				<?php if($article->getLeadPhoto()): ?>
+	                <div class="articlePhoto pull-left"><?= $this->ShowPhoto($article->getLeadPhoto(), 'small', 'ArticlePhoto'); ?></div>
+	            <?php endif; ?>
+				<a href="<?= $this->url(array('slug' => $article->slug), 'page', true); ?>" class="articleLink"><?= $article->getTitle(); ?></a>
+	            <p><?= $this->Truncate($article->content)->toLength(100); ?></p>
+				</div>
+	        </div>
+	    <?php endforeach;?>
+	</div>
+	<?php else: ?>
+	    <?= $this->translate('No articles in the system')
+	    ; ?>
+	<?php endif; ?>
+</div>

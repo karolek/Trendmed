@@ -9,6 +9,7 @@ use Gedmo\Translatable\Translatable;
  * Description of User
  *
  * @ORM\Table(name="categories")
+ * @ORM\HasLifecycleCallbacks
  * @Gedmo\Tree(type="nested")
  * use repository for handy tree functions
  * @ORM\Entity(repositoryClass="Trendmed\Repository\CategoryRepository")
@@ -20,6 +21,7 @@ class Category extends \Me\Model\ModelAbstract implements \Gedmo\Tree\Node
     public function __construct()
     {
         $this->created = new \DateTime();
+        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
         $this->serviceCount = 0;
         return parent::__construct();
     }
@@ -43,13 +45,12 @@ class Category extends \Me\Model\ModelAbstract implements \Gedmo\Tree\Node
 
     /**
      * @Gedmo\Slug(fields={"name"})
-     * @Gedmo\Translatable
      * @ORM\Column(type="string", length=128, unique=true)
      */
     private $slug;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      * @Gedmo\Translatable
      * @var type 
      */
@@ -93,16 +94,26 @@ class Category extends \Me\Model\ModelAbstract implements \Gedmo\Tree\Node
 
     /**
      * @Gedmo\TreeParent
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="children", cascade={"ALL"})
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
-     * @ORM\OrderBy({"lft" = "ASC"})
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent", cascade={"ALL"})
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $children;
+
+    public function setChildren($children)
+    {
+        $this->children = $children;
+    }
+
+    public function getChildren()
+    {
+        return $this->children;
+    }
 
     /**
      * @Gedmo\Locale
@@ -110,6 +121,21 @@ class Category extends \Me\Model\ModelAbstract implements \Gedmo\Tree\Node
      * this is not a mapped field of entity metadata, just a simple property
      */
     private $locale;
+
+    public function setServices($services)
+    {
+        $this->services = $services;
+    }
+
+    public function getServices()
+    {
+        return $this->services;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="\Trendmed\Entity\Service", mappedBy="category", cascade="remove")
+     */
+    protected $services;
 
     /** END PROPERTIES  **/
     /** GETTERS & SETTERS **/
@@ -203,4 +229,21 @@ class Category extends \Me\Model\ModelAbstract implements \Gedmo\Tree\Node
     {
         $this->locale = $locale;
     }
+
+    public function addService(\Trendmed\Entity\Service $service)
+    {
+        $this->services[] = $service;
+    }
+
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+    }
+
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+
 }

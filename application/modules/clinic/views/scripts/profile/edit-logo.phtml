@@ -1,34 +1,38 @@
-
         <div class="alert alert-info">
             <a class="close" data-dismiss="alert">×</a>
-            <h4 class="alert-heading">You can change Your avatar by uploading new one.</h4>
-            Remember, your avatar will be cropped down to square proportions. The get the best result supply square image.
+            <h4 class="alert-heading"><?= $this->translate('You can change Your logo by uploading a new file'); ?>.</h4>
+            <?= $this->translate('Remember, your avatar will be cropped down to square proportions. The get the best result supply square image'); ?>.
         </div>
         
         
         <? if($this->user->getLogoDir()): ?>
 
-        <div class="thumbnail">
+        <div class="thumbnail row">
+            <div class="span2" style="padding: 0 0 0 285px;">
             <?= $this->showClinicLogo($this->user); ?>
+                </div>
+            
+            <div class="span4">
             <p class="caption">
-                <small>This is Your current avatar</small><br />
+                <small><?= $this->translate('To jest Twoje aktualne logo'); ?></small><br />
                 <a class="btn confirm" href="<?= $this->url(
                     array(
-                        'action' => 'delete-avatar',
+                        'action' => 'delete-logo',
                         'controller' => 'profile',
-                        'module' => 'user'
+                        'module' => 'clinic'
                     )
                 , null, true); ?>"><i class="icon-trash"></i>
-                    Delete avatar
+                    <?= $this->translate('Delete logo'); ?>
                 </a>
             </p>
+            </div>
         </div>
         <? else: ?>
         <div class="alert alert-block">
             <a class="close" data-dismiss="alert">×</a>
-            <h4 class="alert-heading">Warning!</h4>
-            You don't have any avatar attached to Your account. Default image will be used instead.
-            Please upload image file to customize Your profile.
+            <h4 class="alert-heading"><?= $this->translate('Warning!'); ?></h4>
+            <?= $this->translate('You don\'t have any logo attached to Your account. Default image will be used instead. Please upload image file to customize Your profile.'); ?>
+
         </div>
         <? endif; ?>
         

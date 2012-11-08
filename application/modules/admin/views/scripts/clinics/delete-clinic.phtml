@@ -1,0 +1,14 @@
+<h3>Uwaga!</h3>
+<p>
+    Czy jesteś pewien na 100% że chcesz usunąć konto kliniki "<?= $this->user->name; ?>"?
+    <br>
+    Zwróc uwage na to co usunięcie placówki może wywołać:
+    <ul>
+        <li>Placówka nie będzie mogła się już zalogować na swoje konto</li>
+        <li>Usunięcie placówki <strong>nie może zostać cofnięte</strong></li>
+        <li>Wszystkie usługi i zdjęcia placówki zostaną usunięte</li>
+        <li>Wszystkie recenzje i rezerwacje (aktualnie <?= $this->user->reservations->count(); ?>) dotyczącej
+            tej placówki zostaną usunięte </li>
+    </ul>
+</p>
+<?= $this->form; ?>

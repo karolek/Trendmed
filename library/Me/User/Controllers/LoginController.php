@@ -6,7 +6,7 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
       'success' => 'You have successfully logged in'  
     );
     protected $_messageAfterLogout = array(
-      'success' => 'You have successfully logged in'  
+      'success' => 'You have successfully logged out'
     );
     protected $_redirectAfterLogin = array(
         'action'        => 'index',
@@ -24,15 +24,26 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
         'module'        => 'default'
     );
 
+    protected $_em;
+
+    public function init()
+    {
+        $this->_em = \Zend_Registry::get('doctrine')->getEntityManager();
+    }
+
     public function indexAction()
     {
 		$request = $this->getRequest();
 		$form = $this->getLoginForm();
+        // track referer
+
+        $form->trackReferrer($request);
         $model = new $this->_userModel;
         $log = $this->_helper->getLogger();
+        $log->debug('in login action again');
+
+
         if($request->isPost()) {
-        	
-        	$log->debug('login: is POST');
 			if ($form->isValid($request->getPost())) {
 				$values = $form->getValues();
 				
@@ -40,8 +51,11 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
 				$model  = $this->_helper->getEm()->getRepository($this->_userModel)
                         ->findOneByLogin($values['username']);
 				if (!$model) { // we didnt find the user in DB
-				    $this->_helper->FlashMessenger(array('error' => 'Given clinic e-mail not found in database'));
-				} else {
+				    $this->_helper->FlashMessenger(array('error' => 'Given e-mail not found in database'));
+				} elseif(!$model->isActive()) {
+                    $this->_helper->FlashMessenger(array('error' => 'This account is not active, please contact administration'));
+                } else {
+
 				    if ($values['rememberMe'] == 1) {
 				        $config = Zend_Registry::get('config'); 
 				        $rememberMe = $config->usersAccounts->rememberMeTimeinHours;
@@ -51,14 +65,35 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
 				    
 				    // authorizing the user
 				    $result = $model->authorize($values['password'], $rememberMe);
-				    if ($result === true) { // access granted
+                    if ($result === true) { // access granted
+                        $this->_helper->getEm()->persist($model);
+                        $this->_helper->getEm()->flush();
     					$this->_helper->FlashMessenger->clearCurrentMessages(); // to remove any ACL "You dont have access messages if any"
     					$this->_helper->FlashMessenger($this->_messageAfterLogin);
-    					$this->_helper->Redirector(
+
+                        // lets see if user was trying to get somewhere else and ACL did forbid him to
+                        $session = new \Zend_Session_Namespace('request_denied_url');
+                        if(!empty($session->requestUri)) {
+                            // yes, infakt he was
+                            $log->debug('there is access_denied requerst url:'.$session->requestUri);
+                            $targetUrl = $session->requestUri;
+                            unset($session->requestUri);
+                            $log->debug('session value is clear and now is: '.$session->requestUri. ' and I will redirect to '.$targetUrl);
+                            $this->_redirect($targetUrl);
+                            $log->debug('and this should be never reached');
+                            // now, we can clear that value in session
+                        } elseif($form->getReferer() != '') {
+                            $this->_redirect($form->getReferer());
+
+                        } else {
+                            $log->debug('no access denied uri saved in session, redirecting to default location');
+                            // no, just plain old redirect me to default
+                            $this->_helper->Redirector(
                                 $this->_redirectAfterLogin['action'],
                                 $this->_redirectAfterLogin['controller'],
                                 $this->_redirectAfterLogin['module']
-                                );
+                            );
+                        }
     				} else {
     					$this->_helper->FlashMessenger(array('error' => 'Wrong login or password supplied'));
     				}
@@ -66,11 +101,9 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
             } else {
 					$this->_helper->FlashMessenger(array('error' => 'Please fill the form'));
 			}
-		} else {
-			$log->debug('login: is not POST');
 		}
 		$this->view->form = $form;
-        $this->view->headTitle('Login');
+        $this->view->headTitle($this->view->translate('Login'));
     }
     
     /**
@@ -113,7 +146,7 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
 	
 	public function passwordRecoveryAction() 
     {
-        $this->view->headTitle('Password recovery');
+        $this->view->headTitle($this->view->translate('Password recovery'));
         $form = $this->getPasswordRecoveryForm();
         $request = $this->getRequest();
         $model = new $this->_userModel;
@@ -133,7 +166,7 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
                     // we have to save token that our model generated
                     $this->_helper->getEm()->persist($userModel);
                     $this->_helper->getEm()->flush();
-                    $this->_helper->FlashMessenger(array('success' => 'Recovery password e-mail send to: ' . $userModel->getEmailaddress()));
+                    $this->_helper->FlashMessenger(array('success' => 'Recovery password e-mail send'));
                     $this->_helper->viewRenderer->setRender('password-recovery-confirm');
                 }
             } else {
@@ -147,7 +180,7 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
     
     public function newPasswordFromTokenAction()
     {
-        $this->view->headTitle('Seting up of a new password');
+        $this->view->headTitle($this->view->translate('Setup Your new password'));
         
         $request    = $this->getRequest();
         $token      = $request->getParam('token', ''); // either get or post param
@@ -156,12 +189,12 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
             throw new Exception('No token given in URL', 404);
         }
         $model = new $this->_userModel;
-        $userMapper = $model->getMapper();
- 	   
+        $userMapper = $this->_em->getRepository($this->_userModel);
+
         // we have to find user by token
-        $user = $userMapper->findByToken($token);
+        $user = $userMapper->findOneByToken($token);
         if(!$user) {
-            throw new Expcetion('No user with this token found in DB', 500);
+            throw new \Exception('No user with this token found in DB', 500);
         }
         // checking if token is valid
         if (false === $user->tokenIsValid($token)) {
@@ -178,9 +211,10 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
                $user->setPassword($values['password']);
                $user->setToken(null);
                $user->setTokenValidUntil(null);
-               $mapper = $user->getMapper();
-               $mapper->save($user);
-               $this->_helper->FlashMessenger(array('success' => 'New password set for user: '.$user->getUsername()));
+               $this->_em->persist($user);
+               $this->_em->flush();
+
+               $this->_helper->FlashMessenger(array('success' => 'New password set'));
                
                $this->_helper->Redirector(
                        $this->_redirectAfterNewPassword['action'],
@@ -192,6 +226,32 @@ abstract class Me_User_Controllers_LoginController extends Zend_Controller_Actio
            }
         }
         $this->view->form = $form;
-    }    
+    }
+
+    public function newEmailAddressFromTokenAction()
+    {
+        $request = $this->getRequest();
+        $this->view->headTitle('E-mail change confirmation');
+        $token      = $request->getParam('token'); // either get or post param
+        // we have to find user by token
+        $user = $this->_em->getRepository($this->_userModel)->findOneByToken($token);
+        if(!$user) {
+            throw new \Exception('No user with this token found in DB', 500);
+        }
+
+        // checking if token is valid
+        if (false === $user->tokenIsValid($token)) {
+            $this->_helper->FlashMessenger(array('error' => 'The token You have supplied in URL
+		    is either incorrect or not valid anymore'));
+            $this->_helper->Redirector('index', 'index', 'user');
+        } else {
+            // we can now activate the new e-mail
+            $user->activateEmaillAddressFromTemp();
+            $this->_em->persist($user);
+            $this->_em->flush();
+            $this->_helper->FlashMessenger(array('success' => 'New e-mail address confirmed. Please notice that this also changes Your login.'));
+            $this->_helper->Redirector('index', 'index', 'default');
+        }
+    }
 }
 

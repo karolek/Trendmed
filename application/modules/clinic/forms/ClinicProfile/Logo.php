@@ -10,7 +10,7 @@ class Clinic_Form_ClinicProfile_Logo extends Twitter_Form
 {
     public function init()
     {
-        $this->setName("login");
+        $this->setName("change_logo");
         $this->setMethod('post');
         $this->setAttrib('class', 'form-horizontal');
         $this->setAttrib('enctype', 'multipart/form-data');
@@ -20,7 +20,7 @@ class Clinic_Form_ClinicProfile_Logo extends Twitter_Form
         // ensure only 1 file
         $file->addValidator('Count', false, 1);
         // limit to 100K
-        $file->addValidator('Size', false, 102400);
+        $file->addValidator('Size', false, 1024 * 1024 * 5);
         // only JPEG, PNG, and GIFs
         $file->addValidator('Extension', false, 'jpg,png,gif');
 

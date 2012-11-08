@@ -1,0 +1,10 @@
+<a class="btn" href="<?= $this->url(array('action' => 'index', 'controller' => 'profile', 'module' => 'patient'), 'default', true); ?>">
+    &laquo; <?= $this->translate('List of reservations'); ?>
+</a>
+
+<div class="alert alert-block alert-info">
+    <?= $this->translate($this->config->reservation->action->patient->cancel->description); ?>
+</div>
+
+<?= $this->partial('reservations/_reservationDetails.phtml', array('reservation' => $this->reservation)); ?>
+<?= $this->form; ?>

@@ -1,0 +1,12 @@
+<p>
+    Witamy,<br>
+    <br>
+    Rezerwacja dla <?= $this->reservation->patient->title; ?> <?= $this->reservation->patient->name; ?> o numerze <?= $this->reservation->id; ?> została opłacona. <br>
+    <br>
+    <?php if (!$this->reservation->clinic->wantBill): ?>
+        Prosimy pamiętać o osobistym ustaleniu dokładnej daty wizyty pacjenta, dane kontaktowe: <br>
+        Numer telefonu: <?= $this->reservation->patient->phoneNumber; ?> <br>
+        Adres email: <?= $this->reservation->patient->getEmailaddress(); ?> <br>  
+    <?php endif ?>
+</p>
+<?= $this->render('clinic/_clinicEmailFooter.phtml'); ?>

@@ -1,0 +1,10 @@
+<h3 id="realData">
+    <?= $this->translate('In order to make reservations we need some of real data.'); ?>
+</h3>
+<?= $this->form; ?>
+<?php if ($this->LoggedUser()->isProfileFilled() == 1 AND $this->reservationOngoing == true): ?>
+<p>
+    <?= sprintf($this->translate("You profile is filled correctly and you can go back to <a href=\"%s\">booking your reservation</a>"), $this->url(
+    array('slug' => $this->reservation_clinic_slug), 'newReservation', true)); ?>
+</p>
+<?php endif; ?>

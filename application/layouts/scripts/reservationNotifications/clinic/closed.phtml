@@ -1,0 +1,11 @@
+<p>
+    Witamy,<br>
+    <br>
+    Rezerwacja klienta <?= $this->reservation->patient->title; ?> <?= $this->reservation->patient->name; ?> o numerze <?= $this->reservation->id; ?> została przez niego odwołana.<br>
+    <br>
+    <?php if (!$this->reservation->question == ""): ?>
+        Kometarz klienta uzupełniony podczas anulowania rezerwacji: <?= $this->reservation->question?> <br>   
+    <?php endif; ?>
+    Szczegóły rezerwacji znajdą Państwo na swoim profilu.
+</p>
+<?= $this->render('clinic/_clinicEmailFooter.phtml'); ?>

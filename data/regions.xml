@@ -1,7 +1,20 @@
 <countries>
 	<country name="poland">
-		<region id="1">Pomorskie</region>
-		<region id="2">Warmińsko-mazurskie</region>
-		<region id="3">Mazowieckie</region>
+        <region id="1">Dolnośląskie</region>
+        <region id="2">Kujawsko-pomorskie</region>
+        <region id="3">Lubelskie</region>
+        <region id="4">Lubuskie</region>
+        <region id="5">Lódzkie</region>
+        <region id="6">Małopolskie</region>
+        <region id="7">Mazowieckie</region>
+        <region id="8">Opolskie</region>
+        <region id="9">Podkarpackie</region>
+        <region id="10">Podlaskie</region>
+        <region id="11">Pomorskie</region>
+        <region id="12">Śląskie</region>
+        <region id="13">Świętokrzyskie</region>
+        <region id="14">Warmińsko-mazurskie</region>
+        <region id="15">Wielkopolskie</region>
+        <region id="16">Zachodniopomorskie</region>
 	</country>
 </countries>

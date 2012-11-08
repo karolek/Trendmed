@@ -1,0 +1,10 @@
+<p>
+    <?php printf($this->translate('Hello!'))?><br>
+    <br>
+    <?php printf($this->translate('Thank You for using clinic <a href="http://%s">%s</a> services with Trendmed.eu!', $_SERVER['HTTP_HOST'].$this->url(array('slug' => $this->reservation->clinic->getSlug()), 'clinic'),$this->reservation->clinic->name))?><br>
+    <br>
+    <?php printf($this->translate('We are trying to collect only the best medical services from across the Poland. That is why we created that short survey that contains questions about services You have brought. We are interested if You are fully satisfied and if Your needs were meet. Thanks to You our we can improve our catalogue!'))?> <br>
+    <br>
+    <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' => $this->reservation->id), 'rate'); ?>"><?php printf($this->translate('Feel it out right now!'))?></a><br>
+</p>
+<?= $this->render('patient/_patientEmailFooter.phtml'); ?>

@@ -1,0 +1,105 @@
+<dl>
+	
+	<?php if ($this->reservation->getBillStatus() == \Trendmed\Entity\Reservation::BILL_STATUS_NOT_PAID and $this->reservation->status == 'confirmed'): ?>
+        <div class="alert alert-error"><strong><?= $this->translate('Bill for this reservation is not paid yet. Please pay the bill to make reservation valid'); ?></strong><br>
+        <a href="<?= $this->url(
+            array(
+                'id' => $this->reservation->id
+            ), 'makePayment'); ?>">
+            <?= $this->translate('Pay bill'); ?>
+        </a></div>
+    <?php endif; ?>
+
+
+	<div class="row-fluid">
+        <div class="span6">
+            <dt><?= $this->translate('Reservation number'); ?></dt>
+            <dd><big>#<?= $this->reservation->id;?></big></dd>
+            <dt><?= $this->translate('Reservation booked on'); ?></dt>
+            <dd><?= $this->reservation->created->format("d-m-Y h:i:s");?></dd>
+        </div>
+		<div class="span6">
+			<dt><?= $this->translate('Contact to clinic'); ?></dt>
+		    <dd>
+		        <?= $this->translate('Clinic name'); ?>: <?= $this->reservation->clinic->name; ?> (<a href="<?= $this->url(array('slug' => $this->reservation->clinic->slug), 'clinic');?>"><?= $this->translate('see full profile');?></a>)<br>
+		        <?= $this->translate('Phone'); ?>: <?= $this->reservation->patient->phoneNumber; ?><br>
+		        E-mail: <a href="mailto:<?= $this->reservation->patient->getEmailaddress(); ?>">
+		            <?= $this->reservation->patient->getEmailaddress(); ?></a></dd>
+		</div>
+	</div>
+    
+	<div class="row-fluid">
+		<div class="span6">
+			<dt><?= $this->translate('Services booked'); ?></dt>
+		    <dd>
+		        <ul>
+		            <?php foreach($this->reservation->services as $service): ?>
+		            <li><a href="<?= $this->url(array(
+		                'id' => $service->id,
+		            ), 'service'); ?>"><?= $service->category->name;?></a></li>
+		            <?php endforeach; ?>
+		        </ul>
+		    </dd>
+		</div>
+    	<div class="span6">
+			<dd>
+		        <dt><?= $this->translate('Current reservation status'); ?></dt>
+				<?php $status = $this->reservation->getStatusAsArray(); ?>
+		        <dd class="status-<?= $status['name']; ?>"><?= $this->translate($status['name']); ?></dd>
+                <?php if($this->reservation->isGroupReservation()): ?>
+                    <dt>
+                        <?= $this->translate('Group reservation status'); ?>
+                    </dt>
+                    <dd>
+                        <?= sprintf($this->translate(
+                        '%u confirmed reservations out of %u invites', $this->reservation->getGroupReservation()->getConfirmedCount(), $this->reservation->getGroupReservation()->getTotalReservationsCount())
+                    ); ?><br>
+                        <?= sprintf($this->translate('Current discount is %u', $this->reservation->getGroupReservation()->getCurrentBonusRate())); ?>%<br>
+                        <?= $this->translate('Invited friends'); ?>:
+                        <ul>
+                            <?php foreach($this->reservation->getGroupReservation()->childReservations as $child): ?>
+                            <li><a href="mailto:<?= $child->patient->getEmailaddress(); ?>"><?= $child->patient->getEmailaddress(); ?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <?= $this->translate('Inviter'); ?>:<br>
+                        <a href="mailto:<?= $this->reservation->getGroupReservation()->parentReservation->patient->getEmailaddress(); ?>"><?= $this->reservation->getGroupReservation()->parentReservation->patient->getEmailaddress(); ?></a>
+
+                    </dd>
+                <?php endif; ?>
+            </dd>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+		<div class="span6">
+			<dt><?= $this->translate('Your proposed date of visit'); ?></dt>
+		    <dd>
+		        <?= $this->translate('from');?> <?= $this->reservation->dateFrom->format("d-m-Y"); ?> <?= $this->translate('to');?> <?= $this->reservation->dateTo->format("d-m-Y"); ?>
+		    </dd>
+		</div>
+    	<div class="span6">
+			<?php if($this->reservation->newDateWasProposed()): ?>
+		        <dt><?= $this->translate('Clinic proposed another date of visit'); ?></dt>
+		        <dd>
+		            <?= $this->translate('from');?> <?= $this->reservation->alternativeDateFrom->format("d-m-Y"); ?>
+		            <?= $this->translate('to date');?> <?= $this->reservation->alternativeDateTo->format("d-m-Y"); ?>
+		        </dd>
+		    <?php endif; ?>
+		</div>
+	</div>
+
+    <div class="row-fluid">
+		<div class="span12">
+			<dt><?= $this->translate('Comments from clinic to you'); ?></dt>
+		    <dd>
+		        <?php if(!empty($this->reservation->anwser)): ?>
+		            <strong><?= $this->reservation->anwser; ?></strong>
+		        <?php else :?>
+		            <em><?= $this->translate('No comments from clinic to you'); ?></em>
+		        <?php endif; ?>
+		    </dd>
+		</div>
+	</div>
+	
+
+</dl>

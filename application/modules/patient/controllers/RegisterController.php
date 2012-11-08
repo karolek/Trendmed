@@ -10,6 +10,9 @@
 class Patient_RegisterController extends Me_User_Controllers_RegisterController
 {
     protected $_userModel = '\Trendmed\Entity\Patient'; // class name of the user model
+    protected $_messageSuccessAfterRegistration = array(
+        'success' => 'Dziękujemy za rejestracje, zapraszamy do rezerwacji usług'
+    );
     
 	public function getRegistrationForm()
 	{

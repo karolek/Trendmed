@@ -1,0 +1,19 @@
+<p>
+    <?php printf($this->translate('Hello!'))?><br>
+    <br>
+    <?php printf($this->translate('Your friend %s invites You to use service of Polish clinic together to get better price.' , $this->reservation->getGroupReservation()->getParentReservation()->patient->name)) ?> <br>
+    <br>
+    <?php printf($this->translate('Name of the clinic is %s. You can view it and see location, description and photos <a href="http://%s">under this link</a>.',  $this->reservation->clinic->name, $_SERVER['HTTP_HOST'].$this->url(array('slug' => $this->reservation->clinic->getSlug()), 'clinic'))) ?><br>
+    <br>
+        <?php printf($this->translate('He proposed that You might like that services:'))?><br>
+            <?php foreach ($this->reservation->services as $service): ?>
+                - <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' =>$service->id), 'service'); ?>"><?= $service->category->name; ?></a><br>
+            <?php endforeach; ?>
+     <br>
+    <?php printf($this->translate('And the dates that %s proposed are from %s to %s' , $this->reservation->getGroupReservation()->getParentReservation()->patient->name, $this->reservation->dateFrom->format('d-m-Y'), $this->reservation->dateTo->format('d-m-Y') ))?> <br>
+    <br>
+    <?php printf($this->translate('To participate with Your friend <a href="http://%s">just follow that link</a>.', $_SERVER['HTTP_HOST']))?><br>
+</p>
+<?= $this->render('patient/_patientEmailFooter.phtml'); ?>
+
+

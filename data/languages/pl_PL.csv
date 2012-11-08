@@ -1,9 +1,47 @@
-Name of the clinic;Nazwa kliniki
+book;Rezerwuj
+Edit page; Edytuj treść
+Category saved;Zmiany do kategorii zapisane
+Category has been deleted. All children elements has been reordered.;Kategoria usunięta, podkategorie zostały odpowiednio przesunięte
+Page title;Tytuł strony
+Page content;Treść strony
+Page type;Typ strony
+Page has been saved;Strona zapisana
+Not active;Nie aktywna
+Content;Treści
+List pages;Lista treści
+Add new page;Dodaj nową stronę
+Title;Tytuł
+Connect accounts;Połącz konta
+Logged via facebook successful;Zalogowano poprzez Facebook Connect
+Type;Typ
+Last Edited;Ostatnia edycja
+Created;Utworzono
+See;Podejrzyj
+Delete Page;Usuń podstronę
+Toggle active;Przełącz tryb aktywności
+Active state changed;Zmieniono tryb aktywności
+Page has been deleted;Podstrona została usunięta
+You have successfully logged in;Zalogowano poprawnie
+You have successfully logged out;Wylogowano z systemu pomyślnie
+Please fill out the form correctly;Proszę wypełnić poprawnie formularz
+Your e-mail;Twój adres e-mail
+Recover;Odzyskaj
+Logo uploaded.;Logo wgrane
+Date range of this reservation must past, before the reservation can be rated.;Rezerwacja musi odbyć się w czasie zanim będzie można ją oceniać
+Manage photos;Zarządzaj zdjęciami
+Accounts connected successfully;Konta połączone poprawnie
+Changes saved;Zmiany zachowane
+See public profile;Zobacz profil publiczny
+Add new service;Dodaj nową usługę
+Edit;Edytuj
+Delete;Usuń
+Name of the clinic;Nazwa placówki
 Password;Hasło
 Heading;Nagłówek
+No reviews yet;Brak ocen
 Patient login;Logowanie pacjenta
 Patient signup;Rejestracja pacjenta
-For clinics;Dla klinik
+For clinics;Dla placówek
 Register;Rejestracja
 Login into panel;Zaloguj się do panelu
 Street address;Ulica i numer lokalu
@@ -17,12 +55,14 @@ Email address;Adres e-mail
 Representant name;Imię i nazwisko reprezentanta
 Representant phone;Telefon do reprezentanta
 Account info;Dane konta
+Reservation cancellation;Anulowanie rezerwacji
 Repeat password;Powtórz hasło
 Sign in!;Zapisz się
 Value is required and can't be empty;Pole jest wymagane
 '%value%' is no valid email address in the basic format local-part@hostname;Podaj poprawny adres e-mail
 A record matching '%value%' was found;'%value%' już istnieje
 Clinic;Klinika
+'%value%' does not appear to be a float;'%value%' nie jest poprawną liczbą, oddzielaj ułamki przecinkiem
 Dental gabinet;Gabinet dentystyczny
 Type of Clinic;Typ obiektu
 You have registered succesfuly. You can login now.;Zostałeś zarejestrowany. Możesz się teraz zalogować.
@@ -35,6 +75,320 @@ Password change;Zmiana hasła
 Wrong login or password supplied;Zły e-mail lub hasło
 Please fill the form;Proszę wypełnić formularz
 Given clinic e-mail not found in database;Podany e-mail nie został znaleziony w bazie
-Remember me for 7 days;Pamiętaj mnie przez 7 dni
+Remember me for 7 days;Nie wylogowuj mnie
 You have changed Your details;Informacje zapisane
 Edit my logo;Edycja logo
+New photo added;Zdjęcie dodane
+Photo file (jpg, png, gif);Plik zdjęcia (format jpg, png, gif)
+Here You can add any photos of Your object, that will be shown on Your public profile;Tutaj możesz dodać zdjęcia swojego obiektu, które będą widoczne na Twoim profilu
+Managing Your clinic services;Zarządzanie usługami Twojej placówki
+You can change Your avatar by uploading new one;You can change Your avatar by uploading new one
+Remember, your avatar will be cropped down to square proportions. The get the best result supply square image;Pamiętaj, Twoje logo zostanie skadrowane od odpowiednich formatów. Aby uzyskać najlepsze efekty wgraj plik o rozmiarach 250px x 150 px
+This is Your dashboard;To jest Twój dashboard
+Already have an account?;Masz już u nas konto?
+Contact person;Dane osoby kontaktowej
+This will be Your account login;To będzie login do Twojego konta
+Upload;Wgraj
+You can change Your logo by uploading a new file;Wgrywając nowy plik możesz zmienić swoje aktualnie wgrane logo
+Delete logo;Usuń logo
+Logged in as;Zalogowany jako
+Log out?;Wylogować?
+Add to favorite;Dodaj do ulubionych
+Save;Zapisz
+Create account for free!;Zarejestruj się za darmo
+Password recovery;Nie pamiętasz hasła?
+Login or create account;Zaloguj się albo załóż konto
+Trendmed / Password recovery;Trendmed / Odzyskiwanie hasła
+Service category;Kategoria usługi
+Please correct the form;Popraw błędy w formularzu
+Logo file (jpg, png, gif);Plik logo (jpg, png, gif)
+You don't have any logo attached to Your account. Default image will be used instead. Please upload image file to customize Your profile.;Nie masz dodanego logo do swojego profilu. Wgraj plik logo aby ulepszyć swój profil.
+Warning!;Uwaga!
+Edit my logo;Edycja logo
+Your service has been deleted;Usługa została usunięta
+Setup Your new password;Ustaw nowe hasło
+%1$s registration;Rejestracja
+Plans and pricing;Oferta i abonamenty
+Articles;Artykuły
+Remove from favorite;Usuń z ulubionych
+You have registered successfully. You can login now.;Dziękujemy za rejestracje. Możesz zalogować się teraz do panelu zarządzania.
+Maximum allowed size for file '%value%' is '%max%' but '%size%' detected;Plik jest za duży, maksymalny rozmiar to '%max%', podałeś plik o rozmiarze '%size%'
+Service main category;Główna kategoria usługi
+Service sub-category;Podkategoria usługi
+'%value%' is not greater than '%min%';Wybór jest wymagany
+Correct the errors in the form;Popraw błędy w formularzu
+Date;Data
+Patient;Pacjent
+Services;Usługi
+Actions;Akcje
+Confirm;Potwierdź
+Decline;Odrzuć
+No reservation with given search criteria;Brak rezerwacji o określonych kryteriach
+Another date;Zaproponuj inną datę
+Reservation date;Data rezerwacjię
+New;Nowa
+Confirmed;Potwierdzona
+Closed;Zamknięta
+New date proposed;Zaproponowano nową date
+See details;Szczegóły
+My reservations;Moje rezerwacje
+List of reservations;Lista rezerwacji
+Cancel;Anuluj
+From;Od
+to:do
+You do not have any reservations yet.;Nie masz jeszcze żadnych rezerwacji
+My account;Moje konto
+Please include me in Trendmed.eu updates;Zapisz mnie do newslettera Trendmed.eu
+Register for free!;Zapisz się za darmo!
+You can sign up or sign out from our newsletter using this form anytime.;Możesz się zapisać lub wypisać z naszego newslettera używając tego formularza.
+You are currently %1$s to our newsletter.;Jesteś aktualnie %1$s do naszego newslettera.
+signed;zapisany
+not signed;nie zapisany
+Sign me up!;Zapisz mnie
+Sign me out!;Wypisz mnie
+You have been signed out from out newsletter system;Zostałeś wypisany z naszej bazy newsletterowej
+You have been signed up for the newsletter;Zostałeś zapisany do naszej bazy newsletterowej
+Newsletter sign up/sign out;Zarządzanie subskrypcją newslettera
+Agreement is required;Zgoda jest wymagana
+I agree to accept the site <a href="/page/regulamin-dla-pacjentow" target="_blank">Rules and Terms & Conditions</a>;Rejestrując się zgadzam się na warunki <a href="/page/regulamin-dla-pacjentow" target="_blank">regulaminu</a>
+Sort by;Posortuj
+Newsletter sign-up;Zapis do newslettera
+Your welcome to subscribe to our Trendmed.eu newsletter, just type in your e-mail;Zachęcamy do zapisania się do naszego newslettera, wystarczy wpisać swój adres e-mail
+filter by city;Filtruj przez miasto
+You have been signed in our newsletter system;Zostałeś zapisany do naszego newslettera
+You are already registered in our newsletter!;Ten adres jest już w naszej bazie
+Sorry, no services in this category found. Please try another category.;Nie znaleziono usług w danych ustawieniach filtra. Zmień ustawienia.
+Patient rating;Ocena pacjentów
+Change e-mail address;Zmień adres e-mail
+Account password;Hasło do konta
+For security reasons please type in your account password;Z uwagi na bezpieczeństwa, prosimy o podanie hasła do konta
+E-mail Address;Adres e-mail
+Change e-mail;Zmień adres
+Old password;Stare hasło
+Set new password;Ustaw nowe hasło
+Popularity;Popularność
+Price;Cena
+Added date;Data dodania
+Clinic name;Nazwa kliniki
+All services in %s;Wszystkie usługi w %s
+Last added clinics;Ostatnio dodane kliniki
+Last added services;Ostatnio dodane usługi
+Price max must be greater that price min;Cena maksymalna musi być większa od ceny minimalnej
+E-mail address;Adres e-mail
+Address used as account login;Adres użyty jako login do profilu
+Recovery password e-mail send to: %1$s;E-mail pozwalający na odzyskanie hasła został wysłany na adres: %1$s
+Recovery password e-mail send;Wysłano e-mail pozwalający na odzyskanie hasła do profilu
+Please check Your e-mail Inbox from e-mail from us. It will contain a link. Please click it, or copy paste into Your web browser URL address bar. It will allow to set a new password for You.;Prosimy sprawdzić skrzynkę e-mail, wysłaliśmy Państwu instrukcje dalszego postępowania celem odzyskania hasła.
+The two given tokens do not match;Podane wartości powinny być identyczne
+Ads management;Zarządzanie bannerami
+Add banner;Dodaj banner
+Views;Wyświetlenia
+Clicks;Kliki
+Options;Opcje
+Ad description;Opis bannera
+This is only for your information;Tylko do twojej informacji
+Where to shown this banner;Gdzie pokazać ten banner
+You can choose the zone on site in with this banner will rotate;Wybierz strefe w której ukazywać się będzie banner
+Target URL;Docelowy adres URL
+Where to open this link;Gdzie otworzyć ten link
+Open new window;Otwórz nowe okno
+The same winsows as link;W tym samym oknie
+Publish this ad;Opublikuj ten banner
+You can leave this empty, then banner will be not clickable;Możesz zostawić to pole puste, wtedy banner nie będzie klikalny
+Delete ad;Usuń banner
+At least one service must be select;Przynajmniej jedna usługi musi być wybrana
+No banners in the system.;Brak bannerów w systemie
+Banner ad removed;Banner usunięty
+Location;Lokalizacja
+Book now;Book now
+reviews;recenzji
+To:Do
+based on;na podstawie
+Rating;Ocena
+Show on map;Pokaż na mapie
+Create free account;Załóż darmowe konto
+Send feedback!;Wyślij feedback!
+Your e-mail address;Twój adres e-mail
+Message send. Thanks for shearing.;Wiadomość wysłana, dziękujemy!
+Contact Trendmed.eu;Skontaktuj się z Trendmed.eu
+Please, tell us from what country you are;Z jakiego jesteś kraju
+Start with your country prefix, e.g. +48 for Poland;Podaj prefix kraju, np. +48 dla Polski
+-- please choose --;-- proszę wybrać --
+Your country;Kraj
+Your real name;Imie i nazwisko
+Your phone number;Twój numer telefonu z prefixem kraju, np. +48
+In order to make reservations we need some of real data.;Prosimy o wypełnienie danych:
+Your changes to the profile has been saved;Zmiany w profilu zapisane
+Before making reservation please fill your profile with personal data.;Aby złożyć rezerwacji musisz uzupełnić swój profil.
+Go to my profile edit;Przejdź do edycji mojego profilu
+Please fix the errors in form;Proszę poprawić błędy w formularzu
+Select services you are interest in;Zaznacz usługi które chcesz zarezerwować
+Additional questions or requirements to clinic;Dodatkowy komentarz do rezerwacji który trafi do placówki
+Search for clinic;Szukaj placówki
+Type clinic name or polish city;Wpisz miasto lub nazwę placówki
+Advanced search;Szukanie zaawansowane
+List of services;Katalog usług
+Share Trendmed;Poleć Trendmed
+Search for article;Szukaj artykułów
+No articles in the system;Brak artykułów w systemie
+Contact us;Skontaktuj się z nami
+Your friend e-mail address;Adres e-mail twojego znajomego
+Recommend this clinic to your friends;Poleć tą placówkę swoim znajomym!
+Your e-mail address;Twój adres e-mail
+You profile is filled correctly and you can go back to <a href="%s">booking your reservation</a>;Twój profil jest wypełniony prawidłowo, możesz kontynować <a href="%s">składanie swojej rezerwacji</a>
+Reservation booked;Rezerwacja dokonana
+Mr;Pan
+Ms;Pani
+__recommender__ want to recommend you a clinic on Trendmed.eu;__recommender__ zaprasza Cię do dobrej  oferty na Trendmed.eu
+Bill is not required;Kaucja nie jest wymagana
+Close;Zamknij
+Recommendation send! Thank you!;Rekomendacja wysłana. Dziękujemy.
+closed;zamknięta
+new;nowa
+confirmed;potwierdzona
+Delete page;Usuń stronę
+Edit my details;Mój profil
+Change my password;Zmień hasło
+Change my e-mail address;Zmień mój adres e-mail
+Manage newsletter subscription;Ustawienia newslettera
+My favorite clinics;Moje ulubione kliniki
+Service description;Opis usługi
+Show all treatments;Pokaż wszystkie usługi
+Service name;Nazwa usługi
+Price range;Zakres cenowy
+The process of reserving a visit is very simple. Just choose date You would like to come to clinic and services You are interested in. We will inform clinic about Your request. Clinic will reply and we will inform You about the status of the visit.;Proces rezerwacji wizyty jest bardzo prosty. Wybierz proponowaną date wizyty od do oraz usługi którymi jesteś zainteresowany. Poinformujemy placówkę o twojej rezerwacji automatycznie. Kiedy placówka odpowie na twoją rezerwacje, zostaniesz poinformowany o tym fakcie wiadomością e-mail.
+based on;na podstawie
+reviews;opinii
+more;więcej
+More;Więcej
+Requires bill to be paid;Wymaga opłacenia kaucji przy rezerwacji
+Bill is not required;Kaucja przy rezerwacji nie jest wymagana
+Services of;Usługi placówki
+Show all articles;Pokaż wszystkie artykuły
+Hello!;Witaj!
+We can confirm that You have placed reservation in the clinic <a href="http://%s">%s</a>. Your reservation number is %u, remember it.;Potwierdzamy złożenie rezerwacji w klinice <a href="http://%s">%s</a>. Twój numer rezerwacji to %u, zachowaj go.
+Your proposed dates of reservation, from %s to %s;Twój proponowany termin wizyty: od %s do %s.
+Your comment;Twój dodatkowy komentarz
+Reservation needs to be confirmed by the clinic. You will be informed about that via email.;Rezerwacja musi zostać potwierdzona przez klinikę. O zmianie statusu zostaniesz poinformowany mailowo.
+If you require any further information please do not hesitate <a href="http://%s">to contact us.</a>;Jeśli masz jakiekolwiek pytania dotyczące funkcjonowania portalu <a href="http://%s">skontaktuj się z nami.</a>
+Welcome to Trendmed.eu!;Witamy na portalu Trendmed.eu!
+You have just activated your account. From now on You have unlimited access to medical services, beauty parlours and spa centres. You can book all these services without going out of Your home and without all complicated formalities <a href="http://%s">Log in and book Your service now!</a>;Właśnie dokonałeś pełnej aktywacji konta. Masz teraz nieograniczony dostęp do katalogu usług medycznych, kosmetycznych, sanatoriów czy spa-weelness. Możesz online rezerwować wybrane usługi bez potrzeby osobistego kontaktu i zbędnych formalności! <a href="http://%s">Zaloguj się i zarezerwuj usługę.</a>
+Regards;Pozdrawiamy
+Trendmed.eu Team;Zespół Trendmed.eu
+To confirm email change please click the link below or copy it and pastle to your browser:;Aby potwierdzić zmianę proszę przejść na podany link lub skopiować go w całości do przeglądarki:
+You have asked to change Your email adress associated to your <a herf="http://%s">Trendmed.eu</a> account;Prosiłeś o zmianę adresu email do Twojego konta na serwisie <a href="http://%s">Trendmed.eu</a>
+This email informs that your <a href="%s">Trendmed.eu</a> account has a new password.;Ten e-mail informuję o zmianie hasła do Twojego konta na profilu <a href="%s">Trendmed.eu</a>.
+If You have not change your password and yet you have recieved this message, please  <a href="http://%s">contact the administration</a>.;Jeśli nie zmieniałeś hasła do swojego profilu a mimo wszystko otrzymałeś niniejszą wiadomośc <a href="http://%s">prosimy o kontakt z administracją</a>.
+You have chosen services:;Wybrane przez Ciebie usługi:
+Clinic <a href="http://%s">%s</a> confirmed your reservation no %u;Klinika <a href="http://%s">%s</a> potwierdziła Twoją rezerwację numer %u
+Additional remark from clinic:;Dodatkowy komentarz kliniki: 
+Your order includes:;W skład zamawianych usług wchodzą:
+Your confirmed reservation date is from %s to %s;Twój uzgodniony termin wizyty: %s do %s
+For your comfor You can;Dla Twojej wygody możesz
+Download PDF file with details;pobrać plik PDF ze szczegółami rejestracji
+view details online;zobaczyć szczegóły online
+To finally confirm reservation You need to make a payment for an advance. <a href="http://%s">That can be done online at your profile.</a>; Aby ostatecznie potwierdzić rezerwację prosimy o dokonanie opłaty kaucji rezerwacyjnej (rozliczanej z kosztami usługi). <a href="http://%s">Możesz tego dokonać online poprzez swój profil.</a>
+You can also view details of this reservation <a href="http://%s">on your profile</a>.;Możesz też zobaczyć <a href="http://%s">szczegóły tej rezerwacji na swoim profilu</a>.
+Thank You for using clinic <a href="http://%s">%s</a> services with Trendmed.eu!;Dziękujemy za skorzystanie z usług kliniki <a href="http://%s">%s</a> za pośrednictwem portalu Trendmed.eu!
+We are trying to collect only the best medical services from across the Poland. That is why we created that short survey that contains questions about services You have brought. We are interested if You are fully satisfied and if Your needs were meet. Thanks to You our we can improve our catalogue!;Cały czas dbamy o to, żeby skupiać jak najlepszych usługodawców medycznych z całej Polski. Dlatego też przygotowaliśmy krótką ankietę na temat wykupionych przez Ciebie usług. Interesuje nas czy przebieg realizacji przeszedł pomyślnie, czy jesteś zadowolony z usług i czy spełniły Twoje oczekiwania. Dzięki Tobie nasz katalog będzie jeszcze lepszy!
+Feel it out right now!;Wypełnij ją już teraz!
+Your reservation no %u in clinic <a href="http://%s">%s</a> has been paid.;Twoja rezerwacja numer %u w klinice <a href="http://%s">%s</a> została opłacona. 
+Clinic <a href="http://%s">%s</a> answered to your reservation no %u and propose alternative dates: From %s to %s;Klinika <a href="http://%s">%s</a> odpowiedziała na Twoją rezerwację numer %u i proponuje alternatywne terminy wizyty: Od %u do %u
+Now you can:; Teraz możesz: 
+confirm new dates;potwierdzić nowe daty
+resign from this reservation;lub zrezygnować z rezerwacji
+Clinic <a href="http://%s">%s</a> canceled your reservation number %u;Klinika <a href="http://%s">%s</a> anulowała Twoją rezerwację numer %u
+Book;Book
+This clinic offers group promotions;Ta placówka oferuje rabaty grupowe!
+Bill not paid yet;Kaucja nie opłacona
+To date;Do
+Waiting for clinic response;Czeka na odpowiedź placówki
+remove;usuń
+Bill for this reservation is not paid yet. Please pay the bill to make reservation valid;Kaucja nie jest opłacona. Prosze opłacić kaucje aby potwierdzić rezerwacje.
+Pay bill;Opłać kaucje
+Reservation booked on;Rezerwacja dokonana w dniu
+Services booked;Zarezerowane usługi
+Your proposed date of visit;Data wizyty zaproponowana przez Ciebie
+Comments from clinic to you;Komentarz od placówki
+No comments from clinic to you;Brak komentarza
+from;od
+to date:do
+Contact to clinic;Kontakt do kliniki
+Current reservation status;Aktualny status rezerwacji
+Available actions;Dostępne akcje
+This account is not active, please contact administration;To konto jest nieaktywne, prosimy o kontakt z administracją serwisu
+You have invited %u more friends to join in your group reservation;Zaprosiłeś %u znajomych do dołaczenia do Twojej rezerwacji grupowej
+Details of reservation;Szczegóły rezerwacji
+Phone;Telefon
+see full profile;zobacz profil
+No available actions at this moment;Brak dostępnych akcji w tym momencie
+New password set;Nowe hasło ustanowione
+Recommend to friends;Poleć znajomym
+Your logo has been deleted;Logo zostało usunięte
+Reservation number;Numer rezerwacji
+Group promotion;Promocja grupowa
+How it works;Jak to działa
+Price is lower if you take your friends or family with you;Cena jest niższa jeżeli zabierzesz znajomych
+No favorite clinics added yet. Add some from clinic profile.;Nie dodano żadnych ulubionych klinik. Możesz dodawać kliniki do ulubionych klikając w gwiazdkę obok ich oceny na stronie profilu.
+The reservation you are trying to view is not yours;Rezerwacja którą chcesz obejrzeć nie jest zapisana na Ciebie.
+You have to be login to get access there;Musisz być zalogowany aby wykonać tą akcje
+Latest articles;Najnowsze artykuły
+Articles found: %u;Znaleziono artykułów: %u
+You can type multiply e-mail separating them with comma;Możesz podać wiele adresów po przecinku
+Share on facebook;Poleć na facebook.com
+Share on Twitter;Zatweetuj!
+Choose the type of a banner;Typ bannera
+%u persons;%u osób
+persons count: %u;ilość osób %u
+off total value;rabatu
+Options;opcje
+Invited friends;Zaproszeni goście
+Inviter;Zapraszający
+Confirm invitation to group reservation;Potwierdź udział w promocji grupowej
+Reservation has been confirmed by you. You now take part in group reservation promotion.;Rezerwacja potwierdzona. Bierzesz teraz udział w promocji grupowej
+Please correct the form error;Proszę poprawić błędy w formularzu
+Only confirmed reservation needs payment;Płatność za rezerwacje może nastapić dopiero po potwierdzeniu rezerwacji
+You can cancel your reservation any time. Clinic will be informed by e-mail about your action.;Możesz anulować rezerwacje w dowolnym momencie, klinika zostanie o tym poinformowana via e-mail
+Comments to clinic;Komentarz dla kliniki
+You can type in any additional comment to clinic, like reason for cancellation;Możesz pisać dowolny komentarz do wiadomości kliniki, np. powody do rezygnacji z rezerwacji
+The same windows as link;To samo okno co link
+Cancel reservation;Anuluj rezerwacje
+Banner info changed;Zapisano dane o banerze
+Date of visit:Przedział czasowy wizyty
+Rate visit;Oceń wizyte
+not published;nie opublikowane
+Print PDF reservation;Wydrukuj rezerwacje w PDF
+Download PDF;Pobierz PDF
+This clinic offers group promotion at given discounts;Ta placówka oferuje promocje grupowe według stawek
+With %u friends;Z %u znajomymi
+Learn more about group promotions;Dowiedz się więcej o promocjach grupowych
+-- CHOSE --;-- wybierz --
+Your banner file;Plik bannera
+Supply file according to type of a banner;Plik zgodny z rozmiarem strefy
+Static banner;Banner statyczny
+Reservation survey;Ocena wizyty
+How do you rate the price of the service from 1 to 10;Jak oceniasz cene za usługę w skali od 1 do 10
+10 is the best, 1 is the worst;10 najlepiej, 1 najgorzej
+How do you rate the service itself from 1 to 10;Jak oceniasz jakośc wykonania obsługi?
+How do you rate the stuff of the clinic from 1 to 10;Jak oceniasz personel placówki?
+Submit;Wyślij
+Any aditional comments about what you think about your visist you would like to share;Dodatkowe komentarze odnośnie wizyty którymi chciałbyś się podzielić
+This clinic will require you to pay a bill in amount of 100 euro upon reservation confirm. You will be able to pay after the clinic confirms the reservation via our Pay Pal system from your account.;Ta klinika będzie wymagała od Ciebie opłacenia kaucji w wysokości 100 euro po potwierdzeniu przez nią rezerwacji. Platności będziesz mógł dokonać przez system PayPal.
+If you want to use group promotion discounts, invite your friends. You will receive discount depending how many of invited friends will confirm the reservation;Jeżeli chcesz wziąć udział w promocji grupowe, zaproś do rezerwacji swoich znajomych. Wysokość rabatu będzie uzależniona od tego ilu znajomych potwierdzi rezerwacje.
+Friends e-mail addresses;Adresy e-mail Twoich znajomych
+Seperate e-mail's with comma;Oddziel adresy przecińkiem
+Group promotion, not confirmed;Udział w grupowe promocji nie potwierdzony
+Another user already has username "%value%";Użytkownik o adresie "%value%" już istnieje w naszej bazie
+Trendmed.eu. Reservation nr :;Trendmed.eu. Rezerwacja nr:
+%u confirmed reservations out of %u invites;%u osób potwierdziło swoje rezerwacji z %u zaproszonych
+Current discount is %u;Aktualna zniżka wynosi %u
+Group reservation status;Status rezerwacji grupowej
+You have invited %u friends to join in your group reservation;Zaprosiłeś %u znajomych do udziału w Twojej rezerwacji grupowej
+Given e-mail not found in database;Podany e-mail nie został znaleziony w bazie
+Travel service;Serwis turystyczny
+Create free account to use all features on Trendmed.eu!;Załóż darmowe konto aby korzystać z wszystkich funkcjonalności Trendmed.eu!
+Your friend %s invites You to use service of Polish clinic together to get better price.;Twój przyjaciel %s zaproponował wspólne skorzystanie z usług kliniki dzięki czemu jej usługi będą dla Was tańsze.
+He proposed that You might like that services:;Zaproponował wspólny udział w następująych usługach:
+And the dates that %s proposed are from %s to %s;Daty jakie zaproponował % są następujące: od %s do %s
+To participate with Your friend <a href="http://%s">just follow that link</a>.;Aby skorzystać z tej okazji <a href="http://%s">po prostu kliknij w link</a>.
+Name of the clinic is %s. You can view it and see location, description and photos <a href="http://%s">under this link</a>.; Nazwa tej kliniki to %s. Możesz zapoznać się z jej szczegółowym opisem, zdjęciami oraz lokalizacją <a href="http://%s">pod tym linkiem</a>.

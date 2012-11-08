@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 02, 2012 at 05:15 PM
+-- Generation Time: May 14, 2012 at 09:58 AM
 -- Server version: 5.5.20
 -- PHP Version: 5.3.10
 
@@ -39,14 +39,14 @@ CREATE TABLE IF NOT EXISTS `admins` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_A2E0150FD60322AC` (`role_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `admins`
 --
 
 INSERT INTO `admins` (`id`, `role_id`, `login`, `password`, `salt`, `token`, `tokenValidUntil`, `lastLoginTime`, `created`, `modified`) VALUES
-(3, 2, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'eef53570d983', NULL, NULL, NULL, '2012-05-01 18:37:19', NULL);
+(1, 4, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'f11ded6f0b2b', NULL, NULL, NULL, '2012-05-14 09:58:36', NULL);
 
 -- --------------------------------------------------------
 
@@ -69,13 +69,28 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
+  `slug` varchar(128) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `created` datetime NOT NULL,
   `serviceCount` int(11) NOT NULL,
-  `depth` int(11) NOT NULL,
+  `lft` int(11) NOT NULL,
+  `lvl` int(11) NOT NULL,
+  `rgt` int(11) NOT NULL,
+  `root` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UNIQ_3AF34668727ACA70` (`parent_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  UNIQUE KEY `UNIQ_3AF34668989D9B62` (`slug`),
+  KEY `IDX_3AF34668727ACA70` (`parent_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `parent_id`, `name`, `slug`, `description`, `created`, `serviceCount`, `lft`, `lvl`, `rgt`, `root`) VALUES
+(1, NULL, 'root', 'root', NULL, '2012-05-14 09:58:36', 0, 1, 0, 8, 1),
+(2, 1, 'Zabiegi chirugiczne', 'zabiegi-chirugiczne', NULL, '2012-05-14 09:58:36', 0, 2, 1, 3, 1),
+(3, 1, 'Pobyty SPA', 'pobyty-spa', NULL, '2012-05-14 09:58:36', 0, 4, 1, 5, 1),
+(4, 1, 'Pobyty w sanatoriach', 'pobyty-w-sanatoriach', NULL, '2012-05-14 09:58:36', 0, 6, 1, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -99,7 +114,11 @@ CREATE TABLE IF NOT EXISTS `clinics` (
   `country` varchar(255) NOT NULL,
   `geoLat` varchar(255) DEFAULT NULL,
   `getLon` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `customPromos` varchar(255) DEFAULT NULL,
   `roleName` varchar(255) NOT NULL,
+  `slug` varchar(128) NOT NULL,
+  `logoDir` varchar(255) DEFAULT NULL,
   `login` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `salt` varchar(255) NOT NULL,
@@ -110,16 +129,16 @@ CREATE TABLE IF NOT EXISTS `clinics` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_D7053B66B98A836A` (`repEmail`),
+  UNIQUE KEY `UNIQ_D7053B66989D9B62` (`slug`),
   KEY `IDX_D7053B66D60322AC` (`role_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `clinics`
 --
 
-INSERT INTO `clinics` (`id`, `role_id`, `name`, `streetaddress`, `province`, `city`, `postcode`, `repPhone`, `repName`, `repEmail`, `type`, `wantBill`, `country`, `geoLat`, `getLon`, `roleName`, `login`, `password`, `salt`, `token`, `tokenValidUntil`, `lastLoginTime`, `created`, `modified`) VALUES
-(1, 1, 'TrendMed', 'Topolowa 2/7', 'Pomorskie', 'Gdańsk', '80-233', '+48 512 129 709', 'Bartosz', 'b@br-design.pl', 'Clinic', 0, 'Poland', '54.377608', '18.595605', 'clinic', 'b@br-design.pl', '0699e4ecbaf51e6672d49fac95c48ae7', '39338', NULL, NULL, NULL, '2012-05-01 16:15:59', NULL),
-(5, 1, 'Trendmed', 'Topolowa 2', '1', 'Gdańsk', '80-255', '512129709', 'bartosz', 'bartosz.rychlicki@gmail.com', 'clinic', 0, 'Poland', NULL, NULL, 'clinic', 'bartosz.rychlicki@gmail.com', '0699e4ecbaf51e6672d49fac95c48ae7', '3e97c39b19d3', NULL, NULL, NULL, '2012-05-02 17:13:27', NULL);
+INSERT INTO `clinics` (`id`, `role_id`, `name`, `streetaddress`, `province`, `city`, `postcode`, `repPhone`, `repName`, `repEmail`, `type`, `wantBill`, `country`, `geoLat`, `getLon`, `description`, `customPromos`, `roleName`, `slug`, `logoDir`, `login`, `password`, `salt`, `token`, `tokenValidUntil`, `lastLoginTime`, `created`, `modified`) VALUES
+(1, 2, 'Trendmed', 'Rubinowa 4', 'Pomorskie', 'Gdańsk', '80-033', '+48512129709', 'Bartosz Rychlicki', 'b@br-design.pl', 'Klinika', 0, 'Poland', NULL, NULL, 'To jest pierwsza klinika testowa w systemie', NULL, 'clinic', 'trendmed-gdansk', NULL, 'b@br-design.pl', '0699e4ecbaf51e6672d49fac95c48ae7', '2bd09c6f1caa', NULL, NULL, NULL, '2012-05-14 09:58:36', NULL);
 
 -- --------------------------------------------------------
 
@@ -140,8 +159,42 @@ CREATE TABLE IF NOT EXISTS `clinic_descriptions` (
 
 CREATE TABLE IF NOT EXISTS `clinic_photos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
+  `clinic_id` int(11) DEFAULT NULL,
+  `photoDir` varchar(255) NOT NULL,
+  `position` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_B72F0566CC22AD4` (`clinic_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ext_translations`
+--
+
+CREATE TABLE IF NOT EXISTS `ext_translations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `locale` varchar(8) NOT NULL,
+  `object_class` varchar(255) NOT NULL,
+  `field` varchar(32) NOT NULL,
+  `foreign_key` varchar(64) NOT NULL,
+  `content` longtext,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `lookup_unique_idx` (`locale`,`object_class`,`foreign_key`,`field`),
+  KEY `translations_lookup_idx` (`locale`,`object_class`,`foreign_key`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `ext_translations`
+--
+
+INSERT INTO `ext_translations` (`id`, `locale`, `object_class`, `field`, `foreign_key`, `content`) VALUES
+(1, 'en_GB', 'Trendmed\\Entity\\Category', 'name', '2', 'English name'),
+(2, 'de_DE', 'Trendmed\\Entity\\Category', 'name', '2', 'Germanishe version'),
+(3, 'en_GB', 'Trendmed\\Entity\\Category', 'name', '3', 'English name'),
+(4, 'de_DE', 'Trendmed\\Entity\\Category', 'name', '3', 'Germanishe version'),
+(5, 'en_GB', 'Trendmed\\Entity\\Category', 'name', '4', 'English name'),
+(6, 'de_DE', 'Trendmed\\Entity\\Category', 'name', '4', 'Germanishe version');
 
 -- --------------------------------------------------------
 
@@ -184,6 +237,7 @@ CREATE TABLE IF NOT EXISTS `languages` (
 
 CREATE TABLE IF NOT EXISTS `messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `message` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -196,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
 CREATE TABLE IF NOT EXISTS `patients` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_id` int(11) DEFAULT NULL,
-  `string` varchar(255) NOT NULL,
+  `roleName` varchar(255) NOT NULL,
   `login` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `salt` varchar(255) NOT NULL,
@@ -252,15 +306,17 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `roles`
 --
 
 INSERT INTO `roles` (`id`, `name`) VALUES
-(1, 'clinic'),
-(2, 'admin');
+(1, 'guest'),
+(2, 'clinic'),
+(3, 'patient'),
+(4, 'admin');
 
 -- --------------------------------------------------------
 
@@ -270,6 +326,8 @@ INSERT INTO `roles` (`id`, `name`) VALUES
 
 CREATE TABLE IF NOT EXISTS `services` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(255) NOT NULL,
+  `pricemin` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -298,13 +356,19 @@ ALTER TABLE `admins`
 -- Constraints for table `categories`
 --
 ALTER TABLE `categories`
-  ADD CONSTRAINT `FK_3AF34668727ACA70` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`);
+  ADD CONSTRAINT `FK_3AF34668727ACA70` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `clinics`
 --
 ALTER TABLE `clinics`
   ADD CONSTRAINT `FK_D7053B66D60322AC` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
+
+--
+-- Constraints for table `clinic_photos`
+--
+ALTER TABLE `clinic_photos`
+  ADD CONSTRAINT `FK_B72F0566CC22AD4` FOREIGN KEY (`clinic_id`) REFERENCES `clinics` (`id`);
 
 --
 -- Constraints for table `patients`

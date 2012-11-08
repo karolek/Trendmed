@@ -1,0 +1,99 @@
+<a href="<?= $this->url(array('action' => 'index', 'controller' => 'clinics', 'module' => 'admin'), 'default', true); ?>">Wróć na liste placówek</a>
+<p>
+    Informacje o rezerwacjach kliniki: <?= $this->clinic->name; ?>.<br>
+    Ostatnie logowanie do portalu: <?= $this->clinic->lastLoginTime->format("d-m-Y H:i:s"); ?>
+</p>
+<?php if(count($this->clinic->reservations) > 0): ?>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Numer
+                </th>
+                <th>
+                    Data złożenia
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Pacjent
+                </th>
+                <th>
+                    Status platności
+                </th>
+                <th>
+                    Usługi
+                </th>
+            </tr>
+        </thead>
+    <?php foreach($this->clinic->reservations as $reservation): ?>
+        <tr>
+            <td>
+                <?php $status =  $reservation->getStatusAsArray(); ?>
+
+                <?= $reservation->id;?>
+            </td>
+            <td>
+                <?= $reservation->created->format("d-m-Y H:i:s");?>
+            </td>
+            <td>
+                <?= $this->translate($reservation->status); ?>
+                <?php if(! count($status['actions']['patient']) >0  && $reservation->status != 'closed'): ?><br>
+                <em><?= $this->translate('oczekuje na reakcje kliniki'); ?></em>
+                <?php endif; ?>
+            </td>
+            <td>
+                <?= $reservation->patient->name; ?>
+            </td>
+            <td>
+<?php switch($reservation->getBillStatus()): ?>
+<?php case \Trendmed\Entity\Reservation::BILL_STATUS_NOT_PAID: ?>
+    <strong><?= $this->translate('Bill not paid yet'); ?></strong><br>
+        <a href="<?= $this->url(array(
+            'action' => 'change-pay-bill-state',
+            'controller' => 'reservations',
+            'module' => 'admin',
+            'id' => $reservation->id,
+            'new-state' => 'paid'
+        ), 'default', true);?>" class="confirm">Oznacz jako opłacona</a><br>
+<?php break;?>
+<?php case \Trendmed\Entity\Reservation::BILL_STATUS_NOT_WANTED: ?>
+Nie wymagana przy tej rezerwacji.<br>
+
+<?php break;?>
+<?php case \Trendmed\Entity\Reservation::BILL_STATUS_PAID: ?>
+    Kaucja wpłacona<br>
+    <a href="<?= $this->url(array(
+        'action' => 'change-pay-bill-state',
+        'controller' => 'reservations',
+        'module' => 'admin',
+        'id' => $reservation->id,
+        'new-state' => 'not-paid'
+    ), 'default', true);?>" class="confirm">Oznacz jako nieopłacona</a><br>
+<?php break; ?>
+<?php endswitch; ?>
+            </td>
+            <td>
+            <ul>
+                <?php foreach($reservation->services as $service): ?>
+                <li>
+                    <?= $service->category->name; ?>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                Komentarz od pacjenta do kliniki:<br>
+                <blockquote><?= $reservation->question;?></blockquote><br>
+                Odpowiedź kliniki:<br>
+                <blockquote><?= $reservation->answer;?></blockquote>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+<?php else: ?>
+    Klinika nie ma żadnych rezerwacji w systemie.
+<?php endif; ?>

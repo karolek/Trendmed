@@ -1,0 +1,22 @@
+<?php
+// determine host address
+if ($_SERVER['HTTP_HOST']) {
+  $host = $_SERVER['HTTP_HOST'];
+} else {
+  $host = 'www.trendmed.eu';
+}
+?>
+<p>
+    <?php printf($this->translate('Hello!'))?>, <br>
+    <br>
+    <?php printf($this->translate('Przypominamy o konieczności opłacenia zaliczki za Twoje usługi aby ostatecznie zakończyć proces rezerwacji w klinice <a href="http://%s">%s</a>. Reservation number is %u.' , $_SERVER['HTTP_HOST'].$this->url(array('slug' => $this->reservation->clinic->getSlug()), 'clinic'), $this->reservation->clinic->name , $this->reservation->id)) ?> <br>
+    <br>
+    <?php printf($this->translate('You have chosen services:'))?><br>
+    <?php foreach ($this->reservation->services as $service): ?>
+     - <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' =>$service->id), 'service'); ?>"><?= $service->category->name; ?></a><br>
+    <?php endforeach; ?>
+    <?php printf($this->translate('Your proposed dates of reservation, from %s to %s' , $this->reservation->dateFrom->format('d-m-Y'), $this->reservation->dateTo->format('d-m-Y') ))?> <br>
+    <br>
+    <?php printf($this->translate('You can also view details of this reservation <a href="http://%s">on your profile</a>.', $host . $this->url(array('id' => $this->reservation->id), 'reservation_view', true)))?>
+</p>
+<?= $this->render('patient/_patientEmailFooter.phtml'); ?>

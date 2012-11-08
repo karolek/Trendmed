@@ -1,0 +1,12 @@
+{
+    "require": {
+        "doctrine/orm": "2.2.0",
+        "doctrine/data-fixtures": "dev-master",
+        "symfony/console": "2.0.14",
+        "symfony/yaml": "2.0.14",
+        "itbz/fpdf": "dev-master",
+        "zendframework/zendframework1": "dev-master",
+        "adityapatadia/php-paypal-ipn": "dev-master",
+        "facebook/php-sdk": "dev-master"
+    }
+}

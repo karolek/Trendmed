@@ -1,9 +1,182 @@
 <div class="form-horizontal">
-    
-    <section>
-    
-        This is Your dashboard
-    
-    </section>
-    
+    <?php if (!$this->clinic->description): ?>
+        <div class="alert alert-block">
+            <h4 class="alert-heading">Krok 1</h4>
+                <a href="<?= $this->url(
+                    array(
+                        'action'        => 'edit-description',
+                        'controller'    => 'profile',
+                        'module'        => 'clinic',
+                    )
+                ); ?>">Uzupełnij opis swojej placówki</a> widoczny dla Twoich potencjalnych pacjentów oraz dodaj zdjęcia.
+        </div>
+    <?php endif;?>
+    <?php if (count($this->clinic->services) < 1): ?>
+        <div class="alert alert-block">
+            <h4 class="alert-heading">Krok 2</h4>
+            <a href="<?= $this->url(
+                array(
+                    'action'        => 'add-service',
+                    'controller'    => 'services',
+                    'module'        => 'clinic',
+                )
+            ); ?>">Dodaj usługi</a> swojej placówki, aby być widocznym w naszym katalogu.
+        </div>
+    <?php endif;?>
+    <?php if (!$this->clinic->logoDir): ?>
+        <div class="alert alert-block">
+            <h4 class="alert-heading">Krok 3</h4>
+            <a href="<?= $this->url(
+                array(
+                    'action'        => 'edit-logo',
+                    'controller'    => 'profile',
+                    'module'        => 'clinic',
+                )
+            ); ?>">Wgraj logo</a> swojej placówki.
+        </div>
+    <?php endif;?>
 </div>
+<div id="searchReservations" class="row-fluid">
+	<div class="span6">
+		<h4>Wyszukaj rezerwację</h4>
+		<form action="<?= $this->url(array('action' => 'index', 'controller' => 'profile', 'module' => 'clinic'), 'default', true); ?>" method="post" name="form_search_reservations">
+		    <input type="search" value="<?= $this->search; ?>" name="search_reservation" placeholder="Wpisz nazwisko pacjenta lub nr. rezerwacji" id="searchReservationInput" />
+		    <input type="submit" value="Szukaj" class="btn btn-primary pull-right" id="submitButton" />
+		</form>
+    </div>
+	<div class="span6 pull-right">
+		<h4>Filtruj wg. statusu</h4>
+		<form action="<?= $this->url(array('action' => 'index', 'controller' => 'profile', 'module' => 'clinic'), 'default', true); ?>" method="post" name="form_filter_reservations">
+		    <select name="status">
+		        <option value="0">-- status --</option>
+		        <?php foreach($this->statuses as $key => $value): ?>
+		        <option <?php if($this->status == $key): ?>selected="selected"<?php endif; ?> value="<?= $key; ?>"><?= $this->translate($value['name']); ?></option>
+		        <?php endforeach; ?>
+		    </select>
+		</form>
+	</div>
+</div>
+<div class="row-fluid">
+    <div class="span12" style="padding-right: 30px; padding-bottom: 20px; text-align: right">
+        <small><a href="<?= $this->url(array('action' => 'index', 'controller' => 'profile', 'module' => 'clinic'), 'default', true); ?>">Pokaż wszystkie rezerwacje</a></small>
+    </div>
+</div>
+<div class="clearfix"></div>
+
+
+<?php if (count($this->reservations) >0 ): ?>
+<table class="table reservationList">
+    <thead>
+    <tr>
+        <th>
+            <?= $this->translate('Patient'); ?>
+        </th>
+        <th>
+            <?= $this->translate('Services'); ?>
+        </th>
+        <th>
+            <?= $this->translate('Reservation date'); ?>
+        </th>
+        <th>
+            <?= $this->translate('Status'); ?>
+        </th>
+        <th>
+            <?= $this->translate('Actions'); ?>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->reservations as $reservation): ?>
+
+        <tr <?php if($reservation->getStatus() == 'new'):?> class="new"<?php endif;?>>
+                <td><?php echo $reservation->patient->name ?: $reservation->patient->getEmailaddress(); ?></td>
+                <td>
+                    <ul>
+                        <?php foreach($reservation->services as $service): ?>
+                        <li><?= $service->category->name; ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </td>
+                <td>
+                    Od <?= $reservation->dateFrom->format("d-m-Y"); ?> do <?= $reservation->dateTo->format("d-m-Y"); ?>
+                </td>
+                <td>
+                    <?php $status =  $reservation->getStatusAsArray(); ?>
+					<p class="status-<?= $status['name']; ?>">
+					<?php echo $this->translate($status['name']); ?></p>
+					<?php if(!count($status['actions']['clinic']) >0 && $reservation->status != 'closed'):?>
+						 <em>Czeka na reakcje pacjenta</em>
+					<?php endif;?>
+                    <?php if($reservation->isGroupReservation()): ?>
+                         <br>
+                         <em>Rezerwacja grupowa</em>
+                    <?php endif; ?>
+                </td>
+                <td>
+                   
+                        <a class="btn pull-right" role="button" href="#reservation-details-<?= $reservation->id;?>" data-toggle="modal"><?= $this->translate('Zobacz szczegóły'); ?></a><div class="clearfix"></div>
+                        <?php if(count($status['actions']['clinic']) >0 ): ?>
+							<div class="btn-group pull-right">
+                            <a class="btn dropdown-toggle btn-options" data-toggle="dropdown" href="#">
+							<?= $this->translate('Options'); ?>
+                            <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- dropdown menu links -->
+                                <?php foreach($status['actions']['clinic'] as $action): ?>
+                                <li>
+                                    <a href="<?= $this->url(array('id' => $reservation->id),
+                                    $this->config->reservation->action->clinic->$action->routeName); ?>">
+                                        <?= $this->translate($this->config->reservation->action->clinic->$action->name); ?>
+                                    </a>
+                                </li>
+                                <?php endforeach; ?>
+                            </ul>
+ 						</div>
+                        <?php endif; ?>
+                </td>
+                <!-- Modal -->
+                
+            </tr>	<div class="modal hide fade" id="reservation-details-<?= $reservation->id;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h3 id="myModalLabel">Szczegóły rezerwacji</h3>
+                    </div>
+                    <div class="modal-body">
+                        <?= $this->partial('reservations/_reservationDetails.phtml', array('reservation' => $reservation)); ?>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                    </div>
+                </div>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<?php else: ?>
+    <div class="alert alert-box">
+        <?php if($this->status or $this->search): ?>
+            <?= $this->translate('No reservation with given search criteria'); ?>
+        <?php else: ?>
+            <?= $this->translate('You do not have any reservations yet.'); ?>
+        <?php endif; ?>
+    </div>
+<?php endif;?>
+
+<div id="clinicStatistics">
+	<h3><?= $this->translate('Statystyki kliniki'); ?>:</h3>
+	<div class="row-fluid">
+   		<div class="span4">
+	   		<big><?= $this->LoggedUser()->viewCount; ?></big>
+	   		<p>Liczba odwiedziń Twojego profilu</p>
+	   	</div>
+	   	<div class="span4">
+	   	 	<big><?= count($this->LoggedUser()->reservations); ?></big>
+	   		<p>Całkowita liczba Twoich rezerwacji</p>		
+	   	</div>
+	   	<div class="span4">
+	   		<big><?= $this->LoggedUser()->rating; ?>%</big>
+	   		<p>Twój ranking według pacjentów</p>
+	   	</div>
+	</div>
+</div>
+<div class="clearfix"></div>

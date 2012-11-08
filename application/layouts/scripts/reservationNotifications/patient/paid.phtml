@@ -1,0 +1,13 @@
+<p>
+    <?php printf($this->translate('Hello!'))?>, <br>
+    <br>
+        <?php printf($this->translate('Your reservation no %u in clinic <a href="http://%s">%s</a> has been paid.' , $this->reservation->id , $_SERVER['HTTP_HOST'].$this->url(array('slug' => $this->reservation->clinic->getSlug()), 'clinic'),$this->reservation->clinic->name))?><br>
+    <br>
+    <?php printf($this->translate('Your order includes:'))?><br>
+    <?php foreach ($this->reservation->services as $service): ?>
+     - <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' => $service->id, ), 'service') ?>"><?= $service->category->name; ?></a><br>
+    <?php endforeach; ?>
+    <?php printf($this->translate('You can also view details of this reservation <a href="http://%s">on your profile</a>.', $_SERVER['HTTP_HOST'].$this->url(array('module'=>'patient', 'controller'=>'reservations', 'action'=>'view', 'id'=>$this->reservation->id), 'default')))?>
+
+</p>
+<?= $this->render('patient/_patientEmailFooter.phtml'); ?>

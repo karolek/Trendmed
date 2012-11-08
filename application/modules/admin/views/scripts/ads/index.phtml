@@ -1,0 +1,62 @@
+<a href="<?= $this->url(array('action' => 'save-banner',
+'controller' => 'ads', 'module' => 'admin'), 'default', true); ?>" class="btn"><?= $this->translate('Add banner'); ?></a>
+<? if (count($this->ads) > 0): ?>
+
+ <table class="table table-striped table-bordered table-condensed">
+    <? foreach($this->zones as $key => $zone): ?>
+        <thead>
+            <tr>
+                <th>
+                    <strong>Zone: </strong><?= $zone->name; ?> <?= $zone->width;?> x <?= $zone->height; ?>
+                </th>
+                <th><?= $this->translate('Target'); ?></th>
+                <th><?= $this->translate('Views'); ?></th>
+                <th><?= $this->translate('Clicks'); ?></th>
+                <th>CTR</th>
+                <th><?= $this->translate('Options'); ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <? foreach($this->ads as $ad): ?>
+            <tr>
+            <? if($key == $ad->zone): ?>
+                <td><? if(!$ad->isActive()): ?>
+                    <span class="label label-warning">not published</span> <? endif; ?><?= $ad->description; ?></td>
+                <td><?= $ad->target; ?></td>
+                <td><?= $ad->viewCount; ?></td>
+                <td><?= $ad->clickCount; ?></td>
+                <td>
+                    <? if($ad->viewCount >0 and $ad->clickCount > 0): ?>
+                        <?= number_format( ($ad->clickCount / $ad->viewCount) * 100, 2); ?>%</td>
+                    <? else: ?>
+                        0
+                    <? endif; ?>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn" href="<?= $this->url(
+                            array('action' => 'save-banner', 'controller' => 'ads', 'module' => 'admin', 'id' => $ad->id),
+                            'default', true
+                        ); ?>"><?= $this->translate('Edit'); ?></a>
+                        <button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li class="divider"></li>
+                            <li><a class="confirm" href="<?= $this->url(array(
+                                'action' => 'delete-banner',
+                                'id' => $ad->id,
+                                'module' => 'admin',
+                                'controller' => 'ads'
+                            ),'default', true); ?>"><?= $this->translate('Delete ad'); ?></a></li>
+                        </ul>
+                    </div>
+                </td>
+            <? endif; ?>
+            </tr>
+            <? endforeach; ?>
+        </tbody>
+    <? endforeach; ?>
+    </table>
+<? else: ?>
+    <div class="alert">
+        <?= $this->translate('No banners in the system.'); ?>
+    </div>
+<? endif; ?>

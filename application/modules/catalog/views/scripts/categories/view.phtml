@@ -1,0 +1,134 @@
+<div id="catalog">
+
+    <ul class="nav nav-tabs" id="myTab">
+        <li <?php if ($this->type == 'all' or $this->type == ""): ?>class="active"<?php endif; ?>><a
+            href="<?= $this->url(array('type' => '', 'page' => 1), 'category', false); ?>#home"><?= $this->translate('Wszystkie placówki'); ?></a>
+        </li>
+        <li <?php if ($this->type == 'big'): ?>class="active"<?php endif; ?>><a
+            href="<?= $this->url(array('type' => 'big', 'page' => 1), 'category', false); ?>#profile"><?= $this->translate('Tylko szpitale, kliniki i sanatoria'); ?></a>
+        </li>
+        <li <?php if ($this->type == 'small'): ?>class="active"<?php endif; ?>><a
+            href="<?= $this->url(array('type' => 'small', 'page' => 1), 'category', false); ?>#messages"><?= $this->translate('Tylko gabinety, salony i spa'); ?></a>
+        </li>
+    </ul>
+    <div id="filters">
+	<div class="row-fluid">
+		<div class="span1">
+			<label><?= $this->translate('Sort by'); ?>:</label>
+		</div>
+		<div class="span7">
+	    	<ul>
+	    	    <li>
+	    	        <a<?php if($this->order == 'rating'): ?> class="<?=$this->direction; ?>"<?php endif; ?>
+	    	           href="<?= $this->url(array('order' => 'rating', 'page' => 1, 'direction' => $this->direction)); ?>">
+	    	            <?= $this->translate('Patient rating'); ?>
+	    	        </a>
+	    	    </li>
+	    	    <li>
+	    	        <a<?php if($this->order == 'popularity'): ?> class="<?=$this->direction; ?>"<?php endif; ?>
+	    	           href="<?= $this->url(array('order' => 'popularity', 'page' => 1, 'direction' => $this->direction)); ?>">
+	    	            <?= $this->translate('Popularity'); ?>
+	    	        </a>
+	    	    </li>
+	    	    <li>
+	    	        <a<?php if($this->order == 'price'): ?> class="<?=$this->direction; ?>"<?php endif; ?>
+	    	           href="<?= $this->url(array('order' => 'price', 'page' => 1, 'direction' => $this->direction)); ?>">
+	    	            <?= $this->translate('Price'); ?>
+	    	        </a>
+	    	    </li>
+	    	    <li>
+	    	        <a<?php if($this->order == 'created'): ?> class="<?=$this->direction; ?>"<?php endif; ?>
+	    	           href="<?= $this->url(array('order' => 'created', 'page' => 1, 'direction' => $this->direction)); ?>">
+	    	            <?= $this->translate('Added date'); ?>
+	    	        </a>
+	    	    </li>
+	    	    <li>
+	    	        <a <?php if($this->order == 'name'): ?> class="<?=$this->direction; ?>"<?php endif; ?>
+	    	           href="<?= $this->url(array('order' => 'name', 'page' => 1, 'direction' => $this->direction)); ?>">
+	    	            <?= $this->translate('Clinic name'); ?>
+	    	        </a>
+	    	    </li>
+	    	</ul>
+		</div>
+		<div class="span4">
+	    	<form method="get" action="<?= $this->url(array(), 'category', false); ?>">
+	    	    <select name="city" id="cityFilter">
+	    	        <option value="">-- <?= $this->translate('filter by city'); ?> --</option>
+	    	        <?php foreach ($this->cities as $city): ?>
+	    	        <option <?php if ($this->city == $city['city']): ?>selected="selected" <?php endif; ?>value="<?= $city['city']; ?>"><?= $city['city']; ?></option>
+	    	        <?php endforeach; ?>
+	    	    </select>
+	    	</form>
+		</div>
+	    <div class="clear"></div>
+    </div>
+	<div class="clear"></div>
+	</div>
+
+
+<!-- iterating though services -->
+<?php if(count($this->services) > 0): ?>
+<? foreach ($this->services as $service): ?>
+
+    <div class="entry">
+
+        <ul class="thumbnails">
+            <li class="thumbnail">
+                <?= $this->ShowClinicLogo($service->clinic); ?>
+            </li>
+            <? foreach ($service->photos as $photo): ?>
+            <?= $this->ShowPhoto($photo, 'small', 'services', 'services-'.$service->id); ?>
+            <? endforeach; ?>
+        </ul>
+
+        <div class="right">
+			<div class="pull-right rating">
+		        <span class="count"><?= $service->clinic->rating; ?>%</span>
+		        <?= $this->AddToFavorite($service->clinic); ?>
+		        <big><?= $this->translate('Rating'); ?></big><br/ >
+				<small><?= $this->translate('based on'); ?> <?= $service->clinic->reviews->count(); ?> <?= $this->translate('reviews'); ?></small>
+		    </div>
+
+            <h3>
+                <a href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>"><?= $service->clinic->name; ?></a>
+            </h3>
+            <address><strong class="location"><?= $service->clinic->city; ?>, <?= $service->clinic->province; ?></strong> <span class="map"><a href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>#map"><?= $this->translate('Show on map'); ?></a></span></address>
+
+
+            <h4><?= $this->translate('Service description'); ?></h4>
+            <p>
+                <?= $this->truncate($service->description)->toLength(250); ?> <a href="<?= $this->url(array('id' => $service->id), 'service', true); ?>"><?= $this->translate('more'); ?></a>
+            </p>
+
+			<?php if($this->LoggedUser()->roleName == 'patient'): ?>
+            	<a id="buttonBook" href="<?= $this->url(array('slug' => $service->clinic->slug), 'newReservation', true);?>" class="btn-primary buttonBook"><?= $this->translate('Book now'); ?></a>
+            <?php else: ?>
+            	<?= $this->LoggedLink($this->translate("Book now"), array('class' => 'buttonBook btn-primary')); ?>
+            <?php endif; ?>
+
+            <!-- other clinic services -->
+            <? if (count($service->clinic->services) > 2): ?>
+            	<a href="<?= $this->url(array('slug' => $service->clinic->getSlug()), 'clinic'); ?>" class="allServices">
+					<?= $this->translate('Show all treatments'); ?>
+				</a>
+            <? endif; ?>
+
+        </div>
+        <div class="clear"></div>
+
+    </div>
+    <? endforeach; ?>
+    <?php if ($service->clinic->isGroupPromoEnabled()): ?>
+
+        <div class="row-fluid">
+            <div class="span8">
+                <?= $this->partial('public/_groupPromoInfo.phtml', array('groupPromotionDiscounts' => $service->clinic->getGroupPromoDiscounts())); ?>
+            </div>
+        </div>
+        <?php endif; ?>
+<?php else: ?>
+<div class="alert alert-block">
+    <?= $this->translate('Sorry, no services in this category found. Please try another category.'); ?>
+</div>
+<?php endif; ?>
+</div>

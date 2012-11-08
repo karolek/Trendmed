@@ -1,0 +1,25 @@
+<p>
+    <?php printf($this->translate('Hello!'))?><br>
+    <br>
+        <?php printf($this->translate('Clinic <a href="http://%s">%s</a> answered to your reservation no %u and propose alternative dates: From %s to %s', 
+                                        $_SERVER['HTTP_HOST'].$this->url(array('slug' => $this->reservation->clinic->getSlug()), 'clinic'),
+                                        $this->reservation->clinic->name,
+                                        $this->reservation->id, 
+                                        $this->reservation->alternativeDateFrom->format("d / m / Y"),
+                                         $this->reservation->alternativeDateTo->format("d / m / Y")
+                                      )
+                    )
+        ?><br>
+    <br>
+    <?php if (!$this->reservation->answer == ""): ?>
+    <b><?php printf($this->translate('Additional remark from clinic:'))?> <?= $this->reservation->answer ?></b><br>   
+    <?php endif; ?>
+    <br>
+    <?php printf($this->translate('Now you can:'))?><br>
+     - <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' => $this->reservation->id), 'action_patient_confirm'); ?>"><?php printf($this->translate('confirm new dates'))?>potwierdzić nowe daty</a><br>
+     - <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' => $this->reservation->id), 'action_cancel'); ?>"><?php printf($this->translate('resign from this reservation'))?>lub zrezygnować z rezerwacji</a><br> 
+     <br>
+    <?php printf($this->translate('You can also view details of this reservation <a href="http://%s">on your profile</a>.', $_SERVER['HTTP_HOST'].$this->url(array('module'=>'patient', 'controller'=>'reservations', 'action'=>'view', 'id'=>$this->reservation->id), 'default')))?>
+
+</p>
+<?= $this->render('patient/_patientEmailFooter.phtml'); ?>

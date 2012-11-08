@@ -1,37 +1,185 @@
 <?php
-namespace Me\Controller\Plugin;
 /**
-* 
-*/
-class Acl extends Zend_Controller_Plugin_Abstract
+ * Front Controller Plugin
+ *
+ * @uses       Zend_Controller_Plugin_Abstract
+ * @category   Zion
+ * @package    Zion_Controller
+ * @subpackage Plugins
+ */
+class Me_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 {
-	
-	public function preDispatch(Zend_Controller_Request_Abstract $request) {
-		$config = $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini');
-		if(!$config->production->acl->use) {
-			return false;
-		}
-		if(
-			($request->getModuleName() == 'user' and $request->getActionName() == 'index' and $request->getControllerName() == 'index')
-		) { return true; }
-		
-		$acl = new Br_Acl_Acl();
-		$loggedUser = Zend_Auth::getInstance()->getIdentity();
-		if(!$loggedUser) {
-			$roleId = 1;
-		} else {
-			$roleId = $loggedUser->aclrole_id;
-		}
-		
-	    if($acl->isRoleAllowed($roleId, $request, null) === false) {
-			//If the user has no access we send him elsewhere by changing the request
-			$messenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
-			$messenger->addMessage(array('warning' => 'You dont have access here, please login'));
-			$request->setModuleName('user')
-					->setControllerName('index')
-					->setActionName('index')
-					->setDispatched(false);
-			return false;
-		}
-	}
+    /**
+     * @var Zend_Acl
+     **/
+    protected $_acl;
+
+    /**
+     * @var string
+     **/
+    protected $_roleName;
+
+    /**
+     * @var array
+     **/
+    protected $_errorPage;
+
+    /**
+     * @param Zend_Acl $aclData
+     * @param string $roleName
+     */
+    public function __construct(Zend_Acl $aclData, $roleName = 'guest')
+    {
+        $this->_errorPage = array('module' => 'default',
+            'controller' => 'error',
+            'action' => 'denied');
+
+        $this->_roleName = $roleName;
+
+        if (null !== $aclData) {
+            $this->setAcl($aclData);
+        }
+    }
+
+    /**
+     * Sets the ACL object
+     *
+     * @param mixed $aclData
+     * @return void
+     **/
+    public function setAcl(Zend_Acl $aclData)
+    {
+        $this->_acl = $aclData;
+    }
+
+    /**
+     * Returns the ACL object
+     *
+     * @return Zend_Acl
+     **/
+    public function getAcl()
+    {
+        return $this->_acl;
+    }
+
+    /**
+     * Sets the ACL role to use
+     *
+     * @param string $roleName
+     * @return void
+     **/
+    public function setRoleName($roleName)
+    {
+        $this->_roleName = $roleName;
+    }
+
+    /**
+     * Returns the ACL role used
+     *
+     * @return string
+     * @author
+     **/
+    public function getRoleName()
+    {
+        return $this->_roleName;
+    }
+
+    /**
+     * Sets the error page
+     *
+     * @param string $action
+     * @param string $controller
+     * @param string $module
+     * @return void
+     **/
+    public function setErrorPage($action, $controller = 'error', $module = null)
+    {
+        $this->_errorPage = array('module' => $module,
+            'controller' => $controller,
+            'action' => $action);
+    }
+
+    /**
+     * Returns the error page
+     *
+     * @return array
+     **/
+    public function getErrorPage()
+    {
+        return $this->_errorPage;
+    }
+
+    /**
+     * Predispatch
+     * Checks if the current user identified by roleName has rights to the requested url (module/controller/action)
+     * If not, it will call denyAccess to be redirected to errorPage
+     * @param Zend_Controller_Request_Abstract $request
+     *
+     **/
+    public function preDispatch(Zend_Controller_Request_Abstract $request)
+    {
+        $acl    = $this->getAcl();
+        $role   = $this->_roleName;
+
+        // fetching request values
+        $module         = $request->getModuleName();
+        $controller     = $request->getControllerName();
+        $action         = $request->getActionName();
+
+
+        // defining the resource name
+
+        //go from more specific to less specific
+        $moduleLevel = 'mvc:'.$module;
+        $controllerLevel = $moduleLevel . '.' . $controller;
+
+        if ($acl->has($controllerLevel)) {
+            $resource = $controllerLevel;
+        } else {
+            $resource = $moduleLevel;
+        }
+
+        /** Check if the controller/action can be accessed by the current user */
+        if ($acl->has($resource)) {
+            if (!$this->getAcl()->isAllowed($role, $resource, $action)) {
+                /** Redirect to access denied page */
+                $this->denyAccess($request);
+            }
+        }
+    }
+
+    /**
+     * Deny Access Function
+     * Redirects to errorPage, this can be called from an action using the action helper
+     *
+     * @return void
+     **/
+    public function denyAccess(Zend_Controller_Request_Abstract $request)
+    {
+        // lets save the place where user was trying to get in the session to redirect him there later on
+        $requestUri = $_SERVER['REQUEST_URI'];
+        $session = new \Zend_Session_Namespace('request_denied_url');
+        $session->requestUri = $requestUri;
+        $session->setExpirationSeconds(2*60);
+
+        // setting up a message
+        $messenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
+        $messenger->addMessage(array('warning' => 'You have to be login to get access there'));
+
+        // lets choose on what login page do redirect user (of with module)
+        switch($request->getModuleName()) {
+            case 'patient':
+                $module = 'patient';
+                break;
+            case 'clinic':
+                $module = 'clinic';
+                break;
+            default:
+                $module = 'patient';
+                break;
+        }
+        $this->_request->setModuleName($module);
+        $this->_request->setControllerName('index');
+        $this->_request->setActionName('index');
+    }
 }

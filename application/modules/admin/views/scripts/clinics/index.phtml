@@ -7,7 +7,10 @@
             <th>Adres</th>
             <th>Reprezentant</th>
             <th>Dodano</th>
+            <th>Stan</th>
             <th>Ostatnio zalogowny</th>
+            <th>Odwiedzono/Rezerwacji/Ocena</th>
+            <th>Opcje</th>
         </tr>
     </thead>
 <?php foreach ($this->paginator as $item): ?>
@@ -21,12 +24,64 @@
         <?= $item->repPhone; ?><br />
         <?= $item->repEmail; ?></td>
         <td><?= $item->created->format('d/m/Y'); ?></td>
+        <td><?= $item->isActive() ? 'aktywna' : 'nie aktywna'; ?></td>
         <td>
         <? if($item->lastLoginTime): ?>
         <?= $item->lastLoginTime->format('d/m/Y'); ?>
         <? else: ?>
-            Klinika się nie logowała.
+            Placówka się nie logowała.
         <? endif; ?>
+        </td>
+        <td>
+            <?= $item->viewCount;?>/<?= $item->reservations->count(); ?>/<?= $item->rating; ?>
+        </td>
+        <td>
+            <div class="btn-group">
+                <a class="btn" href="#"><?= $this->translate('Opcje'); ?></a>
+                <button class="btn dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <!-- dropdown menu links -->
+                    <li>
+                        <a href="<?= $this->url(array(
+                            'action' => 'change-active-state',
+                            'controller' => 'clinics',
+                            'module' => 'admin',
+                            'id'  => $item->id,
+                            'new-state' => $item->isActive() ? '0' : '1'
+                        ), 'default'); ?>">
+                            <?php echo $item->isActive() ? 'Deaktywuj' : 'Aktywuj'; ?>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= $this->url(array(
+                            'action'        => 'delete-clinic',
+                            'controller'    => 'clinics',
+                            'module'        => 'admin',
+                            'id'            => $item->id,
+                        ), 'default'); ?>">Usuń konto</a>
+                    </li>
+                    <li>
+                        <a class="confirm" confirm-message="Ta akcja spowoduje wygenerowanie losowego hasła dla placówki i wysłanie go na e-mail reprezentanta. Jesteś pewien?" href="<?= $this->url(array(
+                            'action'        => 'regenerate-password-for-clinic',
+                            'controller'    => 'clinics',
+                            'module'        => 'admin',
+                            'id'            => $item->id,
+                        ), 'default'); ?>">Wygerneruj nowe hasło</a>
+                    </li>
+                    <li>
+                        <a href="<?= $this->url(array(
+                            'action'        => 'clinic-reservations',
+                            'controller'    => 'reservations',
+                            'module'        => 'admin',
+                            'id'            => $item->id,
+                        ), 'default'); ?>">Szczegóły rezerwacji</a>
+                    </li>
+                </ul>
+            </div>
+
         </td>
     </tr>
 <?php endforeach; ?>

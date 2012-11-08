@@ -1,0 +1,28 @@
+<p>
+    Witamy, <br>
+    <br>
+    Trendmed.eu informuje o dokonanej nowej rezerwacji w Państwa obiekcie. Numer rezerwacji: <?= $this->reservation->id; ?><br>
+    <br>
+    <?= $this->reservation->patient->title; ?> <?= $this->reservation->patient->name; ?> wybrał następujące usługi: <br>
+    <?php foreach ($this->reservation->services as $service): ?>
+     - <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array('id' =>$service->id), 'service'); ?>"><?= $service->category->name; ?></a>,<br>
+    <?php endforeach; ?>
+    Wstępnie proponowana data: od <?= $this->reservation->dateFrom->format('d-m-Y'); ?> do <?= $this->reservation->dateTo->format('d-m-Y'); ?>.<br>
+    <?php if (!$this->reservation->question == "") : ?>
+        Dodatkowy komentarz i pytania od klienta: <?= $this->reservation->question ?> <br>   
+    <?php endif; ?>
+    <br>
+    Obecnie klient czeka na Państwa odpowiedź. Mogą Państwo: <br>
+    <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array( 'id'=>$this->reservation->id), 'action_confirm'); ?>">Potwierdzić rezerwację</a><br>
+    <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array( 'id'=>$this->reservation->id), 'action_decline'); ?>">Odrzucić rezerwację</a><br>
+    <a href="http://<?= $_SERVER['HTTP_HOST'];?><?= $this->url(array( 'id'=>$this->reservation->id), 'action_newDate'); ?>">Zaproponować inną datę</a><br>  
+    <br>
+    Dane kontaktowe Klienta:<br>
+    Numer telefonu: <?= $this->reservation->patient->phoneNumber; ?> <br>
+    Adres email: <?= $this->reservation->patient->getEmailaddress(); ?> <br>    
+    <br>
+    Szybka odpowiedź przyśpieszy proces rezerwacji i ułatwi klientowi zakup Państwa usług. <br>
+    <br>
+</p>
+
+<?= $this->render('clinic/_clinicEmailFooter.phtml'); ?>

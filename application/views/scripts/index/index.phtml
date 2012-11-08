@@ -1,39 +1,170 @@
+<div id="topAd">
+    <?= $this->DisplayAd('homepageTop'); ?>
+</div><div class="clearfix"></div>
 <div class="hero-unit">
-  <h1>Hello, world!</h1>
-  <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-  <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+    <h1><?= $this->translate('Trendmed.eu - tu rezerwuje Europa'); ?></h1>
+
+    <p><a class="btn btn-primary btn-large" href="http://www.trendmed.eu/prezentacja/trendmed.pdf"><?= $this->translate('Download PDF'); ?> &raquo;</a></p>
 </div>
-<div class="row-fluid">
-  <div class="span4">
-    <h2><?= $this->translate('Heading'); ?></h2>
-    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-    <p><a class="btn" href="#">View details &raquo;</a></p>
-  </div><!--/span-->
-  <div class="span4">
-    <h2>Heading</h2>
-    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-    <p><a class="btn" href="#">View details &raquo;</a></p>
-  </div><!--/span-->
-  <div class="span4">
-    <h2>Heading</h2>
-    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-    <p><a class="btn" href="#">View details &raquo;</a></p>
-  </div><!--/span-->
-</div><!--/row-->
-<div class="row-fluid">
-  <div class="span4">
-    <h2>Heading</h2>
-    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-    <p><a class="btn" href="#">View details &raquo;</a></p>
-  </div><!--/span-->
-  <div class="span4">
-    <h2>Heading</h2>
-    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-    <p><a class="btn" href="#">View details &raquo;</a></p>
-  </div><!--/span-->
-  <div class="span4">
-    <h2>Heading</h2>
-    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-    <p><a class="btn" href="#">View details &raquo;</a></p>
-  </div><!--/span-->
-</div><!--/row-->
+
+<?php if (count($this->articles) > 0): ?>
+<div class="hero-unit articles">
+	<h1 class="pull-left"><?= $this->translate('Latest articles'); ?>:</h1>
+	<a class="btn btn-primary btn-large pull-right" href="<?= $this->url(array(
+        'action' => 'archive',
+        'controller' => 'pages',
+        'module' => 'default'
+    ), 'default', true); ?>"><?= $this->translate('Show all articles'); ?></a>
+	<div class="clearfix"></div>
+
+		<div class="row-fluid">
+			<div class="span6">
+				<div class="lead-article">
+					<?php if ($this->articles[0]->getLeadPhoto()): ?>
+						<?= $this->ShowPhoto($this->articles[0]->getLeadPhoto(), 'medium', 'ArticlePhoto'); ?>
+					<?php endif; ?>
+					<div class="lead-article-content" <?php if (! $this->articles[0]->getLeadPhoto()) { echo 'id="noPhoto"'; } ?>>
+						<div class="lead-article-content-inner">
+							<a href="<?= $this->url(
+							   	array('slug' => $this->articles[0]->getSlug()), 'page', true
+							    ); ?>"><h2><?= $this->articles[0]->getTitle(); ?></h2>
+							<?php if ($this->articles[0]->getLeadPhoto()): ?>
+								<?= $this->Truncate(strip_tags($this->articles[0]->content))->toLength(100); ?>
+							<?php else: ?>
+								<?= $this->Truncate(strip_tags($this->articles[0]->content))->toLength(150); ?>
+							<?php endif; ?>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="span6">
+				<div class="other-articles">
+                <?php if (!empty($this->articles[1])): ?>
+                    <div class="row-fluid">
+						<?php if ($this->articles[1]->getLeadPhoto()): ?>
+						<div class="span4">
+							 	<?= $this->ShowPhoto($this->articles[1]->getLeadPhoto(), 'small', 'ArticlePhoto'); ?>
+						</div>
+						<div class="span8">
+						<?php else: ?>
+						<div class="span12">
+						<?php endif; ?>	
+							 <a href="<?= $this->url(
+						        array('slug' => $this->articles[1]->getSlug()), 'page', true
+						    ); ?>"><h2><?= $this->articles[1]->getTitle(); ?></h2></a>
+							 <a href="<?= $this->url(
+						        array('slug' => $this->articles[1]->getSlug()), 'page', true
+						    ); ?>" class="read-more"><?= $this->translate('Read more'); ?></a>
+						</div>
+			
+					</div>
+					<div class="clear"></div>
+                <?php endif; ?>
+                <?php if (!empty($this->articles[2])): ?>
+
+                    <div class="row-fluid">
+						<?php if ($this->articles[2]->getLeadPhoto()): ?>
+						<div class="span4">
+							 	<?= $this->ShowPhoto($this->articles[2]->getLeadPhoto(), 'small', 'ArticlePhoto'); ?>
+						</div>
+						<div class="span8">
+						<?php else: ?>
+						<div class="span12">
+						<?php endif; ?>
+							 <a href="<?= $this->url(
+					    	    array('slug' => $this->articles[2]->getSlug()), 'page', true
+					    	); ?>"><h2><?= $this->articles[2]->getTitle(); ?></h2></a>
+							 <a href="<?= $this->url(
+					    	    array('slug' => $this->articles[2]->getSlug()), 'page', true
+					    	); ?>" class="read-more"><?= $this->translate('Read more'); ?></a>
+						</div>
+					</div>
+                <?php endif; ?>
+				</div>
+			</div>
+		</div>
+</div>
+<?php endif; ?>
+
+
+<?php if (count($this->newServices) > 0): ?>
+<div class="hero-unit">
+	<h1><?= $this->translate('Last added services'); ?>:</h1>
+	<div class="row-fluid grid-list">
+		<?php foreach ($this->newServices as $service): ?>
+		<div class="span4 grid-list-item">
+			<a href="<?= $this->url(
+    		    array('id' => $service->id), 'service', true
+    		); ?>"><div class="crop"><?= $this->ShowPhoto($service->photos[0], 'small', 'services', false, true); ?></div></a>
+    		
+    		<div class="grid-desc">
+	   			<a href="<?= $this->url(
+	    		    array('id' => $service->id), 'service', true
+	    		); ?>"><h2><?= $service->category->name; ?></h2></a>
+				<p class="price"><?= $this->translate('From'); ?> <span><?= $service->pricemin; ?></span> euro</p>
+			</div>
+    		
+		</div>
+    	<?php endforeach; ?>
+	</div>
+</div>
+<?php endif; ?>
+
+<!-- NAJWNOSZE KLINIKI  -->
+<?php if (count($this->newClinics) > 0): ?>
+<div class="hero-unit">
+	<h1><?= $this->translate('Last added clinics'); ?>:</h1>
+	<div class="row-fluid grid-list">
+		<?php foreach ($this->newClinics as $clinic): ?>
+		<div class="span4 grid-list-item">
+    		<a href="<?= $this->url(
+			    array('slug' => $clinic->getSlug()), 'clinic', true
+			); ?>">
+    		<?= $this->ShowClinicLogo($clinic, 'small'); ?></a>
+			<div class="grid-desc">
+				<a href="<?= $this->url(
+				    array('slug' => $clinic->getSlug()), 'clinic', true
+				); ?>"><h2><?= $clinic->name; ?></h2></a>
+				<p class="city"><span><?= $clinic->city; ?></span></p>
+			</div>
+		</div>
+    	<?php endforeach; ?>
+	</div>
+</div>
+<?php endif; ?>
+
+<!-- POPULARNE KLINIKI  -->
+<?php if (count($this->popularClinics) > 0): ?>
+<div class="hero-unit">
+    <h1><?= $this->translate('Popularne kliniki'); ?>:</h1>
+    <div class="row-fluid grid-list">
+        <?php foreach ($this->newClinics as $clinic): ?>
+        <div class="span4 grid-list-item">
+            <a href="<?= $this->url(
+                array('slug' => $clinic->getSlug()), 'clinic', true
+            ); ?>">
+                <?= $this->ShowClinicLogo($clinic, 'small'); ?></a>
+            <div class="grid-desc">
+                <a href="<?= $this->url(
+                    array('slug' => $clinic->getSlug()), 'clinic', true
+                ); ?>"><h2><?= $clinic->name; ?></h2></a>
+                <p class="city"><span><?= $clinic->city; ?></span></p>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+<?php endif; ?>
+<!-- DOLNE STREFY BANNEROWE -->
+<!-- @todo ostylować -->
+<div id="bottomAds" class="hero-unit">
+	<div class="row-fluid">
+	    <div class="span6 first">
+	        <?= $this->DisplayAd('bottomLeft'); ?>
+	    </div>
+	    <div class="span6 second">
+	        <?= $this->DisplayAd('bottomRight'); ?>
+	    </div>
+	</div><div class="clearfix"></div>
+</div>

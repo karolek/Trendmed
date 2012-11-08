@@ -20,6 +20,7 @@ class ErrorController extends Zend_Controller_Action
                 $this->getResponse()->setHttpResponseCode(404);
                 $priority = Zend_Log::NOTICE;
                 $this->view->message = 'Page not found';
+                $pageNotFound = true;
                 break;
             default:
                 // application error
@@ -32,7 +33,6 @@ class ErrorController extends Zend_Controller_Action
         // Log exception, if logger available
         if ($log = $this->getLog()) {
             $log->log($this->view->message.':'.$errors->exception->getMessage(), $priority, $errors->exception);
-            $log->debug($errors->exception->getTrace());
             $log->log('Request Parameters', $priority, $errors->request->getParams());
         }
         
@@ -40,6 +40,30 @@ class ErrorController extends Zend_Controller_Action
         if ($this->getInvokeArg('displayExceptions') == true) {
             $this->view->exception = $errors->exception;
         }
+        // mail exceptions to services dept.
+        if ($this->getInvokeArg('mailExceptions') == true AND $pageNotFound !== true) {
+            $mail = new \Zend_Mail('UTF-8');
+            $config = \Zend_Registry::get('config');
+            $htmlBody = "Exception occurred on the system<br>";
+            $htmlBody .= "<br>Message --------------------<br>";
+            $htmlBody .= $errors->exception->getMessage();
+            $htmlBody .= "<br>File -----------------------<br>";
+            $htmlBody .= $errors->exception->getFile();
+            $htmlBody .= "<br>Code -----------------------<br>";
+            $htmlBody .= $errors->exception->getCode();
+            $htmlBody .= date("d-m-Y H:i:s");
+            $htmlBody .= "<br>Host -----------------------<br>";
+            $htmlBody .= $_SERVER['REMOTE_HOST'];
+
+
+            $mail->setBodyHtml($htmlBody);
+            $mail->setFrom($config->siteEmail->fromAddress, 'IAA Exception handler');
+            $mail->addTo($config->siteEmail->adminEmail, 'IAA admin');
+            $mail->setSubject('Exception occurred on IAA project');
+            $mail->send();
+            $this->view->exception = $errors->exception;
+        }
+
         
         $this->view->request   = $errors->request;
     }
@@ -54,6 +78,8 @@ class ErrorController extends Zend_Controller_Action
         return $log;
     }
 
-
+    public function deniedAction()
+    {
+    }
 }
 

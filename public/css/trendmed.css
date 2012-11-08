@@ -1,20 +1,3 @@
-/*
- * HTML5 Boilerplate
- *
- * What follows is the result of much research on cross-browser styling.
- * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
- * Kroc Camen, and the H5BP dev community and team.
- *
- * Detailed information about this CSS: h5bp.com/css
- *
- * ==|== normalize ==========================================================
- */
-
-
-/* =============================================================================
-   HTML5 display definitions
-   ========================================================================== */
-
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block; }
 audio, canvas, video { display: inline-block; *display: inline; *zoom: 1; }
 audio:not([controls]) { display: none; }
@@ -53,17 +36,24 @@ body {background:#f2efe5 url(../img/bg.png) top left repeat-x; padding:0 0 20px;
 
 h1, h2, h3, h4, h5 {color:#292828; font-family: 'TeXGyreHerosBold'; font-weight: normal;}
 
+hr {display:none;}
+
 a {color:#107ba8; text-decoration:underline;}
 a:hover {text-decoration:none;}
 
 p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 
-.shadow {width:1130px; height:800px; position: absolute; z-index: 1; background:url(../img/shadow.png) top left no-repeat; left: 50%; margin: 0 0 0 -566px;}
+.btn-group .btn:first-child {margin:0;}
+
+.globalClear {width:500px; height:1px; clear:both;}
+
+
+
 
 /* HEADER */
 
 .navbar-fixed-top .container {padding:0; width:999px;}
-.navbar-fixed-top {position: relative; margin:16px auto 0; width:999px; background: #ffffff; border-radius: 5px 5px 0 0; -moz-border-radius: 5px 5px 0 0; -webkit-border-radius: 5px 5px 0 0;}
+.navbar-fixed-top {position: relative; margin:16px auto 0; z-index: 2; width:999px; background: #ffffff; border-radius: 5px 5px 0 0; -moz-border-radius: 5px 5px 0 0; -webkit-border-radius: 5px 5px 0 0;}
 .navbar-fixed-top .navbar-inner {background:none; box-shadow:none;}
 .navbar-inner .container {width:auto; min-height:1px;}
 
@@ -72,56 +62,336 @@ p {font-family: 'TeXGyreHerosRegular'; font-size:11px;}
 .navbar .pull-right a.link {color: #107BA8; display: inline; float: none; margin: auto; padding: 0; text-decoration: underline; text-transform: none;}
 .navbar .pull-right a.link:hover {text-decoration: none;}
 .navbar .pull-right .login {background:#0d7dac; text-shadow:1px 1px #0b688f;}
+.navbar .pull-right .login:hover {background: #0b688f;}
 .navbar .pull-right .register {background:#53d7f8; text-shadow:1px 1px #45b3ce;}
+.navbar .pull-right .register:hover {background: #45b3ce;}
 .navbar .pull-right .userPanel {display: block; line-height: 16px; margin: 0 -10px 0 0; padding: 31px 0 0 10px; text-align: right;}
 
-.navbar .brand {width:250px; height:93px; display: block; float:left; background: url(../img/logo.png) -8px 0px no-repeat; text-indent: -9999px;}
+.navbar .brand {width:250px; height:93px; display: block; float:left; background: url(../img/logo.png) -8px 0px no-repeat; text-indent: -9999px; outline: none;}
 .navbar .paski {width:999px; height:16px; background: url(../img/paski.png) top left no-repeat; position: absolute; margin:-16px 0 0;}
 .navbar .clear {width:999px; height:1px; clear:both; background: url(../img/clear.png) top left no-repeat;}
 
-.navbar .nav {float:right;}
+.navbar .nav {float: left; margin: 0 0 0 59px;}
 .navbar .nav > li {border-right:1px solid #ebf1f3;}
 .navbar .nav > li > a {font-size:15px; font-family: 'TeXGyreHerosCnBold'; text-shadow:none; color:#0e6082; padding:38px 16px 0;}
 .navbar .nav > li > a:hover {text-decoration:underline; color:#000000; cursor: pointer;}
+.navbar .nav > li:last-child {border:none;}
 
 .navbar .nav .dropdown-toggle .caret, .navbar .nav .open.dropdown .caret {border-bottom-color: #000000; border-top-color: #000000;}
 .dropdown.open .dropdown-toggle {color:#000000;}
+.navbar .dropdown-menu {margin-top:9px;}
+
+#menuFloat {width:969px; padding: 8px 15px; background:#ffffff; margin:0 auto; height:18px; position:relative; z-index:3; box-shadow:0 2px 6px -6px #000000; -webkit-box-shadow:0 2px 6px -6px #000000; -moz-box-shadow:0 2px 6px -6px #000000; border-radius:0 0 5px 5px; -moz-border-radius:0 0 5px 5px; -webkit-border-radius:0 0 5px 5px;}
+#menuFloat a {cursor:pointer;}
+#menuFloat ul {margin:0; list-style:inside none; float:left;}
+#menuFloat ul li { float:left; margin:0 10px 0 0;}
+#menuFloat ul li ul li { float: none; margin: 0; } 
+#menuFloat .pull-right {border-right: 1px solid #EEEEEE; float: left; margin: 0 15px 0 0; padding: 0 15px 0 0;}
+#menuFloat .dropdown.open {float:left; position: relative;}
+#menuFloat .dropdown.open .dropdown-toggle {background:none;}
+#menuFloat .dropdown {float:left; margin:0 10px 0 0;} 
+
+
+/* CATALOG */
+
+#catalog {}
+
+#catalog #myTab {margin:0; font-size:16px; color:#292828; text-decoration:none; font-family: 'TeXGyreHerosRegular'; border:none;}
+#catalog #myTab li {margin:0;}
+#catalog #myTab li a {text-decoration:none; padding: 14px 12px;}
+#catalog #myTab li a:hover {border-color:#f1f1f1;}
+#catalog #myTab li.active a {background:#f1f1f1; border:none;}
+
+#catalog #filters {background:#f1f1f1; padding:16px 13px 15px; margin:-2px 0 0;}
+#catalog #filters label {font-size:14px; color:#292828; font-family: 'TeXGyreHerosCnBold'; margin:5px 9px 0 0;}
+#catalog #filters * {float:left; clear:none;}
+#catalog #filters .clear {width:400px; height:1px; clear:both; float:none;}
+#catalog #filters select {width:180px; float:right; margin:0; cursor:pointer;}
+#catalog #filters form {float:right; margin:0;}
+#catalog #filters ul {margin:6px 0 0; padding:0; list-style:none inside;}
+#catalog #filters ul li {margin: 0 0 0 7px;}
+
+#catalog .entry {clear:both; border-left:1px solid #f0f0f0; border-right:1px solid #f0f0f0; padding:25px 25px 17px; border-bottom: 1px solid #f0f0f0; }
+#catalog .entry h3 a {font-size:24px; color:#292828;}
+#catalog .entry .thumbnails {margin:0; float:left; padding:0; clear:none; width:110px;}
+#catalog .entry .thumbnails a { float: left; width: 49px; height: 50px; display: block; margin: 9px 12px 9px 0;}
+#catalog .entry .thumbnails img.photo-small {width:48px; height:48px; border-color: #ddd; border-width: 1px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; }
+#catalog .entry .thumbnails a:nth-child(odd) { margin-right: 0 !important;}
+#catalog .entry .thumbnails a.odd { margin-right: 0 !important; }
+#catalog .entry .thumbnails .thumbnail { width: 110px; }
+#catalog .entry .thumbnails .thumbnail img { width: 110px; height: 110px; }
+#catalog .entry .thumbnails li {margin:0; padding:0; box-shadow:none; border:1px solid #eae9e9;}
+#catalog .entry .thumbnails li img { border: 1px solid #ddd; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; }
+#catalog .entry .right {width:505px; float:right;}
+#catalog .entry address {margin:0 0 9px;}
+#catalog .entry .location {display:inline-block; margin:3px 0 0; font-size:16px; font-weight:normal; color:#292828; font-family: 'TeXGyreHerosCnBold';}
+.map {margin: 0 0 0 9px; position: relative; top: -2px;}
+.map a {background:url(../img/zoom_izon.png) no-repeat; cursor:pointer; position:relative; display:inline-block; font-size:11px; line-height: 15px; padding: 0 0 3px 21px;}
+.fav {display:block; float:right;}
+.fav a {text-indent:-9999px; width:22px; height:16px; display:block; background:url(../img/icon_fav.png);}
+.fav a:hover {background:url(../img/icon_fav_hover.png);}
+#catalog .entry .btn-primary {float:right; width:130px; height:26px; background:url(../img/button_book.png) top left no-repeat; padding:10px 13px 27px 45px; text-decoration:none;}
+#catalog .entry a.btn-primary {padding: 11px 13px 9px 45px; width: 77px;}
+#catalog .entry .btn-primary:hover {background:url(../img/button_book_hover.png) top left no-repeat;}
+#catalog .entry .clear {width:500px; clear:both; height:1px;}
+#catalog .entry thead {display:none;}
+#catalog .entry td {border:none; padding:4px 0 0;}
+#catalog .entry td strong {color:#107ba8;}
+#catalog .entry td span {color:#949595;}
+
+.allServices { font-size: 11px; }
 
 /* CONTAINER */
 
 .container, 
-.container-fluid {width:979px; clear:both; margin:0 auto; background: #ffffff; padding:9px 10px; border-radius:0 0 5px 5px; -webkit-border-radius:0 0 5px 5px; -moz-border-radius:0 0 5px 5px; z-index: 2; position: relative;}
+.container-fluid {width:979px; clear:both; margin:0 auto; background: #ffffff; padding:9px 10px; border-radius:0 0 5px 5px; -webkit-border-radius:0 0 5px 5px; -moz-border-radius:0 0 5px 5px; }
 .container {min-height:465px;}
 
 #content {width:681px; float:right; margin:0;}
-#content .hero-unit {padding:24px; background:#ffffff; border:1px solid #eeeeee;}
+#content .hero-unit {padding:24px; background:#ffffff; border:1px solid #eeeeee; margin: 0; -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; border-bottom-width: 0; }
+#content .hero-unit:first-child { -webkit-border-radius: 5px 5px 0 0; -moz-border-radius: 5px 5px 0 0; border-radius: 5px 5px 0 0; }
+#content .hero-unit:last-child { -webkit-border-radius: 0 0 5px 5px; -moz-border-radius: 0 0 5px 5px; border-radius: 0 0 5px 5px; border-bottom-width: 1px; }
 #content .hero-unit p {font-size:12px; line-height: 17px; padding:13px 0 0; margin:0;}
-#content .hero-unit h1 {font-size:32px; font-family: 'TeXGyreHerosBold'; color:#292828;}
+#content .hero-unit h1 {font-size:24px; font-family: 'TeXGyreHerosBold'; color:#292828;}
+
+#content .grid-list { margin-top: 13px; }
+#content .grid-list .grid-list-item { display: table; position: relative; height: 60px; overflow: hidden; }
+#content .grid-list .grid-desc {  display: table-cell; vertical-align: middle; }
+#content .grid-list h2 { font-size: 14px; color: #107BA8; line-height: 20px; float: left; width: 100%; }
+#content .grid-list .city { background: url(../img/city-icon.png) no-repeat; }	
+#content .grid-list .price { background: url(../img/price-icon.png) no-repeat; }
+#content .grid-list p { padding-top: 0px; padding-left: 20px; line-height: 18px; display: inline-block; }
+#content .grid-list span { color: #000; }
+#content .grid-list img { height: 60px; border: 1px solid #ddd; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; margin-right: 10px; }
+
+
+a.DESC, a.ASC { display: inline-block; padding-right: 15px; margin-right: 7px; }
+a.DESC { background: url(../img/arrow-down.png) no-repeat right center; }
+a.ASC { background: url(../img/arrow-up.png) no-repeat right center; }
+
+#content .articles .row-fluid { background: url(../img/silver-dot.png) center 20px repeat-y; }
+#content .articles .row-fluid a.read-more { margin-top: 10px; display: inline-block; padding-left: 15px; background: url(../img/read-more-arrow.png) no-repeat left center; font-size: 11px; text-decoration: underline; color: #636465; }
+#content .articles .row-fluid a.read-more:hover { color: #bbb; }
+#content .articles p { font-size: 11px; text-align: justify; }
+#content .articles h1 { text-decoration: underline; }
+#content .articles h2 { font-family: Arial; font-size: 15px; color: #022330; line-height: 20px; }
+#content .articles .lead-article {  float: left; position: relative; }
+#content .articles .lead-article img { width: 307px; height: 201px; -webkit-border-radius: 5px 0 0 8px; -moz-border-radius: 5px 0 0 8px; border-radius: 5px 0 0 8px;}
+#content .articles .lead-article .lead-article-content { position: absolute; bottom: 0px; left: 0px; }
+#content .articles .lead-article .lead-article-content-inner { text-align: justify; padding: 20px; background: #F1F1F1; -webkit-border-radius: 0 0 0 5px; -moz-border-radius: 0 0 0 5px; border-radius: 0 0 0 5px; }
+#content .articles .lead-article .lead-article-content-inner h2 { margin-bottom: 10px; }
+#content .articles .lead-article #noPhoto { position: relative;  }
+#content .articles .lead-article #noPhoto .lead-article-content-inner {  height: 160px; }
+#content .articles .other-articles { text-align: justify; background: #F1F1F1; -webkit-border-radius: 0 5px 5px 0; -moz-border-radius: 0 5px 5px 0; border-radius: 0 5px 5px 0; }
+#content .articles .other-articles img { margin-right: 20px; height: 95px; width: 100px; height: 100px; }
+#content .articles .other-articles .row-fluid { height: 100px; }
+#content .articles .other-articles h2 { margin-top: 10px; margin-right: 10px; }
+#content .articles .other-articles .clear { height: 1px; background: #fff; }
+#content .articles .other-articles .row-fluid .span8 {  }
+#content .articles .other-articles .row-fluid .span12 { padding-left: 10px; padding-right: 10px;}
+#content .articles > .row-fluid { margin-top: 20px; }
+#content .articles .row-fluid p { padding: 0; }
+#content .articles .row-fluid a { text-decoration: none; color: inherit; }
 
 #sidebar {float:left; width:276px; padding:0; margin:0;}
-#sidebar .sidebar-nav {box-shadow:none; border:none; background: #024764; color:#ffffff; padding: 20px 19px 19px 9px;}
-#sidebar .sidebar-nav .nav-header {font-size:18px; color:#ffffff; font-family: 'TeXGyreHerosBold'; text-transform: none; text-shadow:none; font-weight: normal;}
-#sidebar .sidebar-nav a {font-size:12px; color:#ffffff; font-family: 'TeXGyreHerosBold'; text-shadow:none; text-decoration: none;}
+#sidebar h3 {font-size:26px; font-family: 'TeXGyreHerosBold'; font-weight:normal; color:#ffffff; letter-spacing:-1px; text-shadow:0px 1px #023f58; border-bottom:1px solid #21596f; margin: 0 15px 20px; padding: 0 0 14px;}
+#sidebar h3.search {border:none; padding:2px 0 0 15px; margin:0;}
+#sidebar h4 {font-size:15px; color:#ffffff; letter-spacing:-1px; font-family: 'TeXGyreHerosRegular'; font-weight:normal; margin: 0 0 15px 15px;}
+#sidebar form {margin:0;}
+#sidebar a.advanced {color:#ffffff; margin: 11px 0 3px 15px; display:block;}
+#sidebar .sidebar-nav {box-shadow:none; border:none; background: #024764; color:#ffffff; padding: 20px 11px 19px 9px;}
+#sidebar .sidebar-nav * {z-index: 2; position:relative;}
+#sidebar .sidebar-nav .loopa {width:108px; height:107px; margin: 34px 0 0 175px; background:url(../img/loopa.png) top left no-repeat; position:absolute; z-index:1;}
+#sidebar .searchBoxIndex {height:122px;}
+#sidebar .sidebar-nav input {margin: 0 0 0 15px; border:none; padding:5px; width: 216px; background:#ffffff url(../img/search-arrow.png) right -1px no-repeat;}
+#sidebar .sidebar-nav .nav-header {font-size:18px; color:#ffffff; height:23px; font-family: 'TeXGyreHerosBold'; text-transform: none; text-shadow:none; font-weight: normal; clear:both; background:#115470; margin:1px 0 0; border-radius:2px; -moz-border-radius:2px; -webkit-border-radius:2px;}
+#sidebar .sidebar-nav .nav-header a {font-size:14px; color:#ffffff; font-family: 'TeXGyreHerosBold'; text-shadow:none; text-decoration: none; float:left; display:block;}
+#sidebar .sidebar-nav .nav-header a:hover {background:none;}
+#sidebar .sidebar-nav .nav-header span {font-family: 'TeXGyreHerosRegular'; color:#33cddf; font-size:12px; float:left; display:block; padding:0 0 0 6px; margin:3px 0 0;}
 #sidebar .sidebar-nav .active a {background: #115470;}
+
+#sidebar .sidebar-nav ul ul {background:#023f58; list-style: disc inside none; margin: 0; padding: 7px 0 7px 15px;}
+#sidebar .sidebar-nav ul ul li {margin:2px 0; color:#33cddf;}
+#sidebar .sidebar-nav ul ul li a {font-size:12px; font-family: 'TeXGyreHerosRegular'; color:#ffffff;}
+
+#sidebar .clear {width:100px; height:1px; clear:both;}
 
 .page-header {border: medium none; margin: 18px 0 27px; padding: 0 0 0 24px;}
 
 section {padding:24px;}
 
 
+/* CLINIC PUBLIC PROFILE */
+
+#clinicProfile p {margin:0; font-size:12px; text-align:justify; clear:both; display:block;}
+#clinicProfile h2 {font-family: 'TeXGyreHerosBold'; font-size:26px; color:#292828;}
+#clinicProfile .row {padding:25px; margin:0; width:630px; border-bottom:none;}
+#clinicProfile .row:first-child {border-radius:6px 6px 0 0; -webkit-border-radius:6px 6px 0 0; -moz-border-radius:6px 6px 0 0;}
+#clinicProfile .row:last-child {border-bottom:1px solid #EEEEEE; border-radius:0 0 6px 6px; -webkit-border-radius:0 0 6px 6px; -moz-border-radius:0 0 6px 6px;}
+#clinicProfile #image-holder {margin:114px 0 0 -25px; padding:25px; z-index:4; background:#ffffff; text-align:center; width: 629px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);}
+
+#clinicProfile .left {width:410px; float:left;}
+#clinicProfile h1 {font-size:32px; color:#292828; font-family: 'TeXGyreHerosBold'; width:410px;}
+#clinicProfile address {color:#292828; font-size:16px; width:410px;}
+/*#clinicProfile #buttonBook {position:absolute; margin: -55px 0 0 527px;}*/
+
+#clinicProfile #seeProfile {float: right; margin: 15px -3px 0 0;}
+
+
+.rating {text-align:right; color:#292828;font-family: 'TeXGyreHerosBold'; padding: 21px 0 0;}
+.rating .add-to-fav { background-position: left center; background-repeat: no-repeat; height: 16px; text-align:left; float:left; margin:0 0 0 54px; width: 22px; text-indent: -9999px; padding: 0; }
+.rating .unfav { background: url(../img/fav.png) 3px top no-repeat; }
+.rating .fav { background: url(../img/icon_fav.png); }
+.rating a { padding-left: 20px; display:inline-block;  top:-2px; margin:0 2px 0 0; text-decoration: none; }
+.rating a:focus { outline: none !important; }
+.rating big {font-size:18px; margin-left: 5px; }
+.rating small {font-size:13px; position: relative; top: -4px;}
+.rating .count {font-size: 26px; margin:0 0 0 11px; padding: 7px; float:right; display:block; font-family: 'TeXGyreHerosRegular'; background:#e7e6e6; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
+
+#clinicProfile .thumbnails {/*width:100px;*/ float:left; margin:0; padding:0;}
+#clinicProfile .thumbnail {width:98px; height:98px; margin:0; padding:0;}
+#clinicProfile .photo-small {margin-right: 18.5px; margin-bottom: 18px; height: 60px; width: 60px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; border:1px solid #ddd;}
+#clinicProfile .span9 a:last-child img{ margin-right: 0px; }
+#clinicProfile img { border:1px solid #ddd; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;  }
+#clinicProfile .buttonBook { margin-top: 20px; }
+#clinic-grouppromotion { padding: 25px; margin: 0; width: 630px; border-top: 0; padding-bottom: 0; height: 286px; background: url(../img/group_promotion_bg.png); background-repeat: no-repeat; }
+#clinic-grouppromotion h2 { color: #fff; font-size: 35px; margin-top: 6px; }
+#clinic-grouppromotion p.linic-grouppromotion-info { color: #000; margin-top: 30px; font-weight: bold; font-size: 14px;}
+#clinic-grouppromotion span { font-size: 19px; }
+#clinic-grouppromotion ul { margin-top: 7px; list-style-type: none; margin-left: 0; }
+#clinic-grouppromotion li { font-weight: bold; color: #000; line-height: 22px; }
+#clinic-grouppromotion .promotion_2_persons { color: #35C1E4; }
+#clinic-grouppromotion .promotion_3_persons { color: #18A9CD; }
+#clinic-grouppromotion .promotion_4_persons{ color: #10819D; }
+#clinic-grouppromotion .promotion_5_persons { color: #085582; }
+#clinic-grouppromotion #how_it_works { margin-top: 5px; background: url(../img/how_it_works.png); width: 125px; color: #fff; text-shadow: none; padding-left: 10px; text-align: left;}
+#clinic-grouppromotion #how_it_works:active { box-shadow: none; }
+#clinic-grouppromotion #how_it_works:hover { background: url(../img/how_it_works_hover.png); }
+#clinic-grouppromotion p.inviteFriends { color: #000; font-weight: bold; margin-bottom: 10px; }
+#clinic-grouppromotion #inviteFriendsForm { margin-top: 20px; }
+#clinic-grouppromotion #friendsEmails { width: 150px; padding: 8px; }
+#clinic-grouppromotion #sendInvitation { margin-top: -7px; margin-left: 5px; background: url(../img/send_invitation.png); width: 150px; color: #fff; text-shadow: none; padding-left: 10px; text-align: left;}
+#clinic-grouppromotion #sendInvitation:active { box-shadow: none; }
+#clinic-grouppromotion #sendInvitation:hover { background:url(../img/send_invitation_hover.png); }
+.groupPromotionsOn { margin-top: 20px; }
+#clinicProfile .table {margin:10px 0 0;}
+#clinicProfile .table th {color:#292828;}
+#clinicProfile .table td {border-top:1px dotted #DDDDDD;}
+.price span { font-weight: bold; color: #000; }
+#clinicProfile a { text-decoration: none; }
+#content .buttonBook { float:right; padding: 11px 13px 9px 47px; width: 79px; height:26px; background:url(../img/button_book.png) top left no-repeat; text-decoration:none; font-size: 14px; }
+#content .buttonBook:hover { background:url(../img/button_book_hover.png) top left no-repeat; }
+#content input.buttonBook { width: 131px; height: 38px; }
+.clinicDescription { margin-top: 20px !important; }
+
+#serviceDetails {}
+#serviceDetails #clinicProfile .row {border-radius:6px 6px 0 0; border-bottom:none; width:629px;}
+#serviceDetails .service {padding:25px; border-radius:0 0 6px 6px; border:1px solid #EEEEEE;}
+#serviceDetails .service h2 {color:#107ba8; font-size:22px; padding:0 0 5px;}
+#serviceDetails .service .photos img { margin-right: 18.5px; margin-bottom: 18px; height: 60px; width: 60px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; border:1px solid #ddd; }
+#serviceDetails #clinicProfile p { padding-top: 0; }
+/* EDIT CLINIC */
+
+#photoUpload {margin-top: 30px; }
+#photoUpload label {padding: 5px 15px 0 0;}
+#photoUpload .form-actions {padding-left: 0; background: none; }
+#photoUpload input#upload {margin: 0 auto; position: relative; display: block;}
+#photoUpload #clinic_photo {border:none;}
+
+#editClinic {}
+#editClinic .control-group {  }
+#editClinic form {margin:0;}
+#editClinic .form-actions { }
+#editClinic .controls { }
+
+.thumbnailsList { margin-top: 20px;}
+
+#editClinicAddress form {margin:0;}
+#editClinicAddress dt {display:none;}
+#editClinicAddress dd fieldset {border:none;}
+#editClinicAddress fieldset {  }
+#editClinicAddress .form-actions {padding: 18px 0 17px 296px;}
+
+#clinicServicesTable {margin: 0 24px; }
+#clinicServicesTable p { font-size: inherit !important; line-height: inherit !important; }
+#addNewService {margin-bottom: 20px; }
+
+
+/* RESERVATION */
+
+#reservation1 {}
+#reservation1 .well {border-radius:6px 6px 0 0; margin:0;}
+#reservation1 .well:nth-child(even) {border-radius:0;}
+#reservation1 #clinicProfile .row {border-radius:0; width: 629px;}
+#reservation1 #clinicProfile ul.thumbnails {width:52px; float:left; clear:left;}
+#reservation1 #clinicProfile ul.thumbnails:after {clear:none;}
+#reservation1 #clinicProfile .photo-medium {margin:0; width:50px; height:50px;}
+#reservation1 #clinicProfile p {display:block; float:right; width:560px; padding:1px 0 0;}
+#reservation1 #clinicProfile .btn-primary {display: block;}
+#reservation1 #clinicProfile #buttonBook {position:relative; margin:0; display:inline-block; float:left; margin:15px 0 0;}
+#reservation1 #clinicProfile .row a:last-child {background: url("../img/button_book.png") no-repeat scroll left top transparent; margin:10px 0 0; float: right; height: 24px; padding: 10px 12px 6px; text-align: right; width: 107px; border: medium none; box-shadow: none; text-decoration:none; color: #FFFFFF; font-family: 'TeXGyreHerosCnBold'; font-size: 16px; text-shadow: 1px 1px #47B8D4; text-transform: uppercase;}
+#reservation1 #clinicProfile .row a:last-child:hover {background:url(../img/button_book_hover.png) top left no-repeat;}
+#reservation1 .form-horizontal {border-radius:0 0 6px 6px; border-top:none; padding: 25px 25px 55px;}
+#reservation1 .form-horizontal .btn-primary {float:right; margin: 0 -6px 0 0;}
+
+.reservationList > .row-fluid { border-bottom: 1px solid #eee; padding-top: 10px; padding-bottom: 10px; }
+.reservationList > .row-fluid:first-child { padding-top: 0; }
+.reservationList > .row-fluid:last-child { border: 0; }
+.reservationList p { font-size: 13px; line-height: inherit; }
+.reservationList h3 a {font-size:24px; color:#292828;}
+.reservationList .clinicLogo img { width:60px; height: 60px; border: 1px solid #ddd; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; }
+.reservationList address {margin:0 0 9px;}
+.reservationList .location {display:inline-block; margin:3px 0 0; font-size:16px; font-weight:normal; color:#292828; font-family: 'TeXGyreHerosCnBold';}
+.reservationList .serviceList {  }
+.reservationList .serviceList li {  }
+.btn-options { margin-top: 5px !important; }
+.reservationListHead { font-size: 17px; font-weight: bold; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 5px;}
+.reservationList .notPaid { color: #B94A48; }
+
+.reservationList th { font-size: 14px; }
+.modal-body dt { font-size: 16px; margin: 10px 0;}
+.modal-body dd { margin-bottom: 20px; }
+
+.container .hero-unit { background: #fff; border:1px solid #eee; padding: 25px; }
+.hero-unit .clinic-notice p { margin-top: 20px; font-size: 14px; }
+.pay-bill .paypal { margin-top: 40px; }
+.pay-bill .paypal #paypal-submit { display: block; margin: 0 auto; }
+
+.view-reservation { margin-top: 20px; 	}
+.view-reservation dt { font-size: 18px; margin: 10px 0;}
+.view-reservation dd { margin-bottom: 20px; }
+.view-reservation .form-actions { padding: 0; background: transparent; }
+textarea#question { width: 100%; }
+
+.status-Confirmed { font-size: 12px; color: green; background: url(../img/success.png) left center no-repeat; padding-left: 25px; }
+.status-Canceled { color: red; background: url(../img/error.png) left center no-repeat; padding-left: 25px; }
+
+#reservation_anwser textarea { width: 100%; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
+#reservation_anwser .form-actions { margin-top: 20px; }
+.reservationNotice { margin-bottom: 10px; }
+.hero-unit dt { font-size: 15px; font-weight: bold; margin-bottom: 5px; color: #292828; }
+.hero-unit dd { margin-bottom: 10px; }
+
+#map img { margin: 0 auto; position: relative; display: block; margin-top: 10px; }
+
+/* CLINIC STATISTICS */
+
+#clinicStatistics h3 { margin-bottom: 25px; }
+#clinicStatistics p { font-size: 14px; text-align: center; color: #999; }
+#clinicStatistics big { font-weight: bold !important; font-size: 35px; text-align: center; width: 100%; display: inline-block; color: #292828;}
+
 /* FORMS */
 
-.form-horizontal {border:1px solid #EEEEEE; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;}
-.form-horizontal fieldset legend {border:none; padding:0 24px; font-family: 'TeXGyreHerosBold';}
-.form-horizontal fieldset dl {padding:0 24px;}
+.form-horizontal {border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;}
+.form-horizontal fieldset { }
+.form-horizontal fieldset legend {border:none; font-family: 'TeXGyreHerosBold'; margin: 0; }
 .form-horizontal dd {border-bottom:1px solid #EEEEEE;}
 
-.form-horizontal .control-label {width:270px;}
-.form-horizontal .controls {margin-left:295px;}
+.form-horizontal .control-label {}
+.form-horizontal .controls { }
 
 .form-actions {border-top: medium none; margin: 0;}
-.form-horizontal .form-actions {padding:18px 0 17px 320px;}
-
+.form-horizontal .form-actions {}
 .form-horizontal .form-horizontal {border:none;}
 
 form#login fieldset {padding:24px 24px 0;}
@@ -135,38 +405,91 @@ form#newpassword .control-group,
 input, textarea, select, .uneditable-input {width:330px;}
 select {width:340px;}
 
-.btn {background: #dedbdb; text-decoration:none; padding: 9px 14px 7px; font-size:14px; font-family: 'TeXGyreHerosCnBold'; text-transform: uppercase; border:none; box-shadow: none; color:#5a5a5a; margin:0 8px 0 0;}
+.btn {background: #dedbdb; text-decoration:none; padding: 9px 14px 7px; font-size:14px; font-family: 'TeXGyreHerosCnBold'; text-transform: uppercase; border:none; box-shadow: none; color:#5a5a5a; margin:0;}
 .btn:hover {background:#b8b6b6;}
-.btn-primary {background:#53d7f8; color:#ffffff; padding: 8px 14px 6px; font-size:16px; font-family: 'TeXGyreHerosCnBold'; text-transform: uppercase; border:none; text-shadow:1px 1px #47b8d4; box-shadow: none;}
+.btn-primary {background:#53d7f8; color:#ffffff; padding: 8px 14px 6px; font-family: 'TeXGyreHerosCnBold'; text-transform: uppercase; border:none; text-shadow:1px 1px #47b8d4; box-shadow: none;}
 .btn-primary:hover {background: #065475;}
+.btn-group {}
+.btn-group .btn a {color: #5A5A5A; text-decoration:none;}
 
-#editClinic {padding:18px 0 0;}
-#editClinic .control-group {padding:0 0 18px; border-bottom:1px solid #eeeeee;}
-#editClinic form {margin:0;}
-#editClinic .form-actions {margin:-18px 0 0; padding: 18px 0 17px 295px;}
-#editClinic .controls {padding:0 16px 0 0;}
+.ckeditor {width: 100%; height: 150px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+#register a[rel="tooltip"] {width:33px; height:31px; display:inline-block; background: url(../img/tooltip.png) top left no-repeat; text-indent: -9999px; top:3px; margin: 0 0 0 12px; position: relative;}
 
 .well {box-shadow: none; font-size:12px; border:none; background:#f1f1f1 url(../img/icon_info.png) top left no-repeat; padding: 20px 19px 19px 51px; font-size:12px; color:#626262;}
 
 .alert .close {font-family: Arial; text-decoration: none;}
 
+.row {margin: 0 0 20px; width: 969px; box-shadow: none;}
+
+.table thead th {color: #545454;}
+
 dd {margin:0;}
 
-/* ==|== media queries ======================================================
-   EXAMPLE Media Query for Responsive Design.
-   This example overrides the primary ('mobile first') styles
-   Modify as content requires.
-   ========================================================================== */
+
+/* ADMIN */
+
+#treatmentsList .form-horizontal {}
+#treatmentsList .form-horizontal .control-label {width:200px;}
+#treatmentsList .form-horizontal .controls {margin-left: 225px;}
+#treatmentsList .form-horizontal .form-actions {padding:18px 0 17px 250px;}
+#treatmentsList .list {border: 1px solid #EEEEEE; border-radius: 5px 5px 5px 5px; float: left; padding: 24px 11px 21px 28px; }
+#treatmentsList .list ul {list-style: circle inside none; margin: 10px 0 0 2px;}
+#treatmentsList .list ul li {line-height: 20px; font-weight:bold; color:#515151;}
+#treatmentsList .list ul li ul {list-style: square inside none; margin: 2px 0 10px 13px;}
+#treatmentsList .list ul li ul li {font-weight:normal; color:#7E7D7D; font-size:11px; line-height: 17px;}
+#treatmentsList .alert-block {margin: 21px 0 6px; padding: 14px; width: 186px;}
+
+
+/* TEXT PAGE */
+#textPage p {font-size:12px;}
+
+
+/* FOOTER */
+#footer {clear:both; border: 1px solid #EEEEEE; margin:30px 0 0; border-radius: 6px 6px 6px 6px; padding:25px; background:url(../img/facebook.png) 770px 20px no-repeat;}
+#footer .span3 {font-size:11px;}
+#footer .span3 h3 {font-family: 'TeXGyreHerosBold'; font-size:18px; color:#3a3a3a; margin:0; padding:0 0 16px;}
+#footer .span3 a {color:#107ba8;}
+#footer .span3 ul {list-style-type:none; margin:0; padding:0;}
+#footer .span3 ul li {list-style-type:none;}
+#footer .span3 p {padding:0 30px 0 0; margin:0;}
+#footer .columnFacebook {}
+
+
+#realData { margin-bottom: 30px;}
+#newsletterForm h3 { margin-bottom: 10px; font-size: 22px; }
+#newsletterForm p { margin-bottom: 30px; font-size: 17px;}
+#newsletterForm label { display: inline; float: left; margin-right: 50px; }
+#newsletterForm label input { display: inline; margin-right: 10px;  float: left; }
+#newsletterForm label span { display: inline; float: left; font-size: 18px;}
+#newsletterForm .globalClear { margin-bottom: 30px;  }
+
+.billNotRequired, .billRequired { margin-top: 20px; padding: 15px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;  }
+.billNotRequired { background: #D8F0FF; }
+.billRequired { background: #FFEFC5; }
+
+#shareLink { padding: 5px; font-size: 11px; margin-top: 20px; }
+#shareLink i { position: relative; top: -1px;}
+
+#articles { }
+#articles .articleLink { font-size: 16px; }
+#articles p { font-size: 12px; }
+#articles .articlePhoto { margin-right: 20px; }
+#articles .articlePhoto img { width: 80px; height: 80px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; border:1px solid #ddd; }
+#articles .articlesList .row-fluid { padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid #eee; }
+#articles .articlesList .row-fluid:last-child { border: 0; }
+#articles .articlesList .row-fluid p:nth-child(odd) { margin: 0; padding: 0; }
+
+.clinic-favorite { margin-top: 20px; }
+.clinic-favorite img { width: 110px; height: 110px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; border:1px solid #ddd; float: left; margin-right: 20px; }
+.unfav { border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; text-decoration: none !important; }
+
+
 
 @media only screen and (min-width: 35em) {
   /* Style adjustments for viewports that meet the condition */
 }
 
-
-
-/* ==|== non-semantic helper classes ========================================
-   Please define your styles before this section.
-   ========================================================================== */
 
 /* For image replacement */
 .ir { display: block; border: 0; text-indent: -999em; overflow: hidden; background-color: transparent; background-repeat: no-repeat; text-align: left; direction: ltr; *line-height: 0; }
@@ -189,7 +512,38 @@ dd {margin:0;}
 .clearfix:after { clear: both; }
 .clearfix { *zoom: 1; }
 
+/* SHARE FORM */
+#shareForm { }
+#shareForm label { float: left; width: 200px; }
+#shareForm input { width: 320px; }
+#shareForm p.description { margin-left: 200px; margin-bottom: 20px; font-style: italic; }
+#shareForm .shareFormInput { margin-bottom: 15px; }
+#shareForm h4 { margin-bottom: 10px; }
 
+/* ADS */
+#topAd img { margin-top: -10px; float: right; }
+#bottomAds .row-fluid { background: url(../img/silver-dot.png) center 20px repeat-y; }
+#bottomAds .first img { -webkit-border-radius: 5px 0 0 8px; -moz-border-radius: 5px 0 0 8px; border-radius: 5px 0 0 8px; }
+#bottomAds .second img { float: right; -webkit-border-radius: 0 5px 5px 0; -moz-border-radius: 0 5px 5px 0; border-radius: 0 5px 5px 0; }
+#subpageTopAd img { margin: 0 auto; position: relative; display: block; }
+
+/* LANGUAGE */
+#language { float: right; margin-top: 32px; }
+#language a { margin-left: 10px; }
+
+/* FACEBOOK LOGIN BUTTON */
+.facebook-login, .facebook-login:hover, .facebook-login:active  { font-size:14px; font-family: 'TeXGyreHerosCnBold'; text-transform: uppercase; margin:0; padding: 8px 10px 6px 38px; background: url(../img/fb.png); padding-left: 38px; -webkit-box-shadow: inset 0px 0px 2px 0px #5D88C4; box-shadow: inset 0px 0px 2px 0px #5D88C4; border: 1px solid #2F457F; color: #fff; text-shadow: 1px 1px 5px #1F2D50; filter: dropshadow(color=#1F2D50, offx=1, offy=1); }
+#patientRegister .facebook-login { margin-top: -122px; margin-left: 329px; }
+
+#bottomAds { border-bottom: 1px solid #eeeeee !important;}
+
+/* SEARCH RESERVATIONS */
+#searchReservations { background: #eee; padding: 20px; padding-bottom: 0; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; margin-bottom: 20px; }
+#searchReservations h4 { margin-bottom: 10px; font-size: 13px; }
+#searchReservations input, select { font-size: 11px !important; }
+#searchReservations input { }
+#searchReservations #submitButton { padding: 9px !important; line-height: 11px; }
+#searchReservationInput { float: left; width: 82%; }
 
 /* ==|== print styles =======================================================
    Print styles.
@@ -209,4 +563,8 @@ dd {margin:0;}
   @page { margin: 0.5cm; }
   p, h2, h3 { orphans: 3; widows: 3; }
   h2, h3 { page-break-after: avoid; }
+}
+
+.loading {
+    font-style: italic;
 }

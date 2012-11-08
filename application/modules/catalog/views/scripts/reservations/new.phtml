@@ -1,0 +1,47 @@
+<div id="content">
+	<div id="reservation">
+        <?php if($this->LoggedUser()->isProfileFilled() < 1): ?>
+            <div class="alert alert-block alert-danger">
+                <?= $this->translate('Before making reservation please fill your profile with personal data.'); ?>
+                <a href="<?= $this->url(array(
+                    'action'        => 'edit-details',
+                    'controller'    => 'profile',
+                    'module'        => 'patient'
+                ), 'default', true); ?>"><?= $this->translate('Go to my profile edit'); ?></a>.
+            </div>
+        <?php endif; ?>
+
+
+        <div class="well">
+            <?= $this->translate('The process of reserving a visit is very simple. Just choose date You would like to come to clinic and services You are interested in. We will inform clinic about Your request. Clinic will reply and we will inform You about the status of the visit.'); ?>
+        </div>
+
+        <?php if ($this->clinic->wantBill == true): ?>
+            <div class="well">
+            <?= $this->translate('This clinic will require you to pay a bill in amount of 100 euro upon reservation confirm. You will be able to pay after the clinic confirms the reservation via our Pay Pal system from your account.'); ?>
+            </div>
+        <?php endif; ?>
+
+        <?= $this->partial('public/_clinicListEntry.phtml', 'clinic', array('clinic' => $this->clinic)); ?>
+    </div>
+    <?php if ($this->clinic->isGroupPromoEnabled()): ?>
+    <div class="row" id="clinic-grouppromotion">
+			<h2 class="pull-left"><?= $this->translate('Group promotion'); ?>!</h2>
+			 <a class="btn pull-right" id="how_it_works" href="<?= $this->url(array('slug' => 'group-promotions'), 'page', true); ?>"><?= $this->translate('How it works'); ?></a>
+			<div class="clearfix"></div>
+		    <p class="linic-grouppromotion-info"><?= $this->translate('This clinic offers group promotion at given discounts'); ?>:<br />
+			<?= $this->translate('Price is lower if You take your friends or family with You'); ?>!</p>
+		    <ul>
+		    <?php foreach($this->clinic->getGroupPromoDiscounts() as $key => $value): ?>
+		        <li><span class="promotion_<?= $key; ?>_persons"><?= sprintf($this->translate('%u persons'), $key);?>: <?= $value; ?>%</span> <?= $this->translate('off total value'); ?>!</li>
+		    <?php endforeach; ?>
+		    </ul>
+    </div>
+    <?php endif; ?>
+    <div id="reservation1">
+        <?= $this->form; ?>
+    </div>
+    <div id="booking">
+        <?= $this->ShowSkyscanner($this->currentLanguage); ?>
+    </div>
+</div>

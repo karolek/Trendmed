@@ -18,7 +18,14 @@ class Admin extends \Trendmed\Entity\User {
      */
     protected $id;
     
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
+    }
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->roleName = 'admin';
     }
 }
