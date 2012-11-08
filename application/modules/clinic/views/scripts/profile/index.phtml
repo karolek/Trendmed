@@ -43,7 +43,7 @@
 		    <input type="search" value="<?= $this->search; ?>" name="search_reservation" placeholder="Wpisz nazwisko pacjenta lub nr. rezerwacji" id="searchReservationInput" />
 		    <input type="submit" value="Szukaj" class="btn btn-primary pull-right" id="submitButton" />
 		</form>
-	</div>
+    </div>
 	<div class="span6 pull-right">
 		<h4>Filtruj wg. statusu</h4>
 		<form action="<?= $this->url(array('action' => 'index', 'controller' => 'profile', 'module' => 'clinic'), 'default', true); ?>" method="post" name="form_filter_reservations">
@@ -55,6 +55,11 @@
 		    </select>
 		</form>
 	</div>
+</div>
+<div class="row-fluid">
+    <div class="span12" style="padding-right: 30px; padding-bottom: 20px; text-align: right">
+        <small><a href="<?= $this->url(array('action' => 'index', 'controller' => 'profile', 'module' => 'clinic'), 'default', true); ?>">Pokaż wszystkie rezerwacje</a></small>
+    </div>
 </div>
 <div class="clearfix"></div>
 

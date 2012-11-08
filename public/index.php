@@ -39,6 +39,7 @@ $application->bootstrap()
 
 // counting exection time
 // remove after some time
+/*
 $bechmarkEnd = microtime(true);
 $generateTime = ($bechmarkEnd)-($benchmarkStart);
 $log = \Zend_Registry::get('log');
@@ -47,6 +48,4 @@ if ($generateTime > 5) {
 } else {
     $log->info(sprintf( $_SERVER['REQUEST_URI']. ' wczytywanie trwało in %.3fs', $generateTime));
 }
-
-
-
+*/

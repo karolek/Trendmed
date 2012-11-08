@@ -60,4 +60,23 @@ class Catalog_Form_Reservation extends \Twitter_Form
         $invite->setDescription('Seperate e-mail\'s with comma');
         $this->addElement($invite);
     }
+
+    public function isValid($data)
+    {
+        $from = new \DateTime($data['dateFrom']);
+        if ($from < new \DateTime()) {
+            $this->getElement('dateFrom')->addError('You can not reserve visits in the past');
+        }
+        $to = new \DateTime($data['dateTo']);
+        if ($to < new \DateTime()) {
+            $this->getElement('dateTo')->addError('You can not reserve visits in the past');
+        }
+
+        if ($from >= $to)
+        {
+            $this->getElement('dateFrom')->addError('You can not reserve visits in the past');
+
+        }
+        return parent::isValid($data);
+    }
 }
